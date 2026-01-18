@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.2.22)  17 JAN 2026 17:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.2.22)  17 JAN 2026 17:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1917,10 +1917,6 @@ LaTeX Warning: Reference `eqn:mml_1d_fq_def_swl' on page 128 undefined on input 
 
 [128]
 
-LaTeX Warning: Reference `eqn:mll_swl_fqt' on page 129 undefined on input line 446.
-
-
-
 [129]
 
 LaTeX Warning: Reference `eqn:mll_diff_oper' on page 130 undefined on input line 472.
@@ -2103,15 +2099,15 @@ Package rerunfilecheck Info: File `rgb_laser_physics.out' has not changed.
 (rerunfilecheck)             Checksum: 9CC381836559D43CB87F815F1B0AD60F;25369.
  ) 
 Here is how much of TeX's memory you used:
- 27579 strings out of 473530
- 489383 string characters out of 5714794
+ 27578 strings out of 473530
+ 489366 string characters out of 5714794
  2024843 words of memory out of 5000000
- 48832 multiletter control sequences out of 15000+600000
+ 48831 multiletter control sequences out of 15000+600000
  608893 words of font info for 163 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  119i,22n,121p,1788b,8804s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/raybe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><C:/Users/raybe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmbsy8.pfb><C:/Users/raybe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/raybe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/raybe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/raybe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/raybe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/raybe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbd.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbdi.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbi.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbma.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbme.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbmo.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbmr.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbms.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbmsd.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbr.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lbsl.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lstb.pfb><C:/Work/TeX/localtexmf/fonts/type1/bh/lucida/lstr.pfb>
-Output written on rgb_laser_physics.pdf (169 pages, 3645592 bytes).
+Output written on rgb_laser_physics.pdf (169 pages, 3645600 bytes).
 PDF statistics:
  4980 PDF objects out of 5155 (max. 8388607)
  1563 named destinations out of 1728 (max. 500000)
