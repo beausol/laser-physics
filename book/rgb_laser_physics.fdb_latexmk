@@ -1,23 +1,23 @@
 # Fdb version 4
-["bibtex rgb_laser_physics"] 1768698033.01478 "rgb_laser_physics.aux" "rgb_laser_physics.bbl" "rgb_laser_physics" 1768698045.40654 0
+["bibtex rgb_laser_physics"] 1768698318.30615 "rgb_laser_physics.aux" "rgb_laser_physics.bbl" "rgb_laser_physics" 1768698330.51798 0
   "C:/vcs/svn/docs/tex/localtexmf/bibtex/bib/lsip_cse.bib" 1738372769 22970 8f39bb36299262dca4da778efde5b338 ""
   "C:/vcs/svn/docs/tex/localtexmf/bibtex/bib/lsip_lsr.bib" 1738372769 137378 d27762a8cf9e2e9a013b1b4339630c11 ""
   "C:/vcs/svn/docs/tex/localtexmf/bibtex/bib/lsip_pic.bib" 1738372769 718916 2df41a3a8155408f09e081db9cd666d2 ""
   "C:/vcs/svn/docs/tex/localtexmf/bibtex/bib/lsip_qit.bib" 1738372769 569741 82506c21aeb9ca4cf21dd32ff662b4f6 ""
   "C:/vcs/svn/docs/tex/localtexmf/bibtex/bib/lsip_url.bib" 1738372769 4008 e6ebb4f31d2f651f9fb309cf265f8574 ""
   "C:/vcs/svn/docs/tex/localtexmf/bibtex/bst/lsip.bst" 1738372769 27240 66148686eeb999b04dd92533b3aba5a3 ""
-  "rgb_laser_physics.aux" 1768698042 149606 c87cae3e2e6037b44309b246579086e3 "pdflatex"
+  "rgb_laser_physics.aux" 1768698327 149606 c87cae3e2e6037b44309b246579086e3 "pdflatex"
   (generated)
   "rgb_laser_physics.bbl"
   "rgb_laser_physics.blg"
   (rewritten before read)
-["makeindex rgb_laser_physics.idx"] 1768698032.67269 "rgb_laser_physics.idx" "rgb_laser_physics.ind" "rgb_laser_physics" 1768698045.40585 0
-  "rgb_laser_physics.idx" 1768698042 3165 c1e8120de6c96e129dd55bfdb18ab33c "pdflatex"
+["makeindex rgb_laser_physics.idx"] 1768698317.96822 "rgb_laser_physics.idx" "rgb_laser_physics.ind" "rgb_laser_physics" 1768698330.51734 0
+  "rgb_laser_physics.idx" 1768698327 3165 c1e8120de6c96e129dd55bfdb18ab33c "pdflatex"
   (generated)
   "rgb_laser_physics.ilg"
   "rgb_laser_physics.ind"
   (rewritten before read)
-["pdflatex"] 1768698033.54726 "c:/vcs/git/docs/laser-physics/book/rgb_laser_physics.tex" "rgb_laser_physics.pdf" "rgb_laser_physics" 1768698045.40784 0
+["pdflatex"] 1768698318.95187 "c:/vcs/git/docs/laser-physics/book/rgb_laser_physics.tex" "rgb_laser_physics.pdf" "rgb_laser_physics" 1768698330.51932 0
   "C:/Users/raybe/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1748137497 283450 5f10fa9a0642d57d2086bb1b0089e7a3 ""
   "C:/Users/raybe/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1740275530 12017795 8c2bfca4be091747e17df2dc053f03fd ""
   "C:/Users/raybe/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/ly1/texnansi.enc" 1654972639 6938 5135be6a8802f13a7faf296d1959a1ab ""
@@ -177,7 +177,7 @@
   "C:/vcs/git/docs/tex/localtexmf/tex/latex/sty/rgb_graphics.sty" 1740166896 4211 e3af9c7c8427e7b972800d219fd9c9bb ""
   "C:/vcs/git/docs/tex/localtexmf/tex/latex/sty/rgb_ref.sty" 1740166896 2254 65f025b4a23e5ab9a58eddd12627130f ""
   "C:/vcs/git/docs/tex/localtexmf/tex/latex/sty/rgb_report.sty" 1740166896 420 0794b1e7e0775c47b29273e9d029d83a ""
-  "c:/vcs/git/docs/laser-physics/book/rgb_laser_physics.tex" 1765073194 2072 5446ee376c79228914dcb394bd1599db ""
+  "c:/vcs/git/docs/laser-physics/book/rgb_laser_physics.tex" 1768698224 2072 5446ee376c79228914dcb394bd1599db ""
   "figures/Delta_qR.pdf" 1738363785 101572 ffa1eab5b1df6e568d5c9e8d0a9671a4 ""
   "figures/amplifier_1d_cw_gom.pdf" 1738363785 133194 26645e9302edd00ccd0e1c75e5114189 ""
   "figures/amplifier_1d_cw_gom_norm.pdf" 1738363785 133231 fdc2ec24f64a0b363b32990d66a3eea8 ""
@@ -268,7 +268,7 @@
   "files/laser_dynamics_1d_mfl.tex" 1756859273 112241 3569d7e899c5c4dca5f049bf89af2828 ""
   "files/laser_dynamics_1d_mml.tex" 1768442912 23289 57b29b1fa3391f9426c417ec70ed2b5e ""
   "files/laser_dynamics_1d_mml_frq.tex" 1767923321 15075 6d9de8b50b86d08b6318255061025245 ""
-  "files/laser_dynamics_1d_mml_mll.tex" 1768682886 49625 d5d1ae9001fda06ecadf56810b788500 ""
+  "files/laser_dynamics_1d_mml_mll.tex" 1768698292 49625 d5d1ae9001fda06ecadf56810b788500 ""
   "files/laser_dynamics_1d_mml_qsl.tex" 1766627805 6929 efb97636af36779d65ce2fcf73d481e8 ""
   "files/laser_dynamics_1d_sml.tex" 1764901073 9500 b638d036e4dbee54edd034a6e15a137c ""
   "files/laser_gain_med.tex" 1738363785 480 f2446a8617c9e7190d9684443f597c81 ""
@@ -299,13 +299,13 @@
   "files/numerical_prelim_gauss_legendre.m" 1738363785 2378 5d47f7ffa7b43704ecdcf1de096fdc2e ""
   "files/numerical_prelim_gaussian_quadrature.tex" 1768443020 7926 9642e7a74986590344aaf34ec9df0e13 ""
   "files/preface.tex" 1738363785 1326 77fafbcc6cbcf95305a54e04a6241322 ""
-  "rgb_laser_physics.aux" 1768698042 149606 c87cae3e2e6037b44309b246579086e3 "pdflatex"
-  "rgb_laser_physics.bbl" 1768698033 5946 e84af3c71165d2de0a669a2d8b1e4bdc "bibtex rgb_laser_physics"
-  "rgb_laser_physics.ind" 1768698032 3057 1d4239fce7938052911c57c0fd24170f "makeindex rgb_laser_physics.idx"
-  "rgb_laser_physics.out" 1768698042 25369 9cc381836559d43cb87f815f1b0ad60f "pdflatex"
+  "rgb_laser_physics.aux" 1768698327 149606 c87cae3e2e6037b44309b246579086e3 "pdflatex"
+  "rgb_laser_physics.bbl" 1768698318 5946 e84af3c71165d2de0a669a2d8b1e4bdc "bibtex rgb_laser_physics"
+  "rgb_laser_physics.ind" 1768698318 3057 1d4239fce7938052911c57c0fd24170f "makeindex rgb_laser_physics.idx"
+  "rgb_laser_physics.out" 1768698327 25369 9cc381836559d43cb87f815f1b0ad60f "pdflatex"
   "rgb_laser_physics.sty" 1768682880 3965 7d9261c58693336e47d9034a059b1bb6 ""
-  "rgb_laser_physics.tex" 1765073194 2072 5446ee376c79228914dcb394bd1599db ""
-  "rgb_laser_physics.toc" 1768698042 9647 8d64367dc1e9b4c24fadb6480e1af614 "pdflatex"
+  "rgb_laser_physics.tex" 1768698224 2072 5446ee376c79228914dcb394bd1599db ""
+  "rgb_laser_physics.toc" 1768698327 9647 8d64367dc1e9b4c24fadb6480e1af614 "pdflatex"
   (generated)
   "rgb_laser_physics.aux"
   "rgb_laser_physics.idx"
