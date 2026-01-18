@@ -1,0 +1,37 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Integrating Periodic Functions\label{sct:math_prelim_int_periodic_funcs}}
+
+Given a function $f(x)$ for real $x$ that has period $p$ such that $f(x + p) = f(x)$, we have for $m \in \mathbb{Z}$
+ \begin{equation} \label{eqn:int_periodic_funcs_0_mp}
+ \begin{split}
+\int_0^{m p} d x\, f(x) &= \sum_{k = 1}^m \int_{(k - 1) p}^{k p} d x\, f(x) \\
+ &= \sum_{k = 1}^m \int_0^p d u\, f\left[u + (k - 1) p\right] \\
+ &= \sum_{k = 1}^m \int_0^p d x\, f(x) \\
+ &= m \int_0^p d x\, f(x) .
+ \end{split}
+ \end{equation}
+Therefore, for $\{a, b\} \in \mathbb{R}$,
+ \begin{equation}
+ \begin{split}
+\int_a^{b + m p} d x\, f(x) &= \int_a^b d x\, f(x) + \int_b^{b + m p} d x\, f(x) \\
+ &= \int_a^b d x\, f(x) + \int_0^b d x\, f(x) + \int_b^{b + m p} d x\, f(x) - \int_0^b d x\, f(x) \\
+ &= \int_a^b d x\, f(x) + \int_0^b d x\, f(x) + \int_b^{b + m p} d x\, f(x) - \int_0^b d x\, f(x + m p) \\
+ &= \int_a^b d x\, f(x) + \int_0^b d x\, f(x) + \int_b^{b + m p} d x\, f(x) - \int_{m p}^{b + m p} d u\, f(u) \\
+ &= \int_a^b d x\, f(x) + \int_0^b d x\, f(x) + \int_b^{m p} d x\, f(x) \\
+ &= \int_a^b d x\, f(x) + \int_0^{m p} d x\, f(x) ,
+ \end{split}
+ \end{equation}
+or, using \eqn{int_periodic_funcs_0_mp},
+ \begin{equation} \label{eqn:int_periodic_funcs_a_bpmp}
+\int_a^{b + m p} d x\, f(x) = \int_a^b d x\, f(x) + m \int_0^p d x\, f(x) .
+ \end{equation}

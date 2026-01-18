@@ -1,0 +1,108 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Project main style file
+%
+% Assumes that LaTeX2e macros and packages defined in book.cls are
+%   available
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+ \NeedsTeXFormat{LaTeX2e}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Set the page (text) dimensions; should work for any document class.
+ \RequirePackage[letterpaper,includeheadfoot,textwidth=7.0in,textheight=9.5in]{geometry}
+
+% Include all of the usual AMSLaTeX resources.
+ \RequirePackage{amsmath,amssymb,amsfonts}
+
+% Use bold math, including "poor man's bold" fonts for symbols.
+% When using the CM fonts, try \RequirePackage{pxfonts,bm}
+ \RequirePackage{bm}
+
+% Use the Lucida fonts for improved legibility.
+ \RequirePackage[LY1]{fontenc}
+ \RequirePackage{textcomp}
+ \RequirePackage[LY1,expert,altbullet]{lucidabr}
+
+% Adjust the page number width to accommodate three digits.
+ \RequirePackage[titles]{tocloft}
+ \cftsetpnumwidth{1.5em}
+
+% Set up the headers to include page numbers, and then chapter/section names
+% on alternating pages.
+ \RequirePackage{fancyhdr}
+ \pagestyle{fancy}
+ \fancyhead{}
+ \fancyhead[LE,RO]{\small \thepage}
+ \fancyhead[LO]{\small \slshape \rightmark}
+ \fancyhead[RE]{\small \slshape \leftmark}
+ \fancyfoot{}
+ \setlength{\headheight}{14pt} % Turns off a fancyhdr warning.
+ \renewcommand{\headrulewidth}{0.4pt}
+ \renewcommand{\footrulewidth}{0.0pt}
+
+% Build a better index.
+ \RequirePackage{makeidx}
+
+% Number references within a chapter.
+ \numberwithin{equation}{chapter}
+ \numberwithin{figure}{chapter}
+ \numberwithin{table}{chapter}
+ \numberwithin{footnote}{chapter}
+
+% Chapters, sections, subsections, and subsubsections will be
+% numbered and entered into the table of contents.
+ \setcounter{secnumdepth}{3}
+ \setcounter{tocdepth}{3}
+
+% Create a macro to add items like the preface, table of contents,
+% the bibliography, and the index to the table of contents. Using
+% \addcontentsline alone usually doesn't work properly: hyperref
+% usually points to the wrong page. So we (1) clear the page so that
+% the ToC won't point to the previous page; (2) use a "phantom" section
+% to give hyperref something to find; and (3) add the contents line.
+ \newcommand{\addtotoc}[1]
+ {%
+ \cleardoublepage%
+ \phantomsection%
+ \addcontentsline{toc}{chapter}{{#1}}%
+ }
+
+% Align table columns on decimal point
+ \RequirePackage{dcolumn}
+
+% Include the LSIP macro set, and then set up hyperref for these notes.
+% There is (apparently) a bug in either makeidx or hyperref that results in
+% index pagerefs pointing to physical pages instead of logical pages, so
+% comment out \frontmatter, \mainmatter, and \backmatter for now.
+ \RequirePackage{rgb_report}
+ \hypersetup{
+    pdfauthor   = {Raymond G.\ Beausoleil <ray.beausoleil@hp.com>},
+    pdftitle    = {Fundamentals of Laser Modeling},
+    pdfsubject  = {Laser Physics},
+    pdfkeywords = {laser physics,
+                   nonlinear optics,
+                   quantum optics,
+                   semiclassical electrodynamics}
+ }
+
+% Include formatted code listings
+ \RequirePackage{listings}
+ \definecolor{matlabgreen}{rgb}{0.0,0.5,0.0}
+ \definecolor{matlabblue}{rgb}{0.0,0.0,1.0}
+ \definecolor{matlabpurple}{rgb}{0.75,0.0,0.75}
+ \lstset{%
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\color{matlabblue}\bfseries, % underlined bold black keywords
+    identifierstyle=,
+    commentstyle=\color{matlabgreen}, % white comments
+    stringstyle=\color{matlabpurple}, % typewriter type for strings
+    showstringspaces=false} % no special string spaces
+
+% Redefine the \descriptionlabel for the description list environment so
+% that it is aligned with the left margin, and italic instead of bold.
+ \renewcommand{\descriptionlabel}[1]%
+   {\hspace{\labelsep}\textit{#1}}

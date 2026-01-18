@@ -1,0 +1,699 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Spatial Interference in One-Dimensional Standing-Wave Lasers\label{sct:laser_statics_1d_shb}}
+%  becomes
+%  \begin{equation} \label{eqn:ld1d_sw_shb_wave_eqn}
+% \ddz E^\pm\z = \pm i\, \delta \omega_0\, E^\pm\z \pm F^\pm\z,
+%  \end{equation}
+Recall that the general time-independent wave propagation equation is given by \eqn{cw_sml_ez_scaled}, where, from \eqn{idm_pol_m_def} and \eqn{laser_statics_1d_sml_cw_fz}, $F^\pm(z)$ is given by
+\begin{equation} \label{eqn:ld1d_sw_shb_pzp_init}
+  F^\pm(z) = \half \Lo\, \Gnz\, \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z^\prime e^{\mp i\, k_0\, z^\prime} \frac{\widetilde{E}(z^\prime)}{1 + \rels \left|\widetilde{E}(z^\prime)\right|^2}\, ,
+\end{equation}
+where $\rels$ is defined by \eqn{lineshape_re_rho_def}, and the total spatially rapidly-varying electric field envelope function is given in the one-dimensional case by \eqn{idm_e_m_def} as
+\begin{equation}
+  \widetilde{E}(z) = E^+(z)\, e^{+ i\, k_0\, z} + E^-(z)\, e^{- i\, k_0\, z}\, ,
+\end{equation}
+Here we have assumed that $E^+(z)$, $E^-(z)$, and the pump, $\Gnz$, vary slowly over distance scales on the order of a wavelength or less. Again, let $E^{\pm}(z) \equiv \sqrt{I^{\pm}(z)}\, e^{-i\, \phi^{\pm}(z)}$, and $\phi(z) \equiv \phi^{-}(z) - \phi^{+}(z)$. Then, taking the real part of \eqn{cw_sml_ez_scaled}, we obtain
+\begin{equation} \label{eqn:ls1d_didz}
+  \ddz\, I^\pm\z = \mp \half\, \anz\, I^\pm\z \pm 2 \Re\left[\frac{F^\pm\z}{E^\pm\z}\right] I^\pm\z\, ,
+\end{equation}
+where now
+\begin{multline} \label{eqn:ld1d_sw_shb_pzp_full}
+  2 \Re\left[\frac{F^\pm\z}{E^\pm\z}\right] = \rels\, \Gnz \\ \times \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z^\prime \frac{1 + \sqrt{I^{\mp}(z)/I^{\pm}(z)}\, e^{- i\, [2\, k_0\, z^\prime + \phi(z)]}}{1 + \rels \left\{ I^{+}(z) + I^{-}(z) + 2\, \sqrt{I^{+}(z)\, I^{-}(z)}\, \cos[2\, k_0\, z^\prime + \phi(z)]\right\}}\, ,
+\end{multline}
+% For convenience, we temporarily remove the explicit dependence of the integrand on $1 + \Omega^2$ by rescaling $\overline{G}(z) \longrightarrow (1 + \Omega^2) \overline{G}(z)$, and $I^\pm(z) \longrightarrow (1 + \Omega^2) I^\pm(z)$. 
+Since $\phi(z)$ is slowly-varying, we can shift the limits of integration by $\Delta z = -\phi(z)/2 k$, eliminating the contribution from $\sin[2\, k\, z^\prime + \phi(z)]$ in the numerator of the integrand, yielding
+% \begin{equation} \label{eqn:ld1d_sw_shb_pzp}
+%   F^{\pm}(z) = \half (1 + i\, \Omega) \overline{G}(z)\, E^{\pm}(z)\, \frac{1}{2 \pi} \int_{0}^{2 \pi} d \theta\, \frac{1 + c^{\pm 1}\, \cos \theta}{a + b\, \cos \theta}\, ,
+% \end{equation}
+\begin{equation} \label{eqn:ld1d_sw_shb_pzp}
+  2 \Re\left[\frac{F^\pm\z}{E^\pm\z}\right] = \Gnz\, \frac{1}{2 \pi} \int_{0}^{2 \pi} d \theta\, \frac{1 + c^{\pm 1}\, \cos \theta}{a + b\, \cos \theta}\, ,
+\end{equation}
+where
+\begin{subequations} \label{eqn:ld1d_sw_shb_abcdef}
+  \begin{align}
+    \label{eqn:ld1d_shb_sw_adef} a &= \reils + I^{+}(z) + I^{-}(z)\, , \\
+    \label{eqn:ld1d_shb_sw_bdef} b &= 2\, \sqrt{I^{+}(z)\, I^{-}(z)}\, , \nd \\
+    \label{eqn:ld1d_shb_sw_cdef} c & = \sqrt{I^{-}(z)/I^{+}(z)}\, ,
+  \end{align}
+\end{subequations}
+and $\reils \equiv 1/\rels$. Then substituting \eqn{ld1d_sw_shb_pzp} into \eqn{ls1d_didz} yields
+ \begin{subequations} \label{eqn:ld1d_sw_shb_dipmdz}
+  \begin{align}
+    \label{eqn:ld1d_sw_shb_dipdz} \ddz I^{+}\z &= \Gnz\, I^{+}\z \, \frac{1}{2 \pi} \int_{0}^{2 \pi} d \theta\, \frac{1 + c\, \cos \theta}{a + b\, \cos \theta} - \half\, \anz\, I^{+}\z\, , \nd \\
+    \label{eqn:ld1d_sw_shb_dimdz} \ddz I^{-}\z &= -\Gnz\, I^{-}\z \, \frac{1}{2 \pi} \int_{0}^{2 \pi} d \theta\, \frac{1 + c^{-1}\, \cos \theta}{a + b\, \cos \theta} + \half\, \anz\, I^{-}\z\, .
+  \end{align}
+ \end{subequations}
+
+Below we will apply \eqn{ld1d_sw_shb_dipmdz} to the standing-wave laser resonator in \fig{resonator_1d_sw_gain}, subject to the boundary conditions
+ \begin{subequations} \label{eqn:ld1d_sw_shb_bcs}
+ \begin{align}
+\label{eqn:ld1d_sw_shb_bc0} I^{+}(0) &= R_1\, I^{-}(0)\, \nd \\
+\label{eqn:ld1d_sw_shb_bcd} I^{-}(1/2) &= R_2\, I^{+}(1/2)
+ \end{align}
+ \end{subequations}
+at the two mirrors, using two different approaches to the problem of spatial interference between the counterpropagating fields. However, we can follow the same approach as in \sct{laser_statics_1d_url} to find the amount of frequency pulling that occurs in a stable standing-wave laser. In this case, the total phase accumulated during one round trip is the sum of the phase acquired by the forward-propagating field as it travels from $R_1$ to $R_2$, and the phase accrued by the backward-propagating field as it travels from $R_2$ to $R_1$. Using \eqn{laser_statics_1d_phase}, we find
+\begin{equation}
+  \begin{split}
+    0 &= \left[\phi^+\left(\half\right) - \phi^+\left(0\right)\right] + \left[\phi^-\left(0\right) - \phi^-\left(\half\right)\right] \\
+    &= \delta \omega_0 \left[ -\left(\half - 0\right) + \left(0 - \half\right) \right] - \half\, \frac{\imls}{\rels}\, \ln \left[ e^{+\int_0^{1/2} d z\, \an\z - \int_{1/2}^0 d z\, \an\z} \frac{I^+\left(\half\right)}{I^+\left(0\right)}\, \frac{I^-\left(0\right)}{I^-\left(\half\right)} \right] \\
+    &= -\delta \omega_0 - \half\, \frac{\imls}{\rels}\,  \ln \left( \frac{1}{e^{-\anb} R_1 R_2} \right)\, ,
+  \end{split}
+\end{equation}
+where we have applied \eqn{ld1d_sw_shb_bcs}. Since $e^{-\alpha\wn} R_1 R_2 \equiv |\Gamma|^2$, using \eqn{f_fwhm} we again have
+\begin{equation}
+  \delta \omega_0 = -\frac{1}{2\, \tau_p}\, \frac{\imls}{\rels}\, ,% = -\frac{\Omega_0}{2\, \tau_p} \, ,
+\end{equation}
+in agreement with \eqn{la1d_dw0_def}. In other words, we have found that \eqn{la1d_dw0_def} gives a result for a frequency-pulling shift that is true for all single-mode one-dimensional continuous-wave lasers under a variety of approximations and assumptions.
+
+ \subsection{Rigrod's Model\label{sct:laser_statics_shb_1d_rigrod}}
+One of the first treatments of saturation effects in standing-wave lasers was reported by Rigrod in \cite{ref:rigrod1965seh}. He chose to ignore both intracavity absorption and spatial interference completely, which is equivalent to replacing $\cos \theta$ in \eqn{ld1d_sw_shb_dipmdz} with $0$, giving
+\begin{subequations} \label{eqn:ld1d_sw_rigrod_dipmdz}
+  \begin{align}
+    \label{eqn:ld1d_sw_rigrod_dipdz} \ddz I^{+}\z &= \frac{\Gnz\, I^{+}\z}{\reils + I^{+}\z + I^{-}\z}\, , \nd \\
+    \label{eqn:ld1d_sw_rigrod_dimdz} \ddz I^{-}\z &= -\frac{\Gnz\, I^{-}\z}{\reils + I^{+}\z + I^{-}\z}\, .
+  \end{align}
+\end{subequations}
+In this simplified case, we see immediately that
+\begin{equation*}
+  I^{-}\z \ddz I^{+}\z + I^{+}\z \ddz I^{-}\z = \ddz I^{+}\z\, I^{-}\z = 0\, ,
+\end{equation*}
+so that
+\begin{equation} \label{eqn:ld1d_sw_rigrod_ipim}
+  I^{+}\z\, I^{-}\z \equiv \varphi_0^2\, ,
+\end{equation}
+where $\varphi_0$ is a constant of integration to be determined later. Applying \eqn{ld1d_sw_rigrod_ipim} to the boundary conditions given by \eqn{ld1d_sw_shb_bcs}, we find
+\begin{subequations} \label{eqn:ld1d_sw_rigrod_bcs}
+  \begin{align}
+    I^{+}(0) &= \sqrt{R_1}\, \varphi_0\, , \\
+    I^{+}(1/2) &= \frac{\varphi_0}{\sqrt{R_2}}\, , \\
+    I^{-}(0) &= \frac{\varphi_0}{\sqrt{R_1}}\, , \nd \\
+    I^{-}(1/2) &= \sqrt{R_2}\, \varphi_0\, .
+  \end{align}
+\end{subequations}
+Hence, our task is essentially to determine $\varphi_0$.
+
+Solving \eqn{ld1d_sw_rigrod_ipim} for $I^{-}\z$, and substituting the result into \eqn{ld1d_sw_rigrod_dipdz}, we have
+\begin{equation}
+  \ddz I^{+}\z = \frac{\Gnz\, I^{+}\z}{\reils + I^{+}\z + \varphi_0^2/I^{+}\z}\, ,
+ \end{equation}
+giving the solution
+\begin{equation} \label{eqn:ld1d_sw_rigrod_ipz}
+  % \ln \frac{I^{+}(1/2)}{I^{+}(0)} + \left[I^{+}(1/2) - I^{+}(0)\right] \left[ 1 + \frac{\varphi_0^2}{I^{+}(0)\, I^{+}(1/2)} \right] = \frac{\Gn}{2}\, ,
+  \reils\, \ln \frac{I^{+}\z}{I^{+}(0)} + \left[I^{+}\z - I^{+}(0)\right] \left[ 1 + \frac{\varphi_0^2}{I^{+}(0)\, I^{+}\z} \right] = \int_0^z d z^\prime\, G_0(z^\prime)\, .
+\end{equation}
+Therefore, setting $z = 1/2$ using $I^{+}(0) = \sqrt{R_1}\, \varphi_0$ and $I^{+}(1/2) = \varphi_0/\sqrt{R_2}$, we find
+\begin{equation} \label{eqn:ld1d_sw_rigrod_phi_def}
+  \begin{split}
+    \varphi_0 &= \frac{\sqrt{R_1 R_2}}{2 \left( \sqrt{R_1} + \sqrt{R_2} \right) \left( 1 - \sqrt{R_1 R_2} \right)}\, \left[ \Gnb - \reils\, \ln \frac{1}{R_1 R_2} \right] \\
+    &= \frac{1}{2\, \sqrt{R_1}\, \rels}\, \mathcal{C}^2_\mathrm{SWL} \left( \Hnb - 1 \right)\, ,
+  \end{split}
+\end{equation}
+where again $\Hnb = \Gnb / \Gth$, $\Gth = \reils\, \ln(1/R_1 R_2)$ when $\anb = 0$, and $\mathcal{C}_\mathrm{SWL}$ is given by \eqn{laser_resonator_1d_u_norm_swl}. In \fig{swl_1d_izs_loss0}, we have assumed that $\rho(0) = 1$ and plotted the intracavity and output intensity for a lossless standing-wave laser in one dimension. The intracavity intensity is computed using three methods: the direct numerical integration of \eqn{ld1d_sw_rigrod_dipmdz} using the Scientific Python routine \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_bvp.html}{\texttt{scipy.integrate.solve\_bvp}}; the numerical solution of \eqn{ld1d_sw_rigrod_ipz} --- with $\varphi_0$ computed with \eqn{ld1d_sw_rigrod_phi_def} --- using the Scientific Python routine \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html}{\texttt{scipy.optimize.brentq}}; and the approximate solution provided by \eqn{sml_1d_int} in the form
+\begin{equation} \label{eqn:ld1d_shb_sw_sol_approx}
+  I^{\pm}\z \approx \frac{\Hnb - 1}{\kappa\, \rels}\, \left|u_0^{\pm}\z\right|^2
+\end{equation}
+with $\kappa = 2$. (We'll see soon that this expression is valid even when $\anb \ne 0$.) The agreement between the two numerical solvers is expected, but the accuracy of the simple approximation is remarkable and warrants further investigation.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/swl_1d_iz_loss0}
+      \caption{Intracavity intensities}
+      \label{fig:swl_1d_iz_loss0}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/swl_1d_isum_loss0}
+      \caption{Sum and average of the intracavity intensities}
+      \label{fig:swl_1d_isum_loss0}
+  \end{subfigure}
+  \caption{\label{fig:swl_1d_izs_loss0} Intracavity and total intensities for a lossless standing-wave laser in one dimension with $R_1 = 0.4$, $R_2 = 0.8$, $\Omega = 0$, and $\Gnb = 4$. We have assumed that $\Re[\mathcal{L}(0)] = 1$. (a) The intracavity intensity computed using three methods: direct numerical integration of \eqn{ld1d_sw_rigrod_dipmdz}; numerical solution of \eqn{ld1d_sw_rigrod_ipz}; and the approximate solution provided by \eqn{ld1d_shb_sw_sol_approx}. (b) Comparison of the sum of the intracavity intensities using direct numerical integration and approximation. }
+\end{figure}
+
+A clue to the relevant physics is provided by the plot shown in \fig{swl_1d_isum_loss0}. We see that the sum of the counterpropagating intensities is very well approximated by the average value. Let's maintain the presence of the background loss and rewrite \eqn{ld1d_sw_shb_dipmdz} in the form
+\begin{subequations} \label{eqn:ld1d_shb_sw_ode_approx}
+  \begin{align}
+    \ddz I^{+}\z &\cong \frac{\Gnz\, I^{+}\z}{\reils + \half\, \kappa \left[I^{+}\z + I^{-}\z\right]} - \anz\, I^{+}\z\, , \nd \\
+    \ddz I^{-}\z &\cong -\frac{\Gnz\, I^{-}\z}{\reils + \half\, \kappa \left[I^{+}\z + I^{-}\z\right]} + \anz\, I^{-}\z\, ,
+  \end{align}
+\end{subequations}
+where $\kappa = 2$ for the standing-wave laser in the Rigrod case, but we are anticipating the results of \sct{laser_statics_shb_1d_al}. We now assume that the gain and absorption functions are constants that fill the resonator, so that $\overline{G}\z \equiv \overline{G}_0$, and $\alpha_0\z \equiv \overline{\alpha}_0$. We then make the ansatz that
+\begin{subequations}
+  \begin{align}
+    I^{+}\z &\approx I^{+}(0)\, e^{\ln\left(1/R_1\, R_2\right) z}\, , \nd \\
+    I^{-}\z &\approx I^{-}(0)\, e^{-\ln\left(1/R_1\, R_2\right) z} = \frac{I^{+}(0)}{R_1}\, e^{-\ln\left(1/R_1\, R_2\right) z}\, .
+  \end{align}
+\end{subequations}
+After substituting these trial functions into \eqn{ld1d_shb_sw_ode_approx} and canceling common factors, we obtain
+\begin{equation}
+  \frac{1}{\kappa\, \rels\, I^{+}(0)} \left(\frac{\overline{G}_0}{G_\mathrm{th}} - 1\right) \approx \half \left[ e^{\ln\left(1/R_1\, R_2\right) z} + \frac{1}{R_1}\, e^{-\ln\left(1/R_1\, R_2\right) z} \right]\, ,
+\end{equation}
+where now $G_\mathrm{th} = \reils\, \ln(1/R_1\, R_2\, e^{-\overline{\alpha}_0})$. For a suitable value of $I^{+}(0)$, this expression should become reasonably accurate since we've learned that the \rhs --- the sum of the counterpropagating intensities in a standing-wave laser cavity --- doesn't depend strongly on $z$. Let's estimate $I^{+}(0)$ by computing the mean value of the right-hand side of this expression over the single-pass length of the resonator. We find
+\begin{equation}
+  2\, \int_0^{1/2} d z\; \half \left[ e^{\ln\left(1/R_1\, R_2\right) z} + \frac{1}{R_1}\, e^{-\ln\left(1/R_1\, R_2\right) z} \right] = \frac{1}{\mathcal{C}_\mathrm{SWL}^2}\, .
+\end{equation}
+Therefore,
+\begin{equation} \label{eqn:ld1d_shb_sw_ip0_approx}
+  I^{+}(0) = \frac{\mathcal{C}_\mathrm{SWL}^2}{\kappa\, \rels} \left( \Hnb - 1 \right)\, ,
+\end{equation}
+and
+% \begin{subequations}
+%   \begin{align}
+%     I^{+}\z &\approx \frac{\mathcal{C}_\mathrm{SWL}^2}{\kappa\, \rels} \left( \Hnb - 1 \right) e^{\ln\left(1/R_1\, R_2\right) z} = \frac{1}{\kappa\, \rels} \left( \Hnb - 1 \right)\, \left|u_0^+\z\right|^2, \nd \\
+%     I^{-}\z &\approx \frac{\mathcal{C}_\mathrm{SWL}^2}{\kappa\, \rels\, R_1} \left( \Hnb - 1 \right) e^{-\ln\left(1/R_1\, R_2\right) z} = \frac{1}{\kappa\, \rels} \left( \Hnb - 1 \right)\, \left|u_0^-\z\right|^2\, ,
+%   \end{align}
+% \end{subequations}
+\begin{align*}
+  I^{+}\z &\approx \mathcal{C}_\mathrm{SWL}^2\, e^{\ln\left(1/R_1\, R_2\right) z}\, \frac{\Hnb - 1}{\kappa\, \rels} = \frac{\Hnb - 1}{\kappa\, \rels}\, \left|u_0^+\z\right|^2, \nd \\
+  I^{-}\z &\approx \frac{\mathcal{C}_\mathrm{SWL}^2}{R_1}\, e^{-\ln\left(1/R_1\, R_2\right) z}\, \frac{\Hnb - 1}{\kappa\, \rels} = \frac{\Hnb - 1}{\kappa\, \rels}\, \left|u_0^-\z\right|^2\, ,
+\end{align*}
+where $u_0^\pm\z$ are given by \eqn{laser_resonator_1d_u_sw}. This result is identical to \eqn{ld1d_shb_sw_sol_approx}, with nonzero $\anb$ incorporated into $\Gth$.
+
+Following the approach to output coupling described in \sct{laser_statics_1d_approx}, we define the transmittance of each mirror as $T_j = 1 - A_j - R_j$, $j \in \{1, 2\}$, where $A_j$ represents a small power absorption in mirror $j$. Using \eqn{ld1d_sw_rigrod_bcs}, the output intensity through each mirror is therefore
+\begin{subequations} \label{eqn:ld1d_sw_rigrod_ipm_out}
+  \begin{align}
+    \label{eqn:ld1d_sw_rigrod_ip_out} I^{+}_\text{out} &= T_2\, I^{+}(1/2) = \left(1 - R_2 - A_2\right) \frac{\varphi_0}{\sqrt{R_2}}\, , \nd \\
+    \label{eqn:ld1d_sw_rigrod_im_out} I^{-}_\text{out} &= T_1\, I^{-}(0) = \left(1 - R_1 - A_1\right) \frac{\varphi_0}{\sqrt{R_1}}\, .
+  \end{align}
+\end{subequations}
+Suppose that $R_2 = 1$ and therefore $A_2 = 0$, so that mirror $\mathcal{M}_1$ is the only output coupler with $R_1 \equiv R$ and $A_1 \equiv A$. Then we find that
+\begin{equation} \label{eqn:ls1d_i_out_swl_lossless}
+  I_\mathrm{out} = \frac{1 - A - R}{2\, (1 - R)}\,  \left( \Gnb - \Gth \right)\, ,
+\end{equation}
+which is identical to \eqn{ls1d_i_out_approx_lossless} with $\kappa = 2$. As in the case of the lossless unidirectional ring laser in \fig{url_1d_ir_loss0}, it is no surprise that the same-gain curves in \fig{swl_1d_ir_loss0} are virtually identical.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/swl_1d_ir_loss0}
+  \caption{\label{fig:swl_1d_ir_loss0} Output intensity as a function of $R$ comparing \eqn{ls1d_i_out_approxx} and \eqn{ls1d_i_out_swl_lossless}. }
+\end{figure}
+
+In the general case of a one-dimensional standing-wave laser with intracavity scattering and absorption, when we neglect spatial hole-burning the counterpropagating intensities obey the differential equations
+\begin{equation} \label{eqn:ld1d_sw_rigrod_dipmdz_a}
+  \ddz I^{\pm}\z = \pm \frac{\Gnz\, I^{\pm}\z}{\reils + I^{+}\z + I^{-}\z} \mp \anz\, I^{\pm}\z\, ,
+\end{equation}
+subject to the boundary conditions given by \eqn{ld1d_sw_shb_bcs}.  In \fig{swl_1d_izr_loss1}, our approach is identical to that of \fig{swl_1d_iz_loss0} and \fig{swl_1d_ir_loss0}. We have plotted the intracavity intensities in \fig{swl_1d_iz_loss1} for the same laser as in \fig{swl_1d_iz_loss0}, but now with $\anb \ne 0$. We see that the numerical solution of \eqn{ld1d_sw_rigrod_ipz} is no longer useful, and that our approximate model does a remarkable job reproducing the values of the counterpropagating intensities computed everywhere in the cavity by direct integration of \eqn{ld1d_sw_rigrod_dipmdz_a}. Once again, this is the result of $I^{+}\z + I^{-}\z$ maintaining a nearly constant value throughout the cavity. In \fig{swl_1d_ir_loss1}, we set $R_2 = 1$, $R_1 \equiv R$, and $A_1 \equiv A \ne 0$, and compare the result of direct integration and \eqn{ls1d_i_out_approxx}. Even at relatively high gains, our simple model very closely matches the exact numerical result. This agreement is echoed by the computations of optimum output coupler reflectance and output intensity shown in \fig{swl_1d_opt}. In \fig{swl_1d_opt_r}, we compare the optimum output coupler reflectance as a function of $\Gnb$ computed using \eqn{la1d_r_opt} and a numerical solution of \eqn{ld1d_sw_rigrod_dipmdz_a}. The close agreement of these two predictions is consistent with the corresponding approximate output intensity computed using \eqn{la1d_i_opt} shown in \fig{swl_1d_opt_i}.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/swl_1d_iz_loss1}
+      \caption{Intracavity intensity}
+      \label{fig:swl_1d_iz_loss1}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/swl_1d_ir_loss1}
+      \caption{Output intensity}
+      \label{fig:swl_1d_ir_loss1}
+  \end{subfigure}
+  \caption{\label{fig:swl_1d_izr_loss1} Intracavity and output intensity for a standing-wave laser in one dimension with both background and mirror absorption loss. (a) The intracavity intensity is computed using three methods: direct numerical integration of \eqn{ld1d_sw_rigrod_dipmdz_a}; numerical solution of \eqn{ld1d_sw_rigrod_ipz}; and the approximate solution provided by \eqn{ld1d_shb_sw_sol_approx}. (b) Output intensity as a function of $R$ comparing the result of direct numerical integration and \eqn{ls1d_i_out_approxx}. Here $R_2 = 1$, $R_1 \equiv R$ and $A_1 \equiv A$. }
+\end{figure}
+  
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/swl_1d_opt_r}
+      \caption{Optimum output coupler reflectance}
+      \label{fig:swl_1d_opt_r}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/swl_1d_opt_i}
+      \caption{Optimum output intensity}
+      \label{fig:swl_1d_opt_i}
+  \end{subfigure}
+  \caption{\label{fig:swl_1d_opt} Optimum output coupler reflectance as a function of unsaturated round-trip gain for a standing-wave laser in one dimension with both background and mirror absorption loss. (a) The optimum output coupler reflectance as a function of $\Gnb$ computed using direct numerical optimization of \eqn{ls1d_amp_didz} and \eqn{la1d_r_opt}. (b) The corresponding output intensity using \eqn{la1d_i_opt}. }
+\end{figure}
+
+Suppose that the amplifier in the laser resonator is spatially nonuniform. For example, consider a gain region with constant $\Gnb$ extending from $z = z_1$ to $z = z_2$. Then $\Gnz$ is given by
+\begin{equation} \label{eqn:ld1d_sw_nonuniform_gnz}
+    \Gnz = \frac{\Gnb}{2\, (z_2 - z_1)}\,
+\end{equation}
+which clearly satisfies $2 \int_0^{1/2} d z\, \Gnz = \Gnb$. For our approximate model of this standing-wave laser, we use $I^\pm(z) = I(0)\, |u^\pm_0\z|^2$, but we replace $|u^\pm_0\z|^2$ with $|u^{\pm \prime}_0(z)|^2$ defined by \eqn{sml_1d_u_swl_nu}. The result is shown in \fig{swl_1d_iz_trap} for $z_1 = 0.125$ and $z_2 = 0.375$. The numerical solution of \eqn{ld1d_sw_rigrod_ipz} fails to predict the correct intensities everywhere except at the mirrors, but our approximate model using \eqn{sml_1d_u_swl_nu} and \eqn{ld1d_shb_sw_sol_approx} does a very reasonable job of matching the result of a direct numerical integration of \eqn{ld1d_sw_rigrod_dipmdz_a}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/swl_1d_iz_trap}
+  \caption{\label{fig:swl_1d_iz_trap} Intracavity intensity as a function of $z$ for a standing-wave laser with a constant gain region that extends from $z = 0.125$ to $z = 0.375$. The numerical solution of \eqn{ld1d_sw_rigrod_ipz} predicts incorrect intensities everywhere. On the other hand, an approximate model using \eqn{sml_1d_u_swl_nu} and \eqn{ld1d_shb_sw_sol_approx} does a credible job of matching the result of a direct numerical integration of \eqn{ld1d_sw_rigrod_dipmdz_a}. }
+\end{figure}
+
+
+
+
+
+%  \begin{figure}
+%   \centering
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/standing_wave_rigrod_1d}
+%    \caption{Counterpropagating intensities}
+%    \label{fig:standing_wave_rigrod_1d}
+%   \end{subfigure}
+%   \par\vspace{0.25in}
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/standing_wave_rigrod_sum_1d}
+%    \caption{Total intracavity intensity}
+%    \label{fig:standing_wave_rigrod_sum_1d}
+%   \end{subfigure}
+%   \caption{\label{fig:standing_wave_rigrod_1d_all} (a) Counterpropagating intensities found by substituting \eqn{ld1d_sw_rigrod_phi_def} into \eqn{ld1d_sw_rigrod_ipz}, and then computing $I^{+}(z)$ and $I^{-}(z)$ for a very asymmetric laser cavity with large and constant gain per unit length in the amplifier. (b) The total intracavity intensity computed using Rigrod's model. Even in this case, $I^{+}(z) + I^{-}(z)$ does not depend strongly on position.}
+%  \end{figure}
+
+% We can build a \emph{very} simple model of the output intensity by generalizing \eqn{ls1d_i_out_approx} to the two-mirror standing-wave case with $\kappa = 2$. We quickly find
+%  \begin{subequations} \label{eqn:ld1d_sw_rigrod_ipm_approx}
+%  \begin{align}
+% \label{eqn:ld1d_sw_rigrod_ip_approx} I^{+}_\text{out} &\cong \frac{\ln\left[(1 - A_2)/R_2\right]}{2 \ln(1/R_1 R_2)} \left[ \Gn - \left(1 + \Omega^2\right) \ln \frac{1}{R_1 R_2} \right]\, , \nd \\
+% \label{eqn:ld1d_sw_rigrod_im_approx} I^{-}_\text{out} &\cong \frac{\ln\left[(1 - A_1)/R_1\right]}{2 \ln(1/R_1 R_2)} \left[ \Gn - \left(1 + \Omega^2\right) \ln \frac{1}{R_1 R_2} \right]\, .
+%  \end{align}
+%  \end{subequations}
+% We compare the output intensity computed for a high-constant-gain single-sided laser resonator calculated using \eqn{ld1d_sw_rigrod_ip_out} and \eqn{ld1d_sw_rigrod_ip_approx} in \fig{standing_wave_simple_1d}. The relative accuracy of the simple factor-of-two saturation model seems surprising, but is a consequence of the fact that --- as shown in \fig{standing_wave_rigrod_sum_1d} --- $I^{+}(z) + I^{-}(z)$ is almost constant within the laser resonator. For example, at the reference planes of the mirrors, the total intensities are approximately
+%  \begin{align*}
+% I^{+}(0) + I^{-}(0) &= \frac{1 + R_1}{\sqrt{R_1}}\, \varphi_0 \approx 2 \left[1 + \frac{(1 - R_1)^2}{8}\right] \varphi_0\, , \nd \\
+% I^{+}(1/2) + I^{-}(1/2) &= \frac{1 + R_2}{\sqrt{R_2}}\, \varphi_0 \approx 2 \left[1 + \frac{(1 - R_2)^2}{8}\right] \varphi_0\, .
+%  \end{align*}
+% Therefore, even in the highly asymmetric case considered here, the total intensity at either end of the cavity is about $2\, \varphi_0$.
+
+%  \begin{figure}
+%   \centering
+%   \includegraphics[width=5.0in]{figures/standing_wave_simple_1d}
+%   \caption{\label{fig:standing_wave_simple_1d} Comparison of the output intensity of a single-sided laser resonator calculated using \eqn{ld1d_sw_rigrod_ip_out} and \eqn{ld1d_sw_rigrod_ip_approx}. }
+%  \end{figure}
+
+ \subsection{Agrawal and Lax's Model\label{sct:laser_statics_shb_1d_al}}
+A more comprehensive analysis of interference effects in standing-wave lasers was published by Agrawal and Lax in \cite{ref:agrawal1981aei}, but this paper seems to have been largely forgotten in the field. We begin by noting the result of an integral common in quantum optics,
+ \begin{equation} \label{eqn:ld1d_sw_shb_qo_int}
+\frac{1}{2 \pi} \int_{0}^{2 \pi} d \theta\, \frac{1}{a + b\, \cos \theta} = \frac{1}{\sqrt{a^2 - b^2}}\, ,
+ \end{equation}
+and then we find for the integrals on the \rhs of \eqn{ld1d_sw_shb_dipmdz}
+ \begin{equation}
+ \begin{split}
+\frac{1}{2 \pi} \int_{0}^{2 \pi} d \theta\, \frac{1 + c\, \cos \theta}{a + b\, \cos \theta} &= \frac{1}{2 \pi} \int_{0}^{2 \pi} d \theta\, \frac{c}{b} \left(1 - \frac{a - b/c}{a + b\, \cos \theta} \right) \\
+&= \frac{c}{b} \left(1 - \frac{a - b/c}{\sqrt{a^2 - b^2}} \right) \\
+&= \frac{1}{\sqrt{a^2 - b^2}} \left[1 - \frac{c}{b} \left(a - \sqrt{a^2 - b^2}\right)\right]
+ \end{split}
+ \end{equation}
+We have $c/b = 1/2 I^{+}(z)$ and $1/b c =  1/2 I^{-}(z)$, so averaging \eqn{ld1d_sw_shb_dipmdz} over a physical wavelength yields
+ \begin{subequations} \label{eqn:ld1d_sw_shb_dipmdz_avg}
+ \begin{align}
+\ddz I^{+}(z) &= \frac{\Gnz}{\sqrt{a^2 - b^2}} \left[ 1 - \frac{a - \sqrt{a^2 - b^2}}{2\, I^{+}(z)} \right] I^{+}(z) - \half\, \anz\, I^{+}\z\, , \nd \\
+\ddz I^{-}(z) &= -\frac{\Gnz}{\sqrt{a^2 - b^2}} \left[ 1 - \frac{a - \sqrt{a^2 - b^2}}{2\, I^{-}(z)} \right] I^{-}(z) + \half\, \anz\, I^{-}\z\, .
+ \end{align}
+ \end{subequations}
+We note that in the limit of very small gain and intensities, when $\anz = 0$ these equations become
+% \begin{subequations} %\label{eqn:ld1d_shb_sw_low_g}
+%   \begin{align}
+%  \ddz I^{+}(z) &\cong \frac{\overline{G}(z)\,  I^{+}(z)}{1 + I^{+}(z) + 2\,  I^{-}(z)}\, , \nd \\
+%  \ddz I^{-}(z) &\cong -\frac{\overline{G}(z)\,  I^{-}(z)}{1 + I^{-}(z) + 2\,  I^{+}(z)}\, .
+%   \end{align}
+% \end{subequations}
+\begin{subequations} \label{eqn:ld1d_shb_sw_low_g}
+  \begin{align}
+    \ddz I^{+}(z) &\cong \Gnz\, I^{+}\z \left\{\reils -  \left[I^{+}\z + 2\, I^{-}\z\right]\right\}\, , \nd \\
+    \ddz I^{-}(z) &\cong -\Gnz\, I^{-}\z \left\{\reils - \left[I^{-}\z + 2\, I^{+}\z\right]\right\}\, .     
+  \end{align}
+\end{subequations}
+so that the net effect of the interference is to \emph{increase} the saturation caused by the counterpropagating field by a factor of 2.
+
+Next, we follow Agrawal and Lax by setting $\anz = 0$ and defining $X \equiv I^{+} + I^{-}$ and $Y \equiv I^{+} - I^{-}$; we find
+ \begin{subequations}
+ \begin{align}
+\label{eqn:ld1d_shb_sw_dXdz} \ddz X &= \frac{G_0\, Y}{\sqrt{a^2 - b^2}}\, , \nd \\
+\label{eqn:ld1d_shb_sw_dYdz} \ddz Y &= G_0 \left( 1 - \frac{1}{\rho\, \sqrt{a^2 - b^2}} \right) \, .
+ \end{align}
+ \end{subequations}
+Now define $u = \sqrt{a^2 - b^2}$, and note that \eqn{ld1d_shb_sw_adef} gives
+ \begin{equation}
+u^2 = \left(\rho^{-1} + I^{+} + I^{-}\right)^2 - 4\, I^{+}\, I^{-} = (\rho^{-1} + X)^2 - (X + Y)(X - Y) = \rho^{-2} + 2\, \rho^{-1}\, X + Y^2\, .
+ \end{equation}
+Therefore,
+ \begin{equation}
+2 u \frac{d u}{d X} = 2 + 2 Y \frac{d Y}{d X} = 2 u\, ,
+ \end{equation}
+where we have divided \eqn{ld1d_shb_sw_dYdz} by \eqn{ld1d_shb_sw_dXdz} to obtain $d Y/d X = \left(u - \rho^{-1}\right) / Y$. Since $d u / d X = 1$, we now have
+ \begin{equation} \label{eqn:ld1d_sw_shb_const}
+\sqrt{a^2 - b^2} = I^{+} + I^{-} + C\, ,
+ \end{equation}
+where $C$ is a constant of integration. With \eqn{ld1d_sw_shb_const} in hand, \eqn{ld1d_sw_shb_dipmdz_avg} become
+ \begin{subequations}
+ \begin{align}
+\ddz I^{+}(z) &= \frac{\Gnz}{2}\, \frac{2 I^{+}(z) + C - \reils}{I^{+}(z) + I^{-}(z) + C}\, , \nd \\
+\ddz I^{-}(z) &= -\frac{\Gnz}{2}\, \frac{2 I^{-}(z) + C - \reils}{I^{+}(z) + I^{-}(z) + C}\, .
+ \end{align}
+ \end{subequations}
+Now we define
+ \begin{subequations} \label{eqn:ld1d_sw_shb_irl_def}
+ \begin{align}
+\label{eqn:ld1d_sw_shb_ir_def} I_R(z) &\equiv I^{+}(z) - \rels\, \varphi^2\, , \nd \\
+\label{eqn:ld1d_sw_shb_il_def} I_L(z) &\equiv I^{-}(z) - \rels\, \varphi^2\, ,
+ \end{align}
+ \end{subequations}
+where $\varphi^2 \equiv [1 - \rels\, C]/2\, \rho^2(\Omega)$. Then
+ \begin{subequations} \label{eqn:ld1d_sw_shb_dirldz}
+ \begin{align}
+\label{eqn:ld1d_sw_shb_dirdz} \ddz I_R(z) &= \frac{\Gnz\, I_R(z)}{\reils + I_R(z) + I_L(z)}\, , \nd \\
+\label{eqn:ld1d_sw_shb_dildz} \ddz I_L(z) &= -\frac{\Gnz\, I_L(z)}{\reils + I_R(z) + I_L(z)}\, .
+ \end{align}
+ \end{subequations}
+These equations have exactly the same form as those of the Rigrod model, given by \eqn{ld1d_sw_rigrod_dipmdz}, but with different boundary conditions.
+
+First, we note that substituting \eqn{ld1d_sw_shb_irl_def} into \eqn{ld1d_sw_shb_const} and then squaring both sides yields
+ \begin{equation} \label{eqn:ls1d_sw_shb_iril}
+I_R(z)\, I_L(z) = \varphi^2\, .
+ \end{equation}
+Then the solution to \eqn{ld1d_sw_shb_dirdz} follows the same approach as that of \eqn{ld1d_sw_rigrod_dipdz}, and can be read from \eqn{ld1d_sw_rigrod_ipz} as
+ \begin{equation} \label{eqn:ld1d_sw_shb_irz}
+\reils\, \ln \frac{I_R(z)}{I_R(0)} + \left[I_R(z) - I_R(0)\right] \left[ 1 + \frac{\varphi^2}{I_R(0)\, I_R(z)} \right] = \int_{0}^{z} d z^\prime G_0(z^\prime)\, .
+ \end{equation}
+We define $I_1 \equiv I_R(0)$ and $I_2 \equiv I_R(1/2)$, and apply the boundary conditions given by \eqn{ld1d_sw_shb_bcs} to \eqn{ld1d_sw_shb_irl_def}. We find
+\begin{align} \label{eqn:ld1d_sw_shb_i12_bcs}
+  I_1 + \rho\, \varphi^2 &= \varphi^2\, (\rho + 1/I_1)\, R_1\, , \nd \\
+  I_2 + \rho\, \varphi^2 &= \frac{\varphi^2\, (\rho + 1/I_2)}{R_2}\, ,
+\end{align}
+or
+ \begin{subequations} \label{eqn:ld1d_sw_shb_i12}
+ \begin{align}
+\label{eqn:ld1d_shb_sw_i1} I_1 &= \half \left[ \sqrt{4\, R_1\, \varphi^2 + \left(1 - R_1\right)^2 \rho^2\, \varphi^4} - \left(1 - R_1\right) \rho\, \varphi^2 \right]\, , \nd \\
+\label{eqn:ld1d_shb_sw_i2} I_2 &= \frac{1}{2\, R_2} \left[ \sqrt{4\, R_2\, \varphi^2 + \left(1 - R_2\right)^2 \rho^2\, \varphi^4} + \left(1 - R_2\right) \rho\, \varphi^2 \right]\, .
+ \end{align}
+ \end{subequations}
+By defining $\Gnb \equiv 2 \int_{0}^{1/2} d z^\prime \Gn(z^\prime)$ and substituting these expressions into \eqn{ld1d_sw_shb_irz} at $z = 1/2$,
+ \begin{equation} \label{eqn:ld1d_sw_shb_ir21}
+\reils\, \ln \frac{I_2}{I_1} + \left(I_2 - I_1\right) \left( 1 + \frac{\varphi^2}{I_1\, I_2} \right) = \frac{\Gnb}{2}\, ,
+ \end{equation}
+we can find the value of $\varphi$ corresponding to particular choices of $R_1$, $R_2$, and $\Gn$, and then the values of $I^{+}(z)$ and $I^{-}(z)$ everywhere in the laser resonator.
+% \Fig{standing_wave_intensity_1d} plots the counterpropagating intensities found using \eqn{ld1d_sw_shb_ir21} and \eqn{ld1d_sw_shb_irz}, and then computing $I^{+}(z)$ and $I^{-}(z)$ for a symmetric laser cavity with large and constant gain per unit length in the amplifier. The resulting total intracavity intensity computed using the complete one-dimensional model is shown in \fig{standing_wave_intensity_sum_1d}; as in the case of \fig{swl_1d_isum_loss0}, we note that $I^{+}(z) + I^{-}(z)$ does not depend strongly on position.
+%
+%  \begin{figure}
+%   \centering
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/standing_wave_intensity_1d}
+%    \caption{Counterpropagating intensities}
+%    \label{fig:standing_wave_intensity_1d}
+%   \end{subfigure}
+%   \par\vspace{0.25in}
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/standing_wave_intensity_sum_1d}
+%    \caption{Total intracavity intensity}
+%    \label{fig:standing_wave_intensity_sum_1d}
+%   \end{subfigure}
+%   \caption{\label{fig:standing_wave_intensity_1d_all} (a) Counterpropagating intensities found using \eqn{ld1d_sw_shb_ir21} and \eqn{ld1d_sw_shb_irz}, and then computing $I^{+}(z)$ and $I^{-}(z)$ for a symmetric laser cavity with large and constant gain per unit length in the amplifier. (b) The total intracavity intensity computed using the complete one-dimensional model; note that $I^{+}(z) + I^{-}(z)$ does not depend strongly on position.}
+%  \end{figure}
+If we follow the same approach to output coupling as in \sct{laser_statics_shb_1d_rigrod}, leading to \eqn{ld1d_sw_rigrod_ipm_out} in Rigrod's model, we find
+% \begin{subequations}
+%   \begin{align}
+%  I^{+}_\text{out} &= T_2\, I^{+}(1/2) = \left(1 - R_2 - A_2\right) \left[I_2 + \rels\, \varphi^2\right]\, , \nd \\
+%  I^{-}_\text{out} &= T_1\, I^{-}(0) = \left(1 - R_1 - A_1\right) \varphi^2 \left[ \rels + \frac{1}{I_1} \right]\, .
+%   \end{align}
+%  \end{subequations}
+ \begin{subequations} \label{eqn:ld1d_sw_shb_ipm_out}
+  \begin{align}
+    \label{eqn:ld1d_sw_shb_ip_out} I^{+}_\text{out} &= T_2\, I^{+}(1/2) = \left(1 - R_2 - A_2\right) \left[I_2 + \rels\, \varphi^2\right]\, , \nd \\
+    \label{eqn:ld1d_sw_shb_im_out} I^{-}_\text{out} &= T_1\, I^{-}(0) = \frac{1 - R_1 - A_1}{R_1} \left[ I_1 + \rels\, \varphi^2 \right]\, .
+  \end{align}
+\end{subequations}
+ We compare the output intensity of a laser resonator with $R_1 = R$ and $R_2 = 1$ calculated using \eqn{ld1d_sw_rigrod_ip_out} and \eqn{ld1d_sw_shb_im_out} in \fig{standing_wave_comparison_1d}. It is not surprising that Rigrod's model substantially overestimates the output power of the laser by ignoring the effects of interference in the amplifier.
+\begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/standing_wave_comparison_1d}
+  \caption{\label{fig:standing_wave_comparison_1d} Comparison of the output intensity of a laser resonator calculated using \eqn{ld1d_sw_rigrod_im_out} and \eqn{ld1d_sw_shb_im_out}. Here $R_1 = R$, $R_2 = 1$, $A_1 = 0.01$, $\anb = 0$, and $\Omega = 0$.}
+\end{figure}
+
+When interference effects in standing-wave lasers cannot be ignored, to what extent can we continue to rely on the simple approximate model that we constructed in \sct{laser_statics_1d_approx}? Let's focus on \eqn{ls1d_i_out_approx}, and seek a modification of the saturation factor $\kappa$ that will capture the general behavior of a single-mode laser as the gain and losses vary significantly. We begin by defining $\kappa$ in terms of the intracavity intensities incident on the output coupler as
+\begin{equation} \label{eqn:ld1d_sw_shb_kappa_def}
+  \kappa \equiv 2\, \frac{I_\text{rr}}{I_\text{al}} = 2\, \frac{\sqrt{R_1}\, \varphi_0}{I_1 + \rho\, \varphi^2}\, ,
+\end{equation}
+% \begin{equation}
+%  \kappa \equiv 2\, \frac{I_\text{rr}}{I_\text{al}} \equiv 2 + \Delta \kappa\, ,
+% \end{equation}
+where the subscripts $\text{rr} \equiv $~``Rigrod'' and $\text{al} \equiv $~``Agrawal and Lax,'' $\varphi_0$ is given by \eqn{ld1d_sw_rigrod_phi_def}, and we have used \eqn{ld1d_sw_rigrod_bcs}, \eqn{ld1d_sw_shb_irl_def}, and \eqn{ld1d_sw_shb_i12_bcs}.
+%  \begin{equation} \label{eqn:ld1d_sw_shb_dkappa_def}
+% \Delta \kappa \equiv 2 \left( \frac{I_\text{rr}}{I_\text{al}} - 1 \right) = 2 \left[ \frac{\varphi_0}{\sqrt{R_2}\, (I_2 + \rho\, \varphi^2)} - 1 \right]\, ,
+%  \end{equation}
+Let's find an approximate expression for $\varphi$ by replacing $1 - R_1$ and $1 - R_2$ (explicitly) with $\delta_1$ and $\delta_2$ in \eqn{ld1d_sw_shb_i12}, substitute these expressions into \eqn{ld1d_sw_shb_ir21}, and then expand the result to second order in $\delta_1$ and $\delta_2$ to obtain
+%  \begin{equation*}
+% \left[ \left(1 + \frac{1}{r_1^2}\right) \frac{\delta_1}{2} + \left(1 + \frac{1}{r_2^2}\right) \frac{\delta_2}{2} \right] v^2 + \left( \frac{1}{r_1} + \frac{1}{r_2} - r_1 - r_2 + \frac{\delta_1}{2 r_1} + \frac{\delta_2}{2 r_2} \right) v = \frac{\Gn}{2} - \ln \frac{1}{r_1\, r_2}\, ,
+%  \end{equation*}
+\begin{multline*}
+  \frac{\rho^2}{4} \left[ \left(\frac{1 - R_1}{\sqrt{R_1}}\right)^3 + \left(\frac{1 - R_2}{\sqrt{R_2}}\right)^3 \right] \varphi^3 + \rho\, \frac{\left(R_1 + R_2\right) (1 - R_1\, R_2)}{R_1\, R_2}\, \varphi^2 \\
+  + 3 \left( \frac{1 - R_1}{\sqrt{R_1}} + \frac{1 - R_2}{\sqrt{R_2}} \right) \varphi = \Gnb - \rho^{-1}\, \ln \frac{1}{R_1\, R_2}\, .
+\end{multline*}
+Suppose that $R_2 = 1$, and consider values of $R_1$ greater than $0.2$ Then the coefficient of $\varphi^3$ is much smaller than those of $\varphi$ and $\varphi^2$, and we can neglect that term. Assuming that this is generally true, after some straightforward algebra, the equation for $\varphi$ becomes
+ \begin{equation} \label{eqn:ld1d_sw_shb_phi_qe}
+\beta\, \varphi^2 + 3\, \varphi - 2\, \varphi_0 = 0\, ,
+ \end{equation}
+where
+ \begin{equation}
+\beta \equiv \rels\, \frac{\left(R_1 + R_2\right) \left(1 + \sqrt{R_1\, R_2}\right)}{\sqrt{R_1\, R_2} \left(\sqrt{R_1} + \sqrt{R_2}\right)}\, .
+ \end{equation}
+Therefore, we find that $\varphi$ is approximately given by
+ \begin{equation} \label{eqn:ld1d_sw_shb_phi_approx}
+\varphi \cong \frac{3}{2\, \beta} \left( \sqrt{1 + \frac{8}{9}\, \beta\, \varphi_0} - 1 \right)\, .
+ \end{equation}
+
+% with
+%  \begin{equation} \label{eqn:ld1d_sw_shb_phi0p_def}
+% \varphi_0^\prime \equiv \frac{\varphi_0}{1 + \Omega^2}\, ,
+%  \end{equation}
+% where $\varphi_0$ is given by \eqn{ld1d_sw_rigrod_phi_def}. In \fig{delta_kappa_1d}, we plot $\Delta \kappa$ as a function of reflectance for a set of four gains and both $\Omega = 0$ and $\Omega = 1$ in the cases where $R_1 = R_2 \equiv R$ and $R_1 = 1$, $R_2 \equiv R$. First, we note that $\kappa \longrightarrow 3$ as the reflectance approaches the threshold value, which is consistent with the low-intracavity-intensity limit described by \eqn{ld1d_shb_sw_low_g}. Second, as the reflectance approaches unity, $\kappa \longrightarrow 2$, which allows us to identify Rigrod's model as the very high-intracavity-intensity limit of Agrawal and Lax's result. Finally, we observe the similarity between the examples with $\Gn = 2, \Omega = 0$ and $\Gn = 4, \Omega = 1$, as well as $\Gn = 4, \Omega = 0$ and $\Gn = 8, \Omega = 1$, which provides us with a hint that $\Delta \kappa$ depends strongly on $\varphi^\prime_0$.
+
+%  \begin{figure}
+%   \centering
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/delta_kappa_1d_sym}
+%    \caption{$R_1 = R_2 \equiv R$}
+%    \label{fig:delta_kappa_1d_sym}
+%   \end{subfigure}
+%   \par\vspace{0.25in}
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/delta_kappa_1d_oc2}
+%    \caption{$R_1 = 1$, $R_2 \equiv R$}
+%    \label{fig:delta_kappa_1d_oc2}
+%   \end{subfigure}
+%   \caption{\label{fig:delta_kappa_1d} $\Delta \kappa$ --- defined by \eqn{ld1d_sw_shb_kappa_def} --- as a function of reflectance for a set of four gains and both $\Omega = 0$ and $\Omega = 1$ in the cases where $R_1 = R_2 \equiv R$ and $R_1 = 1$, $R_2 \equiv R$. We note the similarity between the examples with $\Gn = 2, \Omega = 0$ and $\Gn = 4, \Omega = 1$, as well as $\Gn = 4, \Omega = 0$ and $\Gn = 8, \Omega = 1$, provide a hint that $\Delta \kappa$ depends strongly on $\varphi^\prime_0$.}
+%  \end{figure}
+
+%  \begin{figure}
+%   \centering
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/omrp_1d_sym}
+%    \caption{$R_1 = R_2 \equiv R$}
+%    \label{fig:omrp_1d_sym}
+%   \end{subfigure}
+%   \par\vspace{0.25in}
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/omrp_1d_oc2}
+%    \caption{$R_1 = 1$, $R_2 \equiv R$}
+%    \label{fig:omrp_1d_oc2}
+%   \end{subfigure}
+%   \caption{\label{fig:omrp_1d} $(1 - R)^2\, \varphi / 4 R$ as a function of reflectance for a set of four gains and both $\Omega = 0$ and $\Omega = 1$ in the cases where $R_1 = R_2 \equiv R$ and $R_1 = 1$, $R_2 \equiv R$.}
+%  \end{figure}
+
+Given this analytic approximation for $\varphi$, we seek a corresponding expression for $I_1$ that will allow us to estimate $\kappa$ using \eqn{ld1d_sw_shb_kappa_def}. When $\Gnb \lesssim 4$, 
+then $(1 - R)^2 \varphi^2 / 4 R_1 \ll 1$, and we can approximate \eqn{ld1d_shb_sw_i1} as
+\begin{equation} \label{eqn:ld1d_shb_sw_i1_approx}
+  I_1 \cong \sqrt{R_1}\, \varphi - \frac{1 - R_1}{2}\, \rho\, \varphi^2\, .
+\end{equation}
+When $\Gnb$ is large and $R_1$ is small, we should expect that  our approximation will become less accurate. We note that $\beta  = (1 + R)/\sqrt{R}$ in two cases of practical interest ($R_1 = R$, $R_2 = 1$ and $R_1 = R_2 = R$), and use \eqn{ld1d_sw_shb_phi_qe} to write
+\begin{equation}
+  \frac{I_1 + \rho\, \varphi^2}{\sqrt{R_1}} \approx \varphi + \frac{\beta}{2}\, \rho\, \varphi^2 = \varphi_0 - \half\, \varphi\, ,
+\end{equation}
+giving
+\begin{equation} \label{eqn:ld1d_sw_shb_kappa}
+  \kappa \approx \frac{2\, \varphi_0}{\varphi_0 - \varphi / 2}\, .
+\end{equation}
+In the limit $\varphi_0 \longrightarrow 0$,
+\begin{equation*}
+  \varphi \longrightarrow \frac{3}{2}\, \varphi_0\, , \quad \kappa \longrightarrow 3\, ,
+\end{equation*}
+which is consistent with the low-intracavity-intensity limit described by \eqn{ld1d_shb_sw_low_g}. On the other hand, if $\varphi_0 \longrightarrow \infty$, then
+\begin{equation*}
+  \varphi \longrightarrow \sqrt{\frac{2\, \varphi_0}{\beta}}\, , \quad \kappa \longrightarrow 2\, ,
+\end{equation*}
+which allows us to identify Rigrod's model as the very high-intracavity-intensity limit of Agrawal and Lax's result. In \fig{shb_1d_kappa_loss0} we plot the effective saturation parameter defined by \eqn{ld1d_sw_shb_kappa_def} and the approximation given by \eqn{ld1d_sw_shb_kappa} for a range of output coupler reflectances $R_1 = R$ (with $R_2 = 1$) and gains. We see that the approximation is quite accurate for a wide range of parameters, and (as we expected) the error is largest for low reflectances and high gains.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/shb_1d_kappa_loss0}
+  \caption{\label{fig:shb_1d_kappa_loss0} Comparison of the effective saturation parameter defined by \eqn{ld1d_sw_shb_kappa_def} with the approximation given by \eqn{ld1d_sw_shb_kappa}.}
+\end{figure}
+
+In \fig{shb_1d_iz_loss0}, we have assumed that $\rho(0) = 1$ and plotted the intracavity and output intensity for a lossless standing-wave laser in one dimension. The intracavity intensity is computed using three methods: the direct numerical integration of \eqn{ld1d_sw_shb_dipmdz_avg} using the Scientific Python routine \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_bvp.html}{\texttt{scipy.integrate.solve\_bvp}}; the numerical solution of \eqn{ld1d_sw_shb_irz} and \eqn{ld1d_sw_shb_i12} using the Scientific Python routine \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html}{\texttt{scipy.optimize.brentq}}; and the approximate solution provided by \eqn{ld1d_shb_sw_sol_approx} and \eqn{ld1d_sw_shb_kappa}.
+The agreement between the two numerical solvers is expected for $\anb = 0$, and the accuracy of the simple approximation is reasonable for high gain and $R_1 \, R_2 = 0.32$. In \fig{shb_1d_isum_loss0}, we compare the sum of the intracavity intensities using direct numerical integration and the approximation. We see that the sum of the intensities is nearly constant even when spatial interference is not negligible, and the approximate model does a good job of matching the average value of the counterpropagating intensities. The accuracy of the approximate model for $I^{-}(0)$ is consistent with the comparison of \eqn{ls1d_i_out_approxx} and \eqn{ld1d_sw_shb_im_out} plotted in \fig{shb_1d_ir_loss0}, which shows a significant improvement over Rigrod's model when predicting output intensity as a function of reflectance.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/shb_1d_iz_loss0}
+      \caption{Intracavity intensities}
+      \label{fig:shb_1d_iz_loss0}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/shb_1d_isum_loss0}
+      \caption{Sum and average of the intracavity intensities}
+      \label{fig:shb_1d_isum_loss0}
+  \end{subfigure}
+  \caption{\label{fig:shb_1d_izs_loss0} Intracavity and total intensities for a lossless standing-wave laser in one dimension with $R_1 = 0.4$, $R_2 = 0.8$, $\Omega = 0$, and $\Gnb = 4$. We have assumed that $\Re[\mathcal{L}(0)] = 1$. (a) The intracavity intensity computed using three methods: direct numerical integration of \eqn{ld1d_sw_shb_dipmdz_avg}; numerical solution of \eqn{ld1d_sw_shb_irz}; and the approximate solution provided by \eqn{ld1d_shb_sw_sol_approx} and \eqn{ld1d_sw_shb_kappa}. (b) Comparison of the sum of the intracavity intensities using direct numerical integration and approximation. }
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/shb_1d_ir_loss0}
+  \caption{\label{fig:shb_1d_ir_loss0} Output intensity as a function of $R$ comparing \eqn{ls1d_i_out_approxx} and \eqn{ld1d_sw_shb_im_out}. }
+\end{figure}
+
+In the general case of a one-dimensional standing-wave laser with intracavity scattering and absorption, when we include spatial hole-burning the counterpropagating intensities obey the differential equations given by \eqn{ld1d_sw_shb_dipmdz_avg}, subject to the boundary conditions given by \eqn{ld1d_sw_shb_bcs}.  In \fig{shb_1d_izr_loss1}, our approach is identical to that of \fig{shb_1d_iz_loss0} and \fig{shb_1d_ir_loss0}. We have plotted the intracavity intensities in \fig{shb_1d_iz_loss1} for the same laser as in \fig{shb_1d_iz_loss0}, but now with $\anb \ne 0$. We see that the numerical solution of \eqn{ld1d_sw_shb_irz} is no longer useful, and that using \eqn{ld1d_sw_shb_kappa} our approximate model does a remarkable job reproducing the values of the counterpropagating intensities computed everywhere in the cavity by direct integration of \eqn{ld1d_sw_shb_dipmdz_avg}. In \fig{shb_1d_ir_loss1}, we set $R_2 = 1$, $R_1 \equiv R$, and $A_1 \equiv A \ne 0$, and compare the result of direct integration and \eqn{ls1d_i_out_approxx}. Even at relatively high gains, our simple model very closely matches the exact numerical result. In \fig{shb_1d_opt_r}, we compare the optimum output coupler reflectance as a function of $\Gnb$ computed using \eqn{la1d_r_opt} and a numerical solution of \eqn{ld1d_sw_shb_dipmdz_avg}. Although the approximate model slightly underestimates the value of $R_\mathrm{opt}$ at high gains, it reliably predicts the output intensity computed using \eqn{la1d_i_opt} shown in \fig{shb_1d_opt_i}.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/shb_1d_iz_loss1}
+      \caption{Intracavity intensity}
+      \label{fig:shb_1d_iz_loss1}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/shb_1d_ir_loss1}
+      \caption{Output intensity}
+      \label{fig:shb_1d_ir_loss1}
+  \end{subfigure}
+  \caption{\label{fig:shb_1d_izr_loss1} Intracavity and output intensity for a standing-wave laser in one dimension with both background and mirror absorption loss. (a) The intracavity intensity is computed using three methods: direct numerical integration of \eqn{ld1d_sw_shb_dipmdz_avg}; numerical solution of \eqn{ld1d_sw_shb_irz}; and the approximate solution provided by \eqn{ld1d_shb_sw_sol_approx} and \eqn{ld1d_sw_shb_kappa}. (b) Output intensity as a function of $R$ comparing the result of direct numerical integration and \eqn{ls1d_i_out_approxx}. Here $R_2 = 1$, $R_1 \equiv R$, and $A_1 \equiv A$.}
+\end{figure}
+  
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/shb_1d_opt_r}
+      \caption{Optimum output coupler reflectance}
+      \label{fig:shb_1d_opt_r}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/shb_1d_opt_i}
+      \caption{Optimum output intensity}
+      \label{fig:shb_1d_opt_i}
+  \end{subfigure}
+  \caption{\label{fig:shb_1d_opt} Optimum output coupler reflectance and intensity for a standing-wave laser in one dimension with both background and mirror absorption loss, limited by spatial hole-burning. (a) The optimum reflectance as a function of $\Gnb$ computed using both direct numerical optimization of \eqn{ld1d_sw_shb_dipmdz_avg} and \eqn{la1d_r_opt}. (b) The corresponding output intensities, with the approximation using \eqn{la1d_i_opt}. }
+\end{figure}
+
+Again, let's suppose that the amplifier in the laser resonator is spatially nonuniform with a gain given by \eqn{ld1d_sw_nonuniform_gnz}. As in the case where we neglected interference effects, we replace $|u^\pm_0\z|^2$ with $|u^{\pm \prime}_0(z)|^2$ defined by \eqn{sml_1d_u_swl_nu}. The result is shown in \fig{shb_1d_iz_trap} for $z_1 = 0.125$ and $z_2 = 0.375$, and we rely on $\kappa$ computed with \eqn{ld1d_sw_shb_kappa}. The numerical solution of \eqn{ld1d_sw_shb_irz} fails to predict the correct intensities everywhere, but our approximate model using \eqn{sml_1d_u_swl_nu} and \eqn{ld1d_shb_sw_sol_approx} does a very reasonable job of matching the result of a direct numerical integration of \eqn{ld1d_sw_shb_dipmdz_avg}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/shb_1d_iz_trap}
+  \caption{\label{fig:shb_1d_iz_trap} Intracavity intensity as a function of $z$ for a standing-wave laser with a constant gain region that extends from $z = 0.125$ to $z = 0.375$. The numerical solution of \eqn{ld1d_sw_shb_irz} predicts incorrect intensities everywhere. On the other hand, an approximate model using \eqn{sml_1d_u_swl_nu} and \eqn{ld1d_sw_shb_kappa} does a credible job of matching the result of a direct numerical integration of \eqn{ld1d_sw_shb_dipmdz_avg}. }
+\end{figure}
+
+% Next, we seek approximate versions of \eqn{ld1d_sw_shb_i12} that will help us find an analytic approximation for $\varphi$ that is reasonably accurate and allows us to update our simple model to include spatial interference in the amplifier. As a numerical experiment, we compare the terms like $(1 - R)^2 \varphi^2$ to $4\, R\, \varphi$ in \fig{omrp_1d}. We see that --- except for very high gains in the case of asymmetric output coupling --- it is safe to neglect the terms that are quadratic in $\varphi$, giving
+% \begin{subequations}
+%   \begin{align}
+%   I_1 &\cong \sqrt{R_1\, \varphi} - \half \left(1 - R_1\right) \varphi \, , \nd \\
+%  I_2 &\cong \sqrt{\frac{\varphi}{R_2}} + \frac{1 - R_2}{2\, R_2}\, \varphi \, .
+%   \end{align}
+%   \end{subequations}
+% \begin{subequations} \label{eqn:ld1d_sw_shb_i12_approx}
+%   \begin{align}
+%     \label{eqn:ld1d_shb_sw_i1_approx} I_1 &\cong \sqrt{R_1}\, \varphi - \frac{1 - R_1}{2}\, \rho\, \varphi^2 = \sqrt{R_1}\, \varphi \left( 1 - \frac{1 - R_1}{2 \sqrt{R_1}}\, \rho\, \varphi \right) \, , \nd \\
+%     \label{eqn:ld1d_shb_sw_i2_approx} I_2 &\cong \frac{\varphi}{\sqrt{R_2}} + \frac{1 - R_2}{2\, R_2}\, \rho\, \varphi^2 = \frac{\varphi}{\sqrt{R_2}} \left( 1 + \frac{1 - R_2}{2 \sqrt{R_2}}\, \rho\, \varphi \right)\, .
+%   \end{align}
+% \end{subequations}
+% We replace $1 - R_1$ and $1 - R_2$ (explicitly) with $\delta_1$ and $\delta_2$,
+% \begin{align*}
+%I_1 &= \half \left[ \sqrt{4\, v^2\, r_1^2 + v^4 \delta_1^2} - v^2 \delta_1 \right]\, , \nd \\
+%I_2 &= \frac{1}{2\, r_2^2} \left[ \sqrt{4\, v^2\, r_2^2 + v^4 \delta_2^2} + v^2 \delta_2 \right]\, ,
+% \end{align*}
+% substitute these expressions into \eqn{ld1d_sw_shb_ir21}, expand the result to second order in $\delta_1$ and $\delta_2$, and then neglect the term proportional to $\varphi^3$ to obtain
+%  \begin{equation*}
+% \left[ \left(1 + \frac{1}{r_1^2}\right) \frac{\delta_1}{2} + \left(1 + \frac{1}{r_2^2}\right) \frac{\delta_2}{2} \right] v^2 + \left( \frac{1}{r_1} + \frac{1}{r_2} - r_1 - r_2 + \frac{\delta_1}{2 r_1} + \frac{\delta_2}{2 r_2} \right) v = \frac{\Gn}{2} - \ln \frac{1}{r_1\, r_2}\, ,
+%  \end{equation*}
+% \begin{multline*}
+%   \rho \left[ \left(1 + \frac{1}{R_1}\right) \delta_1 + \left(1 + \frac{1}{R_2}\right) \delta_2\right] \varphi^2 \\
+%   + \left[ \frac{2 \left(1 - R_1\right) + \delta_1}{\sqrt{R_1}} + \frac{2 \left(1 - R_2\right) + \delta_2}{\sqrt{R_2}} \right] \varphi = \Gnb - \rho^{-1}\, \ln \frac{1}{R_1\, R_2}\, .
+% \end{multline*}
+%  After some straightforward algebra, this equation becomes
+%  \begin{equation}
+% \beta\, \varphi^2 + 3\, \varphi - 2\, \varphi_0 = 0\, ,
+%  \end{equation}
+% where
+%  \begin{equation}
+% \beta \equiv \rels\, \frac{\left(R_1 + R_2\right) \left(1 + \sqrt{R_1\, R_2}\right)}{\sqrt{R_1\, R_2} \left(\sqrt{R_1} + \sqrt{R_2}\right)}\, .
+%  \end{equation}
+% In \fig{phi_phi0_1d}, we plot $\varphi$ as a function of $\varphi_0^\prime$ for a set of four gains and both $\Omega = 0$ and $\Omega = 1$ in the cases where $R_1 = R_2 \equiv R$ and $R_1 = 1$, $R_2 \equiv R$.  Even in the high-gain cases, it is clear that $\varphi$ depends functionally \emph{only} on $\varphi^\prime_0$. We compare these curves to the approximation given by \eqn{ld1d_sw_shb_phi_approx} with the additional simplification $\beta \longrightarrow 2$. It is surprising that the approximate formula for $\varphi$ works so well even in cases where the gain is large and the output coupler reflectance differs significantly from 1.
+
+%  \begin{figure}
+%   \centering
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/phi_phi0_1d_sym}
+%    \caption{$R_1 = R_2 \equiv R$}
+%    \label{fig:phi_phi0_1d_sym}
+%   \end{subfigure}
+%   \par\vspace{0.25in}
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/phi_phi0_1d_oc2}
+%    \caption{$R_1 = 1$, $R_2 \equiv R$}
+%    \label{fig:phi_phi0_1d_oc2}
+%   \end{subfigure}
+%   \caption{\label{fig:phi_phi0_1d} $\varphi$ as a function of $\varphi_0^\prime$ for a set of four gains and both $\Omega = 0$ and $\Omega = 1$ in the cases where $R_1 = R_2 \equiv R$ and $R_1 = 1$, $R_2 \equiv R$. We compare these curves to the approximation given by \eqn{ld1d_sw_shb_phi_approx} with the substitution $\beta \longrightarrow 2$. }
+%  \end{figure}
+
+% From \eqn{ld1d_sw_shb_phi_approx}, we can rewrite $\varphi$ in terms of both $\varphi_0^\prime$ and $\sqrt{\varphi}$ as
+%  \begin{equation} \label{eqn:ld1d_sw_shb_rphi2}
+% \varphi = \frac{2}{\beta} \left( \varphi_0^\prime - \frac{3}{2}\, \sqrt{\varphi} \right) .
+%  \end{equation}
+%  \begin{equation}
+% \sqrt{R_2}\, \left(I_2 + \varphi\right) = \sqrt{\varphi} + \frac{\beta}{2}\, \varphi = \varphi_0^\prime - \frac{1}{2}\, \sqrt{\varphi}\, ,
+%  \end{equation}
+% and find from \eqn{ld1d_sw_shb_dkappa_def} that
+%  \begin{equation} \label{eqn:ld1d_sw_shb_dkappa}
+% \Delta \kappa\left(\varphi_0^\prime\right) = \frac{\sqrt{\varphi\left(\varphi_0^\prime\right)}}{\varphi_0^\prime - \sqrt{\varphi\left(\varphi_0^\prime\right)}/2}\, .
+%  \end{equation}
+% In \fig{standing_wave_approx_1d}, we plot the right-hand output intensity of a standing-wave laser as a function of reflectance in the cases where $R_1 = R_2 \equiv R$ and $R_1 = 1$, $R_2 \equiv R$. We have included the predictions of both the Agrawal \& Lax and Rigrod models, and our simple model given by \eqn{ls1d_i_out_approx} with $\kappa \equiv 2 + \Delta \kappa$, where $\Delta \kappa$ has been computed using \eqn{ld1d_sw_shb_dkappa}. Although our approximate expression for $\Delta \kappa$ lacks the elegance of a simple factor of 2, it is nevertheless remarkable that a standing-wave laser's output intensity can be understood in a straightforward fashion by considering only the degree of intracavity gain saturation.
+
+%  \begin{figure}
+%   \centering
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/standing_wave_approx_1d_sym}
+%    \caption{$R_1 = R_2 \equiv R$}
+%    \label{fig:standing_wave_approx_sym}
+%   \end{subfigure}
+%   \par\vspace{0.25in}
+%   \begin{subfigure}[b]{0.8\textwidth}
+%    \centering
+%    \includegraphics[width=5.0in]{figures/standing_wave_approx_1d_oc2}
+%    \caption{$R_1 = 1$, $R_2 \equiv R$}
+%    \label{fig:standing_wave_approx_1d_oc2}
+%   \end{subfigure}
+%   \caption{\label{fig:standing_wave_approx_1d} The right-hand output intensity of a standing-wave laser as a function of reflectance in the cases where $R_1 = R_2 \equiv R$ and $R_1 = 1$, $R_2 \equiv R$. We have included the predictions of both the Agrawal \& Lax and Rigrod models, and our simple model given by \eqn{ls1d_i_out_approx} with $\kappa \equiv 2 + \Delta \kappa$, where $\Delta \kappa$ has been computed using \eqn{ld1d_sw_shb_dkappa}. }
+%  \end{figure}

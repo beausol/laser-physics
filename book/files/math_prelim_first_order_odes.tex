@@ -1,0 +1,46 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{First-Order Ordinary Differential Equations\label{sct:math_prelim_first_order_odes}}
+
+In \chp{laser_dynamics_1d} and \chp{laser_dynamics_1d_mml}, we will rely on the formal solutions of \eqn{cw_sml_ftz_scaled} and \eqn{cw_sml_gtz_scaled} (as well as their inhomogeneous counterparts), in both integral and differential Taylor-series forms. For example, consider the ordinary differential equation
+\begin{equation} \label{eqn:fodes_driven_example}
+  \ddt y(t) = \frac{1}{\tau} \left[-y(t) + s(t)\right]\, ,
+\end{equation}
+for some function $y(t)$ driven by $s(t)$. The formal integral solution for $y(t)$ when $y(-\infty) \longrightarrow 0$ is
+\begin{equation} \label{eqn:fodes_driven_example_soln_int}
+  y(t) = \int_{-\infty}^{t} \frac{d t^\prime}{\tau}\, e^{\left(t^\prime - t\right)/\tau}\, s\left(t'\right)\, .
+\end{equation}
+
+We can develop a corresponding Taylor-series differential solution in two different ways. First, if we assume that $\tau \ll 1$, then the exponential factor in the integral is very small unless $t^\prime \rightarrow t$. This suggests that we can write $s\left(t^\prime\right)$ as the Taylor series
+ \begin{equation}
+   s\left(t^\prime\right) = \sum_{m = 0}^\infty\, \frac{\left(t^\prime - t\right)^m}{m!}\, \frac{d^m}{d t^m}\, s(t)\, .
+ \end{equation}
+ We note that
+\begin{equation}
+  \frac{1}{m!}\,  \int_{-\infty}^t\, \frac{d t^\prime}{\tau}\, e^{(t^\prime - t)/\tau}\, \left(t^\prime - t\right)^m = \frac{\left(-\tau\right)^m}{m!}\, \int_0^\infty\, du\, e^{u}\, u^m = \left(-\tau\right)^m\, ,
+\end{equation}
+ and therefore
+ \begin{equation} \label{eqn:fodes_driven_example_soln_diff}
+  y(t) = \hat{\partial}_\tau^{-1}  s(t)\, ,
+\end{equation}
+where for convenience we have defined the differential operator
+\begin{equation} %\label{eqn:mfl_diff_oper}
+  \hat{\partial}_\tau^{-1}  \equiv \sum_{l = 0}^{\infty} \left( -\tau\, \ddt \right)^l \equiv \left(1 + \tau\, \ddt\right)^{-1}\, .
+ \end{equation}
+Second, we can derive the same result more directly by applying the Fourier Transform to \eqn{fodes_driven_example} and using \eqn{fourier_freq} and \eqn{fourier_diff_thm} to find
+\begin{equation}
+  \widetilde{y}(\omega) = \frac{\widetilde{s}(\omega)}{1 - i\, \omega\, \tau} = \sum_{l = 0}^{\infty} (i\, \omega\, \tau)^l\, \widetilde{s}(\omega)\, .
+\end{equation}
+Returning to the time domain with \eqn{fourier_diff_thm}, we again obtain \eqn{fodes_driven_example_soln_diff}. Note that when $s(t) = e^{-i\, \nu\, t}$, both approaches yield the same result:
+\begin{equation}
+    y(t) = \frac{e^{-i\, \nu\, t}}{1 - i\, \nu\, \tau}\, .
+\end{equation}

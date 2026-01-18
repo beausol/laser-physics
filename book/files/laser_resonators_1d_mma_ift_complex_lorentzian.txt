@@ -1,0 +1,2 @@
+FullSimplify[InverseFourierTransform[I/((\[Omega]-\[CapitalOmega]) \[Tau]),
+	\[Omega],t,FourierParameters->{1,1}], {\[Tau]>0,Im[\[CapitalOmega]]<0}]

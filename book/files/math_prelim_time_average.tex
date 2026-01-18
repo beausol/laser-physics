@@ -1,0 +1,65 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Time Averaging Nearly Harmonic Variables\label{sct:math_prelim_time_average}}
+We define the time average \index{time average} at some time $t$ of any product of two time-varying quantities as
+ \begin{equation}\label{eqn:Tavgdef}
+\overline{\mathcal{A}(t) \mathcal{B}(t)} \equiv \frac{1}{T} \int_{t - T/2}^{t + T/2} dt^\prime \mathcal{A}(t^\prime)
+\mathcal{B}(t^\prime)  = \frac{1}{T} \int_{-T/2}^{+T/2} d\tau \mathcal{A}(t + \tau)
+\mathcal{B}(t + \tau) ,
+ \end{equation}
+where $T$ is the duration --- to be specified later --- of the time interval over which we're averaging. Let us assume that both $\mathcal{A}(t)$ and $\mathcal{B}(t)$ vary approximately sinusoidally with angular frequencies $\omega_a > 0$ and $\omega_b > 0$, respectively, such that
+ \begin{subequations}\label{eqn:ABdef}
+ \begin{align}
+\mathcal{A}(t) &\equiv \Re \left[ A(t) e^{-i \omega_a t} \right] = \half A(t) e^{-i \omega_a t} + c.c., \text{ and}
+\\ \mathcal{B}(t) &\equiv \Re \left[ B(t) e^{-i \omega_b t} \right] = \half B(t) e^{-i \omega_b t} + c.c.,
+ \end{align}
+ \end{subequations}
+where $A(t)$ and $B(t)$ are complex envelope functions. If we substitute \eqn{ABdef} into \eqn{Tavgdef}, then we obtain
+ \begin{equation}\label{eqn:ABtau}
+ \begin{split}
+ \overline{\mathcal{A}(t) \mathcal{B}(t)} &= \frac{e^{-i (\omega_a - \omega_b) t}}{4 T} \int_{-T/2}^{+T/2} d\tau e^{-i (\omega_a - \omega_b) \tau} A(t + \tau) B^\ast(t + \tau) + c.c.\\
+ &+ \frac{e^{-i (\omega_a + \omega_b) t}}{4 T} \int_{-T/2}^{+T/2} d\tau e^{-i (\omega_a + \omega_b) \tau} A(t + \tau) B(t + \tau) + c.c.
+ \end{split}
+ \end{equation}
+
+Note that in deriving \eqn{ABtau} we haven't made any assumptions about the value of $T$ or the properties of $A(t)$ and $B(t)$. But now let's assume that $T$ is small enough that $A(t)$ and $B(t)$ change so little during the time interval $\{t - T/2, t + T/2\}$ that we can approximate variations in $A(t + \tau) B^\ast(t + \tau)$ using the first-order term of the Taylor series expansion
+ \begin{equation}\label{eqn:ABapprox}
+ A(t + \tau) B^\ast(t + \tau) = A(t) B^\ast(t) + \tau \frac{d}{d t} \left[A(t) B^\ast(t)\right] + \dots,
+ \end{equation}
+with a similar approximation for $A(t + \tau) B(t + \tau)$. Since neither the product $A(t) B^\ast(t)$ nor its derivatives depend on $\tau$, substituting \eqn{ABapprox} into \eqn{ABtau} yields
+ \begin{equation}\label{eqn:ABavgapprox}
+ \begin{split}
+ \overline{\mathcal{A}(t) \mathcal{B}(t)} &\approx \frac{e^{-i (\omega_a - \omega_b) t}}{4} \left\{ A(t) B^\ast(t) j_0\left[\half \left(\omega_a - \omega_b\right) T\right] \right. \\ &\qquad\qquad \left. - \frac{i}{2} j_1\left[\half \left(\omega_a - \omega_b\right) T\right] T \frac{d}{d t} \left[A(t) B^\ast(t)\right] \right\} + c.c.\\
+ &+ \frac{e^{-i (\omega_a + \omega_b) t}}{4} \left\{ A(t) B(t) j_0\left[\half \left(\omega_a + \omega_b\right) T\right] \right. \\ &\qquad\qquad \left. - \frac{i}{2} j_1\left[\half \left(\omega_a + \omega_b\right) T\right] T \frac{d}{d t} \left[A(t) B(t)\right] \right\} + c.c. ,
+ \end{split}
+ \end{equation}
+where $j_0(x) = \sinc(x) = \sin(x)/x$, and $j_1(x) \equiv \sin(x)/x^2 - \cos(x)/x$.
+
+Now we choose the value of the averaging time $T$ to be consistent with most cases of practical interest. Let us assume that the angular frequencies $\omega_a$ and $\omega_b$ are approximately equal, so that we can choose a $T$ that satisfies the inequality
+ \begin{equation*}
+|\omega_a - \omega_b| T \ll 1 \ll (\omega_a + \omega_b) T.
+ \end{equation*}
+In other words, we intend to average for a long enough time interval that we won't observe Fourier components at optical
+frequencies ($\omega \approx 2 \pi \cdot 5 \times 10^{14}$~Hz), but for a short enough interval that we will detect beat notes and laser pulses ($\lesssim 10^{12}$~Hz). Given this constraint on $T$, and that $j_0(x) \longrightarrow 1$ as $x \longrightarrow 0$, we find that
+ \begin{equation*}
+ \left|\frac{j_0\left[\left(\omega_a - \omega_b\right) T/2\right]}{j_0\left[\left(\omega_a + \omega_b\right) T/2\right]}\right| \thicksim \left|\frac{j_0\left[\left(\omega_a - \omega_b\right) T/2\right]}{j_1\left[\left(\omega_a + \omega_b\right) T/2\right]}\right| \gtrsim \left|\omega_a + \omega_b\right| T \gg 1 .
+ \end{equation*}
+Therefore, we can neglect the terms proportional to $j_0\left[\left(\omega_a + \omega_b\right) T/2\right]$ and $j_1\left[\left(\omega_a + \omega_b\right) T/2\right]$. Similarly, since $j_1(x) \longrightarrow x/3$ as $x \longrightarrow 0$, and the contribution of $T d \left[A(t) B^\ast(t)\right]/d t$ to \eqn{ABavgapprox} is at best no greater than that of $A(t) B^\ast(t)$, the second term in curly brackets of \eqn{ABavgapprox} is smaller than the first by at least a factor of $\left|\omega_a - \omega_b\right| T$ and can be ignored.
+
+Finally, then, we have
+ \begin{equation}\label{eqn:ABfin}
+\overline{\mathcal{A}(t) \mathcal{B}(t)} \cong
+\frac{1}{4} A(t) B^\ast(t) e^{-i (\omega_a - \omega_b) t} + c.c. = \half \Re \left[ A(t) B^\ast(t) e^{-i (\omega_a - \omega_b) t}
+\right].
+ \end{equation}
+Similar results apply for cases where $\mathcal{A}$ and $\mathcal{B}$ are vectors, such as $\bmc{A}(t) \dotp \bmc{B}(t)$ and $\bmc{A}(t) \cross \bmc{B}(t)$. Then $A(t) B^\ast(t) \rightarrow \bmc{A}(t) \dotp
+\bmc{B}^\ast(t)$ or $\bmc{A}(t) \cross \bmc{B}^\ast(t)$.

@@ -1,0 +1,44 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Chapter file included in main project file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id:$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \chapter{One-dimensional Single-Mode Continuous-Wave Lasers\label{chp:laser_statics_1d}}
+
+In this chapter, our goal will be to understand gain saturation in both unidirectional and standing-wave laser amplifiers, and how it affects continuous-wave (i.e., static) laser oscillator performance. We will work in one dimension only, and begin with \eqn{laser_statics_1d_sml_scaled} to describe a laser amplifier in the steady-state:
+\begin{subequations}\label{eqn:laser_statics_1d_sml_cw_scaled}
+    \begin{align}
+        \label{eqn:cw_sml_ez_scaled} \pm \ddz E^\pm\z &= \left[ i\, \delta \omega_0 - \half\, \anz \right] E^\pm\z + F^\pm\z\, , \\
+        \label{eqn:cw_sml_fz_scaled} \widetilde{F}\z &= \half\, \mathcal{L}(\Omega)\, \widetilde{G}\z\, \widetilde{E}\z\, , \nd \\
+        \label{eqn:cw_sml_gz_scaled} \widetilde{G}\z &= \Gnz - 2 \Re \left[ \widetilde{E}^\ast\z\, \widetilde{F}\z \right]\, ,
+    \end{align}
+\end{subequations}
+where $\an \equiv \alpha\wn$, and $\widetilde{E}\z$ and $\widetilde{P}\z \equiv -i\, 2\, \widetilde{F}\z$ are the rapidly-varying (in space) electric field and macroscopic polarization, respectively; $E^\pm\z$ and $F^\pm\z$ are the corresponding spatially slowly-varying amplitudes; and $\widetilde{G}\z$ is the rapidly-varying dimensionless gain. We have updated \eqn{cw_sml_fz_scaled} to include the generalized lineshape function $\mathcal{L}(\Omega)$ developed through \eqn{cw_sml_ftz_scaled}. 
+
+If we substitute \eqn{cw_sml_fz_scaled} into \eqn{cw_sml_gz_scaled}, solve for $\widetilde{G}\z$, and then update \eqn{cw_sml_fz_scaled} with this result, we obtain
+\begin{subequations}\label{eqn:laser_statics_1d_sml_cw}
+    \begin{align}
+        \label{eqn:laser_statics_1d_sml_cw_gz} \widetilde{G}\z &= \frac{\Gnz}{1 + \Re\left[\mathcal{L}(\Omega)\right] \left|\widetilde{E}\z\right|^2} \, ,  \nd \\
+        \label{eqn:laser_statics_1d_sml_cw_fz} \widetilde{F}\z &= \half\, \frac{\mathcal{L}(\Omega)}{1 + \Re\left[\mathcal{L}(\Omega)\right] \left|\widetilde{E}\z\right|^2}\, \Gnz \, \widetilde{E}\z \, ,
+    \end{align}
+\end{subequations}
+which --- in the case of a Lorentzian lineshape --- becomes
+\begin{subequations}\label{eqn:laser_statics_1d_sml_cw_lor}
+    \begin{align}
+        \label{eqn:laser_statics_1d_sml_cw_gz_lor} \widetilde{G}\z &= \frac{\left(1 + \Omega^2\right) \Gnz}{1 + \Omega^2 + \left|\widetilde{E}\z\right|^2} \, ,  \nd \\
+        \label{eqn:laser_statics_1d_sml_cw_fz_lor} \widetilde{F}\z &= \half\, \frac{1 + i\, \Omega}{1 + \Omega^2 + \left|\widetilde{E}\z\right|^2}\, \Gnz \, \widetilde{E}\z \, .
+    \end{align}
+\end{subequations}
+We will rely primarily on \eqn{cw_sml_ez_scaled} and \eqn{laser_statics_1d_sml_cw_fz} for our descriptions of one-dimensional steady-state laser amplifiers and oscillators.
+
+\input{files/laser_statics_1d_amp} 
+\input{files/laser_statics_1d_approx}
+\input{files/laser_statics_1d_url}
+\input{files/laser_statics_1d_shb}
+\input{files/laser_statics_1d_scl}

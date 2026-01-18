@@ -1,0 +1,319 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Scattering Matrices in the Frequency Domain\label{sct:laser_resonators_1d_smat}}
+
+ \subsection{Dielectric Regions and Waveguides\label{sct:wg_smat}}
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/waveguide_smat}
+  \caption{\label{fig:waveguide_smat}Schematic diagram of a linear one-dimensional dielectric propagation region with a constant relative permittivity and permeability. The effective refractive index $n\wn$, the group refractive index $n^\prime\wn$, and the linear absorption coefficient $\alpha\wn$ are defined by \eqn{idm_ref_index_def}, \eqn{idm_grp_ref_index_def}, and \eqn{idm_abs_coeff_def_rw}, respectively, at the carrier frequency $\omega_0$. In the absence of a macroscopic polarization, we use $\mathbf{F}$ to represent an incident electric field.}
+ \end{figure}
+
+Let's apply the wave equation in the frequency domain given by the Fourier Transform of \eqn{cw_sml_etz_scaled} to the linear dielectric region (e.g., free space or a waveguide such as an optical fiber) shown in \fig{waveguide_smat} and recapitulate our treatment of the experiment shown in \fig{beers_law_schematic}. For a forward-propagating field (i.e., traveling in the $+\hatb{z}$ direction), in one dimension the rapidly-varying complex envelope function has the form of \eqn{e_field_1d_w}, or in the frequency domain
+ \begin{equation} \label{eqn:e_field_1d_pz}
+ \mathbf{E}^{+}\rw \equiv \hatb{\epsilon}\, e^{+i\, k_0\wn z}\, E^{+}\zw ,
+ \end{equation}
+where, from \eqn{idm_k_def}, $k_0\wn = \Re\left[\beta\wn\right] = (\omega_0/c) n\wn$. The corresponding wave equation for the complex scalar envelope function that varies slowly in both space and time is therefore given by\footnote{We recall from \sct{laser_amp_1d_pdes} that the coordinate $z$ has been scaled by a physical length $L$ chosen for convenience, and therefore $\alpha\wn$ and $k_0\wn$ have been scaled by $L^{-1}$. Similarly, the time $t$ has been scaled by the corresponding group propagation time $\tau_g \equiv n^\prime\wn L/c$, and all frequencies by $\tau_g^{-1}$.}
+ \begin{equation} \label{eqn:wave_eqn_1d_w_lin_pz}
+\ppz E^{+}\zw -i\, \omega\, E^{+}\zw + \half\, \alpha\wn\, E^{+}\zw = 0\, .
+ \end{equation}
+As in \sct{em_wave_prop_idm}, the effective refractive index $n\wn$, the group refractive index $n^\prime\wn$, and the linear absorption coefficient $\alpha\wn$ are defined by \eqn{idm_ref_index_def}, \eqn{idm_grp_ref_index_def}, and \eqn{idm_abs_coeff_def_rw}, respectively, at the carrier frequency $\omega_0$. In the absence of a macroscopic polarization arising from an internal gain region, in this chapter we use $\mathbf{F}$ to represent an incident electric field. For the wave traveling from a \emph{reference plane} at $z = z_1$ to a reference plane at $z = z_2$, in the case where we can ignore backscattering, we find the solution
+ \begin{equation} \label{eqn:forward_prop_w}
+E^{+}(z_2, \omega) = \exp\left[ i \omega \left(z_2 - z_1\right) - \half \alpha\wn \left(z_2 - z_1\right) \right] E^{+}(z_1, \omega) .
+ \end{equation}
+Therefore, the one-dimensional complex vector envelope function (that varies rapidly in space but slowly in time) given by \eqn{e_field_1d_w} in the frequency domain becomes
+ \begin{equation} \label{eqn:e_prop_1d_p}
+\mathbf{E}_2(\omega) = \frac{G(z_2, \omega)}{G(z_1, \omega)}\, \mathbf{F}_1(\omega) ,
+ \end{equation}
+where
+ \begin{equation} \label{eqn:prop_gzw_def}
+G(z, \omega) \equiv \exp\left[ i\, k_0\wn z + i \omega z - \half \alpha\wn z \right] ,
+ \end{equation}
+and, as in \fig{waveguide_smat}, we have defined the field amplitudes at the reference planes as $\mathbf{E}^{+}(z_1, \omega) \equiv \mathbf{F}_1(\omega)$ and $\mathbf{E}^{+}(z_2, \omega) \equiv \mathbf{E}_2(\omega)$.
+
+For a backward-propagating field traveling in the $-\hatb{z}$ direction, in one dimension the complex vector envelope function has the form
+ \begin{equation} \label{eqn:e_field_1d_mz}
+ \mathbf{E}^{-}\rt \equiv \hatb{\epsilon}\, e^{-i\, k_0\wn z}\, E^{-}\zt ,
+ \end{equation}
+which results in a scalar frequency-domain wave equation similar to that of \eqn{wave_eqn_1d_w_lin_pz}, with a negated spatial derivative:
+ \begin{equation} \label{eqn:wave_eqn_1d_w_lin_mz}
+-\ppz E^{-}\zw -i\, \omega\, E^{-}\zw + \half\, \alpha\wn\, E^{-}\zw = 0 .
+ \end{equation}
+Integrating this linear differential equation from $z_2$ to $z_1$, we find
+ \begin{equation} \label{eqn:e_prop_1d_m}
+\mathbf{E}_1(\omega) = \frac{G(z_2, \omega)}{G(z_1, \omega)}\, \mathbf{F}_2(\omega) ,
+ \end{equation}
+where, as above, we have defined the field amplitudes at the reference planes as $\mathbf{E}^{-}(z_1, \omega) \equiv \mathbf{E}_1(\omega)$ and $\mathbf{E}^{-}(z_2, \omega) \equiv \mathbf{F}_2(\omega)$. Therefore, in matrix form, we have found that\index{Scattering matrix!General two-port component}
+ \begin{equation} \label{eqn:two_port_smat_formal}
+ \begin{bmatrix} \mathbf{E}_1(\omega) \\ \mathbf{E}_2(\omega) \end{bmatrix} =
+ \begin{bmatrix} M_{11}(\omega) & M_{12}(\omega)  \\ M_{21}(\omega) & M_{22}(\omega) \end{bmatrix}\,
+ \begin{bmatrix} \mathbf{F}_1(\omega) \\ \mathbf{F}_2(\omega) \end{bmatrix} \equiv \mathbf{M}(\omega) \begin{bmatrix} \mathbf{F}_1(\omega) \\ \mathbf{F}_2(\omega) \end{bmatrix}
+ \end{equation}
+where, in the case of the \emph{two-port} region\index{Two-port component!waveguide} shown in \fig{waveguide_smat}, the \emph{scattering-matrix}\index{Scattering matrix!waveguide} $\mathbf{M}(\omega)$ is given by
+ \begin{equation} \label{eqn:waveguide_smat}
+\mathbf{M}(\omega) = \begin{bmatrix} 0 & G(1, \omega)  \\ G(1, \omega) & 0 \end{bmatrix} \qquad \text{(Waveguide)},
+ \end{equation}
+for the case $z_1 = 0$ and $z_2 = 1$\footnote{As we shall see in \sct{mir_smat}, there are subtleties in the definition of $\mathbf{M}(\omega)$ if $\eta(z_1) \neq \eta(z_2)$.}.
+
+ \subsection{Mirrors and General Two-Port Components\label{sct:mir_smat}}
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/mirror_schematic}
+  \caption{\label{fig:mirror_schematic}Schematic diagram of a laser mirror with high-reflection and anti-reflection dielectric coatings on opposite faces.}
+ \end{figure}
+
+ \begin{figure}
+  \centering
+  \begin{subfigure}[t]{0.5\textwidth}
+   \centering
+   \includegraphics[width=3.25in]{figures/mirror_smat}
+   \caption{Normal-incidence mirror}
+   \label{fig:mirror_smat}
+  \end{subfigure}
+  \qquad
+  \begin{subfigure}[t]{0.5\textwidth}
+   \centering
+   \includegraphics[width=3.25in]{figures/bs_smat}
+   \caption{Off-axis mirror (beamsplitter)}
+   \label{fig:bs_smat}
+  \end{subfigure}
+  \caption{\label{fig:mirror_bs_smat} Common choices of reference planes for (a) simple two-port optical components (like laser mirrors) and (b) four-port optical components (like a tilted laser mirror or beamsplitter).}
+ \end{figure}
+
+In modern macroscopic lasers, the mirrors which form the laser resonator resemble the schematic shown in \fig{mirror_schematic}. A mirror typically consists of a transparent cylindrical substrate (such as pure fused silica) with a high-reflectance (HR) or partially-reflecting multilayer dielectric coating applied to the inner face of the cylinder; in the partially-reflecting case, transmission through the mirror substrate is usually necessary, so an antireflection (AR) coating will be applied to the outer surface as well. When the mirror is designed, Maxwell's equations are solved for electromagnetic fields propagating from air through the coating to the substrate (and/or vice versa) to optimize the reflectance for a particular application at a target carrier frequency $\omega_0$. However, as we try to build accurate models of laser oscillators, we would like to ``abstract'' the optical characteristics of a mirror in such a way that our predictions do not depend significantly on the physical details of either the coatings or the substrate. Following the example of the one-dimensional waveguide treated in \sct{wg_smat}, we'll attempt to find a general relationship between the input fields shown in \fig{mirror_smat},
+ \begin{subequations}  \label{eqn:two_port_inputs}
+ \begin{align}
+ \label{eqn:two_port_f1} \mathbf{F}_1(t) &\equiv \hatb{\epsilon}\, \exp\left[+i\, k_1\wn z_1\right] E^{+}(z_1, t) , \nd \\
+ \label{eqn:two_port_f2} \mathbf{F}_2(t) &\equiv \hatb{\epsilon}\, \exp\left[-i\, k_2\wn z_2\right] E^{-}(z_2, t) ,
+ \end{align}
+ \end{subequations}
+and the corresponding output fields
+ \begin{subequations}  \label{eqn:two_port_outputs}
+ \begin{align}
+ \label{eqn:two_port_e1} \mathbf{E}_1(t) &\equiv \hatb{\epsilon}\, \exp\left[-i\, k_1\wn z_1\right] E^{-}(z_1, t) , \nd \\
+ \label{eqn:two_port_e2} \mathbf{E}_2(t) &\equiv \hatb{\epsilon}\, \exp\left[+i\, k_2\wn z_2\right] E^{+}(z_2, t) ,
+ \end{align}
+ \end{subequations}
+where we have defined $k_j\wn \equiv (\omega_0/c) n_j\wn$ for $j \in \{1, 2\}$. Our goal will be to find a relationship between the input and output fields that has a \emph{form} that is independent of the angles of incidence (and polarizations) of the input fields, but we will note that in practice non-normal incidence may convert our simple mirror into the beamsplitter shown in \fig{bs_smat}.
+
+Suppose that we have isolated a volume $\mathcal{V}$---bounded by $z_1 \le z \le z_2$ in our one-dimensional example---with a surface $\mathcal{S}$ that contains no free charges or currents, and that in principle we can solve Maxwell's equations everywhere in $\mathcal{V}$ for some external source configuration (e.g., one or more lasers). Referring to the general two-port component in \fig{two_port_fwd_smat}, we assume that the space in the region $z < z_1$ is filled with a material that has spatially uniform relative permittivity and permeability $\varepsilon_1\wn$ and $\mu_1\wn$ at the carrier frequency $\omega_0$, and that the corresponding constants have the values $\varepsilon_2\wn$ and $\mu_2\wn$ for $z > z_2$. Then the Poynting vectors evaluated just outside $\mathcal{V}$ at each of the reference planes $z_1$ and $z_2$ of $\mathcal{S}$ have the values
+ \begin{subequations}  \label{eqn:poynting_vec_recip_1d}
+ \begin{align}
+ \label{eqn:poynting_vec_z1_1d} \mathbf{S}(z_1, t) &= \hatb{z}\, \left(\left|\mathbf{a}_1(t)\right|^2 - \left|\mathbf{b}_1(t)\right|^2\right) , \nd \\
+ \label{eqn:poynting_vec_z2_1d} \mathbf{S}(z_2, t) &= \hatb{z}\, \left(\left|\mathbf{a}_2(t)\right|^2 - \left|\mathbf{b}_2(t)\right|^2\right) ,
+ \end{align}
+ \end{subequations}
+where
+ \begin{subequations}  \label{eqn:e_field_recip_1d}
+ \begin{align}
+ \label{eqn:a_field_z1_1d} \mathbf{a}_1(t) &= \left[ \frac{\varepsilon_0 c}{2 \eta_1\wn}\right]^\half\, \mathbf{F}_1(t) , \\
+ \label{eqn:b_field_z1_1d} \mathbf{b}_1(t) &= \left[ \frac{\varepsilon_0 c}{2 \eta_1\wn}\right]^\half\, \mathbf{E}_1(t) , \\
+ \label{eqn:a_field_z2_1d} \mathbf{a}_2(t) &= \left[ \frac{\varepsilon_0 c}{2 \eta_2\wn}\right]^\half\, \mathbf{F}_2(t) , \\
+ \label{eqn:b_field_z2_1d} \mathbf{b}_2(t) &= \left[ \frac{\varepsilon_0 c}{2 \eta_2\wn}\right]^\half\, \mathbf{E}_2(t) ,
+ \end{align}
+ \end{subequations}
+and $\eta_j\wn \equiv \Re\left[\mu_j\wn\right]/n_j\wn$. \red{\eqn{poynting_vec_recip_1d} may not be obvious to the student, and I probably need to discuss the appropriate spatial averaging concepts in \sct{em_wave_eqn_idm} right after \eqn{poynting_vector_idm_1d}.}
+
+ \begin{figure}
+  \centering
+  \begin{subfigure}[t]{0.45\textwidth}
+   \centering
+   \includegraphics[height=3.25in]{figures/two_port_fwd_smat}
+   \caption{Schematic of a general two-port element}
+   \label{fig:two_port_fwd_smat}
+  \end{subfigure}
+  \qquad
+  \begin{subfigure}[t]{0.45\textwidth}
+   \centering
+   \includegraphics[height=3.25in]{figures/two_port_rev_smat}
+   \caption{Time-reversed excitation of a two-port element}
+   \label{fig:two_port_rev_smat}
+  \end{subfigure}
+  \caption{\label{fig:two_port_smat} A schematic of a general two-port linear optical element under both forward and time-reversed excitations in the frequency domain.}
+ \end{figure}
+
+Let's now conduct a \emph{gedanken} (``thought'') experiment where we first configure sources to generate input fields with complex vector envelope functions $\mathbf{F}_1(t)$ and $\mathbf{F}_2(t)$, and then we measure the resulting output fields $\mathbf{E}_1(t)$ and $\mathbf{E}_2(t)$.  In other words, from \eqn{poynting_vec_recip_1d} and \eqn{e_field_recip_1d}, at time $t$ the total energy flux (intensity) incident on $\mathcal{S}$ is $|\mathbf{a}_1(t)|^2 + |\mathbf{a}_2(t)|^2$, and the total intensity emerging from $\mathcal{S}$ is $|\mathbf{b}_1(t)|^2 + |\mathbf{b}_2(t)|^2$. Since the two-port optical system under investigation may incorporate resonant elements that cause time delays, these intensities are not necessarily equal at any given time. However, if all fields have amplitudes which approach 0 as $t \longrightarrow \pm \infty$, and $\Im[\epsilon\wn \mu\wn] = 0$ everywhere in $\mathcal{V}$, then we can express conservation of \emph{energy fluence}\index{Energy fluence} (i.e., energy per unit area) as
+ \begin{equation} \label{eqn:two_port_fluence_conserv_t}
+ \int_{-\infty}^{\infty} d t\, \left[|\mathbf{a}_1(t)|^2 + |\mathbf{a}_2(t)|^2 - |\mathbf{b}_1(t)|^2 - |\mathbf{b}_2(t)|^2\right] = 0 .
+ \end{equation}
+We can use the Fourier Power Theorem given by \eqn{fourier_power_thm} to write this equation in the frequency domain as
+ \begin{equation} \label{eqn:two_port_fluence_conserv_w}
+ \int_{-\infty}^{\infty} \frac{d \omega}{2 \pi}\, \left[|\mathbf{a}_1(\omega)|^2 + |\mathbf{a}_2(\omega)|^2 - |\mathbf{b}_1(\omega)|^2 - |\mathbf{b}_2(\omega)|^2\right] = 0 ,
+ \end{equation}
+where $\mathbf{a}_1(\omega)$, $\mathbf{a}_2(\omega)$, $\mathbf{b}_1(\omega)$, and $\mathbf{b}_2(\omega)$ are the Fourier transforms of their counterparts in \eqn{e_field_recip_1d}. But the key difference between the time and frequency domains is that we expect the input and output fields to be coupled by simple constitutive relationships similar to \eqn{drw_def}, or
+ \begin{equation} \label{eqn:two_port_fwd_smat}
+ \mathbf{b}(\omega) = \mathbf{M}(\omega)\, \mathbf{a}(\omega) ,
+ \end{equation}
+where we have defined the (concatenated) vectors
+ \begin{equation} \label{eqn:ab_def_w}
+\mathbf{a}(\omega) \equiv \begin{bmatrix} \mathbf{a}_1(\omega) \\ \mathbf{a}_2(\omega) \end{bmatrix}  \quad \nd \quad \mathbf{b}(\omega) \equiv \begin{bmatrix} \mathbf{b}_1(\omega) \\ \mathbf{b}_2(\omega) \end{bmatrix} ,
+ \end{equation}
+and $\mathbf{M}(\omega)$ is the square \emph{scattering} matrix\index{Scattering matrix!General two-port component}
+ \begin{equation} \label{eqn:two_port_smat}
+\mathbf{M}(\omega) \equiv \begin{bmatrix} M_{11}(\omega) & M_{12}(\omega)  \\ M_{21}(\omega) & M_{22}(\omega) \end{bmatrix} .
+ \end{equation}
+Therefore, in the frequency domain, the \emph{integrand} of \eqn{two_port_fluence_conserv_w} should be zero at all values of $\omega$, and we must have
+ \begin{equation} \label{eqn:two_port_intensity_conserv_w}
+\mathbf{a}^\dagger(\omega) \mathbf{a}(\omega) = \mathbf{b}^\dagger(\omega) \mathbf{b}(\omega) ,
+ \end{equation}
+where $\mathbf{a}^\dagger(\omega) \equiv [\mathbf{a}_1^\dagger(\omega)~~\mathbf{a}_2^\dagger(\omega)]$ and $\mathbf{b}^\dagger(\omega) \equiv [\mathbf{b}_1^\dagger(\omega)~~\mathbf{b}_2^\dagger(\omega)]$ are the conjugate transposes of $\mathbf{a}(\omega)$ and $\mathbf{b}(\omega)$, respectively\footnote{In the case where the elements of $\mathbf{a}(\omega)$ are scalars, $\mathbf{a}^\dagger(\omega) \equiv [a_1^\ast(\omega)~~a_2^\ast(\omega)]$.}. \Eqn{two_port_intensity_conserv_w} places a significant constraint on the possible values that the elements of $\mathbf{M}(\omega)$ can have, since
+ \begin{equation}
+ \begin{split}
+ \mathbf{b}^\dagger(\omega) \mathbf{b}(\omega) - \mathbf{a}^\dagger(\omega) \mathbf{a}(\omega) &= \left[ \mathbf{a}^\dagger(\omega)\, \mathbf{M}^\dagger(\omega) \right] \left[ \mathbf{M}(\omega)\, \mathbf{a}(\omega) \right] - \mathbf{a}^\dagger(\omega) \mathbf{a}(\omega) \\
+ &= \mathbf{a}^\dagger(\omega) \left[ \mathbf{M}^\dagger(\omega)\, \mathbf{M}(\omega) - \mathbf{1}\right] \mathbf{a}(\omega),
+ \end{split}
+ \end{equation}
+or
+ \begin{equation} \label{eqn:two_port_smat_cons}
+\mathbf{M}^\dagger(\omega) = \mathbf{M}^{-1}(\omega) .
+ \end{equation}
+In other words, the scattering matrix $\mathbf{M}(\omega)$ is a unitary matrix, with the properties $|\det[\mathbf{M}(\omega)]| = 1$, and its row (or column) vectors (of length $n$) form an orthonormal set in $\mathbb{C}^n$. In the two-port case, this means that
+ \begin{subequations} \label{eqn:two_port_unitary_constraint_w}
+ \begin{gather}
+ \label{eqn:two_port_intensity_constraint_w} \left|M_{11}(\omega)\right|^2 + \left|M_{21}(\omega)\right|^2 = \left|M_{12}(\omega)\right|^2 + \left|M_{22}(\omega)\right|^2 = 1, \nd \\
+ \label{eqn:two_port_phase_constraint_w} \quad M_{11}^\ast(\omega) M_{12}(\omega) + M_{21}^\ast(\omega) M_{22}(\omega) = M_{11}^\ast(\omega) M_{21}(\omega) + M_{12}^\ast(\omega) M_{22}(\omega) = 0 .
+ \end{gather}
+ \end{subequations}
+
+There are additional constraints placed on $\mathbf{M}(\omega)$ by the time-reversal symmetry of Maxwell's equations discussed in \sct{time_reversal_idm}. Suppose that we have solved \eqn{macro_maxwell_c} for the complex field amplitude functions $[\Erw, \Hrw]$ in a volume $\mathcal{V}$ for the case where the bounding surface $\mathcal{S}$ contains no free charges or currents, as well as no nonlinear polarization $\mathbf{P}\rw$. \Eqn{e_t_rw} and \eqn{h_t_rw} show that, in the frequency domain, the solutions of the time-reversed macroscopic Maxwell equations are $[\mathbf{E}^\ast\rw, -\mathbf{H}^\ast\rw]$ given appropriately time-reversed boundary conditions \emph{and} that $\Im[\varepsilon\rw] = \Im[\mu\rw] = 0$. In this case, \eqn{e_t_rt_1d} and the corresponding analog of \eqn{h_field_1d} show that the solutions to the time-reversed equations will propagate in the reverse direction, and from \eqn{poynting_vector_idm_tr} the Poynting vector will have reversed direction as well. Therefore, as shown in \fig{two_port_rev_smat}, we can make the replacements $\mathbf{a}(\omega) \longrightarrow \mathbf{b}^\ast(\omega)$ and $\mathbf{b}(\omega) \longrightarrow \mathbf{a}^\ast(\omega)$ in \eqn{two_port_fwd_smat} and it will remain valid. Therefore
+ \begin{equation} \label{eqn:two_port_rev_smat}
+\mathbf{a}^\ast(\omega) = \mathbf{M}(\omega)\, \mathbf{b}^\ast(\omega) ,
+ \end{equation}
+or, multiplying both sides of this equation by $\mathbf{M}^{-1}(\omega) = \mathbf{M}^\dagger(\omega)$ and then taking the complex conjugate,
+ \begin{equation}
+\mathbf{b}(\omega) = \mathbf{M}^T(\omega)\, \mathbf{a}(\omega) ,
+ \end{equation}
+where $\mathbf{M}^T(\omega)$ is the transpose of $\mathbf{M}(\omega)$. If we compare \eqn{two_port_smat_symm} with \eqn{two_port_fwd_smat}, we see immediately that we must have
+ \begin{equation} \label{eqn:two_port_smat_symm}
+\mathbf{M}^T(\omega) = \mathbf{M}(\omega) ,
+ \end{equation}
+so that the scattering matrix is symmetric.\footnote{The principle of fluence conservation and the time-reversal symmetry of Maxwell's equations imply \emph{reciprocity}~\cite{ref:haus1984wfo}, a relationship between solutions of Maxwell's equations obtained on $\mathcal{S}$ for two different arrangements of sources external to $\mathcal{S}$.} In the case of our two-port scattering matrix, together with \eqn{two_port_intensity_constraint_w} this condition requires that
+ \begin{equation} \label{eqn:two_port_symmetry_constraint_w}
+M_{12}(\omega) = M_{21}(\omega), \quad \nd \quad \left|M_{11}(\omega)\right| = \left|M_{22}(\omega)\right| .
+ \end{equation}
+
+We are now equipped to find the scattering matrix of a laser mirror by applying \eqn{two_port_smat_cons} and \eqn{two_port_smat_symm} to \eqn{two_port_smat}. Let us specify that the mirror has an intensity reflectance $R$ and transmittance $T$ at frequencies near the carrier frequency $\omega_0$ that (in the lossless mirror case) satisfy $R + T = 1$. We choose our reference planes $z_1$ and $z_2$ so that $M_{11} = M_{22} = \sqrt{R}$, and we set $M_{12} = M_{21} = e^{i \varphi} \sqrt{T}$ for some real number $\varphi$. Comparing $\mathbf{M}^{-1}$ and $\mathbf{M}^\dagger$, we find that
+ \begin{equation*}
+R - e^{i 2 \varphi} T = 1 \quad \nd \quad e^{-i \varphi} = -e^{i \varphi} ,
+ \end{equation*}
+which requires $\varphi = (q + \half)\pi$, where $q \in \mathbb{Z}$. We choose $q = 0$, and find
+ \begin{equation} \label{eqn:mirror_smat}
+\mathbf{M} = \begin{bmatrix} \sqrt{R} & i \sqrt{T}  \\ i \sqrt{T} & \sqrt{R} \end{bmatrix} \qquad \text{(Mirror)}
+ \end{equation}
+at the carrier frequency $\omega_0$. Note that it is straightforward to update $\mathbf{M}$ for the two-port laser mirror when the locations of the reference planes are changed. For example, suppose that we choose the new reference planes $z'_1 = z_1 + \Delta z_1$ and $z'_2 = z_2 + \Delta z_2$. Then, from \eqn{e_field_recip_1d}, with \eqn{two_port_inputs} and \eqn{two_port_outputs}, we find that the input and output fields at the new input planes are
+ \begin{equation}
+\mathbf{a}'(\omega) = \begin{bmatrix} e^{+i k_1 \Delta z_1} & 0 \\ 0 & e^{-i k_2 \Delta z_2} \end{bmatrix} \mathbf{a}(\omega) \quad \nd \quad \mathbf{b}'(\omega) = \begin{bmatrix} e^{-i k_1 \Delta z_1} & 0 \\ 0 & e^{+i k_2 \Delta z_2} \end{bmatrix}  \mathbf{b}(\omega)
+ \end{equation}
+and that the new scattering matrix is given by
+ \begin{equation} \label{eqn:mirror_smat_new}
+ \begin{split}
+\mathbf{M}' &= \begin{bmatrix} e^{-i k_1 \Delta z_1} & 0 \\ 0 & e^{+i k_2 \Delta z_2} \end{bmatrix} \mathbf{M} \begin{bmatrix} e^{-i k_1 \Delta z_1} & 0 \\ 0 & e^{+i k_2 \Delta z_2} \end{bmatrix} \\ &= \begin{bmatrix} e^{-i 2 k_1 \Delta z_1} \sqrt{R} & e^{-i (k_1 \Delta z_1 - k_2 \Delta z_2)} i \sqrt{T} \\ e^{-i (k_1 \Delta z_1 - k_2 \Delta z_2)} i \sqrt{T} & e^{i 2 k_2 \Delta z_2} \sqrt{R} \end{bmatrix} .
+ \end{split}
+ \end{equation}
+For example, if we choose $k_1 \Delta z_1 = k_2 \Delta z_2 = \pi/2$, we will change the sign of the $\sqrt{R}$ elements in \eqn{mirror_smat}.
+
+Although we developed the fluence conservation and symmetry principles given by \eqn{two_port_smat_cons} and \eqn{two_port_smat_symm} for two-port components, they are generally applicable to lossless, time-reversible systems with any number of ports. For example, the four-port beamsplitter shown in \fig{bs_smat} has the scattering matrix
+ \begin{equation}
+\begin{bmatrix} \mathbf{b}_1(\omega) \\ \mathbf{b}_2(\omega) \\ \mathbf{b}_3(\omega) \\ \mathbf{b}_4(\omega) \end{bmatrix} = \begin{bmatrix} 0 & M_{12} & M_{13} & 0 \\ M_{21} & 0 & 0 & M_{24} \\ M_{31} & 0 & 0 & M_{34} \\ 0 & M_{42} & M_{43} & 0 \end{bmatrix} \begin{bmatrix} \mathbf{a}_1(\omega) \\ \mathbf{a}_2(\omega) \\ \mathbf{a}_3(\omega) \\ \mathbf{a}_4(\omega) \end{bmatrix} ,
+ \end{equation}
+where we have used the schematic in the figure to determine \emph{a priori} which matrix elements are zero. First, we apply \eqn{two_port_smat_symm} to symmetrize the matrix, and then we apply \eqn{two_port_smat_cons} to find
+ \begin{equation*}
+M_{12} = -M^\ast_{34}, \quad M_{13} = M^\ast_{24}, \quad \nd \quad \left|M_{12}\right|^2 + \left|M_{13}\right|^2 = 1 ,
+ \end{equation*}
+where we have chosen the locations of the four reference planes shown in \fig{bs_smat} so that $M_{13} M_{24} - M_{12} M_{34} = 1$, giving $\Det[M] = (M_{13} M_{24} - M_{12} M_{34})^2 = 1$. Following our derivation of the scattering matrix for a laser mirror, we choose $M_{13} = M_{24} = \sqrt{R}$ and $M_{12} = M_{34} = i \sqrt{T}$ (consistent with the lossless condition $R + T = 1$), and obtain
+ \begin{equation} \label{eqn:bs_smat}
+\mathbf{M} = \begin{bmatrix} 0 & i \sqrt{T} & \sqrt{R} & 0 \\ i \sqrt{T} & 0 & 0 & \sqrt{R} \\ \sqrt{R} & 0 & 0 & i \sqrt{T} \\ 0 & \sqrt{R} & i \sqrt{T} & 0 \end{bmatrix} \qquad \text{(Beamsplitter)}
+ \end{equation}
+at the carrier frequency $\omega_0$.
+
+Finally, we note that no real laser mirror satisfies the lossless requirement that $R + T = 1$. The dielectric coatings applied to the substrate---as well as the substrate itself---generally will absorb a fraction $A$ of incident light and convert it to heat, as well as scatter a fraction $S$ of that light (usually incoherently) into spatial modes that we aren't studying. In practice, then, $R + T + A + S = 1$, and therefore $R + T < 1$. However, when we model systems incorporating mirrors and dielectric propagation regions such as waveguides, we can build scattering matrices as we have above for arbitrary values of (for example) $R$ and $T$, and then check that these matrices are unitary and symmetric when we assume that all media are lossless.
+
+ \subsection{Resonant Cavities\label{sct:resonator_1d_smat}}
+
+Consider the schematic representation of the scattering matrices of the resonant cavities shown in \fig{resonator_1d_smat}. We have constructed each resonator using two partially-reflecting mirrors separated by one or more dielectric propagation regions characterized by a uniform relative permeability and a longitudinally-varying relative permittivity. We assume for convenience (consistent with typical macroscopic laser cavities) that $\eta\wn = 1$ at the external reference plane of each mirror, allowing us to work with electric field amplitudes rather than the scaled amplitudes given by \eqn{e_field_recip_1d}, and that the electromagnetic impedance has the same value $\eta\wn \equiv \eta$ at the internal reference plane of each mirror\footnote{\red{These assumptions can be relaxed, but special care must be taken to ensure that---consistent with Maxwell's equations---the transversely-polarized electric field amplitude is preserved across dielectric interfaces, and that intracavity gain dipoles interact with the local laser electric field.}}. We will use the scattering matrix of the mirror given by \eqn{mirror_smat} and rely on the discussion of the solutions of the dielectric propagation equation provided in \sct{wg_smat} to build a two-port scattering matrix applicable to three different types of one-dimensional resonator:
+
+ \begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=4.5in]{figures/resonator_1d_sw_smat}
+   \caption{Standing-wave resonator}
+   \label{fig:resonator_1d_sw_smat}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=4.5in]{figures/resonator_1d_ring_smat}
+   \caption{Ring resonator}
+   \label{fig:resonator_1d_ring_smat}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=4.5in]{figures/resonator_1d_microring_smat}
+   \caption{Microring resonator}
+   \label{fig:resonator_1d_microring_smat}
+  \end{subfigure}
+  \caption{\label{fig:resonator_1d_smat}Schematic diagram of the mirror reflection and transmission coefficients used to determine the intracavity enhancement and output fields of common one-dimensional resonators.}
+ \end{figure}
+
+ \begin{description}
+ \item[Standing-Wave Resonator.] A special case of the Fabry-Perot Interferometer, the standing-wave resonator shown schematically in \fig{resonator_1d_sw_smat} is a two-port one-dimensional optical component built using two laser mirrors and a dielectric propagation region. In this chapter, we adopt the convention that the \emph{round-trip} physical length of the propagation region enclosed within the mirrors is $L$, rather than the single-pass length, for consistency with both ring resonators and paraxial models of three-dimensional intracavity transverse modes. Toward this end, we calculate a single complex field envelope function $\mathbf{E}(z, \omega)$ as a function of position in the cavity, with $0 < z < 1/2$ as the coordinate for propagation from the reference plane at $\mathcal{M}_1$ (just \emph{after} reflection) to the reference plane at $\mathcal{M}_2$ (just \emph{before} reflection), and $1/2 < z < 1$ as the coordinate for propagation from the reference plane at $\mathcal{M}_2$ (just \emph{after} reflection) to the reference plane at $\mathcal{M}_1$ (just \emph{before} reflection). We note that this approach is completely consistent with the formulation of wave propagation through the dielectric region given in \sct{wg_smat}, and in particular with \eqn{e_prop_1d_p} and \eqn{e_prop_1d_m}. We will link $\mathbf{E}(0, \omega)$ to $\mathbf{E}(1, \omega)$ using the scattering matrix for $\mathcal{M}_1$ given by \eqn{mirror_smat}. We will find that the scattering matrix for the standing-wave resonator is symmetric, and (in the lossless case) unitary.
+ \item[Ring Resonator.] We will treat the one-dimensional ring resonator shown schematically in \fig{resonator_1d_ring_smat} as a two-port optical component, even though (strictly speaking) it is a four-port element with reference planes similar to those of the beamsplitter shown in \fig{bs_smat}. Usually, the ring geometry is chosen for laser applications with the intention of operating it unidirectionally by incorporating nonreciprocal elements such as Faraday rotation devices with polarizers. As an interferometer, this configuration is generally excited in only one propagation direction by choosing noncoincident input and output planes at the two mirrors, and we ignore backscattering by mirrors and other intracavity surfaces. In that case, the parameters and reference planes of this system can be treated just as in the case of the standing-wave resonator, but there is no guarantee that the $2 \times 2$ scattering matrix will in fact be symmetric (whereas a properly constructed $4 \times 4$ scattering matrix for this configuration would be explicitly symmetric.) Although we do not have to place mirror $\mathcal{M}_2$ at $z = 1/2$ (and this certainly is not always the case in practice), we follow this approach here for pedagogical convenience.
+ \item[Microring Resonator.] For completeness, our discussion will necessarily apply to the one-dimensional microring resonator shown schematically in \fig{resonator_1d_microring_smat} as a two-port optical component, consisting of a ring waveguide adjacent to two bus waveguides. As in the case of the ring resonator, we reduce the $4 \times 4$ scattering matrix to a $2 \times 2$ matrix by judicious choice of excitation direction. The perimeter of the ring---measured at the center of the curved waveguide---is $L$. As implied by the insets of \fig{resonator_1d_microring_smat}, the broadband power reflectances $R_j$ and transmittances $T_j$ at ports 1 and 2 are determined by the dimensions of the waveguides and the separation between them. We assume that the relative (effective) permittivity is uniform in the ring and the adjacent waveguides; thus, the scattering matrix is symmetric, and (again, in the lossless case) unitary.
+ \end{description}
+
+Let us begin by finding the propagating intracavity field amplitude at the reference planes in the ring resonator shown in \fig{resonator_1d_ring_smat}; our result will apply to the other two cases in \fig{resonator_1d_smat} by construction. Using \eqn{mirror_smat}, the boundary condition satisfied by $\mathbf{E}(0, \omega)$ and $\mathbf{E}(1, \omega)$ is
+ \begin{equation} \label{eqn:resonator_1d_w_bc}
+\mathbf{E}(0, \omega) = \sqrt{R_1}\, \mathbf{E}(1, \omega) + i \sqrt{T_1}\, \sqrt{\eta}\, \mathbf{F}_1(\omega) ,
+ \end{equation}
+with a similar condition for the field at $z = 1/2$. Propagating $\mathbf{E}(0, \omega)$ to $z = 1/2$ (just prior to reflection at $\mathcal{M}_2$) and then $\mathbf{E}(1/2, \omega)$ to $z = 1$ yields
+ \begin{subequations} \label{eqn:fpi_icf_eqn}
+ \begin{align}
+ \mathbf{E}(1/2, \omega) &= G(1/2, \omega) \mathbf{E}(0, \omega) , \nd \\
+ \mathbf{E}(1, \omega) &= \frac{G(1, \omega)}{G(1/2, \omega)} \left[ \sqrt{R_2}\, \mathbf{E}(1/2, \omega) + i \sqrt{T_2} \, F_2(\omega) \right],
+ \end{align}
+ \end{subequations}
+where $G(1/2, \omega)$ and $G(1, \omega)$ are found using \eqn{prop_gzw_def}\footnote{Since --- by assumption --- $\eta(z) \equiv \eta$ at each internal mirror reference plane, we can use \eqn{prop_gzw_def} without modification.}. These coupled linear equations are readily solved to obtain
+ \begin{equation} \label{eqn:resonator_1d_enhancement_soln}
+\begin{bmatrix} \mathbf{E}(1, \omega) \\ \mathbf{E}(1/2, \omega) \end{bmatrix} =
+\sqrt{\eta}\, \mathbf{H}(\omega) \begin{bmatrix} \mathbf{F}_1(\omega) \\ \mathbf{F}_2(\omega) \end{bmatrix}
+ \end{equation}
+where the \emph{enhancement matrix}\index{Enhancement matrix!One-dimensional resonator} for a one-dimensional resonant cavity is given by
+ \begin{equation} \label{eqn:resonator_1d_enhancement_matrix}
+\mathbf{H}(\omega) = \frac{1}{1 - \sqrt{R_1 R_2}\, G(1, \omega)} \begin{bmatrix} i \sqrt{T_1 R_2}\, G(1, \omega) & i \sqrt{T_2}\, \frac{G(1, \omega)}{G(1/2, \omega)}  \\ i \sqrt{T_1}\, G(1/2, \omega) & i \sqrt{R_1 T_2}\, G(1, \omega) \end{bmatrix}
+ \end{equation}
+Applying \eqn{mirror_smat} to the exterior reference planes of mirrors $\mathcal{M}_1$ and $\mathcal{M}_2$ allows us to calculate the output fields $\mathbf{E}_1$ and $\mathbf{E}_2$ as
+ \begin{equation}
+\begin{bmatrix} \mathbf{E}_1(\omega) \\ \mathbf{E}_2(\omega) \end{bmatrix} = \begin{bmatrix} \sqrt{R_1} & 0 \\ 0 & \sqrt{R_2} \end{bmatrix} \begin{bmatrix} \mathbf{F}_1(\omega) \\ \mathbf{F}_2(\omega) \end{bmatrix} + \begin{bmatrix} i \sqrt{T_1} & 0 \\ 0 & i \sqrt{T_2} \end{bmatrix}\, \frac{1}{\sqrt{\eta}}\, \begin{bmatrix} \mathbf{E}(1, \omega) \\ \mathbf{E}(1/2, \omega) \end{bmatrix} ,
+ \end{equation}
+or, after substitution of \eqn{resonator_1d_enhancement_soln} and straightforward algebra,
+ \begin{equation} \label{eqn:resonator_1d_w_soln}
+ \begin{bmatrix} \mathbf{E}_1(\omega) \\ \mathbf{E}_2(\omega) \end{bmatrix} =
+\mathbf{M}(\omega) \begin{bmatrix} \mathbf{F}_1(\omega) \\ \mathbf{F}_2(\omega) \end{bmatrix} ,
+ \end{equation}
+where the two-port scattering matrix for a one-dimensional resonant cavity is\index{Scattering matrix!Resonant cavity (1D)}
+ \begin{equation} \label{eqn:resonator_1d_smat_two_port}
+ \begin{split}
+ \mathbf{M}(\omega) &= \begin{bmatrix} \sqrt{R_1} & 0 \\ 0 & \sqrt{R_2} \end{bmatrix} + \begin{bmatrix} i \sqrt{T_1} & 0 \\ 0 & i \sqrt{T_2} \end{bmatrix} \mathbf{H}(\omega) \\
+ &= \frac{1}{1 - \sqrt{R_1 R_2}\, G(1, \omega)}
+\begin{bmatrix} \sqrt{R_1} - \sqrt{R_2} \left(R_1 + T_1\right) G(1, \omega) & -\sqrt{T_1 T_2}\, \frac{G(1, \omega)}{G(1/2, \omega)} \\ -\sqrt{T_1 T_2}\, G(1/2, \omega) & \sqrt{R_2} - \sqrt{R_1} \left(R_2 + T_2\right) G(1, \omega) \end{bmatrix} .
+ \end{split}
+ \end{equation}
+In the special case where $\varepsilon(1 - z, \omega_0) = \varepsilon(z, \omega_0)$, we have $G(1, \omega)/G(1/2, \omega) = G(1/2, \omega) = \sqrt{G(1, \omega)}$, and the scattering matrix becomes manifestly symmetric. If we also assume that the mirrors are lossless, so that $R_1 + T_1 = R_2 + T_2 = 1$, then we have
+ \begin{equation} \label{eqn:resonator_1d_smat}
+ \mathbf{M}(\omega) = \frac{1}{1 - \sqrt{R_1 R_2}\, G(1, \omega)}
+\begin{bmatrix} \sqrt{R_1} - \sqrt{R_2}\, G(1, \omega) & -\sqrt{T_1 T_2\, G(1, \omega)} \\ -\sqrt{T_1 T_2\, G(1, \omega)} & \sqrt{R_2} - \sqrt{R_1}\, G(1, \omega) \end{bmatrix} .
+ \end{equation}
+The determinant of this matrix is $-[G(1, \omega) - \sqrt{R_1 R_2}]/[1 - \sqrt{R_1 R_2}\, G(1, \omega))]$, which has an absolute value of unity if $\alpha(z) = 0$ and therefore $|G(1, \omega)| = 1$. In this case, it is also straightforward to show that $\mathbf{M}^\dagger(\omega) \mathbf{M}(\omega) = \mathbf{1}$, demonstrating that $\mathbf{M}(\omega)$ is unitary.

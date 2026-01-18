@@ -1,0 +1,126 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Fourier Transforms\label{sct:math_prelim_fourier_transforms}}
+
+ \subsection{Definition of Spatiotemporal Fourier Transforms}
+In these notes, we'll often rely on the temporal Fourier transformation \cite{ref:bracewell2000fta}, defined for an integrable function $f(t)$ by
+ \begin{subequations} \label{eqn:fourier_temporal}
+ \begin{align}
+ \label{eqn:fourier_time} f(t) &\equiv \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt \widetilde{f}(\omega), \nd \\
+ \label{eqn:fourier_freq} \widetilde{f}(\omega) &\equiv \int_{-\infty}^{+\infty} d t\, \epwt f(t) ,
+ \end{align}
+ \end{subequations}
+as well as the three-dimensional spatial transforms
+ \begin{subequations} \label{eqn:fourier_spatial}
+ \begin{align}
+ \label{eqn:fourier_spac} g(\mathbf{r}) &\equiv \int \frac{d^3 k}{(2 \pi)^3}\, \epkr \widetilde{g}(\mathbf{k}), \nd \\
+ \label{eqn:fourier_mome} \widetilde{g}(\mathbf{k}) &\equiv \int d^3 r\, \emkr g(\mathbf{r}) ,
+ \end{align}
+ \end{subequations}
+where the integrals in \eqn{fourier_spatial} are to be taken over all momentum or coordinate space.\footnote{Note that we will not follow the conventions of those authors who scale both temporal transforms by $(2 \pi)^{-1/2}$, or both spatial transforms by $(2 \pi)^{-3/2}$. This mathematical egalitarianism --- designed to establish unitarity --- doesn't pay off when we define the Dirac delta function in terms of its Fourier transform, and is especially inconvenient when we follow the electrical engineers and regain unitarity in \eqn{fourier_temporal} using $\nu = \omega / 2 \pi$ as our frequency variable. In Mathematica, we can use the commands \texttt{FourierTransform[\dots]} and \texttt{InverseFourierTransform[\dots]} with the option \texttt{FourierParameters}~$\rightarrow \{1 ,1\}$ to conform to our convention.} Taken together, these spatiotemporal transforms allow us to represent an arbitrary complex field in space and time as an integral over a collection of plane waves $\epkrwt$:\index{Plane waves!Fourier transform}
+ \begin{subequations} \label{eqn:fourier_spatiotemporal}
+ \begin{align}
+ \label{eqn:fourier_expn} h(\mathbf{r}, t) &\equiv \int \frac{d^3 k}{(2 \pi)^3}\, \frac{d \omega}{2 \pi}\, \epkrwt\, \widetilde{h}(\mathbf{k}, \omega), \nd \\
+ \label{eqn:fourier_plan} \widetilde{h}(\mathbf{k}, \omega) &\equiv \int d^3 r\, d t\, \emkrwt\, h(\mathbf{r}, t) ,
+ \end{align}
+ \end{subequations}
+
+ \subsection{Complex Conjugates}
+Complex conjugating both sides of \eqn{fourier_time} and performing the change of variable $\omega \longrightarrow -\omega$ yields
+ \begin{equation} \label{eqn:fourier_conj_thm}
+f^\ast(t) = \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt \widetilde{f}^\ast(-\omega) .
+ \end{equation}
+Therefore, if $f(t)$ is real,
+ \begin{equation} \label{eqn:fourier_conj_real}
+\widetilde{f}^\ast(-\omega) = \widetilde{f}(\omega) .
+ \end{equation}
+
+ \subsection{Shift Theorem}
+The inverse Fourier transform of the function $\widetilde{g}(\omega) \equiv e^{i \omega \tau} \widetilde{f}(\omega)$ is
+ \begin{equation} \label{eqn:fourier_shift_thm}
+ \begin{split}
+ g(t) &= \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt \widetilde{g}(\omega) \\
+ &= \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, e^{-i \omega (t - \tau)} \widetilde{f}(\omega) \\
+ &= f(t - \tau) ,
+ \end{split}
+ \end{equation}
+where $f(t)$ is the inverse Fourier transform of $\widetilde{f}(\omega)$.
+
+ \subsection{Derivative Theorem}
+If \eqn{fourier_temporal} are valid, then we can differentiate \eqn{fourier_time} $n$ times to establish that
+ \begin{equation}
+ \begin{split}
+ \frac{d^n}{d t^n} f(t) &= \frac{d^n}{d t^n} \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt \widetilde{f}(\omega) \\
+  &= \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \frac{d^n \emwt}{d t^n}  \widetilde{f}(\omega) \\
+  &= \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \left(-i \omega\right)^n \emwt \widetilde{f}(\omega) ,
+ \end{split}
+ \end{equation}
+or
+ \begin{equation} \label{eqn:fourier_diff_thm}
+\left(i \ddt\right)^n f(t) = \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt \omega^n \widetilde{f}(\omega) ,
+ \end{equation}
+where the notation $(i d/dt)^n$ represents the operator $i d/dt$ applied $n$ consecutive times. In other words, the Fourier transform of $d^n f(t)/d t^n$ is $(-i \omega)^n \widetilde{f}(\omega)$.
+
+ \subsection{Power Theorem}
+Suppose that some signal $f(t)$ is well defined over all time, and that the integral of $|f(t)|^2 \equiv f^\ast(t) f(t)$ represents the power carried by that signal. Using \eqn{fourier_conj_thm}, the total signal power is then
+ \begin{equation}
+ \begin{split}
+\int_{-\infty}^{+\infty} d t\, \left|f(t)\right|^2 &= \int_{-\infty}^{+\infty} d t\, f^\ast(t) f(t) \\
+&= \int_{-\infty}^{+\infty} d t\, \int_{-\infty}^{+\infty} \frac{d \omega'}{2 \pi}\, e^{-i \omega' t} \widetilde{f}^\ast(-\omega') \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt \widetilde{f}(\omega) \\
+&= \int_{-\infty}^{+\infty} \frac{d \omega'}{2 \pi}\, \widetilde{f}^\ast(-\omega') \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \widetilde{f}(\omega) \int_{-\infty}^{+\infty} d t\, e^{-i (\omega + \omega') t} ,
+ \end{split}
+ \end{equation}
+or, using \eqn{dirac_delta_1d_ft} to find $\int_{-\infty}^{+\infty} d t\, \exp[-i (\omega + \omega') t] = 2 \pi \delta(\omega + \omega')$,
+ \begin{equation} \label{eqn:fourier_power_thm}
+ \int_{-\infty}^{+\infty} d t\, \left|f(t)\right|^2 = \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \left|\widetilde{f}(\omega)\right|^2 ,
+ \end{equation}
+where $|\widetilde{f}(\omega)|^2 \equiv \widetilde{f}^\ast(\omega) \widetilde{f}(\omega)$.
+
+ \subsection{Convolution Theorem\label{sct:math_prelim_fourier_conv_thm}}
+Suppose that we apply a filter with Fourier Transform $\widetilde{h}(\omega)$ to an input signal $\widetilde{x}(\omega)$ to obtain the output $\widetilde{y}(\omega)$, given by
+ \begin{equation} \label{eqn:input_output_w}
+\widetilde{y}(\omega) = \widetilde{h}(\omega) \widetilde{x}(\omega) .
+ \end{equation}
+We wish to compute the output signal $y(t)$ given the input signal $x(t)$, which is
+ \begin{equation}
+ \begin{split}
+y(t) &= \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt\, \widetilde{h}(\omega) \widetilde{x}(\omega) \\
+     &= \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt \int_{-\infty}^{+\infty} d t'' e^{i \omega t''} h(t'') \int_{-\infty}^{+\infty} d t' e^{i \omega t'} x(t') \\
+     &= \int_{-\infty}^{+\infty} d t' \int_{-\infty}^{+\infty} d t'' h(t'') x(t') \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, e^{-i \omega (t - t' - t'')} ,
+ \end{split}
+ \end{equation}
+or, using \eqn{dirac_delta_1d_ft} to find $\int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, e^{-i \omega (t - t' - t'')} = \delta(t - t' - t'')$, we obtain the Fourier Convolution Theorem\index{Fourier Transforms!Convolution Theorem}
+ \begin{equation} \label{eqn:fourier_conv_thm}
+y(t) = \int_{-\infty}^{+\infty} d t'\, h(t - t') x(t') = \int_{-\infty}^{+\infty} d t'\, h(t') x(t - t') .
+ \end{equation}
+Consistent with the principle of causality in physical systems~\cite{ref:stone2009mfp}, we generally require that no effect precede its cause, or $h(t) = 0$ for $t < 0$. Equivalently, the function $\widetilde{h}(\omega)$ must be analytic everywhere in the upper-half frequency plane.
+
+We can follow a different line of reasoning if we expect that $\widetilde{x}(\omega)$ will have significant values only near $\omega = 0$; in this case, let's formally expand $\widetilde{h}(\omega)$ in a Taylor series about $\omega = 0$ as
+ \begin{equation} \label{eqn:filter_taylor_expansion}
+\widetilde{h}(\omega) = \sum_{n = 0}^\infty \frac{\omega^n}{n!} \left[\frac{d^n}{d \omega^n} \widetilde{h}(\omega)\right]_{\omega = 0} ,
+ \end{equation}
+giving the output signal
+ \begin{equation} \label{eqn:input_output_t}
+ \begin{split}
+ y(t) &= \sum_{n = 0}^\infty \frac{1}{n!} \left[\frac{d^n}{d \omega^n} \widetilde{h}(\omega)\right]_{\omega = 0} \int^\infty_{-\infty} \frac{d \omega} {2 \pi}\, e^{-i \omega t} \omega^m \widetilde{x}(\omega) \\
+ &= \sum_{n = 0}^\infty \frac{1}{n!} \left[\frac{d^n}{d \omega^n} \widetilde{h}(\omega)\right]_{\omega = 0} \left(i \ppt\right)^n x(t) ,
+ \end{split}
+ \end{equation}
+where in the last step we have applied the Fourier differentiation theorem given by \eqn{fourier_diff_thm}. If we adopt the somewhat odd-looking but nevertheless convenient short-hand notation
+ \begin{equation} \label{eqn:filter_shorthand}
+\widetilde{h}\left(i \frac{d}{d t}\right) \equiv \sum_{n = 0}^\infty \frac{1}{n!} \left[\frac{d^n}{d \omega^n} \widetilde{h}(\omega)\right]_{\omega = 0} \left(i \ppt\right)^n ,
+ \end{equation}
+then we find
+ \begin{equation} \label{eqn:formal_filter_temporal_expansion}
+ y(t) = \widetilde{h}\left(i \frac{d}{d t}\right) x(t) .
+ \end{equation}
+Depending on the temporal behavior of $x(t)$, we choose how many orders of $d x(t)/d t$ to retain in the expansion.

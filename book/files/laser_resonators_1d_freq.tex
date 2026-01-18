@@ -1,0 +1,241 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Properties of Resonant Cavities in the Time and Frequency Domains\label{sct:laser_resonators_1d_freq}}
+
+ \subsection{Input-Output Relations for Resonant Cavities in the Time Domain\label{sct:laser_resonators_1d_time}}
+
+If we define the functions
+ \begin{subequations} \label{eqn:fpi_fghw_def}
+ \begin{align}
+ \label{eqn:fpi_fw_def} f(\omega) &= \frac{1}{1 - \Gamma\, e^{i \omega}}\, , \\
+ \label{eqn:fpi_gw_def} g(\omega) &= \frac{\sqrt{\Gamma}\, e^{i \omega/2}}{1 - \Gamma\, e^{i \omega}}\, , \nd \\
+ \label{eqn:fpi_hw_def} h(\omega) &= \frac{\Gamma\, e^{i \omega}}{1 - \Gamma\, e^{i \omega}}\, ,
+ \end{align}
+ \end{subequations}
+where
+ \begin{equation} \label{eqn:fpi_gamma_def}
+\Gamma \equiv \sqrt{R_1 R_2} \exp\left[ -\half \alpha\wn + i \omega_0 \tau \right]\, ,
+ \end{equation}
+then after straightforward algebra we can rewrite \eqn{resonator_1d_smat} as
+ \begin{equation} \label{eqn:resonator_1d_smat_fgh}
+ \mathbf{M}(\omega) =
+\begin{bmatrix} \sqrt{R_1} f(\omega) - \frac{1}{\sqrt{R_1}} h(\omega) & -\sqrt{ \frac{T_1 T_2}{\sqrt{R_1 R_2}} }\, g(\omega) \\ -\sqrt{ \frac{T_1 T_2}{\sqrt{R_1 R_2}} }\, g(\omega) & \sqrt{R_2} f(\omega) - \frac{1}{\sqrt{R_2}} h(\omega) \end{bmatrix} .
+ \end{equation}
+In \eqn{fpi_gamma_def}, we have defined the phase round-trip time
+ \begin{equation} \label{eqn:tau_phase_def}
+\tau \equiv \frac{n\wn L}{c}\, ,
+ \end{equation}
+which (like $\omega_0^{-1}$) has been scaled by the group round-trip time
+ \begin{equation}\label{eqn:tau_group_def}
+\tau_g \equiv \frac{n^\prime\wn L}{c}\, .
+ \end{equation}
+
+Now we would like to substitute \eqn{resonator_1d_smat_fgh} into \eqn{resonator_1d_w_soln}, and then apply an inverse Fourier transform to find $\mathbf{E}_1(t)$ and $\mathbf{E}_2(t)$. Since $|\Gamma e^{i \omega}| < 1$, we can expand $f(\omega)$ as
+ \begin{equation} \label{eqn:f_expansion}
+f(\omega) = \sum_{n = 0}^\infty \left( \Gamma e^{i \omega} \right)^n ,
+ \end{equation}
+giving the inverse transform of $f(\omega)\, \mathbf{F}(\omega)$ as
+ \begin{subequations} \label{eqn:fhg_transform_pairs}
+ \begin{equation}
+ \begin{split} \label{eqn:f_transform_pair}
+\int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt f(\omega)\, \mathbf{F}(\omega) &= \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt \sum_{n = 0}^\infty \Gamma^n e^{i n \omega}\, \mathbf{F}(\omega) \\
+     &= \sum_{n = 0}^\infty \Gamma^n \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, e^{-i \omega (t - n)}\, \mathbf{F}(\omega) \\
+     &= \sum_{n = 0}^\infty \Gamma^n\, \mathbf{F}\left[t - n\right] ,
+ \end{split}
+ \end{equation}
+where we have applied the Fourier Shift Theorem\index{Fourier Shift Theorem} given by \eqn{fourier_shift_thm}. Following the same approach for both $g(\omega)$ and $h(\omega)$ yields
+ \begin{align}
+\int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt g(\omega)\, \mathbf{F}(\omega) &= \sum_{n = 0}^\infty \Gamma^{\left(n + \half\right)}\, \mathbf{F}\left[t - \left(n + \half\right)\right] , \nd \\
+\int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt h(\omega)\, \mathbf{F}(\omega) &= \sum_{n = 0}^\infty \Gamma^{\left(n + 1\right)}\, \mathbf{F}\left[t - \left(n + 1\right)\right] .
+ \end{align}
+ \end{subequations}
+These transform pairs allow us to determine the output fields in the time domain given specified input fields. For example, suppose that $\mathbf{F}_2(t) = 0$; then together \eqn{resonator_1d_w_soln}, \eqn{resonator_1d_smat_fgh}, and \eqn{fhg_transform_pairs} predict that
+ \begin{align}
+\mathbf{E}_1(t) &= \sqrt{R_1}\, \mathbf{F}_1(t) - \frac{T_1}{\sqrt{R_1}} \sum_{n = 1}^\infty \Gamma^n\, \mathbf{F}_1\left[t - n\right] , \nd \\
+\mathbf{E}_2(t) &= -\sqrt{ \frac{T_1 T_2}{\sqrt{R_1 R_2}} } \sum_{n =0}^\infty \Gamma^{\left(n + \frac{1}{2}\right)}\, \mathbf{F}_1\left[t - \left(n + \frac{1}{2}\right)\right] .
+ \end{align}
+Both of these input-output relations have a straightforward physical interpretation. $\mathbf{E}_1(t)$ is a coherent superposition of a prompt reflection from mirror $\mathcal{M}_1$ and fields that have experienced an integer number of past resonator round-trips. $\mathbf{E}_2(t)$ is a coherent superposition of past round-trips followed by a final, single propagation step from $\mathcal{M}_1$ to $\mathcal{M}_2$.
+
+\red{Show the $\Theta(t)$ and gaussian pulse examples here.}
+
+ \subsection{Input-Output Relations for Resonant Cavities in the Frequency Domain\label{sct:laser_resonators_1d_freq_io}}
+
+ \subsubsection{Partial-Fraction Expansion of the Scattering Matrix\label{sct:resonator_1d_smat_pfe}}
+
+Let's allow $\omega$ to take on complex values, and seek partial-fraction expansions of $f(\omega)$, $g(\omega)$, and $h(\omega)$ that will guide us to their approximations as finite sums of simple analytic functions. For example, since $1/f(\omega)$ is an analytic function, we can apply the Mittag-Leffler partial-fraction expansion~\cite{ref:stone2009mfp}
+ \begin{equation} \label{eqn:mittag_leffler}
+f(\omega) = f(0) + \sum_q r_q \left(\frac{1}{\omega - \nu_q} + \frac{1}{\nu_q}\right) ,
+ \end{equation}
+where $\nu_q$ is a pole of $f(\omega)$ with residue $r_q$. In the case of \eqn{fpi_fw_def}, we have
+ \begin{subequations} \label{eqn:f_poles}
+ \begin{align}
+\nu_q &= 2 q \pi + i \ln \Gamma , \nd \label{eqn:f_pole_q} \\
+r_q &= i , \label{eqn:f_residue_q}
+ \end{align}
+ \end{subequations}
+so that
+ \begin{subequations} \label{eqn:fgh_ml}
+ \begin{equation} \label{eqn:f_ml}
+ \begin{split}
+f(\omega) &= \left[\frac{1}{1 - \Gamma} + \sum_{q = -\infty}^{+\infty}  \frac{i}{\nu_q}\right] + \sum_{q = -\infty}^{+\infty}  \frac{i}{\omega - \nu_q} \\
+     &= \frac{1}{2} + \sum_{q = -\infty}^{+\infty}  \frac{i}{\omega - \nu_q} .
+ \end{split}
+ \end{equation}
+The final \rhs of this representation of $f(\omega)$ is a superposition of individual \emph{Lorentzian}\index{Lorentzian} resonance modes that are each centered at the frequency $\omega = \Re(\nu_q) = 2 q \pi$ if $\Im(\Gamma) = 0$. Following the same approach for \eqn{fpi_gw_def} and \eqn{fpi_hw_def}, we find
+ \begin{align}
+g(\omega) &= \sum_{q = -\infty}^{+\infty}  \frac{(-1)^q\, i}{\omega - \nu_q} , \nd  \label{eqn:g_ml} \\
+h(\omega) &= -\frac{1}{2} + \sum_{q = -\infty}^{+\infty}  \frac{i}{\omega - \nu_q} .  \label{eqn:h_ml}
+ \end{align}
+ \end{subequations}
+
+Suppose that we have chosen the carrier frequency $\omega_0$ to be aligned with mode $q = 0$ of the unloaded cavity, such that $\exp(\pm i\, \omega_0 \tau) = 1$. The shape of the magnitude-squared of an individual Lorentzian mode, given by
+ \begin{equation} \label{eqn:f_lorentz_shape}
+\left| \frac{i}{\omega - \nu_0} \right|^2 = \frac{1}{\omega^2 + \left(\ln|\Gamma|\right)^2}\, ,
+ \end{equation}
+is characterized by the full-width at half-maximum (FWHM)\index{Full-width at half-maximum (FWHM)}, or the difference between the positive and negative frequencies that reduce \eqn{f_lorentz_shape} to $1/2 \left(\ln|\Gamma|\right)^2$. We find
+ \begin{equation} \label{eqn:f_fwhm}
+\Delta \omega_\text{FWHM} \equiv \frac{1}{\tau_p} = \ln\left( \frac{1}{|\Gamma|^2} \right)\, ,
+ \end{equation}
+where $\tau_p$ is the \emph{photon lifetime}\index{Photon lifetime} (scaled by the group round-trip time $\tau_g$), or the time duration of light storage in the resonator. A common parameter used to represent this storage time is the cavity ``quality factor'' $Q$, defined by
+ \begin{equation} \label{eqn:f_q_def}
+Q \equiv \frac{\omega_0}{\Delta \omega_\text{FWHM}} = \frac{\omega_0}{\ln(1/|\Gamma|^2)} = \omega_0\, \tau_p\, .
+ \end{equation}
+Therefore, we can express the complex resonance frequency of pole $q$ as
+ \begin{equation} \label{eqn:f_pole_q_redef}
+\nu_q = 2 q \pi - \frac{i}{2\, \tau_p} = 2 q \pi - i\, \frac{\omega_0}{2\, Q}\, .
+ \end{equation}
+
+In practice, we will approximate \eqn{fgh_ml} by a finite sum of frequency modes over some range of values of $q$ centered on the carrier frequency (which corresponds to $q = 0$ in our formulation of the wave equation). Truncating the infinite series introduces an error that would ordinarily require many more modes than are needed for a particular representation of a problem of interest, but it is straightforward to include a simple correction term. For example, by calculating the difference between \eqn{f_ml} and the corresponding truncated series to first order in $\omega$, we obtain
+\begin{equation} \label{eqn:f_lorentzian_approx}
+    f(\omega) \approx \half - \frac{\ln \Gamma + i \omega}{2 \pi^2}\, \psi^{(1)}(q_\mathrm{max} + 1) + \sum_{q = -q_\mathrm{max}}^{+q_\mathrm{max}}  \frac{i}{(\omega - 2 q \pi) - i \ln \Gamma}\, ,    
+\end{equation}
+where
+\begin{equation*}
+    \psi^{(1)}(n + 1) \approx \frac{2 n + 1}{2 (n + 0.125) (n + 1)}
+\end{equation*}
+is the first-order polygamma function. In \fig{f_lorentzian_approx} we have plotted \eqn{f_ml} and \eqn{f_lorentzian_approx} for the case $\Gamma = 0.5$ and $q_\mathrm{max} = 2$. Even for this moderate value of $|\Gamma|$ (i.e., far from unity), \eqn{f_lorentzian_approx} is a reasonably good approximation of $f(\omega)$ near $\omega = \Re(\nu_q)$ for $|q| \le q_\mathrm{max}$.
+%  \begin{equation}
+% f(\omega) \approx \frac{1}{2} - i\, \frac{\omega}{(2 \pi)^2}\, \frac{2 q_\mathrm{max} + 1}{q_\mathrm{max} (q_\mathrm{max} + 1)} + \sum_{q = -q_\mathrm{max}}^{+q_\mathrm{max}}  \frac{i}{(\omega - 2 q \pi) - i \ln \Gamma} ,
+%  \end{equation}
+
+% for the case $\Gamma = 0.5$ and $q_\mathrm{max} = 2$. Note that we have added an imaginary correction term --- linear in $\omega$ --- to compensate for sums with small $q_\mathrm{max}$ because $\Im[f(\omega)]$ is odd in $\omega - 2 q \pi$. 
+ \begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.5in]{figures/real_fpml}
+   \caption{ {$\Re[f(\omega)]$} }
+   \label{fig:real_fpml}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.5in]{figures/imag_fpml}
+   \caption{ {$\Im[f(\omega)]$} }
+   \label{fig:imag_fpml}
+  \end{subfigure}
+  \caption{\label{fig:f_lorentzian_approx} A comparison of the value of the resonant function given by \eqn{f_ml} and the Lorentzian approximation defined by \eqn{f_lorentzian_approx} for the case where $\Gamma = 0.5$ and $q_\mathrm{max} = 2$. }
+ \end{figure}
+
+ \subsubsection{Finesse and Other Properties of Resonant Cavities\label{sct:resonator_1d_finesse}}
+
+Let's explore the optical properties of the simple one-dimensional resonators shown in \fig{resonator_1d_smat} in the case where $F_2(\omega) = 0$. Relying on \eqn{prop_gzw_def}, \eqn{resonator_1d_w_bc}, \eqn{resonator_1d_w_soln}, and \eqn{resonator_1d_smat_two_port}, we find
+ \begin{equation} \label{eqn:forward_prop_w_0}
+E(0, \omega) = \frac{1}{1 - \Gamma\, e^{i \omega}} \left[ i\, \sqrt{\eta T_1}\, F(\omega) \right]\, ,
+ \end{equation}
+where $\eta \equiv \eta(0) = \eta(1)$ is the dimensionless electromagnetic impedance coefficient at the internal reference plane of $\mathcal{M}_1$, and from \eqn{fpi_gamma_def} we have $\Gamma^2 = R_1 R_2 e^{-\alpha\wn}$ when $\omega_0$ is chosen such that $\exp(i \omega_0 \tau) = 1$. The denominator
+ \begin{equation}
+\mathcal{D}(\omega) \equiv 1 - \Gamma\, e^{i \omega}
+ \end{equation}
+is so common in discussions of optical resonators that we should invest some time to understand its properties in more detail. We begin by defining $\phi(\omega) \equiv \omega/2$, and writing
+ \begin{equation}
+ \begin{split}
+\frac{1}{\mathcal{D}(\omega)} &= \frac{1 - \Gamma\, e^{-i 2 \phi(\omega)}}{\left(1 - \Gamma\, e^{+i 2 \phi(\omega)}\right)\left(1 - \Gamma\, e^{-i 2 \phi(\omega)}\right)} \\
+&\equiv \frac{e^{i \left[ \theta(\omega) - \phi(\omega) \right]}}{|\mathcal{D}(\omega)|}\, ,
+ \end{split}
+ \end{equation}
+where $e^{i \theta(\omega)} \equiv [ e^{+i \phi(\omega)} - \Gamma\, e^{-i \phi(\omega)} ] / |\mathcal{D}(\omega)|$. We note that
+ \begin{equation}
+ \begin{split}
+|\mathcal{D}(\omega)|^2 &= 1 + \Gamma^2 - 2\, \Gamma\, \cos [ 2 \phi(\omega) ] \\
+&= \left(1 - \Gamma\right)^2 + 4\, \Gamma\, \sin^2 \phi(\omega) \\
+&\equiv \left(1 - \Gamma\right)^2 \left[ 1 + \widetilde{F}\, \sin^2 \phi(\omega) \right]\, ,
+ \end{split}
+ \end{equation}
+ where
+ \begin{equation}\label{eqn:coefficient_of_finesse}
+\widetilde{F} \equiv \frac{4\, \Gamma}{(1 - \Gamma)^2}
+ \end{equation}
+is known as the coefficient of finesse. Therefore
+ \begin{equation} \label{eqn:fpi_denom_abs}
+|\mathcal{D}(\omega)| = \left(1 - \Gamma\right)\, \sqrt{ 1 + \widetilde{F}\, \sin^2 \phi(\omega) }\, , \nd
+ \end{equation}
+ \begin{equation}
+e^{i \theta(\omega)} = \frac{(1 - \Gamma)\, \cos \phi(\omega) + i\, (1 + \Gamma)\, \sin \phi(\omega)}{\left(1 - \Gamma\right)\, \sqrt{ 1 + \widetilde{F}\, \sin^2 \phi(\omega) }}\, .
+ \end{equation}
+Solving \eqn{coefficient_of_finesse} for $\Gamma$ yields
+ \begin{equation}
+\Gamma = 1 + \frac{2}{\widetilde{F}} - \frac{2}{\widetilde{F}}\, \sqrt{1 + \widetilde{F}}\, ,
+ \end{equation}
+giving $(1 + \Gamma)/(1 - \Gamma) = \sqrt{1 + \widetilde{F}}$ and
+ \begin{equation}\label{eqn:resonator_1d_fp_enhance}
+E(0, \omega) = \frac{i\, \sqrt{T_1}}{1 - \Gamma}\, \frac{e^{i [\theta(\omega) - \phi(\omega)]}}{\sqrt{1 + \widetilde{F} \sin^2 \phi(\omega)}} \, \sqrt{\eta}\, F_1(\omega)\, ,
+ \end{equation}
+where now
+ \begin{equation} \label{eqn:sin_cos}
+ \cos \theta(\omega) \equiv \frac{\cos \phi(\omega)}{\sqrt{1 + \widetilde{F} \sin^2 \phi(\omega)}}\, , \qquad \nd \qquad \sin \theta(\omega) \equiv \frac{\sqrt{1 + \widetilde{F}}\, \sin \phi(\omega)}{\sqrt{1 + \widetilde{F} \sin^2 \phi(\omega)}}\, .
+ \end{equation}
+
+We can use \eqn{resonator_1d_w_soln} and the same ideas that led us to \eqn{resonator_1d_fp_enhance} to solve for the \emph{reflected} field $E_1(\omega)$ and the \emph{transmitted} field $E_2(\omega)$. We find
+ \begin{subequations} \label{eqn:resonator_1d_fp_out}
+ \begin{align}
+ \label{eqn:resonator_1d_fp_refl}
+E_1(\omega) &= \frac{1}{\sqrt{R_1} (1 - \Gamma)}\, \frac{R_1 e^{-i \phi(\omega)} - (R_1 + T_1)\, \Gamma\, e^{i \phi(\omega)} }{\sqrt{1 + \widetilde{F} \sin^2 \phi(\omega)}}\, e^{i \theta(\omega)}\, F_1(\omega)\, , \nd \\
+ \label{eqn:resonator_1d_fp_trans}
+E_2(\omega) &= -\sqrt{\frac{T_1 T_2 \Gamma}{\sqrt{R_1 R_2} (1 - \Gamma)^2}}\, \frac{e^{i \theta(\omega)}}{\sqrt{1 + \widetilde{F} \sin^2 \phi(\omega)}}\, F_1(\omega)\, .
+ \end{align}
+ \end{subequations}
+In the case where $R_1 + T_1 = R_2 + T_2 = 1$ and $\alpha\wn = 0$, it is straightforward to show that power is conserved for all $\omega$, since $|E_1(\omega)|^2 + |E_2(\omega)|^2 = |F_1(\omega)|^2$.
+
+Whenever the frequency $\omega = \omega_q = 2 q \pi$ for some integer $q$, then $\phi(\omega) = q \pi$, and the magnitudes of both the reflected and transmitted fields reach their maximum values with $\theta(\omega_q) = \phi(\omega_q)$. Restoring the scaling by $\tau_g^{-1}$, these adjacent maxima are separated by the \emph{free spectral range}
+ \begin{equation}\label{eqn:delta_w_fsr_def}
+\Delta \omega_\mathrm{FSR} = \frac{2 \pi}{\tau_g}\, .
+ \end{equation}
+The power reflected and transmitted by the cavity is reduced by a factor of two relative to these maxima whenever $\widetilde{F} \sin^2 \phi(\omega) = 1$. The corresponding \emph{full width at half-maximum} (FWHM) is therefore
+ \begin{equation}\label{eqn:delta_w_fwhm_def}
+\Delta \omega_\mathrm{FWHM} = \frac{4}{\tau_g}\, \sin^{-1} \frac{1}{\sqrt{\widetilde{F}}} \equiv \frac{\Delta \omega_\mathrm{FSR}}{\mathcal{F}}\, ,
+ \end{equation}
+where
+ \begin{equation} \label{eqn:finesse_def}
+\mathcal{F} \equiv \frac{\pi}{2\, \sin^{-1}\left(1/\sqrt{\widetilde{F}}\right)} \approx \frac{\pi}{2}\, \sqrt{\widetilde{F}}\, ,
+ \end{equation}
+is known as the \emph{finesse} of the resonator, with the last approximation valid if $\widetilde{F} \gg 1$. At first glance, \eqn{delta_w_fwhm_def} does not appear to be completely consistent with that of \eqn{f_fwhm}. The difference arises because \eqn{resonator_1d_fp_enhance} includes the factor of $1/2$ in \eqn{f_ml}, so the way that we have defined ``half-maximum'' is not the same in the two cases. In the limit $\Gamma \longrightarrow 1$, both methods yield $\Delta \omega_\mathrm{FWHM} \approx 2 (1 - \Gamma) / \tau_g$. The relationship between $Q$, defined by \eqn{f_q_def}, and the finesse is
+ \begin{equation} \label{eqn:q_finesse}
+Q = \frac{L}{\lambda_g}\, \mathcal{F}\, ,
+ \end{equation}
+where $\lambda_g \equiv \lambda_0 / n^\prime\wn$ is the ``group wavelength'' of an input field with vacuum wavelength $\lambda_0$. In macroscopic resonators ($L \sim 1$~m), the ratio $L/\lambda_g$ is so large that $Q$ isn't a particularly useful metric of cavity quality, but $Q$ is routinely chosen to describe the optical quality of microscale and nanoscale resonators.
+
+ \subsubsection{Resonant Cavities as Linear Filters\label{sct:resonator_1d_filter}}
+
+Comparing \eqn{f_expansion} and \eqn{f_ml}, note that we have demonstrated the identity
+ \begin{equation} \label{eqn:f_identity_w}
+ f(\omega) = \sum_{n = 0}^\infty \left( \Gamma e^{i \omega} \right)^n = \frac{1}{2} + \sum_{q = -\infty}^{+\infty}  \frac{i}{\omega - \nu_q} ,
+ \end{equation}
+subject to our usual disclaimers about mathematical rigor. Therefore, taking the Fourier transform of all terms in this expression, we find
+ \begin{equation} \label{eqn:f_identity_t}
+ f(t) = \sum_{n = 0}^\infty \Gamma^n \delta(t - n) = \frac{1}{2} \delta(t) + \Theta(t) \sum_{q = -\infty}^{+\infty}  e^{-i \nu_q t} ,
+ \end{equation}
+where we have used the Fourier Shift Theorem given by \eqn{fourier_shift_thm} and the form of the Dirac delta function shown in \eqn{dirac_delta_1d_ft} adapted for the time domain. The sum over $n$ is completely consistent with \eqn{f_transform_pair} in the context of the Fourier Convolution Theorem, \eqn{fourier_conv_thm}. The sum over $q$ is easily calculated using contour integration, or by the Mathematica command shown in \lst{laser_resonators_1d_mma_ift_complex_lorentzian}. Both series are consistent with the causality requirements~\cite{ref:stone2009mfp} discussed in \sct{math_prelim_fourier_conv_thm}.
+
+ \lstinputlisting[language=Mathematica,caption={Mathematica Command for Inverse Fourier Transform of a Complex Lorentzian},label=lst:laser_resonators_1d_mma_ift_complex_lorentzian]{files/laser_resonators_1d_mma_ift_complex_lorentzian.txt}
+
+\red{Note that the frequency dependence of $R_1$ and $R_2$ can be captured by letting $\Gamma \longrightarrow \Gamma_q \equiv \Gamma(\omega_0 + 2 q \pi/\tau_g)$. Also, this subsubsection really needs to include a reason to work in the frequency domain at all, given that the time domain is so simple; this is a good place to use the power theorem to estimate the transmitted and reflected power.}

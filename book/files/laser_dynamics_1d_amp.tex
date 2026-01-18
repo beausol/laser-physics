@@ -1,0 +1,241 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Laser Amplifiers: Model of One-Dimensional Pulse Propagation\label{sct:laser_dynamics_1d_amp}}
+
+Suppose that we have a laser pulse propagating along the positive $z$-axis and interacting with a laser amplifier extending from $z = 0$ to $z = 1$. As always, we'll begin with the Optical Maxwell-Bloch Equations given by \eqn{laser_statics_1d_sml_scaled}. Let's make some assumptions to simplify these complicated nonlinear coupled equations in this particular case:
+\begin{enumerate}
+    \item Since the pulse is traveling in the positive $z$ direction, $E^{-}\zt = 0$ and we can take $E^{+}\zt \longrightarrow E\zt$.
+    \item As in the case of the continuous-wave amplifier treated in \sct{laser_statics_1d_amp}, there's a common factor of $e^{i k_0 z}$ in both the electric field and the macroscopic polarization, so we can drop it and (e.g.) $\widetilde{E}\zt \longrightarrow E\zt$.
+    \item We'll neglect both absorption and dispersion, so $D_l\wn = 0$ and $\alpha\wn = 0$.
+    \item Let's assume that $\tau_\perp \longrightarrow 0$, so that we can make the Rate Equation Approximation and set $\partial \widetilde{F}(z, t) / \partial t = 0$. Then the macroscopic polarization is given by
+    \begin{equation}
+        F\zt = \half\, \frac{ 1 + i\, \Omega}{1 + \Omega^2}\, G\zt\, E\zt\, .
+    \end{equation}
+    \item We're interested in the problem where the amplifier is pumped into the upper laser level and therefore prepared for the input pulse. This means that the upper laser level has a very long lifetime $\tau_\parallel$ compared to the duration of the laser pulse that we're modeling. Then the first term in the brackets of the gain evolution equation --- which corresponds to depopulation due to spontaneous emission --- can be ignored. Also, since the pump is no longer active when the pulse arrives at the amplifier, we can neglect the second term as well. Therefore, we retain only the third (nonlinear) term, and we apply the boundary condition: $G(z, -\infty) = G_0(z)$.
+    \item Finally, we assume that the temporal profile of the input pulse is known, providing the boundary condition $E_0(t) \equiv E(0, t)$.
+\end{enumerate}
+
+Under these assumptions, our governing equations become
+\begin{subequations}
+    \begin{align}
+        \left( \ppt + \ppz \right) E\zt &= \half\, \frac{ 1 + i\, \Omega}{1 + \Omega^2}\, G\zt\, E\zt\, , \nd \\
+        \ppt\, G\zt &= -\frac{1}{\tau_\parallel \left(1 + \Omega^2\right)}\, |E\zt|^2\, G\zt\, .
+    \end{align}
+\end{subequations}
+Let's decouple the field intensity from the phase by defining $E\zt \equiv \sqrt{I\zt}\, e^{i\, \phi\zt}$. Then
+\begin{subequations} \label{eqn:laser_dynamics_1d_amp_pde}
+    \begin{align}
+        \label{eqn:laser_dynamics_1d_amp_pde_izt} \left( \ppt + \ppz \right) I\zt &= \frac{G\zt}{1 + \Omega^2}\, I\zt\, , \\
+        \label{eqn:laser_dynamics_1d_amp_pde_gzt} \ppt\, G\zt &= -\frac{I\zt}{\tau_\parallel \left(1 + \Omega^2\right)}\, G\zt\, ,
+        \nd \\
+        \label{eqn:laser_dynamics_1d_amp_pde_pzt} \left( \ppt + \ppz \right) \phi\zt &= \frac{\Omega}{2} \left( \ppt + \ppz \right) \ln\left[I\zt\right]\, .
+    \end{align}
+\end{subequations}
+We'll focus on the first two partial differential equations first. We begin by rescaling the intensity and gain to hide the dependence on the detuning $\Omega$:
+\begin{subequations} \label{eqn:laser_dynamics_1d_amp_primed}
+    \begin{align}
+        I^\prime\zt &\equiv \frac{I\zt}{\tau_\parallel \left(1 + \Omega^2\right)}\, , \nd \\
+        G^\prime\zt &\equiv \frac{G\zt}{1 + \Omega^2}\, .
+    \end{align}
+\end{subequations}
+Then we substitute these expressions into \eqn{laser_dynamics_1d_amp_pde_izt} and \eqn{laser_dynamics_1d_amp_pde_izt} to obtain (after temporarily dropping the primes for simplicity) \cite{ref:frantz1963tpp}
+\begin{subequations}
+    \begin{align}
+        \left( \ppt + \ppz \right) I\zt &= G\zt\, I\zt\, , \nd \\
+        \ppt\, G\zt &= -I\zt\, G\zt\, .
+    \end{align}
+\end{subequations}
+Next, let us change variables to a coordinate system that follows the forward-propagating field as it travels through the amplifier. We choose $z = \zeta$ and $t = \tau + \zeta$, or
+\begin{subequations}
+    \begin{align}
+        \zeta &\equiv z\, , \nd \\
+        \tau &\equiv t - z\, ,
+    \end{align}
+\end{subequations}
+where $\tau$ is often called the ``retarded time.'' Then
+\begin{subequations}
+    \begin{align}
+        \ppz\, I\zt &= \frac{\partial \zeta}{\partial z}\, \frac{\partial}{\partial \zeta}\, I(\zeta, \tau) + \frac{\partial \tau}{\partial z}\, \frac{\partial}{\partial \tau}\, I(\zeta, \tau) = \left(\frac{\partial}{\partial \zeta} - \frac{\partial}{\partial \tau}\right) I(\zeta, \tau)\, , \\
+        \ppt\, I\zt &= \frac{\partial \zeta}{\partial t}\, \frac{\partial}{\partial \zeta}\, I(\zeta, \tau) + \frac{\partial \tau}{\partial t}\, \frac{\partial}{\partial \tau}\, I(\zeta, \tau) = \frac{\partial}{\partial \tau}\, I(\zeta, \tau)\, ,
+    \end{align}
+\end{subequations}
+and we have
+\begin{subequations} \label{eqn:laser_dynamics_1d_amp_pds}
+    \begin{align}
+        \label{eqn:laser_dynamics_1d_amp_pds_izt} \frac{\partial}{\partial \zeta}\, I(\zeta, \tau) &= G(\zeta, \tau)\, I(\zeta, \tau)\, , \nd \\
+        \label{eqn:laser_dynamics_1d_amp_pds_gzt} \frac{\partial}{\partial \tau}\, G(\zeta, \tau) &= -I(\zeta, \tau)\, G(\zeta, \tau)\, .
+    \end{align}
+\end{subequations}
+
+These equations seem quite simple now, but we have some work to do to reach general analytic solutions. First, we solve \eqn{laser_dynamics_1d_amp_pds_izt} for $G(\zeta, \tau)$, and substitute the result in \eqn{laser_dynamics_1d_amp_pds_gzt} to obtain
+\begin{equation}
+    \frac{\partial}{\partial \tau} \left[ \frac{1}{I(\zeta, \tau)}\, \frac{\partial}{\partial \zeta}\, I(\zeta, \tau) \right] = -\frac{\partial}{\partial \zeta}\, I(\zeta, \tau)\, , \mathrm{  or}
+\end{equation}
+\begin{equation}
+    \frac{\partial}{\partial \zeta} \left[ \frac{\partial}{\partial \tau}\, \ln I(\zeta, \tau) + I(\zeta, \tau) \right] = 0\, .
+\end{equation}
+Therefore,
+\begin{equation}
+    \frac{\partial}{\partial \tau}\, \ln I(\zeta, \tau) + I(\zeta, \tau) = f(\tau)\, ,
+\end{equation}
+where $f$ is an unknown function. Now, let $I(\zeta, \tau) \equiv 1/a(\zeta, \tau)$; then
+\begin{equation}
+    \frac{\partial}{\partial \tau}\, a(\zeta, \tau) + f(\tau)\, a(\zeta, \tau) = 1\, .
+\end{equation}
+Multiplying both sides of this equation by $\exp\left[\int d \tau\, f(\tau)\right]$, we find
+\begin{equation}
+    \frac{\partial}{\partial \tau} \left[ e^{\int d \tau\, f(\tau)}\, a(\zeta, \tau) \right] = e^{\int d \tau\, f(\tau)}\, ,
+\end{equation}
+which has the solution
+\begin{equation}
+    e^{\int d \tau\, f(\tau)}\, a(\zeta, \tau) = \int d \tau\, e^{\int d \tau^\prime\, f(\tau^\prime)} + g(\zeta)\, ,
+\end{equation}
+where $g$ is \emph{another} unknown function. The corresponding solution for $I(\zeta, \tau)$ is
+\begin{equation}
+    I(\zeta, \tau) = \frac{e^{\int d \tau\, f(\tau)}}{\int d \tau\, e^{\int d \tau^\prime\, f(\tau^\prime)} + g(\zeta)}\, .
+\end{equation}
+Let's replace the function $f$ with its exponential integral, defining $d h(\tau)/d \tau \equiv \exp[\int d \tau\, f(\tau)]$, and transforming back into our original coordinate system. Then we have
+\begin{equation} \label{eqn:laser_dynamics_1d_amp_ihg}
+    I\zt = \frac{\ppt\, h(t - z)}{h(t - z) + g(z)}\, .
+\end{equation}
+To determine $h(\tau)$, we recall that the input pulse provides the boundary condition $I(0, t) \equiv I_0(t)$, so that
+\begin{equation}
+    I_0(t) = \frac{\ddt\, h(t)}{h(t) + g(0)} = \ddt \left[h(t) + g(0)\right]\, .
+\end{equation}
+We assume that $h(t) \longrightarrow 0$ as $t \longrightarrow -\infty$, and we integrate this expression to find
+\begin{equation}
+    h(t) = g(0) \left[e^{J(t)} - 1\right]\, ,
+\end{equation}
+where the integrated input fluence is
+\begin{equation}
+    J(t) \equiv \int_{-\infty}^{t} d t^\prime\, I_0\left(t^\prime\right)\, .
+\end{equation}
+Substituting this result into \eqn{laser_dynamics_1d_amp_ihg}, we have an intermediate expression for $I\zt$:
+\begin{equation} \label{eqn:laser_dynamics_1d_amp_int}
+    I\zt = \frac{I_0(t - z)}{1 + b\z\, e^{-J(t - z)}}\, ,
+\end{equation}
+where $b\z \equiv g\z/g(0) - 1$.
+
+Returning to \eqn{laser_dynamics_1d_amp_pds}, we use \eqn{laser_dynamics_1d_amp_ihg} to find (in retarded coordinates)
+\begin{equation}
+    G(\zeta, \tau) = -\frac{e^{-J(\tau)}}{1 + b(\zeta)\, e^{-J(\tau)}}\, \frac{d}{d \zeta}\, b(\zeta) = -\frac{d}{d \zeta}\, \ln\left[ 1 + b(\zeta)\, e^{-J(\tau)} \right]\, .
+\end{equation}
+Recall that $G(z, -\infty) = G_0\z$. Then, since $b(0) = 0$,
+\begin{equation}
+    b\z = \frac{1}{H\z} - 1\, ,
+\end{equation}
+where $H\z$ is the exponential integrated unsaturated single-pass gain given by
+\begin{equation}
+    H(z) \equiv \exp\left[\int_0^z d z^\prime\, G_0\left(z^\prime\right)\right]\, .
+\end{equation}
+Collecting results, and restoring the values of the primed variables according to \eqn{laser_dynamics_1d_amp_primed}, the intensity and population difference are given in general by
+\begin{subequations} \label{eqn:laser_dynamics_1d_amp_final}
+    \begin{align}
+        \label{eqn:laser_dynamics_1d_amp_ifin} I\zt &= \frac{I_0(t - z)}{1 - [1 - 1/H_0\z] e^{-J(t - z)/\left(1 + \Omega^2\right)}}\, , \nd \\
+        \label{eqn:laser_dynamics_1d_amp_gfin} G\zt &= \frac{G_0\z}{1 + \left[e^{J(t - z)/\left(1 + \Omega^2\right)} - 1\right] H_0\z }\, ,
+    \end{align}
+\end{subequations}
+where now
+\begin{subequations} \label{eqn:laser_dynamics_1d_amp_jhdef}
+    \begin{align}
+        \label{eqn:laser_dynamics_1d_amp_jdef} J(t) &\equiv \int_{-\infty}^{t} \frac{d t^\prime}{\tau_\parallel}\, I_0\left(t^\prime\right)\, , \nd \\
+        \label{eqn:laser_dynamics_1d_amp_hdef} H_0(z) &\equiv \exp\left[\frac{1}{1 + \Omega^2}\, \int_0^z d z^\prime\, G_0\left(z^\prime\right)\right]\, .
+    \end{align}
+\end{subequations}
+
+Now we can easily calculate the total output fluence
+\begin{equation}
+    J_1 \equiv \int_{-\infty}^{\infty} \frac{d t}{\tau_\parallel}\, I(1, t) = \int_{-\infty}^{\infty} \frac{d t}{\tau_\parallel} \frac{I_0(t)}{1 - [1 - 1/\overline{H}_0] e^{-J(t)/\left(1 + \Omega^2\right)}}\, ,
+\end{equation}
+where
+\begin{equation} \label{eqn:laser_dynamics_1d_amp_hnbdef}
+    \overline{H}_0 \equiv H_0(1) = \exp\left(\frac{1}{1 + \Omega^2}\, \Gnb\right)\, ,
+\end{equation}
+and
+\begin{equation} \label{eqn:laser_dynamics_1d_amp_gnbdef}
+    \Gnb \equiv \int_0^1 d z\, G_0(z)\, .
+\end{equation}
+Changing the integration variable to $u = 1 - (1 - 1/H_0) e^{-J(t)/\left(1 + \Omega^2\right)}$, since $u < 1$ we quickly find
+\begin{equation} \label{eqn:laser_dynamics_1d_amp_j1}
+    \begin{split}
+        J_1 &= \left(1 + \Omega^2\right) \int_{u(-\infty)}^{u(\infty)} \frac{d u}{u\, (1 - u)} \\
+        &= \left(1 + \Omega^2\right) \ln\left[ \frac{u(\infty)}{u(-\infty)}\, \frac{1 - u(-\infty)}{1 - u(\infty)} \right] \\
+        &= \left(1 + \Omega^2\right) \ln\left\{1 + \left[e^{J_0/\left(1 + \Omega^2\right)} - 1\right]\overline{H}_0\right\}\, ,
+    \end{split}
+\end{equation}
+where $J_0 \equiv J(\infty)$ is the total input fluence. Therefore, the effective net gain  is given by
+\begin{equation} \label{eqn:laser_dynamics_1d_amp_geff}
+    G_\mathrm{eff} \equiv \frac{J_1}{J_0} = \frac{1 + \Omega^2}{J_0} \ln\left\{1 + \left[e^{J_0/\left(1 + \Omega^2\right)} - 1\right] \overline{H}_0\right\}\, .
+\end{equation}
+Similarly, we can compute the efficiency $\eta_\mathrm{ext}$ with which the energy stored in the amplifier has been extracted by the input pulse. The energy added to the input pulse is $J_1 - J_0$, and the energy originally stored in the amplifier is proportional to $\Gnb$. In fact, because of the choices we've made when scaling the variables, a calculation similar to that of $G_\mathrm{eff}$ shows that the extraction efficiency is exactly the ratio of these two quantities:
+\begin{equation} \label{eqn:laser_dynamics_1d_amp_etaext}
+    \eta_\mathrm{ext} = \frac{\Gnb - \int_0^1 d z\, G(z, \infty)}{\Gnb} = \frac{J_1 - J_0}{\Gnb}\, .
+\end{equation}
+Note that both $G_\mathrm{eff}$ and $\eta_\mathrm{ext}$ do not depend on either the temporal profile of the input pulse $I_0(t)$ or the spatial dependence of the initial population inversion $G_0(z)$. If $J_0 / (1 + \Omega^2) \ll 1$, then
+\begin{equation}
+    G_\mathrm{eff} \longrightarrow \overline{H}_0 \quad \nd \quad \eta_\mathrm{ext} \longrightarrow \frac{\overline{H}_0 - 1}{\Gnb}\, J_0\, ;
+\end{equation}
+on the other hand, if $J_0 / (1 + \Omega^2) \gg 1$, then
+\begin{equation}
+    J_1 \longrightarrow J_0 + \Gnb \quad \nd \quad \eta_\mathrm{ext} \longrightarrow 1 - \frac{1 + \Omega^2}{\Gnb} \left(1 - \frac{1}{\overline{H}_0}\right)\, e^{-J_0/\left(1 + \Omega^2\right)}\, .
+\end{equation}
+In other words, for weak input fields the gain is exponential in the stored energy, and the efficiency is proportional to the input fluence. When the input fluence is very large, the pulse extracts the energy stored in the amplifier very efficiently and simply adds it to the input.
+
+In \fig{amplifier_1d_pulsed_rect_before}, we show a rectangular input pulse with a duration $\tau_p = 1$ and a total fluence $J_0 = 1$ incident on an amplifier with a length $L = 1$ and a stored initial gain $G_0 = 1.5$. The output pulse and the profile of the remaining gain are shown in \fig{amplifier_1d_pulsed_rect_after}. The output pulse has a fluence of $J_1 = 2.2$ and has extracted 78\% of the energy stored in the amplifier, but the pulse shape is severely distorted. By contrast, in \fig{amplifier_1d_pulsed_gauss_before}, we show a gaussian input pulse with a duration (at the $1/e^2$ points) $\tau_p = 1$ and a total fluence $J_0 = 1$ incident on the same amplifier. The output pulse and the profile of the remaining gain are shown in \fig{amplifier_1d_pulsed_gauss_after}. The output fluence and the stored energy extraction efficiency are identical to the case of the rectangular pulse, because \eqn{laser_dynamics_1d_amp_geff} and \eqn{laser_dynamics_1d_amp_etaext} show that these quantities depend only on the total input fluence $J_0$ and the initial stored energy $\Gnb$. Note also in \fig{amplifier_1d_pulsed_gauss_input_output} that the distortion of the output pulse is significantly reduced for the gaussian input profile relative to the case of the rectangular input pulse shape. Finally, we see from \eqn{laser_dynamics_1d_amp_gfin} that $G(z, \infty)$ depends only on $J_0$ and not $I_0(t)$, so it should not be surprising that \fig{amplifier_1d_pulsed_gain_rect_gauss} shows that the final gain distributions in the amplifier are identical for both rectangular and gaussian input pulses.
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+     \centering
+     \includegraphics[width=5.0in]{figures/amplifier_1d_pulsed_rect_before}
+     \caption{Input pulse and initial gain profiles}
+     \label{fig:amplifier_1d_pulsed_rect_before}
+    \end{subfigure}
+    \par\vspace{0.25in}
+    \begin{subfigure}[b]{0.8\textwidth}
+     \centering
+     \includegraphics[width=5.0in]{figures/amplifier_1d_pulsed_rect_after}
+     \caption{Output pulse and final gain profiles}
+     \label{fig:amplifier_1d_pulsed_rect_after}
+    \end{subfigure}
+    \caption{\label{fig:amplifier_1d_pulsed_rect} Input and output intensity profiles for a rectangular pulse incident on an amplifier with an initially uniform gain profile.}
+  \end{figure}
+
+  \begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+     \centering
+     \includegraphics[width=5.0in]{figures/amplifier_1d_pulsed_gauss_before}
+     \caption{Input pulse and initial gain profiles}
+     \label{fig:amplifier_1d_pulsed_gauss_before}
+    \end{subfigure}
+    \par\vspace{0.25in}
+    \begin{subfigure}[b]{0.8\textwidth}
+     \centering
+     \includegraphics[width=5.0in]{figures/amplifier_1d_pulsed_gauss_after}
+     \caption{Output pulse and final gain profiles}
+     \label{fig:amplifier_1d_pulsed_gauss_after}
+    \end{subfigure}
+    \caption{\label{fig:amplifier_1d_pulsed_gauss} Input and output intensity profiles for a gaussian pulse incident on an amplifier with an initially uniform gain profile.}
+  \end{figure}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=5.0in]{figures/amplifier_1d_pulsed_gauss_input_output}
+    \caption{\label{fig:amplifier_1d_pulsed_gauss_input_output} A comparison of the input and output pulse profiles shown in \fig{amplifier_1d_pulsed_gauss}. The pulse shape distortion is reduced significantly from that of a rectangular pulse.}
+  \end{figure}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=5.0in]{figures/amplifier_1d_pulsed_gain_rect_gauss}
+    \caption{\label{fig:amplifier_1d_pulsed_gain_rect_gauss} A comparison of the final gain profiles shown in \fig{amplifier_1d_pulsed_rect_after} and \fig{amplifier_1d_pulsed_gauss_after}. $G(z, \infty)$ is the same in both cases by \eqn{laser_dynamics_1d_amp_gfin}. }
+  \end{figure}
+  

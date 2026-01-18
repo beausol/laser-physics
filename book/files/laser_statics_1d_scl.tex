@@ -1,0 +1,186 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{One-Dimensional Single Mode Semiconductor Laser Models\label{sct:laser_statics_1d_scl}}
+
+\subsection{Linewidth Enhancement Factor\label{sct:laser_statics_1d_lef}}
+
+In the previous sections of this chapter, we've been careful to allow arbitrary lineshape functions in our single-mode one-dimensional continuous-wave models, but our examples and plots have assumed a symmetric Lorentzian lineshape function $\Lo$. We can extend these results to the asymmetric lineshapes typical of broad classes of semiconductor lasers by relying on the evolution equation of the macroscopic polarization $\widetilde{F}\zt$ and the corresponding lineshape function $\Lao$ given by \eqn{cw_sml_ftz_scaled} and \eqn{laser_statics_1d_lef_lineshape}, respectively.  In general, this function has the real and imaginary parts
+\begin{subequations}\label{eqn:laser_statics_1d_lef_ril}
+  \begin{align}
+    \label{eqn:laser_statics_1d_lef_rel} \begin{split} \rho(\Omega) = \Re\left[\Lao\right] &= \frac{1 + \alpha^2 + 2\, \alpha\, \Omega}{1 + (\Omega + \alpha)^2} \\
+    &= 1 - \frac{\Omega^2}{1 + (\Omega + \alpha)^2}\, , \nd \end{split} \\
+    \label{eqn:laser_statics_1d_lef_iml} \begin{split} \mu(\Omega) = \Im\left[\Lao\right] &= -\frac{\alpha \left(1 + \alpha^2\right) + \left(\alpha^2 - 1\right) \Omega}{1 + (\Omega + \alpha)^2} \\
+    &= -\alpha + \frac{\left( 1 + \alpha^2 + \alpha\, \Omega \right) \Omega}{1 + (\Omega + \alpha)^2}\, . \end{split}
+  \end{align}
+\end{subequations}
+
+The real part of $\Lao$ is plotted as a function of $\Omega$ for two different ranges of $\alpha$ in \fig{scl_lmc_real}. When $\alpha \lesssim 1$, we observe a dramatic asymmetry for modest detunings, but as $\alpha$ increases the predominant effect becomes a substantial broadening of the lineshape by a factor of $\sqrt{1 + \alpha^2}$. In \fig{scl_lmc_imag} we plot the imaginary part of $\Lao$ (offset vertically by $\alpha$) as a function of $\Omega$ for the same two ranges of $\alpha$.  Note that at $\Omega = 0$, the slope of $\Im{\Lao}$ is unity.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+    \centering
+    \includegraphics[width=5.0in]{figures/scl_lmc_real_small_alpha}
+    \caption{Real part of the lineshape function for small $\alpha$}
+    \label{fig:scl_lmc_real_small_alpha}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+    \centering
+    \includegraphics[width=5.0in]{figures/scl_lmc_real_large_alpha}
+    \caption{Real part of the lineshape function for large $\alpha$}
+    \label{fig:scl_lmc_real_large_alpha}
+  \end{subfigure}
+  \caption{\label{fig:scl_lmc_real} Real part of the lineshape function given by \eqn{laser_statics_1d_lef_lineshape} for $\tau_\perp/\tau_\mathrm{o} = 0.0024$ and $\tau_p/\tau_\mathrm{o} = 1.0$. When $\alpha \lesssim 1$, the lineshape asymmetry is dramatic, but as $\alpha$ increases $\Re[\mathcal{L}(\Omega, \alpha)]$ is predominantly broadened by a factor of $\sqrt{1 + \alpha^2}$.}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/scl_lmc_imag_small_alpha}
+   \caption{Imaginary part of the lineshape function for small $\alpha$}
+   \label{fig:scl_lmc_imag_small_alpha}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/scl_lmc_imag_large_alpha}
+   \caption{Imaginary part of the lineshape function for large $\alpha$}
+   \label{fig:scl_lmc_imag_large_alpha}
+  \end{subfigure}
+  \caption{\label{fig:scl_lmc_imag} Imaginary part of the lineshape function given by \eqn{laser_statics_1d_lef_lineshape}. Note that at $\Omega = 0$, the slope of $\Im{\Lao}$ is unity.}
+ \end{figure}
+
+Consistent with our definition of the macroscopic polarization $\widetilde{F}\zt$, we define the \emph{effective linewidth enhancement factor} for a particular detuning $\Omega$ as
+\begin{equation} \label{eqn:scl_alpha_eff}
+  \begin{split}
+    \alpha_\mathrm{eff}(\alpha, \Omega) &\equiv -\frac{\Im\left[\Lao\right]}{\Re\left[\Lao\right]} \\
+    &= \alpha - \Omega + \frac{2\, \alpha\, \Omega^2}{1 + \alpha^2 + 2\, \alpha\, \Omega}\, .
+  \end{split}
+\end{equation}
+In \fig{scl_alpha_eff}, we show that as $\alpha$ increases, the gain dispersion shifts downward linearly with $\alpha$, broadens, and maintains a slope of approximately unity near $\Omega = 0$. The corresponding effective linewidth enhancement factor --- and therefore the laser linewidth, proportional to $1 + \alpha^{\prime\, 2}(\Omega, \alpha)$ --- decreases relative to $|\alpha|$ as the laser is detuned to the blue.
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/scl_alpha_eff}
+  \caption{\label{fig:scl_alpha_eff} Plot of the effective linewidth enhancement factor given by \eqn{scl_alpha_eff} as a function of $\Omega$ for the case where $\tau_p / \tau_\mathrm{o} = 1$ and $\tau_\perp / \tau_\mathrm{o} = 2.5 \times 10^{-3}$. The corresponding linewidth --- proportional to $1 + \alpha^2_\mathrm{eff}(\alpha, \Omega)$ --- increases with $\alpha$, but decreases as the laser is detuned to the blue.}
+\end{figure}
+
+\subsection{Frequency Pulling and Dispersion\label{sct:laser_statics_1d_frq}}
+
+% Using the quasi-normal modal expansion defined by \eqn{mml_e_field_1d_t}, in~\cite{ref:beausoleil2020flm} we show that the evolution of the field coefficient $E_q(t)$ when driven by a corresponding (properly normalized) macroscopic polarization $F_q(t)$ is described by
+%   \begin{equation} \label{eqn:mml_edot}
+%   \dot{E}_q(t) = \frac{1}{1 + \delta \tau_q\wn} \left\{ \left[-\frac{1}{2\, \tau_p} + i \left[\delta \omega_q + \delta D_q\wn\right]\right] E_q(t) + F_q(t) \right\}\, ,
+%   \end{equation}
+%  where $\tau_p$ is the photon lifetime of the bare cavity expressed in units of the group round-trip time $\tau_\mathrm{o}$ as given by \eqn{laser_resonator_1d_tau_p_def}, the small shift $\delta \omega_q$ is discussed in \sct{qdcl_1d_frq_pull}, and the dispersion factors $\delta \tau_q\wn$ and $\delta D_q\wn$ are defined in \sct{qdcl_1d_frq_disp}.
+ 
+%  The term $\delta \omega_q$ in \eqn{mml_edot} is a small frequency shift that we can choose to compensate for gain-dependent phase shifts caused by $F_q(t)$, enabling more rapid numerical convergence. When $\alpha = 0$, we select $\delta \omega_q$ to offset an effect known as ``frequency pulling.'' Using \eqn{mml_1d_delta_w_q_def}, we define
+%   \begin{equation}
+%  \epsilon \equiv \frac{\tau_\perp}{2\, \tau_p}\, ,
+%   \end{equation}
+%  and then
+%   \begin{subequations}
+%   \begin{align}
+%  \label{eqn:mml_1d_freq_shift} \delta \omega_q &= -\frac{\Omega_q}{2\, \tau_p} = -\frac{\epsilon}{1 + \epsilon}\, 2 q \pi\, , \\
+%  \label{eqn:mml_1d_freq_mode} \Delta \omega_q &= \frac{2 q \pi}{1 + \epsilon}\, , \nd \\
+%  \label{eqn:mml_1d_omega_q_def} \Omega_q &\equiv \Delta \omega_q\, \tau_\perp\, .
+%   \end{align}
+%   \end{subequations}
+%  Here $\tau_\perp$ is the dipole relaxation time of the quantum dot laser transition discussed in \sct{qdcl_1d_leq}. If the frequency of the bare cavity mode $q$, given by $2 q \pi$, does not coincide with the quantum dot resonance frequency, the total frequency of that mode will be pulled away from $2 q \pi$ toward the resonance of the medium.
+ 
+%  However, when $\alpha \ne 0$, we must return to the analysis in~\cite{ref:beausoleil2020flm} and write $\delta \omega_q$ in terms of the real and imaginary parts of the macroscopic polarization, which gives
+%  where we have used \eqn{qdcl_1d_lef_lineshape} to define
+%   \begin{equation} \label{eqn:qdcl_1d_lmc_qa_def}
+%  \mathcal{L}_q(\alpha) \equiv \frac{\left(1 - i\, \alpha\right)^2}{1 - i (\Omega_q + \alpha)}\, .
+%   \end{equation}
+%  Note that this result and \eqn{qdcl_1d_lef_def} implies that frequency pulling and linewidth enhancement are closely related, since
+%   \begin{equation} \label{eqn:qdcl_1d_dwq_exact}
+%  \delta \omega_q \approx \frac{\alpha^\prime(\Omega_q, \alpha)}{2\, \tau_p} = \frac{1}{2\, \tau_p}\left[\alpha - \frac{\left(1 + \alpha^2\right) \Omega_q}{1 + \alpha^2 + 2\, \alpha\, \Omega_q}\right]\, .
+%   \end{equation}
+Using \eqn{la1d_dw0_def} to determine the presumably small phase shift arising from frequency pulling, we find
+\begin{equation}
+  \delta \omega_0 = -\frac{1}{2\, \tau_p}\, \frac{\Im\left[\Lao\right]}{\Re\left[\Lao\right]}\, .
+\end{equation}
+Given that $\Omega = \Omega_0 + \delta \omega_0\, \tau_\perp$, we can solve this equation accurately to second order in $\tau_\perp / \tau_p$ and obtain
+\begin{equation} \label{eqn:laser_statics_1d_dw0_approx}
+  \begin{split}
+    \delta \omega_0 &\approx \frac{1}{2\, \tau_p + \tau_\perp}\, \frac{\alpha \left(1 + \alpha^2\right) + \left(\alpha^2 - 1\right) \Omega_0}{1 + \alpha^2 + 2\, \alpha\, \Omega_0} \\
+    &= \frac{1}{2\, \tau_p + \tau_\perp} \left[ \alpha - \Omega_0 + \frac{2\, \alpha\, \Omega_0^2}{1 + \alpha^2 + 2\, \alpha\, \Omega_0} \right]\, .
+  \end{split}
+\end{equation}
+The Lorentzian contribution to the frequency shift --- $-\Omega_0 / 2\, \tau_p$ --- is now offset by a large linear shift proportional to $\alpha$. A plot of \eqn{laser_statics_1d_dw0_approx} --- relative to the total linear contribution $(\alpha - \Omega_0)/(2\, \tau_p + \tau_\perp)$ --- is shown in \fig{scl_freq_pull_nlo}.
+ 
+  %  \begin{figure}
+  %  \centering
+  %  \includegraphics[width=5.0in]{figures/scl_freq_pull}
+  %  \caption{\label{fig:scl_freq_pull} Plot of $\delta \omega_0$ --- given by \eqn{laser_statics_1d_dw0_approx} --- relative to its linear contribution $(\alpha - \Omega_0)/2\, \tau_p$ as a function of $\Omega_0$.}
+  % \end{figure}
+ 
+%  The effects of \emph{frequency dispersion} are included in \eqn{mml_edot} through the terms $\delta D_q\wn$ and $\delta \tau_q\wn$, which are defined as
+%   \begin{subequations} \label{eqn:mml_1d_delta_dt_q_def}
+%   \begin{align}
+%  \label{eqn:mml_1d_delta_d_q_def} \delta D_q\wn &\equiv \sum_{m = 2}^\infty \frac{(2 q \pi)^m}{m!}\, D_m\wn\, , \nd \\
+%  \label{eqn:mml_1d_delta_tau_q_def} \delta \tau_q\wn &\equiv \sum_{m = 2}^\infty \frac{(2 q \pi)^{m - 1}}{(m - 1)!}\, D_m\wn\, .
+%   \end{align}
+%   \end{subequations}
+%  The dispersion constants $D_m\wn$ are given by
+%   \begin{equation} \label{eqn:mml_1d_disp_coeff}
+%  D_m\wn = \frac{L}{\tau_\mathrm{o}^m} \frac{d^m}{d \omega_0^m} \Re\left[\beta\wn\right]\, ,
+%   \end{equation}
+%  where $\beta\wn$ is the propagation eigenvalue of the transverse spatial mode of the electric field~\cite{ref:beausoleil2020flm}. Recall that $z$ is expressed in units of $L$ (the round-trip physical length of the laser resonator). Similarly, $t$ has units of $\tau_\mathrm{o}$ (the group round-trip propagation time), and $\omega_0$ has units of $\tau_\mathrm{o}^{-1}$. In this context, we have chosen the form given by \eqn{mml_1d_disp_coeff} because the value of $d^m \Re[\beta\wn] / d \omega_0^m$ is usually given in published tables in units of second$^m$/meter. For example, suppose that we have a material with a \emph{group velocity dispersion} $d^2 \Re[\beta\wn] / d \omega_0^2 = 1000$~fs$^2$/mm in a laser cavity with $L = 4$~mm and $\tau_\mathrm{o} = 60$~ps. Then $D_2\wn \cong 10^{-6}$, and is dimensionless. Therefore, we see two main effects of dispersion. First, there is an additional frequency shift for each mode that increases (in magnitude) nonlinearly with mode number $q$. Second, the group round-trip time is slightly different for each mode, changing with $q$ by a factor of $1 + \delta \tau_q\wn$. Although it is not obvious from the form of \eqn{mml_edot}, as the magnitudes of the dispersion coefficients increase, the primary effect will be to change the phase of the nonlinear coupling driving the evolution of each mode.
+ 
+We're going to treat the \emph{nonlinear} contribution to \eqn{laser_statics_1d_dw0_approx} a little differently. Nonlinear frequency shifts correspond to dispersion, so we're going to replace $\Omega_0$ in this expression with a general frequency $\omega\, \tau_\perp$, expand the result in a series in $\omega$, and then take the inverse Fourier transform. We obtain
+\begin{equation}
+  \frac{1}{2\, \tau_p + \tau_\perp}\, \frac{2\, \alpha\, \Omega_0^2}{1 + \alpha^2 + 2\, \alpha\, \Omega_0} \longrightarrow \sum_{m = 2}^\infty \frac{A_m}{m!} \left(i\, \ppt\right)^m\, ,
+\end{equation}
+% As is clear from \fig{freq_pull}, it is worth noting that the linewidth enhancement effect on frequency pulling is equivalent to that of dispersion. \Eqn{qdcl_1d_dwq_approx} can be written as the series
+%   \begin{equation}
+%  \delta \omega_q = \frac{\alpha - \tau_\perp (2 q \pi)}{2\, \tau_p} + \sum_{m = 2}^\infty \frac{(2 q \pi)^m}{m!}\, A_m
+%   \end{equation}
+ where
+  \begin{equation} \label{eqn:laser_statics_1d_am_def}
+ A_m \equiv \frac{m!}{2\, \tau_p + \tau_\perp}\, \left(\frac{2\, \alpha}{1 + \alpha^2}\right)^{m - 1} (-\tau_\perp)^m\, .
+  \end{equation}
+A plot of the ``effective dispersion'' $A_m$ as a function of $\alpha$ for the case where $\tau_p / \tau_\mathrm{o} = 1$ and $\tau_\perp / \tau_\mathrm{o} = 2.5 \times 10^{-3}$ is shown in \fig{scl_freq_pull_dm}. Recall from \sct{laser_amp_1d_pdes} that to convert $A_m$ to an equivalent dispersion in units of fs$^m$/mm, we multiply by a factor of $\tau_0^m / L$. For a laser cavity with $L = 4$~mm and $\tau_0 = 65$~ps, we obtain (e.g.) $A_2 \approx 4000$~fs$^2$/mm. The extremum of $A_m$ occurs at $\alpha = \pm 1$, where $2\, |\alpha| / \left(1 + \alpha^2\right) = 1$. The full-width at half-maximum of $A_m$ is $2 \sqrt{2^{2/(m - 1)} - 1}$, which approaches $2 \sqrt{2 \ln(2)/(m - 1)}$ as $m$ becomes large.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/scl_freq_pull_nlo}
+   \caption{Nonlinear frequency pulling/shift}
+   \label{fig:scl_freq_pull_nlo}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/scl_freq_pull_dm}
+   \caption{Effective dispersion of nonlinear frequency pulling/shift}
+   \label{fig:scl_freq_pull_dm}
+  \end{subfigure}
+  \caption{\label{fig:scl_freq_pull} Nonlinear frequency pulling/shift for the case where $\tau_p / \tau_\mathrm{o} = 1$ and $\tau_\perp / \tau_\mathrm{o} = 2.5 \times 10^{-3}$. (a) Plot of $\delta \omega_0$ --- given by \eqn{laser_statics_1d_dw0_approx} --- relative to its linear contribution $(\alpha - \Omega_0)/2\, \tau_p$ as a function of $\Omega_0$. (b) Plot of the corresponding effective dispersion coefficients given by \eqn{laser_statics_1d_am_def} as a function of $\alpha$.}
+  % To convert $A_2$ to an equivalent dispersion in units of fs$^2$/mm for these parameters, multiply it by a factor of $10^9$. The extremum of $A_m$ occurs at $\alpha = \pm 1$, where $2\, \alpha / (1 + \alpha^2) = 1$.}
+\end{figure}
+
+% \begin{figure}
+%   \centering
+%   \includegraphics[width=5.0in]{figures/scl_freq_pull_dm}
+%   \caption{\label{fig:scl_1d_d2} Plot of $A_m$ given by \eqn{laser_statics_1d_am_def} as a function of $\alpha$ for the case where $\tau_p / \tau_\mathrm{o} = 1$ and $\tau_\perp / \tau_\mathrm{o} = 2.5 \times 10^{-3}$. To convert $A_2$ to an equivalent dispersion in units of fs$^2$/mm for these parameters, multiply it by a factor of $10^9$. The extremum of $A_m$ occurs at $\alpha = \pm 1$, where $2\, \alpha / (1 + \alpha^2) = 1$.}
+% \end{figure}
+
+% , the second-order ``effective dispersion'' is $A_2 \cong 4 \times 10^{-6}$, or about $4000$~fs$^2$/mm for the cavity discussed above.
+
+Collecting the results we've derived using continuous-wave laser models, we'll apply them to dynamic models by updating \eqn{cw_sml_etz_scaled} to read
+\begin{multline} \label{eqn:scl_etz_scaled}
+  \ppt E^\pm\zt \pm \ppz E^\pm\zt \\
+  = \left[ \frac{i}{2\, \tau_p}\, (\alpha - \Omega_0) + i\, \sum_{l = 2}^\infty \frac{A_l + D_l\wn}{l!} \left(i\, \frac{\partial}{\partial t}\right)^l E^\pm\zt - \half\, \anz \right] E^\pm\zt + F^\pm\zt\, .
+\end{multline}
+We should remember that in rapidly-varying systems it is likely that $\alpha$ will change with time. Nevertheless, this equation represents a good starting point to understand semiconductor laser systems.

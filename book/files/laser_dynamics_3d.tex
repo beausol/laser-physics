@@ -1,0 +1,38 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Chapter file included in main project file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \chapter{Laser Dynamics: Three-Dimensional Models\label{chp:laser_dynamics_3d}}
+
+ \begin{equation}
+\Ert = \hatb{\epsilon}\, \epkz \sum_{m n q} u_{m n}(\mathbf{r}) e^{\kappa_{m n q}(z)} E_{m n q}(t)
+ \end{equation}
+where
+ \begin{equation}
+\kappa_{m n q}(z) = \left[ \ln \frac{1}{\Gamma_{m n} R} + i \beta_{m n q} \right] \frac{\zeta(z)}{p_\omega} - \half \int_0^z dz^\prime\, \alpha\left(z^\prime\right)
+ \end{equation}
+
+ \begin{equation}
+ \Gamma_{m n} R \equiv \left|\gamma_{m n}\right|^2 \exp\left[-\half \int_0^p dz\, \alpha\left(z\right)\right]
+ \end{equation}
+ \begin{equation}
+ \beta_{m n q} \equiv \Im \left[\ln\left(\frac{1}{\gamma_{m n}}\right)\right] + 2\, \pi\, q
+ \end{equation}
+
+ \begin{equation}
+ \dot{E}_{m n q}(t) + \frac{c}{2 p_\omega} \left[ \ln \frac{1}{\Gamma_{m n} R} + i \beta_{m n q} \right] E_{m n q}(t) = i \frac{c}{2 p_\omega} \sum_{m^\prime n^\prime q^\prime} G_{m n q;m^\prime n^\prime q^\prime}(t)\, E_{m^\prime n^\prime q^\prime}(t)
+ \end{equation}
+
+Factor of 2?
+
+ \begin{equation}
+ \dot{E}_{m n q}(t) + \frac{c}{p_\omega} \left[ \ln \frac{1}{\sqrt{\Gamma_{m n} R}} + i \beta_{m n q} \right] E_{m n q}(t) = i \frac{c}{2 p_\omega} \sum_{m^\prime n^\prime q^\prime} G_{m n q;m^\prime n^\prime q^\prime}(t)\, E_{m^\prime n^\prime q^\prime}(t)
+ \end{equation}
+

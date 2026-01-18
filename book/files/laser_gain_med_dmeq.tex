@@ -1,0 +1,72 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{The Density Matrix Equations of Motion\label{sct:laser_gain_med_dmeq}}
+
+ \subsection{The von Neumann Evolution Equations\label{sct:laser_gain_med_von_neumann}}
+
+We use a specified semiclassical Hamiltonian operator $\hat{H}(t)$ and an appropriate set of initial conditions to solve the von Neumann density operator equation of motion \cite{ref:cohentannoudji1977qm}
+ \begin{equation} \label{eqn:rhodot}
+ \ddt \hat{\rho}(t) = -\Gamma[ \hat{\rho}(t) ] - \frac{i}{\hbar}\,\left[\hat{H}(t), \hat{\rho}(t)\right] ,
+ \end{equation}
+where we have incorporated damping in an open quantum system through the decoherence operator $\Gamma[ \hat{\rho}(t) ]$. We adopt the Lindblad form \cite{ref:lindblad1976ogq,ref:nielsen2000qcq} of $\Gamma[ \hat{\rho} ]$, given by
+ \begin{equation} \label{eqn:lindblad}
+\Gamma[\hat{\rho}] = \sum_m \gamma_m \left[ \half \left( \hat{\rho}\,
+\hat{L}^\dagger_m\, \hat{L}_m + \hat{L}^\dagger_m\, \hat{L}_m\, \hat{\rho} \right) - \hat{L}_m\, \hat{\rho}\, \hat{L}^\dagger_m
+\right] ,
+ \end{equation}
+to preserve both positive probabilities and a positive semidefinite density operator. The Lindblad operator $\hat{L}_m$
+represents a general dissipative process occurring at the rate $\gamma_m$. For example, we can describe the decay of the state $\ket{a}$ to the state $\ket{b}$ due to spontaneous emission at the rate $\gamma_{a b}$ using the lowering operator
+ \begin{equation}
+ \hat{L}^\prime_{a b} = \hat{\sigma}_{a b} \equiv \ket{a} \bra{b}
+ \end{equation}
+and pure dephasing of the state $\ket{a}$ at the rate $\gamma_{a}$ (e.g., due to atomic collisions or phonon scattering) using the operator
+ \begin{equation}
+\hat{L}_{a} \equiv \frac{1}{\sqrt{2}}\, \left(\hat{1} - 2 \hat{\sigma}_{a a}\right) ,
+ \end{equation}
+where $\hat{1} \equiv \sum_j \hat{\sigma}_{jj}$ is the identity operator.
+
+ \subsection{The Liouville Evolution Equations\label{sct:laser_gain_med_liouville}}
+Although abstract calculations involving the temporal evolution of the density operator are often performed using \eqn{rhodot}, the $n \times n$ square matrix representation of $\hat{\rho}(t)$ is inconvenient when we use mathematical software packages to solve the von Neumann equation. For example, functions that numerically solve temporal coupled ordinary differential equations often specify that the initial values (and, therefore, the solutions at a particular time) be supplied as elements of a column vector. Referring to \eqn{rhodot} and \eqn{lindblad}, we see that there are three different operator orderings involving $\hat{\rho}$ that we would like to recast into a form where the density matrix elements are rewritten as a column vector $\boldsymbol{\rho}$ that has $n^2$ elements:
+ \begin{subequations}
+ \begin{align}
+ \left(\hat{A}\, \hat{\rho}\right)_{j k} &= \sum_\ell \hat{A}_{j \ell}\, \hat{\rho}_{\ell k} = \sum_{\ell m} \hat{A}_{j \ell}\, \delta_{m k}\, \hat{\rho}_{\ell m} , \\
+ \left(\hat{\rho}\, \hat{B}\right)_{j k} &= \sum_m \hat{\rho}_{j m}\, \hat{B}_{m k}  = \sum_{\ell m} \delta_{j \ell}\, \hat{B}_{m k}\, \hat{\rho}_{\ell m} , \nd \\
+ \left(\hat{A}\, \hat{\rho}\, \hat{B}\right)_{j k} &= \sum_{\ell m} \hat{A}_{j \ell}\, \hat{B}_{m k} \hat{\rho}_{\ell m} .
+ \end{align}
+ \end{subequations}
+Note that the pair of integers $\ell$ and $m$---which take the values $1$ through $n$---will enumerate all of the elements of the density matrix in the order in which the terms of the sum are taken. If we choose $m$ as the ``rapidly'' varying index, then we can make the associations
+ \begin{subequations}
+ \begin{align}
+ \hat{A}\, \hat{\rho} &\longrightarrow \left( \hat{A} \otimes \hat{1}_n \right) \boldsymbol{\rho} , \\
+ \hat{\rho}\, \hat{B} &\longrightarrow \left( \hat{1}_n \otimes \hat{B}^\mathrm{T} \right) \boldsymbol{\rho} , \nd \\
+ \hat{A}\, \hat{\rho}\, \hat{B} & \longrightarrow \left( \hat{A} \otimes \hat{B}^\mathrm{T} \right) \boldsymbol{\rho} ,
+ \end{align}
+ \end{subequations}
+where $\hat{1}_n$ is the $n \times n$ matrix representation of the identity operator and the symbol ``$\otimes$'' represents the Kronecker product. In Mathematica, the $n^2 \times n^2$ product of the two $n \times n$ matrices \texttt{A} and \texttt{B}$^\mathrm{T}$ is implemented as \texttt{KroneckerProduct[A, Transpose[B]]}, while the same operation in MATLAB is \texttt{kron(A,B.')}.
+
+In this vector representation of $\boldsymbol{\rho}$, we rewrite \eqn{rhodot} as a Liouville equation of motion in the form
+ \begin{equation} \label{eqn:rhodot_lv}
+ \ddt \boldsymbol{\rho}(t) = -\left[\bmc{L}_\Gamma + \frac{i}{\hbar}\, \bmc{L}_H(t) \right] \boldsymbol{\rho}(t) ,
+ \end{equation}
+where
+% \begin{equation} \label{eqn:vn_commutator}
+% \begin{split}
+%[\hat{H}, \hat{\rho}]_{j k} &= \sum_\ell \hat{H}_{j \ell} \hat{\rho}_{\ell k} - \sum_m \hat{\rho}_{j m} \hat{H}_{m k} \\
+%     &=  \sum_{\ell m} \left(\hat{H}_{j \ell} \delta_{m k} - \delta_{j \ell} \hat{H}_{m k}\right) \hat{\rho}_{\ell m}
+% \end{split}
+% \end{equation}
+ \begin{subequations} \label{eqn:liouville_ops}
+ \begin{align}
+ \label{eqn:liouville_gamma} \bmc{L}_\Gamma &= \sum_m \gamma_m \left\{ \half \left[ \left(\hat{L}^\dagger_m\, \hat{L}_m\right) \otimes \hat{1}_n + \hat{1}_n \otimes \left(\hat{L}^\dagger_m\, \hat{L}_m\right)^\mathrm{T}\right] + \hat{L}_m \otimes \hat{L}^\ast_m \right\} , \nd \\
+ \label{eqn:liouville_h} \bmc{L}_H(t) &= \hat{H}(t) \otimes \hat{1}_n - \hat{1}_n \otimes \hat{H}^\mathrm{T}(t) .
+ \end{align}
+ \end{subequations}

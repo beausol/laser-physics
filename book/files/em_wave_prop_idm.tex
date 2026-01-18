@@ -1,0 +1,472 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Inhomogeneous Dispersive Media\label{sct:em_wave_prop_idm}}
+
+We will eventually model laser amplifiers as ensembles of quantum dipoles (e.g., nearly resonant interactions with two-level systems such as atoms, molecules, or electron-hole pairs) embedded in a background material that can be modeled mesoscopically as a classical electromagnetic material. With this approach in mind, we introduce the macroscopic Maxwell equations\index{Maxwell's equations!macroscopic}, given by \cite{ref:jackson1999ce}
+ \begin{subequations}
+ \label{eqn:macro_maxwell}
+ \begin{align}
+ \divr \bmc{D}\rt &= \rho_f \rt \label{eqn:macro_gauss} \\
+ \divr \bmc{B}\rt &= 0  \label{eqn:macro_div_b} \\
+ \curl \bmc{E}\rt + \ppt \bmc{B}\rt &= 0 \label{eqn:macro_faraday} \\
+ \curl \bmc{H}\rt -\, \ppt \bmc{D}\rt &= \bmi{j}_f\rt  \label{eqn:macro_ampere} \\
+ \divr \bmi{j}_f\rt + \ppt \rho_f\rt &= 0 \label{eqn:macro_continuity}
+ \end{align}
+ \end{subequations}
+where ``$f$'' denotes ``free,'' and the electric displacement $\bmc{D}$ and the magnetic field $\bmc{H}$ are defined in terms of the electric polarization $\bmc{P}$ and the magnetization $\bmc{M}$ as
+ \begin{subequations} \label{eqn:disp_b_field}
+ \begin{align}
+\bmc{D}\rt &\equiv \varepsilon_0\, \bmc{E}\rt + \bmc{P}\rt
+\label{eqn:displacement}
+\\
+\bmc{B}\rt &\equiv \mu_0\, \bmc{H}\rt + \mu_0\, \bmc{M}\rt
+\label{eqn:b_field}
+ \end{align}
+ \end{subequations}
+The electric polarization should not be confused with the polarization of an electromagnetic wave, and should be thought of as a macroscopic sum of microscopic electric dipole moments (per unit volume). Similarly, the magnetization is the magnetic dipole moment per unit volume.
+
+\Eqn{macro_maxwell} are not the ``true'' Maxwell equations in the sense that they are not more general than their microscopic counterparts. They simply reflect a convenient separation of charge and current into free and bound contributions. They can be derived from \eqn{micro_maxwell} in a phenomenological fashion \cite{ref:jackson1999ce} by averaging the fields over volumes and times that are large compared to spatial and temporal variations in the underlying bound charge structure. The free charge and current therefore arise from material variations that have characteristic length scales and times that are large compared to those of the averaging procedure.
+
+ \subsection{Constitutive Relations for Isotropic Dielectrics\label{sct:const_rel_idm}}
+Let's consider the relationship between microscopic and macroscopic fields in a way that is consistent with the models that we'll build of laser amplifiers and oscillators. We will generally assume that the laser gain region can be decomposed into a host (or background material) that is characterized by a macroscopic \emph{linear} polarization $\bmc{P}_L\rt$ and a \emph{nonlinear} polarization $\bmc{P}\rt$ that describes the gain elements (such as atoms, ions, or electron-hole pairs) embedded in the host. Furthermore, we will describe the linear contribution to the total macroscopic polarization by a relative permittivity $\varepsilon$, such that $\varepsilon_0 E + P_L \sim \varepsilon_0 \varepsilon E$, and we will assume that the host material has a purely linear permanent magnetization that can be characterized by a relative permeability $\mu$, or $\mu_0 H + M \sim \mu_0 \mu H$. We will initially concentrate on the development of expressions for $\bmc{D}\rt$ as functions of frequency components of $\bmc{E}\rt$; the parallel discussion of $\bmc{B}\rt$ will be obvious, and we'll state the corresponding results near the end of this section.
+
+There are a number of laser materials that are anisotropic, such as Nd:YVO$_4$ (positive uniaxial) and Ti:Sapphire (negative uniaxial). However, in these cases the crystals are cut so that the laser field's propagation vector and electric field vector are aligned with two of the available crystallographic axes. Therefore, we will assume that the host is \emph{isotropic}, in the sense that the dependence of the relative permittivity on the host's orientation can be ignored.\footnote{It is a bit tedious (but not conceptually difficult) to treat anisotropic hosts with full generality. We simply describe the relative permittivity as a tensor, and then honor the order of matrix multiplications as we continue our analysis.} However, we will allow the background material to be both spatially inhomogeneous (but local) and temporally dispersive. Following \sct{math_prelim_fourier_transforms}, this means that we can write $\bmc{D}$ in terms of a complex relative dielectric function $\varepsilon\rw$ as
+ \begin{equation} \label{eqn:bmc_d_cr}
+\bmc{D}\rt = \varepsilon_0 \int^\infty_{-\infty} \frac{d \omega'} {2 \pi}\, e^{-i \omega' t}\, \varepsilon(\mathbf{r}, \omega')\, \bmc{E}(\mathbf{r}, \omega') + \bmc{P}\rt ,
+ \end{equation}
+where $\bmc{E}(\mathbf{r}, \omega')$ is the temporal Fourier transform of $\bmc{E}\rt$.\footnote{We will usually avoid festooning Fourier transforms of vectors with other symbols if we can use the argument (e.g., $\omega$) as an unambiguous label.} If we assume that $\bmc{E}\rt$ is nearly harmonic, as given by \eqn{bmc_e_def}, then the corresponding Fourier transform can be written
+ \begin{equation} \label{eqn:bmc_e_fti}
+ \begin{split}
+ \bmc{E}\left(\mathbf{r}, \omega'\right) &= \frac{1}{2} \int^\infty_{-\infty} dt\, e^{+i \left(\omega' - \omega_0\right) t}\, \Ert \\
+ &+ \frac{1}{2} \int^\infty_{-\infty} dt\, e^{+i \left(\omega' + \omega_0\right) t}\, \mathbf{E}^\ast\rt .
+ \end{split}
+ \end{equation}
+The first term on the \rhs of this expression is clearly just $\half \mathbf{E}\left(\mathbf{r}, \omega' -\omega_0\right)$. However, the second term requires a little thought, because the Fourier transform of a complex conjugate is not the same thing as the complex conjugate of a Fourier transform, and we'd like to rely on the latter so that we can continue to allow the ``c.c.'' terms to get along with little or no supervision from us. To make the problem clearer, we write the Fourier transform of $\Ert$ as
+ \begin{equation}
+ \mathbf{E}\rw = \int^\infty_{-\infty} dt\, \epwt\, \Ert .
+ \end{equation}
+If we take the complex conjugate of both sides of this expression, it is evident that we will \emph{not} obtain $\int dt\, \exp(+i \omega t) \mathbf{E}^\ast\rt$ because the argument of the exponential factor has the wrong sign. The simplest way to calculate $\int dt\, \exp[+i (\omega' + \omega_0) t] \mathbf{E}^\ast\rt$ is to take its complex conjugate, obtain $\mathbf{E}(\mathbf{r},  -\omega' - \omega_0)$, and then take the complex conjugate again, giving
+ \begin{equation} \label{eqn:bmc_e_ftf}
+ \bmc{E}\left(\mathbf{r}, \omega'\right) = \frac{1}{2} \mathbf{E}\left(\mathbf{r}, \omega' - \omega_0\right)
+ + \frac{1}{2} \mathbf{E}^\ast(\mathbf{r}, -\omega' - \omega_0) .
+ \end{equation}
+Since $\bmc{E}\rt$ is real, we could have derived the second term of \eqn{bmc_e_ftf} from \eqn{fourier_conj_real} and the relation $\bmc{E}\left(\mathbf{r}, -\omega'\right) = \bmc{E}^\ast\left(\mathbf{r}, \omega'\right)$.
+
+If we substitute \eqn{bmc_e_ftf} into \eqn{bmc_d_cr}, then we obtain
+ \begin{equation} \label{eqn:bmc_d_svf}
+ \begin{split}
+ \bmc{D}\rt - \bmc{P}\rt &= \frac{\varepsilon_0}{2}  \int^\infty_{-\infty} \frac{d \omega'} {2 \pi}\, e^{-i \omega' t} \varepsilon\left(\mathbf{r}, \omega'\right)\, \mathbf{E}\left(\mathbf{r}, \omega' - \omega_0\right) \\
+ &+ \frac{\varepsilon_0}{2}  \int^\infty_{-\infty} \frac{d \omega'} {2 \pi}\, e^{-i \omega' t} \varepsilon\left(\mathbf{r}, \omega'\right)\, \mathbf{E}^\ast\left(\mathbf{r}, -\omega' - \omega_0\right)\\
+ &= \frac{\varepsilon_0}{2}\, \emwnt \int^\infty_{-\infty} \frac{d \omega} {2 \pi}\, e^{-i \omega t} \varepsilon\left(\mathbf{r}, \omega_0 + \omega \right)\, \mathbf{E}(\mathbf{r}, \omega) \\
+ &+ \frac{\varepsilon_0}{2}\, \epwnt \int^\infty_{-\infty} \frac{d \omega} {2 \pi}\, e^{+i \omega t} \varepsilon^\ast\left(\mathbf{r}, \omega_0 + \omega\right)\, \mathbf{E}^\ast(\mathbf{r}, \omega)\\
+ &\equiv \frac{\emwnt}{2} \Drt + \cc ,
+ \end{split}
+ \end{equation}
+where we have again used \eqn{fourier_conj_real} to set $\varepsilon(\mathbf{r}, -\omega_0 - \omega) = \varepsilon^\ast(\mathbf{r}, \omega_0 + \omega)$, and we have defined the linear contribution of the host material to the total electric displacement in terms of
+ \begin{gather}
+ \label{eqn:drw_def} \mathbf{D}(\mathbf{r}, \omega) = \varepsilon_0\, \varepsilon\left(\mathbf{r}, \omega_0 + \omega \right)\, \mathbf{E}(\mathbf{r}, \omega), \nd \\
+ \label{eqn:drt_def} \Drt = \int^\infty_{-\infty} \frac{d \omega} {2 \pi}\, \emwt\, \mathbf{D}(\mathbf{r}, \omega) .
+ \end{gather}
+Given the constraint \eqn{svea_t}, we anticipate that $\mathbf{E}(\mathbf{r}, \omega)$ will take on significant values only when $\omega \ll \omega_0$, so we can follow \sct{math_prelim_fourier_conv_thm} and formally expand $\varepsilon(\mathbf{r}, \omega_0 + \omega)$ in a Taylor series about $\omega_0$ to obtain
+ \begin{equation} \label{eqn:drt_taylor_w}
+ \begin{split}
+ \Drt &\equiv \varepsilon_0 \int^\infty_{-\infty} \frac{d \omega} {2 \pi}\, e^{-i \omega t} \sum_{m = 0}^\infty \frac{\omega^m}{m!} \frac{\partial^m \varepsilon\rwn}{\partial \omega_0^m}\, \mathbf{E}(\mathbf{r}, \omega) \\
+ &= \varepsilon_0 \sum_{m = 0}^\infty \frac{1}{m!} \frac{\partial^m \varepsilon\rwn}{\partial \omega_0^m} \int^\infty_{-\infty} \frac{d \omega} {2 \pi}\, e^{-i \omega t} \omega^m \mathbf{E}(\mathbf{r}, \omega) \\
+ &= \varepsilon_0 \sum_{m = 0}^\infty \frac{1}{m!} \frac{\partial^m \varepsilon\rwn}{\partial \omega_0^m} \left(i \ppt\right)^m \Ert ,
+ \end{split}
+ \end{equation}
+where $\partial^m f(\omega_0)/\partial \omega_0^m \equiv \partial^m f(\omega)/\partial \omega^m|_{\omega = \omega_0}$, and in the last step we have applied the Fourier Differentiation Theorem given by \eqn{fourier_diff_thm}. If we follow the notation convention of \eqn{filter_shorthand} and write
+ \begin{equation} \label{eqn:epsilon_shorthand}
+ \varepsilon\left(\mathbf{r}, \omega_0 + i \ppt\right) \equiv \sum_{m = 0}^\infty \frac{1}{m!} \frac{\partial^m \varepsilon\rwn}{\partial \omega_0^m} \left(i \ppt\right)^m ,
+ \end{equation}
+then we finally have the expression
+ \begin{equation} \label{eqn:drt_simple}
+ \Drt = \varepsilon_0\, \varepsilon\left(\mathbf{r}, \omega_0 + i \ppt\right) \Ert ,
+ \end{equation}
+correct to all orders in the dispersion. Depending on the temporal behavior of $\Ert$, we choose how many orders of $\partial \Ert/d t$ to keep in Maxwell's equations.
+
+In later sections, we will need to compute partial time derivatives of $\bmc{D}\rt$ to solve a variety of problems in power flow and wave propagation. We define $\bmc{P}\rt \equiv \Re[\emwnt \mathbf{P}\rt]$; therefore, using \eqn{d_emwt_f_dt}, we have
+ \begin{equation} \label{eqn:dn_bmc_D_dtn}
+ \begin{split}
+ \frac{\partial^n}{\partial t^n} \bmc{D}\rt &= \frac{\emwnt}{2} (-i)^n \left(\omega_0 + i \ppt\right)^n \left[\Drt + \mathbf{P}\rt\right] + \cc \\
+ &= \frac{\emwnt}{2} (-i)^n \left(\omega_0 + i \ppt\right)^n \left[\varepsilon_0\, \varepsilon\left(\mathbf{r}, \omega_0 + i \ppt\right) \Ert + \mathbf{P}\rt\right] + \cc .
+ \end{split}
+ \end{equation}
+Our notation is a fairly compact representation that can be used to quickly generate a series of time derivatives of the complex field amplitude functions $\Ert$ and $\mathbf{P}\rt$. If we generalize \eqn{epsilon_shorthand} to any function of frequency $f\rw$, and then define $f\rwn \equiv \omega_0^n \varepsilon\rwn$, we can quickly expand the \rhs of \eqn{dn_bmc_D_dtn} using
+ \begin{equation} \label{eqn:dn_D_dtn}
+ \begin{split}
+ (-i)^n \left(\omega_0 + i \ppt\right)^n \Drt &= (-i)^n \varepsilon_0 f\left(\mathbf{r}, \omega_0 + i \ppt\right) \Ert \\
+ &= (-i)^n \varepsilon_0 \sum_{m = 0}^\infty \frac{1}{m!} \frac{\partial^m}{\partial \omega_0^m}\left[\omega_0^n \varepsilon\rwn\right] \left(i \ppt\right)^m \Ert .
+ \end{split}
+ \end{equation}
+Expressions analogous to \eqn{bmc_d_cr} appear frequently in linear systems theory, and our treatment is general enough to cover a wide variety of problems of interest.
+
+The corresponding results for the magnetic induction in the host material are straightforward extensions of those for the electric displacement, without the complication of a nonlinear magnetization. Following \eqn{bmc_d_cr}, we can write $\bmc{B}$ in terms of a complex relative magnetic permeability function $\mu\rw$ as
+  \begin{equation} \label{eqn:bmc_b_cr}
+\bmc{B}\rt = \mu_0 \int^\infty_{-\infty} \frac{d \omega} {2 \pi}\, \emwt \mu\rw\, \bmc{H}\rw ,
+ \end{equation}
+where $\bmc{H}\rw$ is the Fourier transform of $\bmc{H}\rt$. When $\bmc{H}\rt$ is nearly harmonic, we define $\bmc{H}\rt \equiv \Re[\emwnt\, \Hrt]$ and
+ \begin{equation} \label{eqn:brw_def}
+\mathbf{B}(\mathbf{r}, \omega) = \mu_0\, \mu\left(\mathbf{r}, \omega_0 + \omega \right)\, \mathbf{H}(\mathbf{r}, \omega)
+ \end{equation}
+to obtain
+ \begin{equation} \label{eqn:brt_def_simple}
+ \begin{split}
+ \Brt &\equiv \mu_0 \int^\infty_{-\infty} \frac{d \omega} {2 \pi}\, e^{-i \omega t} \mu\left(\mathbf{r}, \omega_0 + \omega \right)\, \mathbf{H}\rw \\
+ &= \mu_0\, \mu\left(\mathbf{r}, \omega_0 + i \ppt\right) \Hrt .
+ \end{split}
+ \end{equation}
+Then, following \eqn{dn_bmc_D_dtn} and \eqn{dn_D_dtn}, we can calculate partial time derivatives of $\bmc{B}\rt$ using
+ \begin{equation} \label{eqn:dn_bmc_B_dtn}
+ \begin{split}
+ \frac{\partial^n}{\partial t^n} \bmc{B}\rt &= \frac{\emwnt}{2} (-i)^n \left(\omega_0 + i \ppt\right)^n \Brt + \cc \\
+ &= \frac{\emwnt}{2} (-i)^n \left(\omega_0 + i \ppt\right)^n \mu_0\, \mu\left(\mathbf{r}, \omega_0 + i \ppt\right) \Hrt + \cc \\
+ &= \frac{\emwnt}{2} (-i)^n \mu_0 \sum_{m = 0}^\infty \frac{1}{m!} \frac{\partial^m}{\partial \omega_0^m}\left[\omega_0^n \mu\rwn\right] \left(i \ppt\right)^m \Hrt + \cc.
+ \end{split}
+ \end{equation}
+
+ \subsection{Poynting's Theorem in a Dispersive Medium\label{sct:poynting_theorem_idm}}\index{Poynting's theorem!dispersive medium}
+
+In writing \eqn{macro_maxwell}, we have chosen some method to separate the charge and current into free and bound components, and subsequently in \eqn{bmc_d_cr} we have further divided the macroscopic polarization into a linear (in $\Ert$) contribution from the background or host material, and a generally nonlinear contribution. Here we wish to extend Poynting's Theorem, derived in \eqn{poynting_thm_vac} for charges in vacuum, to describe power flow between electromagnetic fields, free charges and currents, and bound charges. We follow the approach we used in \sct{em_wave_prop_vac}, and compute the rate at which work is done by the fields on the free charges to be
+ \begin{equation} \label{eqn:dW_f_dt}
+ \frac{d W_f}{d t} = \int_\mathcal{V} d^3r\, \bmi{j}_f\rt \dotp \bmc{E}\rt .
+ \end{equation}
+Using \eqn{macro_faraday}, \eqn{macro_ampere}, and the vector identity given by \eqn{divr_a_cross_b}, we can rewrite the integrand on the \rhs of \eqn{dW_f_dt} as
+ \begin{equation} \label{eqn:j_f_dot_e}
+ \begin{split}
+\bmi{j}_f\rt \dotp \bmc{E}\rt &= \left[ \curl\bmc{H}\rt - \ppt \bmc{D}\rt \right] \dotp \bmc{E}\rt \\
+&= \bmc{H}\rt \dotp \curl\bmc{E}\rt - \divr \left[\bmc{E}\rt \cross \bmc{H}\rt\right] - \bmc{E}\rt \dotp \ppt \bmc{D}\rt \\
+&= -\left\{ \divr \left[\bmc{E}\rt \cross \bmc{H}\rt\right] + \bmc{E}\rt \dotp \ppt \bmc{D}\rt + \bmc{H}\rt \dotp \ppt \bmc{B}\rt \right\} .
+ \end{split}
+ \end{equation}
+
+Using \eqn{dn_bmc_D_dtn}, \eqn{dn_D_dtn} and \eqn{dn_bmc_B_dtn}, we can calculate the time derivatives in \eqn{j_f_dot_e} to first order in $\partial/\partial t$, giving
+ \begin{subequations} \label{eqn:d_bmc_DB_dt}
+ \begin{align}
+ \begin{split}
+ \frac{\partial}{\partial t} \bmc{D}\rt &\cong \frac{\emwnt}{2}\, \varepsilon_0 \left\{ -i\, \omega_0\, \varepsilon\rwn \Ert + \frac{\partial}{\partial \omega_0} \left[  \omega_0\, \varepsilon\rwn \right] \ppt \Ert \right\}\\
+ &- \frac{\emwnt}{2}\, i \left(\omega_0 + i \ppt\right) \mathbf{P}\rt + \cc ,  \label{eqn:d_bmc_D_dt}
+ \end{split}\\
+ \frac{\partial}{\partial t} \bmc{B}\rt &\cong \frac{\emwnt}{2} \mu_0 \left\{ -i\, \omega_0 \mu\rwn \Hrt + \frac{\partial}{\partial \omega_0} \left[  \omega_0 \mu\rwn \right] \ppt \Hrt \right\} + \cc .  \label{eqn:d_bmc_B_dt}
+ \end{align}
+ \end{subequations}
+If we substitute \eqn{d_bmc_DB_dt} into \eqn{j_f_dot_e} and take the time average of $\bmi{j}_f\rt \dotp \bmc{E}\rt$ following \sct{math_prelim_time_average}, then we obtain
+ \begin{multline} \label{eqn:j_dot_e_avg_idm}
+\divr \left\{\half \Re \left[ \Ert \cross \mathbf{H}^\ast\rt \right]\right\} \\ + \half \Re \left\{ \varepsilon_0 \frac{\partial}{\partial \omega_0} \left[  \omega_0\, \varepsilon\rwn \right] \mathbf{E}^\ast\rt \ppt \Ert + \mu_0 \frac{\partial}{\partial \omega_0} \left[  \omega_0\, \mu\rwn \right] \mathbf{H}^\ast\rt \ppt \Hrt\right\} \\
+\cong - \half \Re \left[ \mathbf{j}_f\rt \dotp \mathbf{E}^\ast\rt \right] + \frac{\omega_0}{2} \Re \left[ i\, \mathbf{P}\rt \dotp \mathbf{E}^\ast\rt \right] \\
++ \frac{\omega_0}{2} \Re \left[ i\, \varepsilon_0 \varepsilon\rwn \left|\Ert\right|^2 + i\, \mu_0 \mu\rwn \left|\Hrt\right|^2 \right] ,
+ \end{multline}
+where we have assumed that $\mathbf{P}\rt$ is sufficiently slowly varying that we can neglect $\partial \mathbf{P}/\partial t$ in \eqn{d_bmc_D_dt}. The second and third terms on the \rhs of this equation can be simplified using the identity $\Re(i\, z) = -\Im(z)$ for a complex number $z$. We assume that the laser host material is nearly transparent at frequency $\omega_0$, so that $\Re[\epsilon] \gg \Im[\epsilon]$ and $\Re[\mu] \gg \Im[\mu]$. Therefore, the last term on the \rhs represents the lowest-order contributions of the imaginary parts of $\varepsilon\rwn$ and $\mu\rwn$ (proportional to $\omega_0$), and we will apply the slowly-varying envelope approximation and neglect terms proportional to $\Im[\epsilon]$ and $\Im[\mu]$ in the second term on the \lhs of \eqn{j_dot_e_avg_idm}. With these simplifications, we define the macroscopic time-averaged Poynting vector
+ \begin{equation} \label{eqn:poynting_vector_idm}
+ \mathbf{S}\rt \equiv \half \Re \left[ \Ert \cross \mathbf{H}^\ast\rt \right] ,
+ \end{equation}
+and, using \eqn{B_dot_dBdt_avg} as a guide, the macroscopic time-averaged energy density
+ \begin{equation} \label{eqn:energy_density_idm}
+ u\rt \equiv \frac{1}{4} \left\{ \varepsilon_0 \frac{\partial}{\partial \omega_0} \Re\left[  \omega_0\, \varepsilon\rwn \right] \left|\Ert\right|^2 + \mu_0 \frac{\partial}{\partial \omega_0} \Re\left[  \omega_0\, \mu\rwn \right] \left|\Hrt\right|^2\right\} .
+ \end{equation}
+\Eqn{j_dot_e_avg_idm} therefore becomes
+ \begin{equation}
+ \begin{split} \label{eqn:poynting_theorem_idm}
+\divr \mathbf{S}\rt + \ppt u\rt
+\cong &- \half \Re \left[ \mathbf{j}_f\rt \dotp \mathbf{E}^\ast\rt \right] - \frac{\omega_0}{2} \Im \left[ \mathbf{P}\rt \dotp \mathbf{E}^\ast\rt \right] \\
+&-\frac{\omega_0}{2} \left[ \varepsilon_0 \Im\left[\varepsilon\rwn\right] \left|\Ert\right|^2 + \mu_0 \Im\left[\mu\rwn\right] \left|\Hrt\right|^2 \right] .
+ \end{split}
+ \end{equation}
+This result is the generalization of Poynting's Theorem in vacuum, given by \eqn{poynting_thm_vac}, to macroscopic media.
+From our derivation of \eqn{poynting_thm_vac}, we recall that the first term on the \rhs of \eqn{poynting_theorem_idm} represents the time-averaged rate at which energy is being transferred from the free charged particles to the fields. Similarly, the second term describes the rate at which gain elements embedded in the host transfer energy to the fields, and will appear again later in our treatment of the Maxwell-Bloch laser evolution equations. The final term on the \rhs is the rate at which energy is absorbed from the fields by the bound charges in the background host material and converted to heat. If some of the absorbed energy is converted by the host into (scattered) light, then the analysis becomes more complicated, since this radiation would have to be included in both $\mathbf{S}$ and $u$.
+
+For many years, there has been some dispute over the precise expression for electromagnetic \emph{momentum} density in the presence of bound charges \cite{ref:jackson1999ce}, with the Minkowski form $\mathbf{D} \cross \mathbf{B}$ \cite{ref:minkowski1908dge} and the Abraham form $\mathbf{E} \cross \mathbf{H}/c^2$ \cite{ref:abraham1909zek} remaining the most popular. Recently, this dilemma appears to have been resolved by Barnett \cite{ref:barnett2010ram}, who has shown that both forms are correct, with the Abraham density representing the kinetic momentum and the Minkowski density describing the canonical momentum. The version of the Poynting Theorem given by \eqn{poynting_theorem_idm} does not depend on considerations of electromagnetic field momentum, and should remain a useful guide when we build our density matrix evolution equations in later chapters.
+
+ \subsection{Electromagnetic Wave Propagation in a Dispersive Medium\label{sct:em_wave_eqn_idm}}\index{Electromagnetic waves!dielectric media}
+
+We now begin to model the behavior of optical-frequency electromagnetic fields in a volume containing a (generally) inhomogeneous dispersive medium. As we shall soon discover, considerations of the physics of the most common laser amplifier host materials will allow us to make simplifying assumptions that in turn cause the laser evolution equations to become analytically and numerically tractable. Again focusing on the characteristics of nearly-harmonic fields, we begin by taking the Fourier transform of macroscopic Maxwell equations given by \eqn{macro_maxwell} and then applying \eqn{fourier_diff_thm} to obtain equations describing the frequency-domain slowly-varying complex field amplitude functions:
+ \begin{subequations} \label{eqn:macro_maxwell_c}
+ \begin{align}
+ \divr\Drw &= \rho_{\omega_0}\rw \label{eqn:macro_gauss_c} \\
+ \divr\Brw &= 0 \label{eqn:macro_div_c} \\
+ \curl\Erw - i\left(\omega_0 + \omega\right) \Brw &= 0 \label{eqn:macro_faraday_c} \\
+ \curl\Hrw + i\left(\omega_0 + \omega\right) \Drw &= \mathbf{j}_f\rw - i \left(\omega_0 + \omega\right) \mathbf{P}\rw
+\label{eqn:macro_ampere_c}
+ \end{align}
+ \end{subequations}
+where $\Drw$ is given by \eqn{drw_def}, $\Brw$ is given by \eqn{brw_def}, and $\rho_{\omega_0}\rw$ is the Fourier transform of a slowly-varying complex amplitude function defined such that $\rho_f\rt \equiv \Re[\emwnt \rho_{\omega_0}\rt]$.
+
+So that we may focus on modeling \emph{efficient} laser designs, we will continue to assume that the laser host material is nearly transparent, so that $\Re[\varepsilon\rwn] \gg \Im[\varepsilon\rwn]$ and $\Re[\mu\rwn] \gg \Im[\mu\rwn]$. In addition, we wish to minimize the power dissipated by interactions between the laser electric field and any free charges, so we assume that the laser resonator has been designed so that the free charge $\rho_{\omega_0}\rw$ can be ignored in \eqn{macro_gauss_c} and --- by charge conservation as established using \eqn{macro_continuity} --- the free current $\mathbf{j}_f\rw$ can be ignored in \eqn{macro_ampere_c}.  If these assumptions hold, then we can rewrite \eqn{macro_maxwell_c} as
+ \begin{subequations} \label{eqn:macro_maxwell_smpl}
+ \begin{align}
+ \divr \left[\varepsilon(\mathbf{r}, \omega_0 + \omega)\, \Erw\right] &= 0 \label{eqn:macro_gauss_smpl} \\
+ \divr \left[\mu(\mathbf{r}, \omega_0 + \omega)\, \Hrw\right] &= 0 \label{eqn:macro_div_smpl} \\
+ \curl\Erw - i\, \mu_0\, \mu(\mathbf{r}, \omega_0 + \omega)\, (\omega_0 + \omega) \Hrw &= 0 \label{eqn:macro_faraday_smpl} \\
+ \curl\Hrw + i\, \varepsilon_0\, \varepsilon(\mathbf{r},\omega_0 + \omega)\, (\omega_0 + \omega) \Erw &= - i (\omega_0 + \omega) \mathbf{P}\rw
+\label{eqn:macro_ampere_smpl}
+ \end{align}
+ \end{subequations}
+In this source-free case, the transversality constraints of the electric and magnetic field amplitudes are given by \eqn{macro_gauss_smpl}, \eqn{macro_div_smpl}, and \eqn{divr_fa} as
+ \begin{subequations} \label{eqn:idm_eh_trans}
+ \begin{align}
+\divr \Erw &= \Erw \dotp \grad \ln \varepsilon^{-1}(\mathbf{r}, \omega_0 + \omega) , \nd \label{eqn:idm_e_trans} \\
+\divr \Hrw &= \Hrw \dotp \grad \ln \mu^{-1}(\mathbf{r}, \omega_0 + \omega) , \label{eqn:idm_h_trans} \\
+ \end{align}
+ \end{subequations}
+since, for example, $-\varepsilon^{-1} \grad \varepsilon = \grad(\ln \varepsilon^{-1})$. We note in passing that taking the divergence of \eqn{macro_ampere_smpl} gives
+ \begin{equation} \label{eqn:divr_P_idm}
+ \divr \mathbf{P}\rw \approx 0
+ \end{equation}
+under the same assumptions that led to \eqn{macro_maxwell_smpl}.
+
+If we solve \eqn{macro_faraday_smpl} for $\Hrw$, substitute the result into \eqn{macro_ampere_smpl}, and then multiply through by $\mu(\mathbf{r}, \omega_0 + \omega)$, we obtain
+ \begin{multline} \label{eqn:wave_eqn_begin}
+\mu(\mathbf{r}, \omega_0 + \omega)\,\curl \left[\mu^{-1}(\mathbf{r},\omega_0 + \omega)\, \curl\Erw\right] \\ - \left(\frac{\omega_0 + \omega}{c}\right)^2 \varepsilon(\mathbf{r},\omega_0 + \omega)\, \mu(\mathbf{r}, \omega_0 + \omega)\, \Erw \\ = \mu_0\, (\omega_0 + \omega)^2\, \mu(\mathbf{r}, \omega_0 + \omega)\, \mathbf{P}\rw .
+ \end{multline}
+For the sake of analytic progress, we will now make several simplifying assumptions:
+ \begin{itemize}
+   \item
+    In virtually all cases of practical interest, the relative permeability is unity, but we can safely assume that it does not depend on position, so that $\mu(\mathbf{r}, \omega) \equiv \mu(\omega)$.
+   \item
+    We will assume that the variation in the relative permittivity parallel to $\Erw$ is small enough that $\divr \Erw \approx 0$ by \eqn{idm_e_trans}.
+   \item
+    We will ignore the small imaginary part of $\mu$ on the \rhs of \eqn{wave_eqn_begin}, as well as apply the temporal slowly-varying approximation , neglecting the first and second derivatives of $\mathbf{P}\rt$. Therefore, $(\omega_0 + \omega)^2\, \mu(\mathbf{r}, \omega_0 + \omega) \approx \omega_0^2\, \mu(\omega_0)$.
+ \end{itemize}
+Under these conditions, using \eqn{curl_curl_a}, \eqn{wave_eqn_begin} becomes
+ \begin{equation} \label{eqn:wave_eqn_simple}
+\lapl \Erw + \left(\frac{\omega_0 + \omega}{c}\right)^2 \varepsilon(\mathbf{r},\omega_0 + \omega)\, \mu(\omega_0 + \omega)\, \Erw = -\mu_0\, \omega_0^2\, \Re\left[\mu(\omega_0)\right]\, \mathbf{P}\rw .
+ \end{equation}
+
+Either \eqn{wave_eqn_begin} or \eqn{wave_eqn_simple} can be used to numerically analyze the spatiotemporal structure of the electric field given some macroscopic polarization $\mathbf{P}\rt$. But we'll need to apply a few more simplifying assumptions to make the wave equation analytically tractable. Consider a region of space
+%where neither $\varepsilon\rw \equiv \varepsilon(x, y, \omega)$ nor $\mu\rw \equiv \mu(x, y, \omega)$ depend on the coordinate $z$, and
+where the predominant direction of electromagnetic power flow is along the $z$-axis. We seek a separation of the electric field into a set of mode functions that allow us to distinguish the rapidly-varying behavior of the field due to propagation through the background material from the slowly-varying amplification by the quantum dipoles embedded in that material. To this end, we assume that \emph{in the absence of laser gain} we can find a complex spatial mode function $\mathbf{U}(\mathbf{r})$, normalized so that $\mathbf{U}(\mathbf{0}) = 1$,  to represent the spatial profile of the electric field $\Erw$ at any reference plane $z$ as
+% \begin{equation} \label{eqn:idm_mode_exp}
+%\Erw = \sum_m \mathbf{E}_m\rw \equiv \sum_m e^{i\, \mathbf{k}_m\wn \dotp \mathbf{r}}\, \mathbf{U}_m(\mathbf{r})\, E_m\zw ,
+% \end{equation}
+ \begin{equation} \label{eqn:idm_mode_def}
+\Erw \equiv e^{i\, \mathbf{k}\wn \dotp \mathbf{r}}\, \mathbf{U}(\mathbf{r})\, E\zw ,
+ \end{equation}
+where $\mathbf{k}\wn \equiv \pm k\wn \hatb{z}$ is a wavevector (with a magnitude $k$ to be chosen later for convenience) that allows us to consider both forward and backward propagating fields. The idea here is to capture the rapidly varying behavior in the $\hatb{z}$ direction, so that we can apply the slowly-varying approximations $|\partial \mathbf{U}(\mathbf{r})/\partial z| \ll k\wn |\mathbf{U}(\mathbf{r})|$, and $|\partial E\zw /\partial z| \ll k\wn |E\zw|$. Given this form of $\Erw$, we momentarily drop the space and frequency arguments and use \eqn{lapl_eikr_a} to obtain
+ \begin{equation} \label{eqn:lapl_erw}
+ \begin{split}
+\lapl \left(e^{i\, \mathbf{k} \dotp \mathbf{r}}\, \mathbf{U}\, E \right) &= e^{i\, \mathbf{k} \dotp \mathbf{r}}\, \left( \lapl  + i\, 2\, \mathbf{k} \dotp \grad - k^2 \right) \mathbf{U}\, E \\
+&\approx e^{i\, \mathbf{k} \dotp \mathbf{r}} \left[ E \left( \nabla_\perp^2  + i\, 2\, \mathbf{k} \dotp \grad - k^2 \right) \mathbf{U} + i\, 2\, \mathbf{U}\, \mathbf{k} \dotp \grad E \right] ,
+ \end{split}
+ \end{equation}
+where in cartesian coordinates $\grad_\perp = \hatb{x}\, \partial/\partial x + \hatb{y}\, \partial/\partial y$. Taken together, the form of \eqn{idm_mode_def} and the SVEA are known as the ``paraxial approximation,''\index{Paraxial approximation} as discussed in \sct{em_wave_eqn_vac}. The paraxial approximation is surprisingly effective in a wide variety of both free-space and guided applications where some degree of analytic understanding helps elucidate fundamental aspects of laser behavior. However, in laser resonator geometries with dielectric functions that vary so significantly in space that we cannot assume that the divergence of $\Erw$ is zero, or that the longitudinal variation of $\Erw$ is small compared to a physical wavelength, a numerical solution using either \eqn{wave_eqn_simple} or an even more general approach to Maxwell's equations is required \cite{ref:joannopoulos2008pcm}.
+
+Substitution of \eqn{idm_mode_def} and \eqn{lapl_erw} into \eqn{wave_eqn_simple} yields
+ \begin{multline} \label{eqn:idm_wave_eqn_eigen}
+\sum e^{i\, \mathbf{k}\wn \dotp \mathbf{r}}\, \Bigg\{i\, 2\, \mathbf{U}(\mathbf{r}) \left[\mathbf{k}\wn \dotp \grad\right] E\zw - k^2\wn \mathbf{U}(\mathbf{r}) E\zw \\ + \Bigg[ \mathbf{U}(\mathbf{r}) + i\, 2\, \left[\mathbf{k}\wn \dotp \grad\right] \mathbf{U}(\mathbf{r}) + \left(\frac{\omega_0 + \omega}{c}\right)^2 \varepsilon(\mathbf{r},\omega_0 + \omega)\, \mu(\mathbf{r}, \omega_0 + \omega)\, \mathbf{U}(\mathbf{r})\Bigg] E\zw \Bigg\} \\ = -\mu_0\, \omega_0^2\, \mu(\omega_0)\, \mathbf{P}\rw .
+ \end{multline}
+In \chp{laser_resonators_3d}, we will show that --- given particular spatial boundary conditions for the electric and magnetic fields --- we can find both $\mathbf{U}(\mathbf{r})$ and a constant $\beta$ that satisfy the eigenvalue equation
+ \begin{multline} \label{eqn:idm_eigen_trans_mode_eqn}
+ \nabla_\perp^2 \mathbf{U}(\mathbf{r}) + i\, 2\, \left[\mathbf{k}\wn \dotp \grad\right] \mathbf{U}(\mathbf{r}) \\ + \left(\frac{\omega_0 + \omega}{c}\right)^2 \varepsilon(\mathbf{r},\omega_0 + \omega)\, \mu(\omega_0 + \omega)\, \mathbf{U}(\mathbf{r}) = \beta^2(\omega_0 + \omega)\, \mathbf{U}(\mathbf{r}) ,
+ \end{multline}
+so that \eqn{idm_wave_eqn_eigen} becomes
+ \begin{multline}% \label{eqn:idm_wave_eqn_final}
+ e^{i\, \mathbf{k}\wn \dotp \mathbf{r}}\, \mathbf{U}(\mathbf{r}) \left\{i\, 2\, \left[\mathbf{k}\wn \dotp \grad\right] E\zw + \left[\beta^2(\omega_0 + \omega) - k^2\wn\right] E\zw \right\} \\ = -\mu_0\, \omega_0^2\, \Re\left[\mu(\omega_0)\right]\, \mathbf{P}\rw .
+ \end{multline}
+We now choose the magnitude of the \emph{real} propagation vector to be
+ \begin{equation} \label{eqn:idm_k_def}
+ k\wn \equiv \Re\left[\beta\wn\right] .
+ \end{equation}
+If we assume that $\Im\left[\beta\wn\right] \ll \Re\left[\beta\wn\right]$, and we neglect dispersion in the small imaginary part of $\beta\wn$, then
+ \begin{equation}
+ \begin{split}
+\beta^2(\omega_0 + \omega) - \Re\left[\beta\wn\right]^2 &\cong 2\, \Re\left[\beta\wn\right] \left\{\Re\left[\beta(\omega_0 + \omega)\right] - \Re\left[\beta\wn\right] +  i\, \Im\left[\beta\wn\right]\right\} \\
+&= 2\, \Re\left[\beta\wn\right] \left\{\sum_{j = 1}^\infty \frac{\omega^j}{j!} \frac{d^j}{d \omega_0^j} \Re\left[\beta\wn\right] +  i\, \Im\left[\beta\wn\right]\right\} \\
+&\equiv 2\, \frac{\omega\, \omega_0}{c^2}\, n\wn\, n^\prime\wn + 2\, \frac{\omega_0}{c}\, n\wn\, \mathcal{D}(\omega_0, \omega) \\
+&\qquad + i\, \frac{\omega_0}{c}\, n\wn\, \alpha\wn\, ,
+%&= \sum_{j = 1}^\infty \frac{\omega^j}{j!} \frac{\partial^j}{\partial \omega_0^j} \Re\left[\beta\wn\right]^2 + i\, 2\, \Re\left[\beta\wn\right] \Im\left[\beta\wn\right] \\
+%&= 2\, \omega\, \Re\left[\beta\wn\right]\, \frac{\partial}{\partial \omega_0} \Re\left[\beta\wn\right] \\
+%&\quad +  i\, 2\, \Re\left[\beta\wn\right] \Im\left[\beta\wn\right] + \mathcal{O}(\omega^2) \\
+%&\equiv 2\, \frac{\omega\, \omega_0}{c^2}\, n\wn\, n^\prime\wn + i\, \frac{\omega_0}{c}\, n\wn\, \alpha\wn ,
+ \end{split}
+ \end{equation}
+where we have defined the effective refractive index, the effective group index, the effective linear absorption coefficient, and the effective dispersion, respectively, as
+ \begin{align}
+ \label{eqn:idm_ref_index_def} n\wn &\equiv \frac{c}{\omega_0} \Re\left[\beta\wn\right]\, , \\
+ \label{eqn:idm_grp_ref_index_def} n^\prime\wn &\equiv c \frac{\partial}{\partial \omega_0} \Re\left[\beta\wn\right]\, , \\
+ \label{eqn:idm_abs_coeff_def_rw} \alpha\wn &\equiv 2 \Im\left[\beta\wn\right]\, , \nd \\
+ \label{eqn:idm_dispersion_def} \mathcal{D}(\omega_0, \omega) &\equiv \sum_{j = 2}^\infty \frac{\omega^j}{j!} \frac{d^j}{d \omega_0^j} \Re\left[\beta\wn\right]\, .
+ \end{align}
+Our forward/backward wave equation is now
+ \begin{multline} \label{eqn:idm_wave_eqn_inter}
+e^{\pm i\, (\omega_0/c)\, n\wn\, z}\, \mathbf{U}(\mathbf{r})
+\left[ \pm \frac{\partial}{\partial z} E\zw - i\, \frac{\omega}{c}\, n^\prime\wn\, E\zw - i\, \mathcal{D}(\omega_0, \omega)\, E\zw + \half \alpha\wn\, E\zw\right] \\ = i\, \frac{\omega_0}{2\, \epsilon_0\, c}\, \frac{\Re\left[\mu\wn\right]}{n\wn}\, \mathbf{P}\rw .
+ \end{multline}
+
+In practice, \eqn{idm_eigen_trans_mode_eqn} will be satisfied by a set of eigenfunctions $\mathbf{U}_m(\mathbf{r})$ and eigenvalues $\beta_m(\omega_0 + \omega)$. In the general case, we cannot guarantee that the eigenfunctions are mutually orthogonal, but we can often find a corresponding set of functions $\mathbf{U}^\dagger_m(\mathbf{r})$ that that satisfy the biorthogonality relationship
+ \begin{equation} \label{eqn:biorthog}
+\int_\mathcal{S} d^2 r\, \mathbf{U}_m^\dagger(\mathbf{r}) \dotp \mathbf{U}_{m^\prime}(\mathbf{r}) = \delta_{m, m^\prime}
+ \end{equation}
+over the reference plane $\mathcal{S}$ located at each values of $z$. In this case, we can attempt to expand $\Erw$ in the paraxial approximation as
+ \begin{equation} \label{eqn:idm_erw_exp}
+\Erw = \sum_m \mathbf{E}_m\rw \equiv \sum_m e^{i\, \mathbf{k}_m\wn \dotp \mathbf{r}}\, \mathbf{U}_m(\mathbf{r})\, E_m\zw ,
+ \end{equation}
+% \begin{subequations}
+% \begin{align}
+%\Erw &= \sum_m \mathbf{E}_m\rw \equiv \sum_m e^{i\, \mathbf{k}_m\wn \dotp \mathbf{r}}\, \mathbf{U}_m(\mathbf{r})\, E_m\zw , \nd \label{eqn:idm_erw_exp} \\
+%\mathbf{P}\rw &= \sum_m \mathbf{P}_m\rw \equiv \sum_m e^{i\, \mathbf{k}_m\wn \dotp \mathbf{r}}\, \mathbf{U}_m(\mathbf{r})\, P_m\zw ,  \label{eqn:idm_pol_exp}
+% \end{align}
+% \end{subequations}
+where, from \eqn{idm_k_def} and \eqn{idm_ref_index_def}, $|\mathbf{k}_m\wn| \equiv k_m\wn = (\omega_0/c) n_m\wn$. Adding the subscript $m^\prime$ to the \lhs of \eqn{idm_wave_eqn_inter}, and then applying \eqn{biorthog}, we obtain
+ \begin{multline} \label{eqn:idm_wave_eqn_exp}
+\pm \frac{\partial}{\partial z} E_m\zw - i\, \frac{\omega}{c}\, n_m^\prime\wn\, E_m\zw - i\, \mathcal{D}(\omega_0, \omega)\, E_m\zw + \half \alpha_m\wn\, E_m\zw \\ = i\, \frac{\omega_0}{2\, \epsilon_0\, c}\, \eta_m\wn\, e^{\mp i\, k_m\wn\, z} \int_\mathcal{S} d^2 r\, \mathbf{U}_m^\dagger(\mathbf{r}) \dotp \mathbf{P}\rw,
+ \end{multline}
+where $\eta_m\wn \equiv \Re\left[\mu\wn\right]/n_m\wn$ is the effective characteristic dielectric impedance of transverse mode $m$.
+
+In the unidirectional propagation case, we generally assume that we can expand $\mathbf{P}\rw$ in a fashion similar to \eqn{idm_erw_exp}, and the leading factor of $e^{\mp i\, k_m\wn\, z}$ on the \rhs of \eqn{idm_wave_eqn_exp} can be absorbed by $\mathbf{P}\rw$. But we cannot do so when the electromagnetic field is a coherent superposition of components propagating in both the positive and negative $z$ directions, such as
+ \begin{equation}\label{eqn:idm_e_m_def}
+E_m\zw = E^+_m\zw\, e^{+ i\, k_m\wn\, z} + E^-_m\zw\, e^{- i\, k_m\wn\, z} .
+ \end{equation}
+As we shall see in \sct{laser_statics_1d_shb}, interference between these counterpropagating fields creates a rapidly-varying modulation of the gain in the laser medium, which results in a corresponding spatial fine structure in the macroscopic polarization. Since $E^\pm_m\zw$ remain slowly-varying, we can separate the wave equation into two equations --- one for each direction --- by taking the spatial average of \eqn{idm_wave_eqn_exp} over a single physical wavelength $2 \pi/k_m\wn$, and defining the polarization components
+ \begin{equation}\label{eqn:idm_pol_m_def}
+P^\pm_m\zw \equiv \frac{k_m\wn}{2 \pi} \int_{z - \pi/k_m\wn}^{z + \pi/k_m\wn} d z^\prime\, e^{\mp i\, k_m\wn\, z^\prime} \int_\mathcal{S} d^2 r\, \mathbf{U}_m^\dagger(\mathbf{r}^\prime) \dotp \mathbf{P}(\mathbf{r}^\prime, \omega) ,
+ \end{equation}
+where $\mathbf{r}^\prime \equiv \{x, y, z^\prime\}$. With this definition, \eqn{idm_wave_eqn_exp} becomes
+ \begin{multline} \label{eqn:idm_wave_eqn_final}
+\pm \frac{\partial}{\partial z} E^\pm_m\zw - i\, \frac{\omega}{c}\, n_m^\prime\wn\, E^\pm_m\zw - i\, \mathcal{D}(\omega_0, \omega)\, E^\pm_m\zw + \half \alpha_m\wn\, E^\pm_m\zw \\ = i\, \frac{\omega_0}{2\, \epsilon_0\, c}\, \eta_m\wn\, P^\pm_m\zw .
+ \end{multline}
+Finally, using \eqn{fourier_diff_thm}, we can write our wave equation in the time domain as
+\begin{multline} \label{eqn:wave_eqn_1d}
+  \ppt E^\pm_m\zt \pm \frac{c}{n_m^\prime\wn}\, \ppz E^\pm_m\zt - i\, \sum_{j = 2}^\infty \frac{\mathcal{D}_j\wn}{j!} \left(i\, \frac{\partial}{\partial t}\right)^j \, E^\pm_m\zt \\ + \frac{c}{2\, n_m^\prime\wn}\, \alpha_m\wn\, E^\pm_m\zt = i\, \frac{\omega_0}{2\, \varepsilon_0}\, \frac{\eta_m\wn}{n_m^\prime\wn}\, P^\pm_m\zt\, ,
+\end{multline}
+where
+\begin{equation} \label{eqn:mcd_dispersion_def}
+  \mathcal{D}_j\wn \equiv \frac{c}{n_m^\prime\wn}\, \frac{d^j}{d \omega_0^j} \Re\left[\beta\wn\right]\, .
+\end{equation}
+We will often drop the subscript $m$ from this expression, and assume that the transverse spatial extent of $\mathbf{U}(\mathbf{r})$ is so large that we can approximate it by $\mathbf{U}(\mathbf{r}) \approx \hatb{\epsilon}$, where $\hatb{\epsilon}$ is the complex unit vector defined by \eqn{epsilon_def}. In the case of unidirectional propagation, this allows us to write the complex electric field and macroscopic polarization envelope functions as
+ \begin{subequations}  \label{eqn:laser_field_1d}
+ \begin{align}
+ \label{eqn:e_field_1d_w} \Erw &\equiv \hatb{\epsilon}\, e^{i\, k\wn z}\, E\zw , \nd \\
+ \label{eqn:p_field_1d_w} \mathbf{P}\rw &\equiv \hatb{\epsilon}\, e^{i\, k\wn z}\, P\zw ,
+ \end{align}
+ \end{subequations}
+This one-dimensional treatment is particularly effective when exploring fundamental phenomena in laser dynamics.
+
+Given the approximations we've made to develop \eqn{idm_wave_eqn_final} and \eqn{wave_eqn_1d}, let's transform \eqn{macro_faraday_smpl} to the time domain,
+ \begin{equation}  \label{eqn:macro_faraday_smpl_t}
+ \curl\Ert - i \mu_0\, \mu\left(\omega_0 + i \ppt\right)\, \left(\omega_0 + i \ppt\right) \Hrt = 0 ,
+ \end{equation}
+and calculate $\Hrt$ to determine the Poynting vector $\mathbf{S}\rt$ and energy density $u\rt$ for our one-dimensional electromagnetic field in a region of space where $\varepsilon\zwn \equiv \varepsilon\wn$. Assuming that the slowly-varying envelope approximation is valid in both the space and time domains, we neglect the term proportional to $\partial \Hrt/\partial t$ and (consistent with the development of Poynting's Theorem in \sct{poynting_theorem_idm}) the contribution of $\Im[\varepsilon\wn]$ and $\Im[\mu\wn]$, and using \eqn{curl_fa} we obtain for a forward-propagating field
+ \begin{equation} \label{eqn:h_field_1d}
+ \Hrt = -\frac{i}{\mu_0\, \Re[\mu\wn] \omega_0} \curl \Ert = \hatb{z} \cross \hatb{\epsilon}\, e^{i\, k\wn z}\, H\zt,
+ \end{equation}
+where
+ \begin{equation}
+H\zt \equiv \frac{n\wn]}{\mu_0 c\, \Re[\mu\wn]}\, \Ezt = \frac{\varepsilon_0 c}{\eta\wn}\, \, \Ezt .
+ \end{equation}
+Therefore, substituting the \rhs of \eqn{h_field_1d} into \eqn{poynting_vector_idm}, we find the one-dimensional Poynting vector
+ \begin{equation} \label{eqn:poynting_vector_idm_1d}
+\mathbf{S}\zt = \half \frac{\varepsilon_0 c}{\eta\wn}\, \left|\Ezt\right|^2 \hatb{z} .
+ \end{equation}
+Similarly, in a region of space where the general energy density defined by \eqn{energy_density_idm} leads to the one-dimensional quantity
+ \begin{equation} \label{eqn:energy_density_idm_1d}
+u\zt = \half \varepsilon_0\, \frac{n^\prime\wn}{\eta\wn}\, \left|\Ezt\right|^2 ,
+ \end{equation}
+where in one dimension we note that $\beta\wn \approx \sqrt{\varepsilon\wn\, \mu\wn}$, and therefore
+ \begin{equation*}
+n^\prime\wn = \frac{\partial}{\partial \omega_0} \left( \omega_0 \sqrt{\varepsilon \mu} \right) = \half \sqrt{\frac{\mu}{\varepsilon}} \frac{\partial}{\partial \omega_0} \left(\omega_0 \varepsilon\right) + \half \sqrt{\frac{\varepsilon}{\mu}} \frac{\partial}{\partial \omega_0} \left(\omega_0 \mu \right) .
+ \end{equation*}
+In this case, we have found that $|\mathbf{S}\zt| = v_g\zwn u\zt$, where the velocity of energy flow
+ \begin{equation*}
+v_g\wn \equiv \frac{c}{n^\prime\wn}
+ \end{equation*}
+is the group velocity in the medium, consistent with our interpretation of the Poynting vector as a directed energy flux in \sct{poynting_theorem_vac}.
+
+As a simple application of \eqn{wave_eqn_1d}, let's analyze the experiment shown in \fig{beers_law_schematic}, where a weak laser pulse with with an electric field $\bmc{E}\rt$ enters a block of dielectric material of length $L$ that has no nonlinear macroscopic polarization $\mathbf{P}\rt$. We assume that the crystal has effective refractive indices $n\wn$ and $n^\prime\wn$, and linear absorption coefficient $\alpha\wn$, at the laser carrier frequency $\omega_0$, as well as an intensity transmission $T_0$ at each interface. (In other words, if $\alpha = 0$, an input pulse entering the block at $z = 0$ with vacuum intensity $I \equiv |\mathbf{S}| = \varepsilon_0 c E^2/2$ would emerge from the block at $z = L$ with vacuum intensity $T_0^2 I$.) Inside the block, the wave equation is
+ \begin{equation} \label{eqn:wave_eqn_1d_w_lin}
+\ppz E\zw -i\, \frac{\omega}{c}\, n^\prime\wn\, E\zw + \half\, \alpha\wn\, E\zw = 0 ,
+ \end{equation}
+which has the solution (including the intensity transmission coefficients of the block interfaces)
+ \begin{equation} \label{eqn:wave_eqn_1d_w_soln}
+E(L, \omega) = T_0\, \exp\left[ i \frac{\omega}{c} n^\prime\wn z - \half \alpha\wn z \right] E(0, \omega) .
+ \end{equation}
+If we define the group propagation time $\tau_g \equiv n^\prime\wn/c$, and use the Fourier Shift Theorem \eqn{fourier_shift_thm}, in the time domain we have
+ \begin{equation} \label{eqn:beers_law}
+E\left(L, t\right) = T_0\, \exp\left[ - \half \alpha\wn z \right]\, E\left(0, t - \tau_g\right) .
+ \end{equation}
+Equation \eqn{beers_law} is known as \emph{Beer's Law}\index{Beer's Law}, and --- when substituted into \eqn{e_field_1d_w} --- describes the attenuation of an arbitrary input field due to linear absorption, and the delay due to propagation through the dielectric block at the group velocity $v_g\wn = c/n^\prime\wn$. In \fig{beers_law_cw}, we have plotted the field envelope function as a function of $z$ for the case where $\alpha$ is real, positive, and constant, and the laser is ``continuous-wave'' (or steady state) so that $\Ezt \equiv E(z)$.
+
+ \begin{figure}
+  \centering
+  \begin{subfigure}[b]{1.0\textwidth}
+   \centering
+   \includegraphics[width=0.8\textwidth]{figures/beers_law_schematic}
+   \caption{Schematic of the experiment}
+   \label{fig:beers_law_schematic}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{1.0\textwidth}
+   \centering
+   \includegraphics[width=0.8\textwidth]{figures/beers_law_cw}
+   \caption{$E$-field amplitude as a function of $z$}
+   \label{fig:beers_law_cw}
+  \end{subfigure}
+  \caption{(a) Schematic of a linear absorption experiment using a weak laser, an almost-transparent dielectric block, and a photodiode. The input face of the block is located at $z = 0$, the output face at $z = L$, and there is a small intensity loss $1 - T_0$ due to scattering and/or absorption at each interface. (b) Plot of the (real and positive) continuous-wave laser field amplitude $E(z)$ as a function of position.\label{fig:beers_law}}
+ \end{figure}
+
+ \subsection{Time Reversal in a Dispersive Medium\label{sct:time_reversal_idm}}\index{Time reversal!dispersive medium}
+
+Our development of the scattering matrix representation of mirrors and other general two-port optical components in \sct{mir_smat} relies on the behavior of the solutions to the macroscopic Maxwell equations under time-reversal symmetry~\cite{ref:jackson1999ce}. Suppose that the source charge density $\rho_f \rt$ and current $\bmi{j}_f\rt$ are specified in a particular volume of space over some time interval $\{-\tau/2, \tau/2\}$\footnote{Here we take the time interval to be symmetric about the origin of the time axis for the sake of algebraic simplicity, but the main results that we present in this section do not depend on the way that we label the time axis.}, and that we have solved the macroscopic Maxwell equations for the fields $\bmc{E}\rt$, $\bmc{H}\rt$, $\bmc{D}\rt$, and $\bmc{B}\rt$ given appropriate boundary and initial conditions. Applying the time-reversal transformation corresponds to ``running the movie backwards:'' we \emph{reverse} the directions of all currents, take the values of the \emph{forward} fields at the time $\tau/2$ as their initial values at the reversed initial time $-\tau/2$, and then evolve the \emph{backward} fields over a time interval of duration $\tau$. How do we express the values of the time-reversed electromagnetic fields in terms of the original forward solutions? Naively, if we treat both time arguments simply as labels, we might expect the reversed electric field $\bmc{E}_T\rt$ to have the values $\bmc{E}_T(\mathbf{r}, -\tau/2) = \bmc{E}(\mathbf{r}, \tau/2)$ and $\bmc{E}_T(\mathbf{r}, \tau/2) = \bmc{E}(\mathbf{r}, -\tau/2)$, implying that
+ \begin{equation} \label{eqn:e_t_rt}
+ \bmc{E}_T\rt = \bmc{E}(\mathbf{r}, -t) .
+ \end{equation}
+
+This approach is in fact correct for the electric field, but in general we must be guided by the invariance of Maxwell's equations under time reversal: \eqn{macro_maxwell} must retain the same mathematical form, regardless of the direction of the flow of time. For example, we expect charge --- and, therefore, the free charge density $\rho_f \rt$ --- to be a scalar under the time reversal operation $t \longrightarrow -t$, and since the directions of the particle velocities $\mathbf{v}_n(t)$ in \eqn{j_point_def} will change sign under the same operation, we anticipate that all currents will reverse direction. This intuition is consistent with the transformation properties of the macroscopic continuity equation given by \eqn{macro_continuity}, since $\partial/\partial t \longrightarrow -\partial/\partial t$; hence
+ \begin{subequations}
+ \begin{align}
+ \rho_T\rt &= \rho_f(\mathbf{r}, -t) , \nd \\
+ \bmi{j}_T\rt &= -\bmi{j}_f(\mathbf{r}, -t) .
+ \end{align}
+ \end{subequations}
+Therefore, from \eqn{macro_gauss}, we deduce that $\bmc{D}_T(\mathbf{r}, t) = \bmc{D}(\mathbf{r}, -t)$, and, from \eqn{macro_ampere}, that $\bmc{H}_T\rt = -\bmc{H}(\mathbf{r}, -t)$. Applying the same reasoning to \eqn{micro_maxwell}, we find that $\bmc{B}_T\rt = -\bmc{B}(\mathbf{r}, -t)$, and from \eqn{disp_b_field} we conclude that $\bmc{P}_T\rt = \bmc{P}(\mathbf{r}, -t)$ and $\bmc{M}_T\rt = -\bmc{M}(\mathbf{r}, -t)$. However, time-reversal considerations of background materials with dissipative losses are quite subtle, particularly in the formalism described by \eqn{bmc_d_cr} where we have separated the polarization into linear background and nonlinear gain contributions. Therefore, in \sct{mir_smat} we will limit our discussion of the symmetries of the scattering matrix to the case where $\Im[\epsilon(\wn) \mu(\wn)] = 0$.
+
+We now examine the implications of the time-reversal transformation for the envelope functions $\Ert$ and $\Hrt$, as well as their Fourier transforms. Given the expansion of the nearly harmonic real electric field described by \eqn{bmc_e_def}, and the symmetry condition established by \eqn{e_t_rt}, we write $\bmc{E}_T\rt$ as
+ \begin{equation} \label{eqn:bmc_e_t_rt}
+ \begin{split}
+ \bmc{E}_T\rt &\equiv \frac{\emwnt}{2} \mathbf{E}_T\rt + \frac{\epwnt}{2} \mathbf{E}_T^\ast\rt \\
+ &= \bmc{E}(\mathbf{r}, -t) \\
+ &= \frac{\emwnt}{2} \mathbf{E}^\ast(\mathbf{r}, -t)  + \frac{\epwnt}{2} \mathbf{E}(\mathbf{r}, -t) ,
+ \end{split}
+ \end{equation}
+so that a direct comparison of the coefficients of terms with similarly signed optical carrier frequencies allows us to make the identification
+ \begin{equation} \label{eqn:bf_e_t_rt}
+ \mathbf{E}_T\rt = \mathbf{E}^\ast(\mathbf{r}, -t).
+ \end{equation}
+Note that this result is completely consistent with the simple one-dimensional envelope function given by \eqn{e_field_1d_w} in the time domain, since
+ \begin{equation} \label{eqn:e_t_rt_1d}
+ \begin{split}
+ \bmc{E}_T\rt &\equiv \frac{\emwnt}{2} \mathbf{E}_T\rt + \cc \\
+ &= \frac{\emwnt}{2} \mathbf{E}^\ast(\mathbf{r}, -t) + \cc \\
+ &= \half \hatb{\epsilon}\, \exp\left\{-i\, \frac{\omega_0}{c} \left[n\wn z + c t\right]\right\} E^\ast(z, -t) + \cc
+ \end{split}
+ \end{equation}
+corresponds to a real electric field with carrier frequency $\omega_0$ propagating parallel to $-\hatb{z}$. Next, following the same line of reasoning that led to \eqn{bmc_e_ftf}, the Fourier transform of $\mathbf{E}_T\rt$ is
+ \begin{equation} \label{eqn:e_t_rw}
+ \mathbf{E}_T\rw = \int^\infty_{-\infty} dt\, \epwt\, \mathbf{E}_T\rt = \int^\infty_{-\infty} dt\, \epwt\, \mathbf{E}^\ast (\mathbf{r}, -t) = \mathbf{E}^\ast\rw .
+ \end{equation}
+Given that $\bmc{H}_T\rt = -\bmc{H}(\mathbf{r}, -t)$, the same approach to the time-reversed magnetic field amplitude function $\mathbf{H}_T\rt$ yields
+ \begin{subequations}
+ \begin{align}
+ \mathbf{H}_T\rt &= -\mathbf{H}^\ast(\mathbf{r}, -t) , \nd \\
+ \mathbf{H}_T\rw &= -\mathbf{H}^\ast\rw  \label{eqn:h_t_rw}.
+ \end{align}
+ \end{subequations}
+
+The time-reversed Poynting vector is related to that of the forward-propagation solution by
+ \begin{equation} \label{eqn:poynting_vector_idm_tr}
+ \begin{split}
+ \mathbf{S}_T\rt &\equiv \half \Re \left[ \mathbf{E}_T\rt \cross \mathbf{H}_T^\ast\rt \right] \\
+ &= -\half \Re \left[ \mathbf{E}^\ast(\mathbf{r}, -t) \cross \mathbf{H}(\mathbf{r}, -t) \right] \\
+ &= -\half \Re \left[ \mathbf{E}(\mathbf{r}, -t) \cross \mathbf{H}^\ast(\mathbf{r}, -t) \right] \\
+ &= -\mathbf{S}(\mathbf{r}, -t) ,
+ \end{split}
+ \end{equation}
+since $\Re(z) = \Re(z^\ast)$ for any complex number $z$. Therefore, as a result of the behavior of the magnetic field under the time-reversal operation, the energy flux reverses direction (as expected).

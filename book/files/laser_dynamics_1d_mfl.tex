@@ -1,0 +1,1117 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Subsection file included in section file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mean-Field Laser Theory\label{sct:laser_dynamics_1d_mml_mfl}}
+
+Experimental observations of passively frequency mode-locked lasers show that they exhibit quasi-continuous-wave output field amplitudes and linear frequency chirps that reset after one mode-locked time interval (roughly the group round-trip time of the unloaded laser resonator). Let's represent the most general form of such a field with the time-dependent quadratic exponential function
+\begin{equation} \label{eqn:mlft_field_quad}
+    \begin{split}
+        E(t) &= \exp\left[(-\gamma + i\, \lambda)\, t - \frac{1}{2}\, (a + i\, b)\, t^2\right] \\
+        &\equiv \sum_{q = -\infty}^{\infty} E_q\, e^{i\, 2\, q\, \pi\, t}
+    \end{split}
+\end{equation}
+where $\gamma > 0$, $\lambda$, $a > 0$, and $b$ are real constants, and the frequency chirp is therefore $b\, t$. We assume that this function is periodic over the time interval $t \in \{-1/2, 1/2\}$, and then we obtain the Fourier series coefficients
+% \begin{multline} %\label{eqn:mflt_fourier_coeff}
+%     C_q = \sqrt{\frac{\pi}{2\, (a + i\, b)}} \exp\left[ \frac{(\gamma - i\, \lambda_q)^2}{2\, (a + i\, b)} \right] \\
+%     \times \left\{ \mathrm{erf}\left[ \frac{\frac{1}{2}(a + i\, b) + (\gamma - i\, \lambda_q)}{\sqrt{2\, (a + i\, b)}} \right] + \mathrm{erf}\left[ \frac{\frac{1}{2}(a + i\, b) - (\gamma - i\, \lambda_q)}{\sqrt{2\, (a + i\, b)}} \right] \right\}\, .
+% \end{multline}
+\begin{equation} \label{eqn:mflt_fourier_coeff}
+    \begin{split}
+        E_q &= \int^{1/2}_{-1/2} d t\, e^{-i\, 2\, q\, \pi\, t}\, E(t) \\
+        &= \sqrt{\frac{\pi}{2\, (a + i\, b)}} \exp\left[ \frac{(\gamma - i\, \lambda_q)^2}{2\, (a + i\, b)} \right] \\
+        &\qquad \times \left\{ \mathrm{erf}\left[ \frac{\frac{1}{2}(a + i\, b) + (\gamma - i\, \lambda_q)}{\sqrt{2\, (a + i\, b)}} \right] + \mathrm{erf}\left[ \frac{\frac{1}{2}(a + i\, b) - (\gamma - i\, \lambda_q)}{\sqrt{2\, (a + i\, b)}} \right] \right\}\, ,
+    \end{split}
+\end{equation}
+where $\lambda_0 = \lambda$ and $\lambda_q \equiv \lambda_0 - 2\, q\, \pi$. The properties of these coefficients require some computational exploration to discover. For example, let's assume that $\gamma = a = \lambda_0 = 0$. Then
+\begin{equation} %\label{eqn:mflt_fourier_coeff}
+    E_q = \sqrt{\frac{\pi}{i\, 2\, b}} \exp\left( i\, \frac{2\, \pi^2}{b}\, q^2 \right)
+    \left\{ \mathrm{erf}\left[ \sqrt{\frac{i}{8\, b}}\, (b - 4\, q\, \pi) \right] + \mathrm{erf}\left[ \sqrt{\frac{i}{8\, b}}\, (b + 4\, q\, \pi) \right] \right\}\, .
+\end{equation}
+The imaginary parts of the two error functions are negligible. Therefore, in this case the phase of the Fourier coefficients is given by the exponential argument $(2\, \pi^2/b)\, q^2$. When both $q$ and $b$ are positive, the first error function oscillates around the value 1 until $q \approx b/2$, where it rapidly transitions to oscillations around the value $-1$. The second error function oscillates around the value $1$ for all $q$. Therefore, the sum of the two error functions oscillates around the value 2 for $0 \le q \lesssim b/2$ and 0 for $q \gtrsim b/2$, implying that the comb is composed of approximately $|b|/2\, \pi$ nonzero components. We confirm these two observations in \fig{mflt_fourier_fm_comb}, where we have also allowed a small value of $\gamma$ to represent the photon lifetime of the cavity. Similar computational experiments show that when $a \gtrsim 1$, the comb narrows and the output field develops ripples that become pulses when $a \gg 1$.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/mflt_fourier_fm_comb_log}
+        \caption{Fourier coefficient amplitude}
+        \label{fig:mflt_fourier_fm_comb_log}
+    \end{subfigure}
+    \par\vspace{0.25in}
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/mflt_fourier_fm_comb_phase}
+        \caption{Fourier coefficient phase}
+        \label{fig:mflt_fourier_fm_comb_phase}
+    \end{subfigure}
+    \caption{\label{fig:mflt_fourier_fm_comb} Squared amplitude and phase of the Fourier series coefficient given by \eqn{mflt_fourier_coeff}. (a) The absolute value squared of the Fourier series coefficient. In our units, the number of comb lines within 3~dB of the maximum value is given approximately by $|b|/2 \pi$. (b) The phase of the Fourier series coefficient, as well as the approximate value $\phi_0 + 2 \pi^2 q^2 / b$, plotted as a function of the mode number.}
+\end{figure}
+
+In the remainder of this section, our primary tools will be the formal solutions of \eqn{cw_sml_ftz_scaled} and \eqn{cw_sml_gtz_scaled}, obtained through Fourier transform expansions. For example, consider the ordinary differential equation
+ \begin{equation}
+\ddt y(t) = -\frac{1}{\tau} \left[y(t) + s(t)\right]\, ,
+ \end{equation}
+for some function$y(t)$ driven by $s(t)$. Applying the Fourier Transform and using \eqn{fourier_freq} and \eqn{fourier_diff_thm}, we find
+ \begin{equation}
+y(\omega) = \frac{s(\omega)}{1 - i\, \omega\, \tau} = \sum_{l = 0}^{\infty} (i\, \omega\, \tau)^l\, s(\omega)\, .
+ \end{equation}
+Returning to the time domain with \eqn{fourier_diff_thm}, we obtain
+ \begin{equation}
+y(t) = \left(1 + \tau\, \ddt\right)^{-1} s(t)\, ,
+ \end{equation}
+where for convenience we have defined the differential operator
+ \begin{equation} \label{eqn:mfl_diff_oper}
+\left(1 + \tau\, \ddt\right)^{-1} \equiv \sum_{l = 0}^{\infty} \left( -\tau\, \ddt \right)^l \, .
+ \end{equation}
+
+Applying this technique to \eqn{cw_sml_ftz_scaled} (with $\Omega = 0$) and \eqn{cw_sml_gtz_scaled}, we find the formal solutions
+\begin{subequations}%\label{eqn:mfl_formal_fg}
+\begin{align}
+%\label{eqn:mfl_formal_f}
+\widetilde{F}\zt &= \half\, \hat{\partial}_\perp^{-1} \left[\widetilde{E}\zt\, \widetilde{G}\zt\right]\, , \nd \\
+%\label{eqn:mfl_formal_g}
+\widetilde{G}\zt &= \hat{\partial}_\parallel^{-1}\, \Gn\zt - \hat{\partial}_\parallel^{-1} \left[ \widetilde{E}^\ast\zt \widetilde{F}\zt + \widetilde{E}\zt \widetilde{F}^\ast\zt \right]\, ,
+\end{align}
+\end{subequations}
+% where $\hat{\partial}_\perp^{-1} \equiv (1 + \tau_\perp\, \partial/\partial t)^{-1}$ and $\hat{\partial}_\parallel^{-1} \equiv (1 + \tau_\parallel\, \partial/\partial t)^{-1}$.
+where
+\begin{subequations}
+    \begin{align}
+        \hat{\partial}_\perp^{-1} &\equiv (1 - i\, \alpha) \left(1 + \frac{\tau_\perp}{1 - i\, \alpha}\, \partial/\partial t\right)^{-1}\, ,\nd \\
+        \hat{\partial}_\parallel^{-1} &\equiv (1 + \tau_\parallel\, \partial/\partial t)^{-1}\, .
+    \end{align}
+\end{subequations}
+Now, using \eqn{mfl_diff_oper}, we can rewrite \eqn{mfl_formal_f} as
+\begin{equation} \label{eqn:mfl_formal_f_deg}
+    \widetilde{F}\zt = \half (1 - i\, \alpha) \sum_{l = 0}^\infty \left(- \frac{\tau_\perp}{1 - i\, \alpha}\,  \ppt \right)^l \left[\widetilde{E}\zt\, \widetilde{G}\zt\right] \equiv \half\, \widehat{\mathcal{D}}\left[\widetilde{E}\zt\right] \widetilde{G}\zt\, ,
+\end{equation}
+where
+\begin{equation}
+    \widehat{\mathcal{D}}\left[\widetilde{E}\zt\right] \equiv (1 - i\, \alpha) \sum_{l = 0}^\infty \left(-\frac{\tau_\perp}{1 - i\, \alpha}\right)^l \sum_{j = 0}^l \binom{l}{j} \frac{\partial^{l - j}}{\partial t^{l - j}}\, \widetilde{E}\zt \frac{\partial^j}{\partial t^j}\, .
+\end{equation}
+Substituting \eqn{mfl_formal_f_deg} into \eqn{mfl_formal_g} and gathering terms, we obtain the general formal expression
+\begin{equation}
+    \widetilde{G}\zt = \frac{1}{1 + \half\, \hat{\partial}_\parallel^{-1} \left\{ \widetilde{E}^\ast\zt\, \widehat{\mathcal{D}}\left[\widetilde{E}\zt\right] + \widetilde{E}\zt\, \widehat{\mathcal{D}}^\ast\left[\widetilde{E}^\ast\zt\right]\right\} }\, \hat{\partial}_\parallel^{-1}\, \Gn\zt
+\end{equation}
+Suppose now that $\Gn\zt \equiv \overline{G}\z$ is constant in time. Then $\partial^j\, \Gn\zt / \partial t^j = \delta_{j 0}\, \overline{G}\z$, and (for example) $\widehat{\mathcal{D}}\left[\widetilde{E}\zt\right] \longrightarrow \hat{\partial}_\perp^{-1}\, \widetilde{E}\zt$, giving
+\begin{subequations} \label{eqn:mfl_formal_fg_const_pump}
+    \begin{align}
+        \label{eqn:mfl_formal_g_const_pump}
+        \widetilde{G}\zt &= \frac{G_0\z}{1 + \half\, \hat{\partial}_\parallel^{-1} \left[ \widetilde{E}^\ast\zt\, \hat{\partial}_\perp^{-1} \widetilde{E}\zt + \widetilde{E}\zt \left(\hat{\partial}_\perp^{-1}\right)^\ast \widetilde{E}^\ast\zt\right] }\, , \nd \\
+        \label{eqn:mfl_formal_f_const_pump}
+        \widetilde{F}\zt &= \frac{G_0\z}{2}\, \hat{\partial}_\perp^{-1}\, \frac{\widetilde{E}\zt}{1 + \half\, \hat{\partial}_\parallel^{-1} \left[ \widetilde{E}^\ast\zt\, \hat{\partial}_\perp^{-1} \widetilde{E}\zt + \widetilde{E}\zt\, \left(\hat{\partial}_\perp^{-1}\right)^\ast \widetilde{E}^\ast\zt\right] }\, .    
+    \end{align}
+\end{subequations}
+Note that the denominator of \eqn{mfl_formal_f_const_pump} is self-contained; those differential operators are not applied to $\widetilde{E}\zt$ in the numerator. But the differential operator $\hat{\partial}_\perp^{-1}$ preceding the fraction applies to all occurrences of $\widetilde{E}\zt$ and its complex conjugate. Also, if the complex electric field envelope function is constant in time, then \eqn{mfl_formal_fg_const_pump} are identical to \eqn{laser_statics_1d_sml_cw} with $\Omega = 0$.
+
+In this section, we are particularly interested in the case where the field amplitude $|\widetilde{E}\zt|$ is relatively slowly-varying in time and the output of the laser is passively mode-locked in the frequency domain. Our intermediate goal is to derive a master equation based on \eqn{scl_etz_scaled} that incorporates a form of the macroscopic polarization tailored for frequency mode-locking. We'll begin by expanding \eqn{mfl_formal_f_const_pump} as a Taylor Series in powers of the partial time derivative $\partial / \partial t$. We will keep only the first-order time derivative term that represents the nonlinear interaction between the counterpropagating electric fields. In this case, while temporarily ignoring the spatiotemporal coordinates $\zt$, we have
+% \begin{multline} %\label{eqn:ftilde_mflt_def_init}
+%     \widetilde{F}\zt \approx \frac{(1 - i\, \alpha)\, \Gn\z}{2}\, \frac{\widetilde{E}\zt}{1 + \left|\widetilde{E}\zt\right|^2} + \frac{\Gn\z\, \tau_\perp^2}{2\, (1 + \alpha^2)}\, \frac{1}{\left[1 + \left|\widetilde{E}\zt\right|^2\right]^2}\, \pptt \widetilde{E}\zt \\+ \frac{\Gn\z}{4}\, \frac{\left(2 \tau_\parallel + 3 \tau_\perp\right)
+%     \widetilde{E}^2\zt\, \ppt \widetilde{E}^\ast\zt + \left(2 \tau_\parallel + \tau_\perp\right) \left|\widetilde{E}\zt\right|^2 \ppt \widetilde{E}\zt - 2\, \tau_\perp\, \ppt \widetilde{E}\zt}{\left[1 + \left|\widetilde{E}\zt\right|^2\right]^2} \\
+%     + i\, \frac{\alpha\, \Gn\z}{4}\, \frac{\left(2 \tau_\parallel + \tau_\perp\right) \widetilde{E}\zt \ppt \left|\widetilde{E}\zt\right|^2}{\left[1 + \left|\widetilde{E}\zt\right|^2\right]^2}\, .
+% \end{multline}
+% \begin{multline}
+%     \widetilde{F} \approx \frac{(1 - i\, \alpha)\, \Gn}{2}\, \frac{\widetilde{E}}{1 + \left|\widetilde{E}\right|^2} + \frac{\Gn\, \tau_\perp^2}{2\, (1 + \alpha^2)}\, \frac{1}{\left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \pptt \widetilde{E} \\+ \frac{\Gn}{4}\, \frac{\left(2 \tau_\parallel + 3 \tau_\perp\right)
+%     \widetilde{E}^2\, \ppt \widetilde{E}^\ast + \left(2 \tau_\parallel + \tau_\perp\right) \left|\widetilde{E}\right|^2 \ppt \widetilde{E} - 2\, \tau_\perp\, \ppt \widetilde{E} + i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \widetilde{E} \ppt \left|\widetilde{E}\right|^2}{\left[1 + \left|\widetilde{E}\right|^2\right]^2}\, .
+% \end{multline}
+% \begin{multline} %\label{eqn:ftilde_mflt_def}
+%     \widetilde{F} \approx \frac{(1 - i\, \alpha)\, \Gn}{2 \left[ 1 + \left|\widetilde{E}\right|^2 \right]}\, \widetilde{E} - \frac{\Gn\, \tau_\perp}{2 \left[1 + \left|\widetilde{E}\right|^2\right]}\, \ppt \widetilde{E}  + \frac{\Gn\, \tau_\perp^2}{2\, \left(1 + \alpha^2\right) \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \pptt \widetilde{E} \\+ \frac{\Gn}{4 \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \left[ \left(2 \tau_\parallel + 3 \tau_\perp\right) - i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \right]\, \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2\, .
+% \end{multline}
+% % \begin{multline} %\label{eqn:ftilde_mflt_def}
+% %     \widetilde{F} \approx \frac{(1 - i\, \alpha)\, \Gn}{2 \left[ 1 + \left|\widetilde{E}\right|^2 \right]}\, \widetilde{E} - \frac{\Gn\, \tau_\perp}{2 \left[1 + \left|\widetilde{E}\right|^2\right]}\, \ppt \widetilde{E}  + \frac{\Gn}{2}\, \sum_{l = 1}^\infty \frac{1}{(2 l)!}\, \left. \frac{d^{2 l}}{d \Omega^{2 l}}\, L_\mathrm{sat}(\Omega)\right|_{\Omega = 0} \left(i\, \tau_\perp\, \ppt\right)^{2 l} \widetilde{E} \\+ \frac{\Gn}{4 \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \left[ \left(2 \tau_\parallel + 3 \tau_\perp\right) - i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \right]\, \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2\, ,
+% % \end{multline}
+
+% \begin{align} %\label{eqn:ftilde_mflt_def}
+%     \widetilde{F} &\approx \frac{\Gn}{2}\, \sum_{l = 0}^\infty \frac{1}{l!}\, \left. \frac{d^l}{d \Omega^l}\, L_\mathrm{sat}(\Omega)\right|_{\Omega = 0} \left(i\, \tau_\perp\, \ppt\right)^l \widetilde{E} \\
+%     &\qquad + \frac{\Gn}{4 \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \left[ \left(2 \tau_\parallel + 3 \tau_\perp\right) - i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \right]\, \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2 \\
+%     &\approx \frac{(1 - i\, \alpha)\, \Gn}{2 \left[ 1 + \left|\widetilde{E}\right|^2 \right]}\, \widetilde{E} - \frac{\Gn\, \tau_\perp}{2 \left[1 + \left|\widetilde{E}\right|^2\right]}\, \ppt \widetilde{E}  + \frac{\Gn\, \tau_\perp^2}{2\, \left(1 + \alpha^2\right) \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \pptt \widetilde{E} \\
+%     &\qquad + \frac{\Gn}{4 \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \left[ \left(2 \tau_\parallel + 3 \tau_\perp\right) - i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \right]\, \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2\, ,
+% \end{align}
+% \begin{multline} %\label{eqn:ftilde_mflt_def}
+%     \widetilde{F} \approx \frac{\Gn}{2}\, \sum_{l = 0}^\infty \frac{1}{l!}\, \left. \frac{d^l}{d \Omega^l}\, L_\mathrm{sat}(\Omega)\right|_{\Omega = 0} \left(i\, \tau_\perp\, \ppt\right)^l \widetilde{E} \\
+%     + \frac{\Gn}{4 \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \left[ \left(2 \tau_\parallel + 3 \tau_\perp\right) - i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \right]\, \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2\, ,
+% \end{multline}
+\begin{equation} %\label{eqn:ftilde_mflt_def}
+    \begin{split}
+        \widetilde{F} &\approx \frac{\Gn}{2}\, L_\mathrm{sat}\left(i\, \tau_\perp\, \ppt\right) \widetilde{E} + \frac{\Gn\, \chi}{4 \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2 \\
+        &= \frac{\Gn}{2}\, \sum_{l = 0}^\infty \frac{1}{l!}\, \left. \frac{d^l}{d \Omega^l}\, L_\mathrm{sat}(\Omega)\right|_{\Omega = 0} \left(i\, \tau_\perp\, \ppt\right)^l \widetilde{E} + \frac{\Gn\, \chi}{4 \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2\, ,
+    \end{split}
+\end{equation}
+where we have defined
+\begin{equation} \label{eqn:mflt_chi_def}
+        \chi \equiv \left(2 \tau_\parallel + 3 \tau_\perp\right) - i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \approx (1 - i\, \alpha) \left(2 \tau_\parallel + 3 \tau_\perp\right)\, ,
+\end{equation}
+\begin{equation} \label{eqn:laser_dynamics_1d_mfl_Lsat_def}
+    L_\mathrm{sat}(\Omega) \equiv \frac{\mathcal{L}(\Omega)}{1 + \Re[\mathcal{L}(\Omega)] \left|\widetilde{E}\right|^2}\, ,
+\end{equation}
+and in this case $\mathcal{L}(\Omega)$ is given by \eqn{laser_statics_1d_lef_lineshape}. The first term on the \rhs of this equation allows us to sample the frequency dependence of the complex gain of the material medium. If we limit ourselves to second order in the time derivative, then we can write the macroscopic polarization as
+\begin{equation} \label{eqn:ftilde_mflt_def}
+    \begin{split}
+        \widetilde{F} &\approx \frac{(1 - i\, \alpha)\, \Gn}{2 \left[ 1 + \left|\widetilde{E}\right|^2 \right]}\, \widetilde{E} - \frac{\Gn\, \tau_\perp}{2 \left[1 + \left|\widetilde{E}\right|^2\right]}\, \ppt \widetilde{E}  + \frac{\Gn\, \tau_\perp^2}{2\, \left(1 + \alpha^2\right) \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \pptt \widetilde{E} \\
+        &\qquad + \frac{\Gn\, \chi}{4 \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2\, ,
+    \end{split}
+\end{equation}
+where we have retained only the real part of the coefficient of the second-order time derivative, which represents the power-broadened ``gain curvature'' and is simply the Fourier transform of the real part of \eqn{laser_statics_1d_sml_cw_fz} to second order in $\omega \equiv \Omega / \tau_\perp$.  As we shall see, the fourth term in this expression describes the spatial interaction of the counterpropagating intracavity fields and four-wave mixing effects.
+% The third term on the \rhs of this equation represents the power-broadened gain curvature, which is simply the Fourier transform of the real part of \eqn{laser_statics_1d_sml_cw_fz} to second order in $\omega \equiv \Omega / \tau_\perp$. Let's now tweak the last term in this expression to simplify our treatment of spatial hole burning below. To third-order accuracy in $\widetilde{E}\zt$, we can write
+% \begin{equation*}
+%     -\frac{2\, \tau_\perp}{\left[1 + \left|\widetilde{E}\right|^2\right]^2} \ppt \widetilde{E} \approx \frac{4\, \tau_\perp\, \left|\widetilde{E}\right|^2}{\left[1 + \left|\widetilde{E}\right|^2\right]^2} \ppt \widetilde{E} - 2\, \tau_\perp\, \ppt \widetilde{E}\, ,
+% \end{equation*}
+% allowing us to recast \eqn{ftilde_mflt_def_init} in the form
+% \begin{multline} %\label{eqn:ftilde_mflt_def}
+%     \widetilde{F}\zt \approx \frac{(1 - i\, \alpha)\, \Gn\z}{2}\, \frac{\widetilde{E}\zt}{1 + \left|\widetilde{E}\zt\right|^2} - \frac{\Gn\z}{2}\,  \tau_\perp\, \ppt \widetilde{E}\zt \\+ \frac{\Gn\z\, \tau_\perp^2}{2\, (1 + \alpha^2)}\, \frac{1}{\left[1 + \left|\widetilde{E}\zt\right|^2\right]^2}\, \pptt \widetilde{E}\zt + i\, \frac{\alpha\, \Gn\z}{4}\, \frac{\left(2 \tau_\parallel + \tau_\perp\right) \widetilde{E}\zt \ppt \left|\widetilde{E}\zt\right|^2}{\left[1 + \left|\widetilde{E}\zt\right|^2\right]^2} \\+ \frac{\Gn\z}{4}\, \frac{\left(2 \tau_\parallel + 3 \tau_\perp\right)
+%     \widetilde{E}^2\zt\, \ppt \widetilde{E}^\ast\zt + \left(2 \tau_\parallel + 5 \tau_\perp\right) \left|\widetilde{E}\zt\right|^2 \ppt \widetilde{E}\zt}{\left[1 + \left|\widetilde{E}\zt\right|^2\right]^2}\, .
+% \end{multline}
+% \begin{multline} \label{eqn:ftilde_mflt_def}
+%     \widetilde{F} \approx \frac{(1 - i\, \alpha)\, \Gn}{2}\, \frac{\widetilde{E}}{1 + \left|\widetilde{E}\right|^2} - \frac{\Gn}{2}\,  \tau_\perp\, \ppt \widetilde{E} + \frac{\Gn\, \tau_\perp^2}{2\, (1 + \alpha^2)}\, \frac{1}{\left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \pptt \widetilde{E} \\ + \frac{\Gn}{4}\, \frac{\left(2 \tau_\parallel + 3 \tau_\perp\right) \widetilde{E}^2\, \ppt \widetilde{E}^\ast + \left(2 \tau_\parallel + 5 \tau_\perp\right) \left|\widetilde{E}\right|^2 \ppt \widetilde{E} - 2\, \tau_\perp\, \ppt \widetilde{E} + i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \widetilde{E} \ppt \left|\widetilde{E}\right|^2}{\left[1 + \left|\widetilde{E}\right|^2\right]^2}\, .
+% \end{multline}
+% The third term on the \rhs of this equation represents the power-broadened gain curvature, which is simply the Fourier transform of the real part of \eqn{laser_statics_1d_sml_cw_fz} to second order and above in $\omega \equiv \Omega / \tau_\perp$. As we shall see, the fourth term in this expression generates both spatial hole-burning and four-wave mixing effects.
+
+Let's now decouple the forward-propagating and backward-propagating fields in the macroscopic polarization. Following \sct{laser_statics_1d_shb}, we define
+\begin{equation}
+    \widetilde{F} \equiv F_+\zt\, e^{+ i\, k_0\, z} + F_-\zt\, e^{- i\, k_0\, z}\, ,
+\end{equation}
+apply \eqn{idm_e_m_def} in the case $m = 0$, and use \eqn{ftilde_mflt_def} as a guide to extract $F_\pm$ and establish the \rhs of \eqn{scl_etz_scaled}. The primary difference between the approach we used in \sct{laser_statics_1d_shb} and the one we are using here is that there is no static pattern of (in space or time) spatial hole burning; as shown above, in the case of a frequency mode-locked laser, the total intracavity field is chirped and flows back and forth between the mirrors. In principle, could follow the method we briefly considered in \sct{laser_statics_1d_shb} in the limit where the unsaturated gain is infinitesimally above threshold --- so that $\left|E_\pm\right| \ll 1$ --- and write the saturation factor to first order in $e^{\pm i\, k_0\, z}$ as
+\begin{equation}
+    \frac{\widetilde{E}}{1 + \left|\widetilde{E}\right|^2} \approx \left[1 - \left(\left|E_+\right|^2 + 2 \left|E_-\right|^2\right)\right] E_+\, e^{+ i\, k_0\, z} + \left[1 - \left(\left|E_-\right|^2 + 2 \left|E_+\right|^2\right)\right] E_-\, e^{- i\, k_0\, z}\, ,
+\end{equation}
+consistent with \eqn{ld1d_shb_sw_low_g}. However, as we discovered in \sct{laser_statics_shb_1d_al}, this expansion is very inaccurate for gains even 10\% above threshold. Instead, we'll note that when averaged over one round trip in time, as we learned above for a highly multimode laser the total saturation factor can be approximated by
+\begin{equation} \label{eqn:mflt_shb_sat_approx}
+    \left[1 + \left|\widetilde{E}\zt\right|^2\right]^{-1}  \approx \frac{1}{1 + \left|E_+\right|^2 + \left|E_-\right|^2} \equiv \mathcal{S}\left[E_\pm\right]\, .
+\end{equation}
+
+Decoupling the counterpropagating terms in \eqn{ftilde_mflt_def} is now straightforward, and they resolve to
+\begin{equation}
+    \begin{split}
+        F_\pm &\approx \frac{(1 - i\, \alpha)\, \Gn}{2}\, S\left[E_\pm\right] E_\pm - \frac{\Gn\, \tau_\perp}{2}\, S\left[E_\pm\right] \ppt E_\pm + \frac{\Gn\, \tau_\perp^2}{2\, \left(1 + \alpha^2\right)}\, S^2\left[E_\pm\right] \pptt E_\pm\\
+        &\qquad + \frac{\Gn\, \chi}{4}S^2\left[E_\pm\right]  \left[ E_\pm\, \ppt \left( |E_+|^2 + |E_-|^2 \right) + |E_\mp|^2\, \ppt E_\pm + E_+\, E_-\, \ppt E_\mp^\ast \right]\, .
+    \end{split}
+\end{equation}
+We now make the assumptions that $\Gn\, \tau_\perp \ll 1$ and $\Gn\, \tau_\parallel\, |E_\pm|^2 \ll 1$, and therefore we neglect terms proportional to $\partial\, E_\pm/\partial t$ and $|E_\pm|^2\, \partial\, E_\pm^\ast/\partial t$ because they are much smaller than the time derivative on the \lhs of the field evolution equation given by \eqn{scl_etz_scaled}. 
+\begin{equation}
+    \begin{split}
+        F_\pm &\approx \frac{(1 - i\, \alpha)\, \Gn}{2}\, S\left[E_\pm\right] E_\pm + \frac{\Gn\, \tau_\perp^2}{2\, \left(1 + \alpha^2\right)}\, S^2\left[E_\pm\right] \pptt E_\pm\\
+        &\qquad + \frac{\Gn\, \chi}{4}S^2\left[E_\pm\right]  \left[ i\, \Im\left(E_\mp\, \ppt\, E_\mp^\ast\right) + \frac{3}{2}\, \ppt |E_\mp|^2 \right] E_\pm\, .
+    \end{split}
+\end{equation}
+Substituting this expression into \eqn{scl_etz_scaled} gives us the master equation for the passively  mode-locked laser in the form
+\begin{multline} \label{eqn:mflt_master_eqn}
+    \ppt E_\pm \pm \ppz E_\pm \approx \half \left\{ -\alpha_0 + \left[ \frac{\Gn\, \tau_\perp^2}{1 + \alpha^2}\, \mathcal{S}^2 \left[E_\pm\right] - i\, D_2^\prime \right] \pptt \right\}\, E_\pm \\
+    + \half \left\{(1 - i\, \alpha)\, \Gn\, \mathcal{S}\left[E_\pm\right] + i\, \alpha\, \Gth\right\} E_\pm \\
+    + \frac{\Gn\, \chi}{4}\, \mathcal{S}^2 \left[E_\pm\right] \left[ i\, \Im\left(E_\mp\, \ppt\, E_\mp^\ast\right) + \frac{3}{2}\, \ppt |E_\mp|^2 \right] E_\pm\, ,
+\end{multline}
+where we have retained only the second-order dispersion term $D_2^\prime \equiv D_2 + A_2$ from \eqn{scl_etz_scaled} and $G_\textrm{th} = 1/\tau_p = \ln(1/R_1\, R_2\, e^{-\alpha_0})$.
+
+
+
+
+% \blue{\textbf{Start Obsolete Material}}
+
+% Therefore, we need to be careful to allow a time-dependent Bragg grating to develop in the laser cavity, so we can't simply average the polarization over a physical wavelength. Instead, let's adopt a semi-perturbative approach to spatiotemporal hole burning, and expand the denominator of the first term in \eqn{ftilde_mflt_def} in powers of the spatial interference terms. For example, to second order in $e^{\pm i\, k_0\, z}$, we obtain
+% \begin{equation}
+%     \begin{split}
+%         \left[1 + \left|\widetilde{E}\right|^2\right]^{-1} &= \left[1 + \left|E_+\, e^{i\, k_0\, z}+ E_-\, e^{-i\, k_0\, z}\right|^2\right]^{-1} \\
+%         &\approx \frac{1}{\left[1 + \left|E_+\right|^2 + \left|E_-\right|^2\right]^2}\, \left[1 + \left|E_+\right|^2 + \left|E_-\right|^2 - E_+\, E_-^\ast\, e^{i\, 2\, k_0\, z} - E_+^\ast\, E_-\, e^{-i\, 2\, k_0\, z}\right]
+%     \end{split}
+% \end{equation}
+% Therefore, neglecting terms in the numerator proportional to $e^{\pm i\, 3\, k_0\, z}$ (which preserves terms up to order $|E|^3$ in this case), we can write 
+% \begin{equation}
+%     \frac{\widetilde{E}}{1 + \left|\widetilde{E}\right|^2} \approx \frac{1 + \left|E_+\right|^2}{\left[1 + \left|E_+\right|^2 + \left|E_-\right|^2\right]^2}\, E_+\, e^{+ i\, k_0\, z} + \frac{1 + \left|E_-\right|^2}{\left[1 + \left|E_+\right|^2 + \left|E_-\right|^2\right]^2}\, E_-\, e^{- i\, k_0\, z}\, .
+% \end{equation}
+% If we had followed the fully-perturbative method we briefly considered in \sct{laser_statics_1d_shb} in the limit where the unsaturated gain is infinitesimally above threshold --- so that $\left|E_\pm\right|^2 \ll 1$ --- then we would have found
+% \begin{equation}
+%     \frac{\widetilde{E}}{1 + \left|\widetilde{E}\right|^2} \approx \left[1 - \left(\left|E_+\right|^2 + 2 \left|E_-\right|^2\right)\right] E_+\, e^{+ i\, k_0\, z} + \left[1 - \left(\left|E_-\right|^2 + 2 \left|E_+\right|^2\right)\right] E_-\, e^{- i\, k_0\, z}\, ,
+% \end{equation}
+% consistent with \eqn{ld1d_shb_sw_low_g}. (However, as we discovered in \sct{laser_statics_shb_1d_al}, this expansion is very inaccurate for gains even 10\% above threshold.) The second and third terms can be treated similarly, but the fourth term requires a more careful treatment. The numerator is already third-order in the field amplitudes, so we must expand the denominator to fourth order in $e^{\pm i\, k_0\, z}$. We now make the assumptions that $\Gn\, \tau_\perp \ll 1$ and $\Gn\, \tau_\parallel\, |E_\pm|^2 \ll 1$, and therefore we neglect terms proportional to $\partial\, E_\pm/\partial t$ and $|E_\pm|^2\, \partial\, E_\pm^\ast/\partial t$ because they are much smaller than the time derivative on the \lhs of the field evolution equation given by \eqn{scl_etz_scaled}. (We'll neglect the second term in \eqn{ftilde_mflt_def} for the same reason.) Again keeping terms in the numerator only up to third order in $|E|^3$, we can find
+% \begin{equation}
+%     \begin{split}
+%         \left[1 + \left|\widetilde{E}\right|^2\right]^{-2}\, \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2 &\longrightarrow \left[1 + \left|\widetilde{E}\right|^2\right]^{-3}\, \left[ E_\mp^\ast\, \ppt E_\mp + 2\, E_\mp\, \ppt E_\mp^\ast \right] E_\pm\, e^{\pm i\, k_0\, z} \\
+%         &= \left[1 + \left|\widetilde{E}\right|^2\right]^{-3}\, \left[ i\, \Im\left(E_\mp\, \ppt\, E_\mp^\ast\right) + \frac{3}{2}\, \ppt |E_\mp|^2 \right] E_\pm\, e^{\pm i\, k_0\, z}\, .
+%     \end{split}
+% \end{equation}
+
+% Decoupling the terms in \eqn{ftilde_mflt_def} is now straightforward, and they resolve to
+% \begin{equation}
+%     \begin{split}
+%         F_\pm &\approx \frac{(1 - i\, \alpha)\, \Gn}{2}\, \frac{1 + \left|E_\pm\right|^2}{\left[1 + \left|E_+\right|^2 + \left|E_-\right|^2\right]^2}\, E_\pm - \frac{\Gn\, \tau_\perp}{2}\, \frac{1 + \left|E_\pm\right|^2}{\left[1 + \left|E_+\right|^2 + \left|E_-\right|^2\right]^2}\, \ppt E_\pm\\
+%         &\qquad + \frac{\Gn\, \tau_\perp^2}{2\, \left(1 + \alpha^2\right)}\, \frac{1 + \left|E_\pm\right|^2 - \left|E_\mp\right|^2}{\left[1 + \left|E_+\right|^2 + \left|E_-\right|^2\right]^3}\, \pptt E_\pm\, ,
+%     \end{split}
+% \end{equation}
+% \begin{equation}
+%     \begin{split}
+%         F_\pm &\approx \frac{(1 - i\, \alpha)\, \Gn}{2}\, \frac{1 + \left|E_\pm\right|^2}{\left[1 + \left|E_+\right|^2 + \left|E_-\right|^2\right]^2}\, E_\pm + \frac{\Gn\, \tau_\perp^2}{2\, \left(1 + \alpha^2\right)}\, \frac{1 + \left|E_\pm\right|^2 - \left|E_\mp\right|^2}{\left[1 + \left|E_+\right|^2 + \left|E_-\right|^2\right]^3}\, \pptt E_\pm \\
+%         &\qquad + \frac{\Gn\, \chi}{4 \left[1 + \left|E_+\right|^2 + \left|E_-\right|^2\right]^3}\, \left[ i\, \Im\left(E_\mp\, \ppt\, E_\mp^\ast\right) + \frac{3}{2}\, \ppt |E_\mp|^2 \right]\, ,
+%     \end{split}
+% \end{equation}
+% \begin{multline}
+%     F_\pm \approx \frac{(1 - i\, \alpha)\, \Gn}{2}\, \mathcal{S}^2 \left[|E_+|^2, |E_-|^2\right] \left[1 + \left|E_\pm\right|^2\right] E_\pm \\
+%     + \frac{\Gn\, \tau_\perp^2}{2\, \left(1 + \alpha^2\right)}\, \mathcal{S}^3 \left[|E_+|^2, |E_-|^2\right] \left[1 + \left|E_\pm\right|^2 - \left|E_\mp\right|^2\right] \pptt E_\pm \\
+%     + \frac{\Gn\, \chi}{4}\, \mathcal{S}^3 \left[|E_+|^2, |E_-|^2\right] \left[ i\, \Im\left(E_\mp\, \ppt\, E_\mp^\ast\right) + \frac{3}{2}\, \ppt |E_\mp|^2 \right] E_\pm\, ,
+% \end{multline}
+% where we have defined the complex inverse time constant
+% \begin{equation} \label{eqn:mflt_chi_def}
+%     \begin{split}
+%         \chi &\equiv \left(2 \tau_\parallel + 3 \tau_\perp\right) - i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \\
+%         &\approx (1 - i\, \alpha) \left(2 \tau_\parallel + 3 \tau_\perp\right)\, ,
+%     \end{split}
+% \end{equation}
+% and the saturation function
+% \begin{equation} \label{eqn:mflt_shb_sat}
+%     \mathcal{S}\left[|E_+|^2, |E_-|^2\right] \equiv \frac{1}{1 + \left|E_+\right|^2 + \left|E_-\right|^2}\, .
+% \end{equation}
+% Substituting this expression into \eqn{scl_etz_scaled} gives us the master equation for the frequency mode-locked laser in the form
+% \begin{multline} \label{eqn:mflt_master_eqn}
+%     \ppt E_\pm \pm \ppz E_\pm \approx \half \left\{ -\alpha_0 + \left[ \frac{\Gn\, \tau_\perp^2}{1 + \alpha^2}\, \mathcal{S}^3 \left[|E_+|^2, |E_-|^2\right] \left[1 + \left|E_\pm\right|^2 - \left|E_\mp\right|^2\right] - i\, D_2^\prime \right] \pptt \right\}\, E_\pm \\
+%     + \half \left\{(1 - i\, \alpha)\, \Gn\, \mathcal{S}^2 \left[|E_+|^2, |E_-|^2\right] \left[1 + \left|E_\pm\right|^2\right] + i\, \alpha\, \Gth\right\} E_\pm \\
+%     + \frac{\Gn\, \chi}{4}\, \mathcal{S}^3 \left[|E_+|^2, |E_-|^2\right] \left[ i\, \Im\left(E_\mp\, \ppt\, E_\mp^\ast\right) + \frac{3}{2}\, \ppt |E_\mp|^2 \right] E_\pm\, ,
+% \end{multline}
+% where we have retained only the second-order dispersion term $D_2^\prime \equiv D_2 + A_2$ from \eqn{scl_etz_scaled} and $G_\textrm{th} = 1/\tau_p = \ln(1/R_1\, R_2\, e^{-\alpha_0})$.
+
+% We could follow the method we briefly considered in \sct{laser_statics_1d_shb} in the limit where the unsaturated gain is infinitesimally above threshold --- so that $\left|E_\pm\right| \ll 1$ --- and write the saturation factor as
+% \begin{equation}
+%     \left[1 + \left|\widetilde{E}\zt\right|^2\right]^{-1} \approx 1 - \left|E_+\zt\right|^2 - \left|E_-\zt\right|^2 - 2\, \Re\left[E_+\zt\, E_-^\ast\zt\, e^{i\, 2\, k_0\, z}\right]\, ,
+% \end{equation}
+% but, as we discovered in \sct{laser_statics_shb_1d_al}, this expansion is very inaccurate for gains even 10\% above threshold. The value of the last term on the \rhs of this expression is zero, but we can't ignore the time-dependent Bragg grating caused by the interference of the two counterpropagating fields. For the time being, we'll adopt the approximate method that we developed in \sct{laser_statics_shb_1d_al}, and define the symmetric saturation function given by \eqn{ld1d_shb_sw_ode_approx} as
+% where $\kappa$ is given by \eqn{ld1d_sw_shb_kappa}.\footnote{\red{There's an interesting opportunity here to see whether it's possible to represent the Doppler effect of a moving grating without complicating the treatment of saturation and reverting to a perturbation expansion which inevitably forces us to limit ourselves to low intracavity intensities.}}
+
+% Decoupling the first three terms in \eqn{ftilde_mflt_def} is now straightforward, and they resolve to
+% \begin{equation}
+%     \begin{split}
+%         \widetilde{F} &\approx \frac{(1 - i\, \alpha)\, \Gn}{2 \left[ 1 + \left|\widetilde{E}\right|^2 \right]}\, \widetilde{E} - \frac{\Gn\, \tau_\perp}{2 \left[1 + \left|\widetilde{E}\right|^2\right]}\, \ppt \widetilde{E} + \frac{\Gn\, \tau_\perp^2}{2\, \left(1 + \alpha^2\right) \left[1 + \left|\widetilde{E}\right|^2\right]^2}\, \pptt \widetilde{E} \\
+%         &\longrightarrow \frac{(1 - i\, \alpha)\, \Gn}{2}\, \mathcal{S}\left(|E_+|^2, |E_-|^2\right) E_\pm - \frac{\Gn\, \tau_\perp}{2}\, \mathcal{S}\left(|E_+|^2, |E_-|^2\right) \ppt E_\pm\\
+%         &\qquad + \frac{\Gn\, \tau_\perp^2\, \mathcal{S}^2\left(|E_+|^2, |E_-|^2\right)}{2\, \left(1 + \alpha^2\right)}\, \pptt E_\pm\, .
+%     \end{split}
+% \end{equation}
+% The fourth term requires that we expand $\widetilde{E}\, |\widetilde{E}|^2/\partial t$ to first order in $e^{\pm i\, k_0\, z}$, yielding
+% \begin{equation}
+%     \begin{split}
+%         \widetilde{E}\, \ppt \left|\widetilde{E}\right|^2 &\approx e^{+ i\, k_0\, z} \left[ E_+\, \ppt \left( |E_+|^2 + |E_-|^2 \right) + |E_-|^2\, \ppt E_+ + E_+\, E_-\, \ppt E_-^\ast \right] \\
+%         &+ e^{- i\, k_0\, z} \left[ E_-\, \ppt \left( |E_+|^2 + |E_-|^2 \right) + |E_+|^2\, \ppt E_- + E_-\, E_+\, \ppt E_+^\ast \right]\, .
+%     \end{split}
+% \end{equation}
+% Therefore, the counterpropagating components of the macroscopic polarization can be expressed as
+% \begin{multline} \label{eqn:mflt_counter_prop}
+%     F_\pm \approx \frac{\Gn}{2} \left\{ (1 - i\, \alpha)\, \mathcal{S}\left(|E_+|^2, |E_-|^2\right) - \tau_\perp\, \mathcal{S}\left(|E_+|^2, |E_-|^2\right)\, \ppt + \frac{\tau_\perp^2\, \mathcal{S}^2\left(|E_+|^2, |E_-|^2\right)}{1 + \alpha^2}\, \pptt\right\}\, E_\pm\\
+%     + \frac{\Gn\, \chi}{4}\, \mathcal{S}^2\left(|E_+|^2, |E_-|^2\right) \left[ E_\pm\, \ppt \left( |E_+|^2 + |E_-|^2 \right) + |E_\mp|^2\, \ppt E_\pm + E_+\, E_-\, \ppt E_\mp^\ast \right]\, ,
+% \end{multline}
+%  We now make the assumptions that $\Gn\, \tau_\perp \ll 1$ and $\Gn\, \tau_\parallel\, |E_\pm|^2 \ll 1$, and therefore we neglect terms proportional to $\partial\, E_\pm/\partial t$ and $|E_\pm|^2\, \partial\, E_\pm^\ast/\partial t$ because they are much smaller than the time derivative on the \lhs of the field evolution equation given by \eqn{scl_etz_scaled}.
+% % In addition, we assume that $\partial |E_\pm|^2 / \partial t \longrightarrow 0$, except perhaps where a periodic intensity reset occurs as $E_\pm$ evolves. (Even when these resets occur, they have minimal impact on the phases of the counterpropagating fields, which are particularly important for understanding the dynamics of the chirped intracavity field.)
+% Therefore, the macroscopic polarization in \eqn{mflt_counter_prop} can be simplified as
+% % \begin{multline}
+% %     F_\pm \approx \frac{\Gn}{2} \left\{ (1 - i\, \alpha)\, \mathcal{S}\left(|E_+|^2, |E_-|^2\right) + \frac{\tau_\perp^2\, \mathcal{S}^2\left(|E_+|^2, |E_-|^2\right)}{1 + \alpha^2}\, \pptt\right.\\
+% %     \left. + \frac{\mathcal{S}^2\left(|E_+|^2, |E_-|^2\right)}{2}\, \left[ \left(2 \tau_\parallel + 3 \tau_\perp\right) - i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \right] \left[ \ppt \left( |E_+|^2 + |E_-|^2 \right) + E_\mp\, \ppt E_\mp^\ast \right] \right\}\, E_\pm\, ,
+% % \end{multline}
+% \begin{multline}
+%     F_\pm \approx \frac{\Gn}{2} \left\{ (1 - i\, \alpha)\, \mathcal{S}\left(|E_+|^2, |E_-|^2\right) + \frac{\tau_\perp^2\, \mathcal{S}^2\left(|E_+|^2, |E_-|^2\right)}{1 + \alpha^2}\, \pptt\right.\\
+%     \left. + \frac{\chi}{2}\, \mathcal{S}^2\left(|E_+|^2, |E_-|^2\right) \left[ i\, \Im\left(E_\mp\, \ppt\, E_\mp^\ast\right) + \frac{3}{2}\, \ppt |E_\mp|^2 \right] \right\}\, E_\pm\, ,
+% \end{multline}
+% % The second term on the \rhs of \eqn{ftilde_mflt_def} immediately resolves to $-\half\, G_0\, \tau_\perp\, \ppt E_\pm$. For the gain curvature term, we'll decouple the counterpropagating fields accurately to first-order in $E_\pm$ only, but we'll adopt the saturation function used in the first term to properly account for power broadening of the gain. In the final terms, we will expand the numerator (accurate to third order in the electric field), keep terms proportional to $e^{\pm i\, k_0\, z}$, and adopt the saturation factor given by \eqn{mflt_shb_sat_approx} to obtain
+% % \begin{multline} %\label{eqn:mflt_counter_prop}
+% %     F_\pm \approx \frac{\Gn}{2} \left\{ (1 - i\, \alpha)\, \mathcal{S}\left(\left|E_+\right|^2, \left|E_-\right|^2\right) E_\pm - \tau_\perp\, \ppt\, E_\pm + \mathcal{S}^2\left(\left|E_+\right|^2, \left|E_-\right|^2\right) \frac{\tau_\perp^2}{1 + \alpha^2}\, \pptt\, E_\pm\right\}\\
+% %     + \frac{\Gn}{4}\, \mathcal{S}^2\left(\left|E_+\right|^2, \left|E_-\right|^2\right) \left\{ \left(2 \tau_\parallel + 5 \tau_\perp\right) \left[ \left( |E_+|^2 + |E_-|^2 \right) \ppt E_\pm + E_\pm E^\ast_\mp \ppt E_\mp \right] \right. \\
+% %     + \left. \left(2 \tau_\parallel + 3 \tau_\perp\right) \left[ E^2_\pm \ppt E^\ast_\pm + 2\, E_+ E_- \ppt E^\ast_\mp \right] \right\}\\
+% %     - i\, \frac{\alpha\, \Gn}{4}\, \mathcal{S}^2\left(\left|E_+\right|^2, \left|E_-\right|^2\right) \left(2 \tau_\parallel + \tau_\perp\right) \left[ \left( |E_+|^2 + |E_-|^2 \right) \ppt E_\pm + E_\pm E^\ast_\mp \ppt E_\mp \right. \\
+% %     + \left. E^2_\pm \ppt E^\ast_\pm + 2\, E_+ E_- \ppt E^\ast_\mp \right]\, .
+% % \end{multline}
+% % We now make the assumptions that $\tau_\perp \ll 1$ and $\Gn\, \tau_\parallel\, |E_\pm|^2 \ll 1$, and therefore we neglect terms proportional to $\partial\, E_\pm/\partial t$ and $\partial\, E^\ast_\pm/\partial t$ because they are much smaller than the time derivative on the \lhs of the field evolution equation given by \eqn{scl_etz_scaled}. Therefore, the macroscopic polarization in \eqn{mflt_counter_prop} can be simplified as
+% % \begin{multline}
+% %     F_\pm \approx \frac{\Gn}{2}\, (1 - i\, \alpha)\, \mathcal{S}\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right)  E_\pm \\
+% %     + \frac{\Gn}{2}\, \mathcal{S}^2\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) \left[ \frac{\tau_\perp^2}{1 + \alpha^2}\, \pptt
+% %     + \half \left(2 \tau_\parallel + 5 \tau_\perp\right) E^\ast_\mp \ppt E_\mp + \left(2 \tau_\parallel + 3 \tau_\perp\right) E_\mp \ppt E^\ast_\mp \right] E_\pm \\
+% %     - i\, \frac{\alpha\, \Gn}{4}\, \mathcal{S}^2\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) \left(2 \tau_\parallel + \tau_\perp\right) \left[ E^\ast_\mp \ppt E_\mp + 2\, E_\mp \ppt E^\ast_\mp \right] E_\pm\, ,
+% % \end{multline}
+% and then substituted into \eqn{scl_etz_scaled} to obtain the master equation
+% % \begin{multline} %\label{eqn:mflt_master_eqn}
+% %     \ppt E_\pm \pm \ppz E_\pm \approx \half \left\{ -\alpha_0 + \left[ \mathcal{S}^2\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) \frac{\Gn\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right] \pptt \right. \\
+% %     + \frac{\Gn}{2} \, \mathcal{S}\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) - i\, \frac{\alpha}{2} \left[ G_0\, \mathcal{S}\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) - \Gth \right]\Bigg\} E_\pm \\
+% %     + \frac{\Gn}{2}\, \mathcal{S}^2\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) \left[\half \left(2 \tau_\parallel + 5 \tau_\perp\right) E^\ast_\mp \ppt E_\mp + \left(2 \tau_\parallel + 3 \tau_\perp\right) E_\mp \ppt E^\ast_\mp \right] E_\pm\, ,
+% % \end{multline}
+% \begin{multline} %\label{eqn:mflt_master_eqn}
+%     \ppt E_\pm \pm \ppz E_\pm \approx \half \left\{ -\alpha_0 + \left[ \frac{\Gn\, \tau_\perp^2\, \mathcal{S}^2\left(\left|E_+\right|^2, \left|E_-\right|^2\right)}{1 + \alpha^2} - i\, D_2^\prime \right] \pptt \right\}\, E_\pm \\
+%     + \half \left\{\Gn\, \mathcal{S}\left(\left|E_+\right|^2, \left|E_-\right|^2\right) - i\, \alpha \left[ G_0\, \mathcal{S}\left(\left|E_+\right|^2, \left|E_-\right|^2\right) - \Gth \right]\right\} E_\pm \\
+%     + \frac{\Gn\, \chi}{4}\, \mathcal{S}^2\left(\left|E_+\right|^2, \left|E_-\right|^2\right) \left[ i\, \Im\left(E_\mp\, \ppt\, E_\mp^\ast\right) + \frac{3}{2}\, \ppt |E_\mp|^2 \right] E_\pm\, ,
+% \end{multline}
+% where we have retained only the second-order dispersion term $D_2^\prime \equiv D_2 + A_2$ from \eqn{scl_etz_scaled} and $G_\textrm{th} = 1/\tau_p = \ln(1/R_1\, R_2\, e^{-\alpha_0})$.
+
+% \blue{\textbf{End Obsolete Material}}
+% , and we have defined the complex inverse time constant
+% \begin{equation}
+%     \begin{split}
+%         \chi &\equiv \left(2 \tau_\parallel + 3 \tau_\perp\right) - i\, \alpha\, \left(2 \tau_\parallel + \tau_\perp\right) \\
+%         &\approx (1 - i\, \alpha) \left(2 \tau_\parallel + 3 \tau_\perp\right)\, .
+%     \end{split}
+% \end{equation}
+% \begin{multline}
+%     \ppt E_\pm \pm \ppz E_\pm \approx \half \left\{ -\alpha_0 + \left[ \mathcal{S}^2\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) \frac{\Gn\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right] \pptt \right\} \\
+%     + \left\{\frac{\Gn}{2} \, \mathcal{S}\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) + i\, \frac{\alpha}{2} \left[ G_0\, \mathcal{S}\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) - \Gth \right]\right\} E_\pm \\
+%     + \frac{\Gn}{4}\, \mathcal{S}^2\left(\left|E_\pm\right|^2, \left|E_\mp\right|^2\right) \left[i\, \chi_1  \Im\left(E_\mp\, \ppt\, E_\mp^\ast\right) + \chi_2\, \ppt |E_\mp|^2\right] E_\pm\, ,
+% \end{multline}
+% \begin{subequations}
+%     \begin{align}
+%         \chi_1 &\equiv (1 - i\, \alpha) \left(2 \tau_\parallel + \tau_\perp\right)\, , \nd \\
+%         \chi_2 &\equiv \half \left(6 \tau_\parallel + 11 \tau_\perp\right) + i\, \frac{3\, \alpha}{2} \left(2 \tau_\parallel + \tau_\perp\right) \approx \frac{3}{2}\, \chi_1\, .
+%     \end{align}
+% \end{subequations}
+% Note that the final convenient approximation is valid only in the limit $\tau_\parallel \gg \tau_\perp$.
+
+Our goal now is to recast \eqn{mflt_master_eqn} as a nonlinear Schr{\"o}dinger equation (NLSE) that can be solved using numerical techniques such as the Fourier split-step method. First we'll unfold the standing-wave cavity so that $E_{-}\zt$ is continued from $\{0, 1/2\}$ to $\{1/2, 1\}$. We then map $E_{-}(1/2-, t)$ to $E_{+}(1/2+, t)$ and $E_{-}(0+, t)$ to $E_{+}(1-, t)$. If we follow this procedure for the counterpropagating steady-state intensities shown in \fig{shb_1d_izs_loss0} and \fig{mflt_cavity_folded}, we obtain the steady-state forward-propagating intensity in the unfolded cavity shown in \fig{mflt_cavity_unfolded}. Note that $I(1 + z) = I\z$ in the unfolded case, with the boundary conditions $I(0) = R_1\, I(1)$ and $I(1/2+) = R_2\, I(1/2-)$.
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=3.2in]{figures/mflt_cavity_folded}
+        \caption{Folded standing-wave cavity}
+        \label{fig:mflt_cavity_folded}
+    \end{subfigure}
+    \par\vspace{0.75in}
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=6.5in]{figures/mflt_cavity_unfolded}
+        \caption{Unfolded standing-wave cavity}
+        \label{fig:mflt_cavity_unfolded}
+    \end{subfigure}
+    \caption{\label{fig:mflt_cavity} (a) Counterpropagating steady-state intensities in a folded standing-wave cavity. (b) Forward-propagating steady-state intensities in an unfolded standing-wave cavity. The intensity is periodic (with unit period) but discontinuous.}
+\end{figure}
+
+This approach eliminates $E_{-}\zt$ from the \lhs of \eqn{mflt_master_eqn}, but there is a corresponding subtlety on the right-hand side: the nonlinear terms require that we replace $E_{-}\zt$ with $E_{+}(1 - z, t)$. With this procedure in mind, the saturation function becomes
+\begin{equation}
+    S\left[E_\pm\right] \longrightarrow \left(1 + \left|E_+\zt\right|^2 + \left|E_+(1 - z. t)\right|^2\right)^{-1}\, ,
+\end{equation}
+% \begin{equation}
+%     \mathcal{S}\left(\left|E_+\zt\right|^2, \left|E_+(1 - z. t)\right|^2\right) = \frac{1}{1 + \half\, \kappa \left[\left|E_+\zt\right|^2 + \left|E_+(1 - z, t)\right|^2\right]}\, ,
+% \end{equation}
+and we introduce the steady-state effective gain function $K\z$ and the single-mode steady-state forward-propagating intensity $I(z) = K(z)\, I(0) \equiv K(z)\, I_0$, such that
+\begin{equation} \label{eqn:mflt_kz_def}
+    \begin{split}
+        K(z) &\equiv \exp\left(\int_0^z d z^\prime\, \left\{\Gn\left(z^\prime\right) \mathcal{S}\left[I\left(z^\prime\right), I\left(1 - z^\prime\right)\right] - \alpha_0\left(z^\prime\right)\right\}\right)\\
+        &\approx \exp\left[ \int_0^z d z^\prime\, g_\mathrm{eff}(z^\prime) \right]\, ,
+    \end{split}
+\end{equation}
+where we have followed the discussion in \sct{laser_statics_1d_approx} and defined $g_\mathrm{eff}(z)$ for the \emph{unwrapped} cavity as
+\begin{equation}
+    g_\mathrm{eff}(z) \equiv \beta\, \Gn\left(z\right) - \alpha_0\left(z\right) + \ln\left(R_2\right) \delta(z - 1/2) + \ln\left(R_1\right) \delta(z - 1)\, ,
+\end{equation}
+with $\beta$ given by \eqn{sml_1d_u_url_nu_beta} for $R = R_1\, R_2$ in the standing-wave cavity case. We note that $\Gn(1 - z) = \Gnz$ because $\Gnz$ is symmetric about $z = 1/2$ in the unfolded cavity, and that $\Gn(1 + z) = \Gnz$ because the gain is also periodic. Then we define the forward-propagating electric-field amplitude function $E(z,t)$ in terms of the single-mode steady-state intensity as
+\begin{equation} \label{eqn:mflt_ezt_def}
+    E_{+}\zt \equiv I^{1/2}(z)\, E\zt = K^{1/2}\z\, \sqrt{I_0}\, E\zt\, .
+\end{equation}
+Since $K\z$ --- and therefore $I\z$ --- is periodic and consistent with the boundary conditions, $E\zt$ is both periodic and continuous. With these modifications, we substitute \eqn{mflt_kz_def} and \eqn{mflt_ezt_def} into \eqn{mflt_master_eqn} to obtain
+% \begin{multline} %\label{eqn:mflt_ezt_pde}
+%     \left( \ppt + \ppz \right) E\zt = \half \left\{ \mathcal{S}^2\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] \Gn\z\, \tau_\perp^2 - i\, D_2 \right\} \pptt E\zt \\
+%     + \frac{\Gn\z}{2} \left\{ \mathcal{S}\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] - \mathcal{S}\left[I_0\, K\z, I_0\, K(-z)\right]\right\} E\zt\\
+%     + \frac{\Gn\z}{2}\, \mathcal{S}^2\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] I_0\, K(-z) \\
+%     \times \left[ \half \left(2 \tau_\parallel + 5 \tau_\perp\right) E^\ast(-z, t)\, \ppt\, E(-z, t)
+%     + \left(2 \tau_\parallel + 3 \tau_\perp\right) E(-z, t)\, \ppt\, E^\ast(-z, t) \right] E\zt\, ,
+% \end{multline}
+% \begin{multline} %\label{eqn:mflt_ezt_unf}
+%     \left( \ppt + \ppz \right) E\zt = \half \left\{ \mathcal{S}^2\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] \frac{\Gn\z\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right\} \pptt E\zt \\
+%     + \frac{\Gn\z}{2} \left\{ \mathcal{S}\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] - \mathcal{S}\left[I_0\, K\z, I_0\, K(-z)\right]\right\} E\zt\\
+%     + i\, \frac{\alpha}{2} \left\{ \Gn\z\, \mathcal{S}\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] - \Gth \right\} E\zt \\
+%     + \frac{\Gnz\, \chi}{4}\, \mathcal{S}^2\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] I_0\, K(-z) \\
+%     \times \left[  i\, \Im\left[E(-z, t)\, \ppt\, E^\ast(-z, t)\right] + \frac{3}{2}\, \ppt |E(-z, t)|^2 \right] E\zt\, ,
+% \end{multline}
+\begin{multline} \label{eqn:mflt_ezt_unf}
+    \left( \ppt + \ppz \right) E\zt = \half \left\{ \frac{\Gn\z\, \tau_\perp^2}{1 + \alpha^2}\, \mathcal{S}^2[E] - i\, D_2^\prime \right\} \pptt E\zt \\
+    + \frac{\Gn\z}{2} \left\{ \mathcal{S}\left[E\right] - \mathcal{S}\left[1\right]\right\} E\zt
+    + i\, \frac{\alpha}{2} \left\{ \Gn\z\, \mathcal{S}\left[E\right] - \Gth \right\} E\zt \\
+    + \frac{\Gnz\, \chi}{4}\, \mathcal{S}^2\left[E\right] I_0\, K(-z)
+    \left\{  i\, \Im\left[E(-z, t)\, \ppt\, E^\ast(-z, t)\right] + \frac{3}{2}\, \ppt |E(-z, t)|^2 \right\} E\zt\, ,
+\end{multline}
+% \begin{multline}
+%     \left( \ppt + \ppz \right) E\zt \\
+%     = \half \left\{\frac{\Gnz\, \tau_\perp^2}{1 + \alpha^2}\, \mathcal{S}^3(E) \left[1 + I_0\, K\z \left|E\zt\right|^2 - I_0\, K(-z) \left|E(-z, t)\right|^2\right] - i\, D_2^\prime \right\}\, \pptt E\zt \\
+%     + \frac{\Gnz}{2} \left\{\mathcal{S}^2(E) \left[1 + I_0\, K\z \left|E\zt\right|^2\right] - \mathcal{S}^2(1) \left[1 + I_0\, K\z\right]\right\} E\zt \\
+%     - i\, \frac{\alpha}{2} \left\{ \Gnz\, \mathcal{S}^2(E) \left[1 + I_0\, K\z \left|E\zt\right|^2\right] - \Gth \right\} E\zt \\
+%     + \frac{\Gn\, \chi}{4}\, \mathcal{S}^3(E) I_0\, K(-z) \left\{ i\, \Im\left[E(-z, t)\, \ppt\, E^\ast(-z, t)\right] + \frac{3}{2}\, \ppt |E(-z, t)|^2 \right\} E\zt\, ,
+% \end{multline}
+where
+\begin{equation}
+    \mathcal{S}[E] \equiv \frac{1}{1 + I_0 \left[K\z \left|E\zt\right|^2 + K(-z) \left|E(-z, t)\right|^2\right]}\, .
+\end{equation}
+% instead of \blue{old and busted}
+% \begin{multline}
+%     \left( \ppt + \ppz \right) E\zt = \half \left\{ \mathcal{S}^2\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] \frac{\Gn\z\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right\} \pptt E\zt \\
+%     + \frac{\Gn\z}{2} \left\{ \mathcal{S}\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] - \mathcal{S}\left[I_0\, K\z, I_0\, K(-z)\right]\right\} E\zt\\
+%     + i\, \frac{\alpha}{2} \left\{ \Gn\z\, \mathcal{S}\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] - \Gth \right\} E\zt \\
+%     + \frac{\Gn\z}{4}\, \mathcal{S}^2\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] I_0\, K(-z) \\
+%     \times \left\{ i\, \chi_1  \Im\left[E(-z, t)\, \ppt\, E^\ast(-z, t)\right] + \chi_2\, \ppt |E(-z, t)|^2  \right\} E\zt\, ,
+% \end{multline}
+and we have used the periodicity of $K(z)$ and $E\zt$ for the counterpropagating fields.
+
+Next, anticipating our mean-field theory, let us change variables to a coordinate system that follows the forward-propagating field as it propagates around the cavity. We choose $z = \zeta$ and $t = \tau + \zeta$, or
+\begin{subequations}
+    \begin{align}
+        \zeta &\equiv z\, , \nd \\
+        \tau &\equiv t - z\, ,
+    \end{align}
+\end{subequations}
+where $\tau$ is called the ``retarded time.'' Then
+\begin{subequations}
+    \begin{align}
+        \ppz\, E\zt &= \frac{\partial \zeta}{\partial z}\, \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) + \frac{\partial \tau}{\partial z}\, \frac{\partial}{\partial \tau}\, E(\zeta, \tau) = \left(\frac{\partial}{\partial \zeta} - \frac{\partial}{\partial \tau}\right) E(\zeta, \tau)\, , \nd \\
+        \ppt\, E\zt &= \frac{\partial \zeta}{\partial t}\, \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) + \frac{\partial \tau}{\partial t}\, \frac{\partial}{\partial \tau}\, E(\zeta, \tau) = \frac{\partial}{\partial \tau}\, E(\zeta, \tau)\, .
+    \end{align}
+\end{subequations}
+In \eqn{mflt_ezt_unf}, we can immediately update $E\zt \longrightarrow E(\zeta, \tau)$ and $K(-z) \longrightarrow K(-\zeta)$. But terms including $E(-z, t)$ are slightly more complicated: we'll have $E(-z, t) \longrightarrow E(\zeta^\prime, \tau^\prime)$, where $\zeta^\prime = -\zeta$, and $\tau^\prime = t + z = \tau + 2 \zeta$. Therefore, our forward-propagating equation of motion becomes
+% \begin{multline} \label{eqn:mflt_ezt_pde_prime}
+%     \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = \half \left\{ \mathcal{S}^2\left[I_0\, K(\zeta) \left|E(\zeta, \tau)\right|^2, I_0\, K(-\zeta) \left|E(\zeta, \tau + 2 \zeta)\right|^2\right] \frac{\Gn(\zeta)\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right\} \frac{\partial^2}{\partial \tau^2}\, E(\zeta, \tau) \\
+%     + \frac{\Gn(\zeta)}{2} \left\{ \mathcal{S}\left[I_0\, K(\zeta) \left|E(\zeta, \tau)\right|^2, I_0\, K(-\zeta) \left|E(\zeta, \tau + 2 \zeta)\right|^2\right] - \mathcal{S}\left[I_0\, K(\zeta), I_0\, K(-\zeta)\right]\right\} E(\zeta, \tau)\\
+%     + i\, \frac{\alpha}{2} \left\{ \Gn(\zeta)\, \mathcal{S}\left[I_0\, K(\zeta) \left|E(\zeta, \tau)\right|^2, I_0\, K(-\zeta) \left|E(\zeta, \tau + 2 \zeta)\right|^2\right] - \Gth \right\} E(\zeta, \tau) \\
+%     + \frac{\Gn\z}{4}\, \mathcal{S}^2\left[I_0\, K(\zeta) \left|E\zt\right|^2, I_0\, K(-\zeta) \left|E(\zeta, \tau + 2 \zeta)\right|^2\right] I_0\, K(-\zeta) \\
+%     \times \left\{ i\, \chi_1  \Im\left[(\zeta, \tau + 2 \zeta)\, \frac{\partial}{\partial \tau}\, E^\ast(\zeta, \tau + 2 \zeta)\right] + \chi_2\, \frac{\partial}{\partial \tau}\, |E(\zeta, \tau + 2 \zeta)|^2  \right\} E(\zeta, \tau)\, ,
+% \end{multline}
+\begin{multline} \label{eqn:mflt_ezt_pde}
+    \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = \half \left\{ \frac{\Gn(\zeta)\, \tau_\perp^2}{1 + \alpha^2}\, \mathcal{S}^2[E] - i\, D_2^\prime \right\} \frac{\partial^2}{\partial \tau^2}\, E(\zeta, \tau) \\
+    + \frac{\Gn(\zeta)}{2} \left[ \mathcal{S}[E] - \mathcal{S}[1]\right] E(\zeta, \tau)
+    + i\, \frac{\alpha}{2} \left[ \Gn(\zeta)\, \mathcal{S}[E] - \Gth \right] E(\zeta, \tau) 
+    + \frac{\Gn(\zeta)\, \chi}{4}\, \mathcal{S}^2[E]\, I_0\, K(-\zeta) \\
+    \times \left\{ i\, \Im\left[E(-\zeta, \tau + 2 \zeta)\, \frac{\partial}{\partial \tau}\, E^\ast(-\zeta, \tau + 2 \zeta)\right] + \frac{3}{2}\, \frac{\partial}{\partial \tau}\, |E(-\zeta, \tau + 2 \zeta)|^2  \right\} E(\zeta, \tau)\, ,
+\end{multline}
+% \begin{multline}
+%     \left( \ppt + \ppz \right) E\zt \\
+%     = \half \left\{\frac{\Gn(\zeta)\, \tau_\perp^2}{1 + \alpha^2}\, \mathcal{S}^3(E) \left[1 + I_0\, K(\zeta) \left|E(\zeta, \tau)\right|^2 - I_0\, K(-\zeta) \left|E(-\zeta, \tau + 2 \zeta)\right|^2\right] - i\, D_2^\prime \right\}\, \pptt E(\zeta, \tau) \\
+%     + \frac{\Gn(\zeta)}{2} \left\{\mathcal{S}^2(E) \left[1 + I_0\, K(\zeta) \left|E(\zeta, \tau)\right|^2\right] - \mathcal{S}^2(1) \left[1 + I_0\, K(\zeta)\right]\right\} E(\zeta, \tau) \\
+%     - i\, \frac{\alpha}{2} \left\{ \Gn(\zeta)\, \mathcal{S}^2(E) \left[1 + I_0\, K(\zeta) \left|E(\zeta, \tau)\right|^2\right] - \Gth \right\} E(\zeta, \tau) + \frac{\Gn(\zeta)\, \chi}{4}\, \mathcal{S}^3(E)\, I_0\, K(-\zeta) \\
+%     \times \left\{  i\, \Im\left[E(-\zeta, \tau + 2 \zeta)\, \ppt\, E^\ast(-\zeta, \tau + 2 \zeta)\right] + \frac{3}{2}\, \ppt |E(-\zeta, \tau + 2 \zeta)|^2 \right\} E(\zeta, \tau)\, ,
+% \end{multline}
+where now
+\begin{equation}
+    \mathcal{S}[E] \equiv \frac{1}{1 + I_0 \left[K(\zeta) \left|E(\zeta, \tau)\right|^2 + K(-\zeta) \left|E(\zeta, \tau + 2 \zeta)\right|^2\right]}\, .
+\end{equation}
+% \red{or maybe}
+% \begin{multline} \label{eqn:mflt_ezt_pde}
+%     \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = \half \left\{ \mathcal{S}^2(E)\, \frac{\Gn(\zeta)\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right\} \frac{\partial^2}{\partial \tau^2}\, E(\zeta, \tau) \\
+%     + \frac{\Gn(\zeta)}{2} \left[ \mathcal{S}(E) - \mathcal{S}(1)\right] E(\zeta, \tau)
+%     + i\, \frac{\alpha}{2} \left[ \Gn(\zeta)\, \mathcal{S}(E) - \Gth \right] E(\zeta, \tau) 
+%     + \frac{\Gn(\zeta)\, \chi}{4}\, \mathcal{S}^2(E)\, I_0\, K(-\zeta) \\
+%     \times \left[ \ppt \left( \left|E(\zeta, \tau)\right|^2 + \left|E(-\zeta, \tau + 2 \zeta)\right|^2 \right) + E(-\zeta, \tau + 2 \zeta)\, \ppt E^\ast(-\zeta, \tau + 2 \zeta) \right] E\zt\, ,
+% \end{multline}
+% where
+% \begin{equation}
+%     \begin{split}
+%         \mathcal{S}(E) &\longleftarrow \mathcal{S}\left[I_0\, K(\zeta) \left|E(\zeta, \tau)\right|^2, I_0\, K(-\zeta) \left|E(-\zeta, \tau + 2 \zeta)\right|^2\right] \\
+%         &= \frac{1}{1 + \half\, \kappa\, I_0 \left[K(\zeta) \left|E(\zeta, \tau)\right|^2 + K(-\zeta) \left|E(-\zeta, \tau + 2 \zeta)\right|^2\right]}\, .
+%     \end{split}
+% \end{equation}
+
+% \begin{multline} \label{eqn:mflt_ezt_cov_prime}
+%     \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = \half \left[ \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\Gn(\zeta)\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right] \frac{\partial^2}{\partial \tau^2}\, E(\zeta, \tau) \\
+%     - \frac{\Gn(\zeta)\, I_0}{2}\, \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\kappa}{2} \left\{ K(\zeta) \left[\left| E(\zeta, \tau)\right|^2 - 1\right] + K(-\zeta) \left[\left|E(\zeta, \tau + 2 \zeta)\right|^2 - 1\right]\right\}  E(\zeta, \tau) \\
+%     + \frac{\Gn(\zeta)\, I_0}{4}\, \left(\frac{\Gth}{\Gnb}\right)^2 K(-\zeta) \\
+%     \times \left\{ i\, \chi_1  \Im\left[E(\zeta, \tau + 2 \zeta)\, \frac{\partial}{\partial \tau}\, E^\ast(\zeta, \tau + 2 \zeta)\right] + \chi_2\, \frac{\partial}{\partial \tau} |E(\zeta, \tau + 2 \zeta)|^2 \right\} E(\zeta, \tau)\, .
+% \end{multline}
+
+Let's try to simplify this ponderous partial differential equation before we take its average over one round trip. First, since we are now working in a coordinate system that follows a particular point on $E\zt$ through the retarded time $\tau$, we assume that on the \rhs the dependence of the field on $\zeta$ is captured by $K(\pm\zeta)$, \red{and we can replace $E(\pm \zeta, \tau)$ with $E(\tau)$}. Second, in \sct{laser_statics_shb_1d_al}, we learned that in a wide variety of cases of practical interest --- including spatially varying gain and loss regions within the laser cavity --- the sum of the single-mode counterpropagating intensities depends only weakly on position, and we can approximate $\mathcal{S}(1)$ in this expression as
+% \begin{equation}
+%     \mathcal{S}(1) = \frac{1}{1 + \half\, \kappa\, I_0 \left[K(\zeta) + K(-\zeta)\right]} \approx \frac{\Gth}{\Gnb}\, ,
+% \end{equation}
+\begin{equation}
+    \mathcal{S}[1] = \frac{1}{1 + I_0 \left[K(\zeta) + K(-\zeta)\right]} \approx \frac{1}{\Hnb}\, ,
+\end{equation}
+where
+\begin{equation} \label{eqn:mflt_hnb_def}
+    \Hnb \equiv \frac{\Gnb}{\Gth}\, ,
+\end{equation}
+and the unsaturated round trip gain (through the unfolded cavity) is defined as
+\begin{equation}
+    \Gnb \equiv \int_{0}^{1} d z\, \Gn\z\, .
+\end{equation}
+Next, we'll average our equation of motion spatially over one round trip to obtain an expression for the mean field. For example, on the \lhs,
+\begin{equation}
+    \int_{0}^{1} d \zeta\, \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = E(1, \tau) - E(0, \tau) \equiv \frac{\Delta E(\tau)}{T_\textrm{rt}}\, ,
+\end{equation}
+where $T_\textrm{rt}$ is the group round-trip propagation time. Let's define
+\begin{equation} \label{eqn:mflt_kbar_def}
+    \overline{K} \equiv \frac{1}{\Gnb} \int_{0}^{1} d \zeta\, \Gn(\zeta)\, K(\zeta)
+\end{equation}
+and the convolution integral
+\begin{equation}
+    \begin{split}
+        \widehat{K}(B) &\equiv \frac{1}{\Gnb} \int_{0}^{1} d \zeta\, \Gn(\zeta)\, K(-\zeta)\, B(\tau + 2 \zeta) \\
+        &= \frac{1}{\Gnb} \int_{0}^{1} d u\, \Gn(1 - u)\, K(u)\, B(\tau - 2 u) \\
+        &= \frac{1}{\Gnb} \int_{0}^{1} d u\, \Gn(u)\, K(u)\, B(\tau - 2 u)\, ,
+    \end{split}
+\end{equation}
+where in the final expression we have noted again that $\Gn(1 - u) = \Gn(u)$ because $G_0\z$ is symmetric about $z = 1/2$ in the unfolded cavity.
+
+Let's set aside the first term on the \rhs of \eqn{mflt_ezt_pde}, and focus on the average of the first two terms on the next line. We have
+% \begin{multline}
+%     \int_{0}^{1} d \zeta\, \left\{\frac{\Gn(\zeta)}{2} \left[ \mathcal{S}(E) - \frac{\Gth}{\Gnb}\right]
+%     + i\, \frac{\alpha}{2} \left[ \Gn(\zeta)\, \mathcal{S}(E) - \Gth \right] \right\}E(\tau) \\
+%     = \half\, (1 - i\, \alpha) \int_{0}^{1} d \zeta\, \Gn(\zeta)\, \left[ \mathcal{S}(E) - \frac{\Gth}{\Gnb} \right] E(\tau) \\
+%     \equiv \half\, (1 - i\, \alpha)\, \frac{\Gth}{\Gnb} \int_{0}^{1} d \zeta\, \Gn(\zeta)\, \left[ \mathcal{R}[E] - 1 \right] E(\tau)\, ,
+% \end{multline}
+\begin{multline}
+    \int_{0}^{1} d \zeta\, \left\{\frac{\Gn(\zeta)}{2} \left[ \mathcal{S}[E] - \frac{\Gth}{\Gnb}\right]
+    + i\, \frac{\alpha}{2} \left[ \Gn(\zeta)\, \mathcal{S}[E] - \Gth \right] \right\}E(\tau) \\
+    = \half\, (1 - i\, \alpha) \int_{0}^{1} d \zeta\, \Gn(\zeta)\, \left[ \mathcal{S}[E] - \frac{1}{\Hnb} \right] E(\tau) \\
+    \equiv \half\, (1 - i\, \alpha)\, \frac{1}{\Hnb} \int_{0}^{1} d \zeta\, \Gn(\zeta)\, \left[ \mathcal{R}[E] - 1 \right] E(\tau)\, ,
+\end{multline}
+% where $\mathcal{R}[E] \equiv (\Gnb/\Gth)\, S(E)$. In \sct{laser_statics_1d_shb}, we found that
+where $\mathcal{R}[E] \equiv \Hnb\, S[E]$. In \sct{laser_statics_1d_shb}, we found that
+% \begin{equation}
+%     I_0 \approx \frac{\mathcal{C}^2}{\kappa} \left( \frac{\Gnb}{\Gth}  - 1 \right)\, ,
+% \end{equation}
+\begin{equation}
+    I_0 \approx \frac{\mathcal{C}^2}{2} \left( \Hnb  - 1 \right)\, ,
+\end{equation}
+where $\mathcal{C}$ is defined by \eqn{laser_resonator_1d_u_norm_swl}. Then
+% \begin{multline}
+%     \mathcal{R}[E] - 1 = \frac{\Gnb}{\Gth}\, \frac{1}{1 + \half\, \kappa\, I_0 \left[K(\zeta) \left|E(\zeta, \tau)\right|^2 + K(-\zeta) \left|E(\zeta, \tau + 2 \zeta)\right|^2\right]} - 1 \\
+%     = \left(\Gnb - \Gth\right) \frac{1 - \half\, \mathcal{C}^2 \left[K(\zeta) \left|E(\tau)\right|^2 + K(-\zeta) \left|E(\tau + 2 \zeta)\right|^2\right]}{\Gth + \half\, \mathcal{C}^2 \left(\Gnb - \Gth\right) \left[K(\zeta) \left|E(\tau)\right|^2 + K(-\zeta) \left|E(\tau + 2 \zeta)\right|^2\right]}\, .
+% \end{multline}
+\begin{multline}
+    \mathcal{R}[E] - 1 = \Hnb\, \frac{1}{1 + I_0 \left[K(\zeta) \left|E(\zeta, \tau)\right|^2 + K(-\zeta) \left|E(\zeta, \tau + 2 \zeta)\right|^2\right]} - 1 \\
+    = \left(\Hnb - 1\right) \frac{1 - \half\, \mathcal{C}^2 \left[K(\zeta) \left|E(\tau)\right|^2 + K(-\zeta) \left|E(\tau + 2 \zeta)\right|^2\right]}{1 + \half\, \mathcal{C}^2 \left(\Hnb - 1\right) \left[K(\zeta) \left|E(\tau)\right|^2 + K(-\zeta) \left|E(\tau + 2 \zeta)\right|^2\right]}\, .
+\end{multline}
+\red{To third order in $E(\tau)$, we can replace $E(\tau + 2 \zeta)$ in the denominator with $E(\tau)$}, and we make the same approximation for $K(\zeta) + K(-\zeta) \approx 2 / \mathcal{C}^2$ as we did for our estimate of $\mathcal{S}[1]$ above. Then the average over $\zeta$ only applies to the numerator, and we obtain
+\begin{multline}
+    \int_{0}^{1} d \zeta\, \left\{\frac{\Gn(\zeta)}{2} \left[ \mathcal{S}(E) - \frac{\Gth}{\Gnb}\right]
+    + i\, \frac{\alpha}{2} \left[ \Gn(\zeta)\, \mathcal{S}(E) - \Gth \right] \right\}E(\tau) \\
+    \approx - (1 - i\, \alpha)\, \rho\,  \mathcal{R}[E] \left\{\half\, \mathcal{C}^2 \left[\overline{K} \left|E(\tau)\right|^2 + \widehat{K}\left(|E|^2\right)\right] - 1\right\}\, E(\tau)\, ,
+\end{multline}
+where
+\begin{equation}
+    \mathcal{R}[E] \approx \frac{\Hnb}{1 + \left(\Hnb - 1\right) \left|E(\tau)\right|^2} \equiv \frac{1}{1 + \sigma \left[ \left|E(\tau)\right|^2 - 1 \right]}\, ,
+\end{equation}
+\begin{subequations}
+    \begin{align}
+        \label{eqn:mflt_sigma_def} \sigma &\equiv \frac{\Hnb - 1}{\Hnb}\, , \nd \\
+        \label{eqn:mflt_rho_def} \rho &\equiv \frac{\sigma}{2\, \tau_p}\, .
+    \end{align}
+\end{subequations}
+Following the same procedure with all other terms in \eqn{mflt_ezt_pde}, we find
+% \begin{multline} %\label{eqn:mflt_nlse}
+%     \frac{\partial}{\partial T}  E(\tau) \approx \half \left( \frac{\Gth^2}{\Gnb}\, \mathcal{R}^2(E)\, \frac{\tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right) \frac{\partial^2}{\partial \tau^2}\, E(\tau) \\
+%     - (1 - i\, \alpha)\, \rho\,  \mathcal{R}[E] \left\{\frac{\mathcal{C}^2}{2} \left[\overline{K} \left|E(\tau)\right|^2 + \widehat{K}\left(|E|^2\right)\right] - 1\right\}\, E(\tau) \\
+%     + (1 - i\, \alpha)\, \frac{2 \tau_\parallel + \tau_\perp}{2\, \kappa}\, \rho\, \mathcal{R}^2(E)\, \left\{i\, \mathcal{C}^2\, \widehat{K}\left[\Im\left(E\,\frac{\partial}{\partial \tau}\, E^\ast\right)\right] + \frac{3}{2}\,\mathcal{C}^2\, \widehat{K} \left[\frac{\partial}{\partial \tau}\, |E|^2\right]\right\} E(\tau)\, ,
+% \end{multline}
+\begin{multline} \label{eqn:mflt_nlse}
+    \frac{\partial}{\partial T}  E(\tau) \approx \half \left( \frac{\Gth^2}{\Gnb}\, \frac{\tau_\perp^2}{1 + \alpha^2}\, \mathcal{R}^2[E] - i\, D_2^\prime \right) \frac{\partial^2}{\partial \tau^2}\, E(\tau) \\
+    - (1 - i\, \alpha)\, \rho\,  \mathcal{R}[E] \left\{\frac{\mathcal{C}^2}{2} \left[\overline{K} \left|E(\tau)\right|^2 + \widehat{K}\left(|E|^2\right)\right] - 1\right\}\, E(\tau) \\
+    + \frac{\chi}{8}\, \rho\, \mathcal{R}^2[E]\, \mathcal{C}^2 \left\{i\, \widehat{K}\left[\Im\left(E\,\frac{\partial}{\partial \tau}\, E^\ast\right)\right] + \frac{3}{2}\,\widehat{K} \left[\frac{\partial}{\partial \tau}\, |E|^2\right]\right\} E(\tau)\, .
+\end{multline}
+% where we've also used the approximation $\chi_2 = 3 \chi_1/2$.
+In this form, our nonlinear Schr{\"o}dinger equation (NLSE) can be solved numerically using (for example) the Fourier split-step method.
+% \red{or maybe}
+% \begin{multline}
+%     \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = \half \left\{ \mathcal{S}^2(E)\, \frac{\Gn(\zeta)\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right\} \frac{\partial^2}{\partial \tau^2}\, E(\zeta, \tau) \\
+%     + \frac{\Gn(\zeta)}{2} \left[ \mathcal{S}(E) - \mathcal{S}(1)\right] E(\zeta, \tau)
+%     + i\, \frac{\alpha}{2} \left[ \Gn(\zeta)\, \mathcal{S}(E) - \Gth \right] E(\zeta, \tau) 
+%     + \frac{\Gn(\zeta)\, \chi}{4}\, \mathcal{S}^2(E)\, I_0\, K(-\zeta) \\
+%     \times \left[ \ppt \left( \left|E(\zeta, \tau)\right|^2 + \left|E(-\zeta, \tau + 2 \zeta)\right|^2 \right) + E(-\zeta, \tau + 2 \zeta)\, \ppt E^\ast(-\zeta, \tau + 2 \zeta) \right] E\zt\, ,
+% \end{multline}
+
+% \begin{multline} \label{eqn:mflt_nlse}
+%     \frac{\partial}{\partial T}  E(\tau) \approx \half \left( \frac{\Gth^2}{\Gnb}\, \mathcal{R}^2(E)\, \frac{\tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right) \frac{\partial^2}{\partial \tau^2}\, E(\tau) \\
+%     - (1 - i\, \alpha)\, \rho\,  \mathcal{R}[E] \left\{\frac{\mathcal{C}^2}{2} \left[\overline{K} \left|E(\tau)\right|^2 + \widehat{K}\left(|E|^2\right)\right] - 1\right\}\, E(\tau) \\
+%     + (1 - i\, \alpha)\, \frac{2 \tau_\parallel + 3 \tau_\perp}{4\, \kappa}\, \rho\, \mathcal{C}^2\, \mathcal{R}^2(E)\, \left\{\overline{K}\, \frac{\partial}{\partial \tau}\, \left|E(\tau)\right|^2 + \widehat{K}\left(\frac{\partial}{\partial \tau}\, |E|^2\right) + \widehat{K}\left[E\, \frac{\partial}{\partial \tau}\, E^\ast\right]\right\} E(\tau)\, ,
+% \end{multline}
+
+
+% \red{I think that the next several paragraphs --- calculations and simplifications of the saturated gain driving terms --- could be postponed until after the change of variables.}
+
+% In the case where $I_0\, K(\pm z) \left|E(\pm z, t)\right|^2 \ll 1$, the difference between the dynamic and static saturated gain terms becomes
+% \begin{multline} \label{eqn:mflt_sat_diff_weak}
+%     \frac{\Gn\z}{2} \left\{ \mathcal{S}\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] - \mathcal{S}\left[I_0\, K\z, I_0\, K(-z)\right] \right\}\\
+%     \approx -\frac{\Gn\z}{2}\, \frac{\kappa\, I_0}{2} \left\{ K\z \left[\left| E\zt\right|^2 - 1\right] + K(-z) \left[\left|E(-z, t)\right|^2 - 1\right] \right\}\, .
+% \end{multline}
+% In this limit, the saturated gain acts as a restoring force that drives $\left|E(z, t)\right|^2 \longrightarrow 1$; the forward-propagating field will approach a constant that is independent of position or time. Let's assume that this principle remains true in the general case, and expand the \lhs of \eqn{mflt_sat_diff_weak} to first order in $\left| E(\pm z, t)\right|^2 - 1$; we find
+% \begin{multline} \label{eqn:mflt_sat_diff}
+%     \frac{\Gn\z}{2} \left\{ \mathcal{S}\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] - \mathcal{S}\left[I_0\, K\z, I_0\, K(-z)\right] \right\}\\
+%     \approx -\frac{\Gn\z}{2}\, \frac{\kappa\, I_0}{2}\, \frac{K\z \left[\left| E\zt\right|^2 - 1\right] + K(-z) \left[\left|E(-z, t)\right|^2 - 1\right]}{\left\{1 + \half\, \kappa\, I_0 \left[K\z + K(-z)\right]\right\}^2}\, .
+% \end{multline}
+
+% Therefore, our working expression for the difference between the dynamic and static saturated gain terms is
+% \begin{multline} \label{eqn:mflt_sat_diff_mean}
+%     \frac{\Gn\z}{2} \left\{ \mathcal{S}\left[I_0\, K\z \left|E\zt\right|^2, I_0\, K(-z) \left|E(-z, t)\right|^2\right] - \mathcal{S}\left[I_0\, K\z, I_0\, K(-z)\right] \right\}\\
+%     \approx -\frac{\Gn\z}{2} \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\kappa\, I_0}{2}\, \left\{ K\z \left[\left| E\zt\right|^2 - 1\right] + K(-z) \left[\left|E(-z, t)\right|^2 - 1\right] \right\}\, .
+% \end{multline}
+% We will continue to describe gain curvature accurately to first order in $E\zt$, and the four-wave mixing terms to third order. Therefore, we set $E(\pm z, t) \longrightarrow 1$ in the square of the saturation function, leading to the updated master equation
+% \begin{multline} %\label{eqn:mflt_ezt_master}
+%     \left( \ppt + \ppz \right) E\zt = \half \left[ \left( \frac{\Gth}{\Gnb} \right)^2 \frac{\Gn\z\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right] \pptt E\zt \\
+%     -\frac{\Gn\z}{2} \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\kappa\, I_0}{2}\, \left\{ K\z \left[\left| E\zt\right|^2 - 1\right] + K(-z) \left[\left|E(-z, t)\right|^2 - 1\right] \right\} E\zt\\
+%     + \frac{\Gn\z}{2}\, \left( \frac{\Gth}{\Gnb} \right)^2 I_0\, K(-z) \left[ \half \left(2 \tau_\parallel + 5 \tau_\perp\right) E^\ast(-z, t)\, \ppt\, E(-z, t) \right. \\
+%     \left. + \left(2 \tau_\parallel + 3 \tau_\perp\right) E(-z, t)\, \ppt\, E^\ast(-z, t) \right] E\zt\, ,
+% \end{multline}
+% \begin{multline} \label{eqn:mflt_ezt_master}
+%     \left( \ppt + \ppz \right) E\zt = \half \left[ \left( \frac{\Gth}{\Gnb} \right)^2 \frac{\Gn\z\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right] \pptt E\zt \\
+%     -\frac{\Gn\z\, I_0}{2} \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\kappa}{2}\, \left\{ K\z \left[\left| E\zt\right|^2 - 1\right] + K(-z) \left[\left|E(-z, t)\right|^2 - 1\right] \right\} E\zt\\
+%     + \frac{\Gn\z\, I_0}{4}\, \left( \frac{\Gth}{\Gnb} \right)^2 K(-z) \left\{ i\, \chi_1\,  \Im\left[E(-z, t)\, \ppt\, E^\ast(-z, t)\right] + \chi_2\, \ppt |E(-z, t)|^2 \right\} E\zt\, ,
+% \end{multline}
+
+% Next, anticipating our mean-field theory, let us change variables to a coordinate system that follows the forward-propagating field as it propagates around the cavity. We choose $z = \zeta$ and $t = \tau + \zeta$, or
+% \begin{subequations}
+%     \begin{align}
+%         \zeta &\equiv z\, , \nd \\
+%         \tau &\equiv t - z\, ,
+%     \end{align}
+% \end{subequations}
+% where $\tau$ is often called the ``retarded time.'' Then
+% \begin{subequations}
+%     \begin{align}
+%         \ppz\, E\zt &= \frac{\partial \zeta}{\partial z}\, \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) + \frac{\partial \tau}{\partial z}\, \frac{\partial}{\partial \tau}\, E(\zeta, \tau) = \left(\frac{\partial}{\partial \zeta} - \frac{\partial}{\partial \tau}\right) E(\zeta, \tau)\, , \nd \\
+%         \ppt\, E\zt &= \frac{\partial \zeta}{\partial t}\, \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) + \frac{\partial \tau}{\partial t}\, \frac{\partial}{\partial \tau}\, E(\zeta, \tau) = \frac{\partial}{\partial \tau}\, E(\zeta, \tau)\, .
+%     \end{align}
+% \end{subequations}
+% In \eqn{mflt_ezt_master}, we can immediately update $E\zt \longrightarrow E(\zeta, \tau)$ and $K(-z) \longrightarrow K(-\zeta)$. But terms including $E(-z, t)$ are slightly more complicated: we'll have $E(-z, t) \longrightarrow E(\zeta^\prime, \tau^\prime)$, where $\zeta^\prime = -\zeta$, and $\tau^\prime = t + z = \tau + 2 \zeta$. Therefore, our forward-propagating equation of motion becomes
+% \begin{multline} %\label{eqn:mflt_ezt_cov}
+%     \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = \half \left[ \left(\frac{\Gth}{\Gnb}\right)^2 \Gn(\zeta)\, \tau_\perp^2 - i\, D_2 \right] \frac{\partial^2}{\partial \tau^2}\, E(\zeta, \tau) \\
+%     - \frac{\Gn(\zeta)\, I_0}{2}\, \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\kappa}{2} \left\{ K(\zeta) \left[\left| E(\zeta, \tau)\right|^2 - 1\right] + K(-\zeta) \left[\left|E(\zeta, \tau + 2 \zeta)\right|^2 - 1\right]\right\}  E(\zeta, \tau) \\
+%     + \frac{\Gn(\zeta)\, I_0}{2}\, \left(\frac{\Gth}{\Gnb}\right)^2 K(-\zeta) \left[ \half \left(2 \tau_\parallel + 5 \tau_\perp\right) E^\ast(\zeta, \tau + 2 \zeta)\, \frac{\partial}{\partial \tau}\, E(\zeta, \tau + 2 \zeta) \right. \\
+%     + \left. \left(2 \tau_\parallel + 3 \tau_\perp\right) E(\zeta, \tau + 2 \zeta)\, \frac{\partial}{\partial \tau}\, E^\ast(\zeta, \tau + 2 \zeta) \right] E(\zeta, \tau)\, .
+% \end{multline}
+% \begin{multline} %\label{eqn:mflt_ezt_cov}
+%     \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = \half \left[ \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\Gn(\zeta)\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right] \frac{\partial^2}{\partial \tau^2}\, E(\zeta, \tau) \\
+%     - \frac{\Gn(\zeta)\, I_0}{2}\, \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\kappa}{2} \left\{ K(\zeta) \left[\left| E(\zeta, \tau)\right|^2 - 1\right] + K(-\zeta) \left[\left|E(\zeta, \tau + 2 \zeta)\right|^2 - 1\right]\right\}  E(\zeta, \tau) \\
+%     + \frac{\Gn(\zeta)\, I_0}{4}\, \left(\frac{\Gth}{\Gnb}\right)^2 K(-\zeta) \left\{ \chi_1\, \frac{\partial}{\partial \tau} |E(\zeta, \tau + 2 \zeta)|^2 \right. \\
+%     \left. + i\, \chi_2\,  \Im\left[E(\zeta, \tau + 2 \zeta)\, \frac{\partial}{\partial \tau}\, E^\ast(\zeta, \tau + 2 \zeta)\right] \right\} E(\zeta, \tau)\, .
+% \end{multline}
+% \begin{multline} \label{eqn:mflt_ezt_cov}
+%     \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = \half \left[ \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\Gn(\zeta)\, \tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right] \frac{\partial^2}{\partial \tau^2}\, E(\zeta, \tau) \\
+%     - \frac{\Gn(\zeta)\, I_0}{2}\, \left(\frac{\Gth}{\Gnb}\right)^2 \frac{\kappa}{2} \left\{ K(\zeta) \left[\left| E(\zeta, \tau)\right|^2 - 1\right] + K(-\zeta) \left[\left|E(\zeta, \tau + 2 \zeta)\right|^2 - 1\right]\right\}  E(\zeta, \tau) \\
+%     + \frac{\Gn(\zeta)\, I_0}{4}\, \left(\frac{\Gth}{\Gnb}\right)^2 K(-\zeta) \\
+%     \times \left\{ i\, \chi_1  \Im\left[E(\zeta, \tau + 2 \zeta)\, \frac{\partial}{\partial \tau}\, E^\ast(\zeta, \tau + 2 \zeta)\right] + \chi_2\, \frac{\partial}{\partial \tau} |E(\zeta, \tau + 2 \zeta)|^2 \right\} E(\zeta, \tau)\, .
+% \end{multline}
+
+% We now average our equation of motion spatially over one round trip to obtain an expression for the mean field. For example, on the \lhs,
+% \begin{equation}
+%     \int_{0}^{1} d \zeta\, \frac{\partial}{\partial \zeta}\, E(\zeta, \tau) = E(1, \tau) - E(0, \tau) \equiv \frac{\Delta E(\tau)}{T_\textrm{rt}}\, ,
+% \end{equation}
+% where $T_\textrm{rt}$ is the round-trip propagation time. Let's assume that $E(\zeta, \tau)$ depends very weakly on $\zeta$ over one round trip and define
+% \begin{equation} \label{eqn:mflt_kbar_def}
+%     \overline{K} \equiv \frac{1}{\Gnb} \int_{0}^{1} d \zeta\, \Gn(\zeta)\, K(\zeta)
+% \end{equation}
+% and the convolution integral
+% \begin{equation}
+%     \begin{split}
+%         \widehat{K}[B] &\equiv \frac{1}{\Gnb} \int_{0}^{1} d \zeta\, \Gn(\zeta)\, K(-\zeta)\, B(\tau + 2 \zeta) \\
+%         &= \frac{1}{\Gnb} \int_{0}^{1} d u\, \Gn(1 - u)\, K(u)\, B(\tau - 2 u) \\
+%         &= \frac{1}{\Gnb} \int_{0}^{1} d u\, \Gn(u)\, K(u)\, B(\tau - 2 u)\, ,
+%     \end{split}
+% \end{equation}
+% where in the final expression we have noted that $\Gn(1 - u) = \Gn(u)$ because $G_0\z$ is symmetric about $z = 1/2$ in the unfolded cavity. Then the round-trip mean of \eqn{mflt_ezt_cov} becomes
+% \begin{multline} %\label{eqn:mflt_ezt_con}
+%     \frac{\Delta E(\tau)}{T_\textrm{rt}} \approx \half \left( \frac{\Gth^2}{\Gnb}\, \tau_\perp^2 - i\, D_2 \right) \frac{\partial^2}{\partial \tau^2}\, E(\tau) - \frac{\Gth^2}{\Gnb}\, \frac{\kappa\, I_0}{2}\, \left\{ \half\, \overline{K} \left| E(\tau)\right|^2 + \half\, \widehat{K}\left[|E|^2\right] - \overline{K} \right\} E(\tau)\\
+%     + \frac{\Gth^2}{\Gnb}\, \frac{I_0}{4} \left\{ \half \left(6 \tau_\parallel + 11 \tau_\perp\right) \widehat{K} \left[\frac{\partial}{\partial \tau}\, |E|^2\right] + i \left(2 \tau_\parallel + \tau_\perp\right) \widehat{K}\left[\Im\left(E\,\frac{\partial}{\partial \tau}\, E^\ast\right)\right]\right\} E(\tau)\, .
+% \end{multline}
+% \begin{multline} \label{eqn:mflt_ezt_con}
+%     \frac{\Delta E(\tau)}{T_\textrm{rt}} \approx \half \left( \frac{\Gth^2}{\Gnb}\, \frac{\tau_\perp^2}{1 + \alpha^2} - i\, D_2^\prime \right) \frac{\partial^2}{\partial \tau^2}\, E(\tau) - \frac{\Gth^2}{\Gnb}\, \frac{\kappa\, I_0}{2}\, \left\{ \half\, \overline{K} \left| E(\tau)\right|^2 + \half\, \widehat{K}\left[|E|^2\right] - \overline{K} \right\} E(\tau)\\
+%     + \frac{\Gth^2}{\Gnb}\, \frac{I_0}{4} \left\{i\, \chi_1 \widehat{K}\left[\Im\left(E\,\frac{\partial}{\partial \tau}\, E^\ast\right)\right] + \chi_2\, \widehat{K} \left[\frac{\partial}{\partial \tau}\, |E|^2\right]\right\} E(\tau)\, .
+% \end{multline}
+% In this form, our nonlinear Schr{\"o}dinger equation (NLSE) can be solved numerically using (for example) the Fourier split-step method.
+
+Our next task is to derive an approximate analytic solution to the NLSE by estimating the integrals in \eqn{mflt_nlse}. When we solve our NLSE analytically, we will write the mean-field envelope function $E$ in a form similar to that of \eqn{mlft_field_quad}, i.e., in terms of a positive real amplitude $A\, e^{\psi(\tau)}$ and real phase angle $\phi$ as
+\begin{equation} \label{eqn:mflt_field_ansatz}
+    E(T, \tau) \equiv A\, e^{\psi(\tau) + i\, \phi(T, \tau)}\, .
+\end{equation}
+Passive frequency mode-locking primarily arises from the phase of the field, and the second term on the \rhs of \eqn{mflt_nlse} shows that the saturated gain acts as a restoring force that tries to drive $|E(T, \tau)|^2$ to a constant value. \red{If $|\psi(\tau)| \ll 1$ for all $\tau$ during one round trip through the unfolded cavity}, we can approximate $\widehat{K}\left[|E|^2\right]$ with $\overline{K} \left| E(\tau)\right|^2$, and therefore
+\begin{equation} \label{eqn:mflt_mean_sat}
+    \frac{\mathcal{C}^2}{2} \left[\overline{K} \left|E(\tau)\right|^2 + \widehat{K}\left(|E|^2\right)\right] - 1 \approx \mathcal{C}^2\, \overline{K}\, \left| E(\tau)\right|^2 - 1\, .
+\end{equation}
+Now let's look at the first nonlinear differential convolution term, given by
+% \begin{multline}
+%     \frac{i\, \Gth^2\, I_0}{4\, \Gn}\, \chi_2\, \widehat{K}\left[\Im\left(E\,\frac{\partial}{\partial \tau}\, E^\ast\right)\right] \\ = -\frac{i\, \Gth^2\, I_0}{4\, \Gn^2}\, \chi_2\, |E(\zeta)|^2 \int_{0}^{1} d u\, \Gn(u)\, K(u)\, \frac{\partial}{\partial \tau}\, \phi(\tau - 2 u)\, .
+% \end{multline}
+% \begin{equation}
+%     \frac{i\, \Gth^2\, I_0}{4\, \Gnb}\, \chi_1\, \widehat{K}\left[\Im\left(E\,\frac{\partial}{\partial \tau}\, E^\ast\right)\right] = -\frac{i\, \Gth^2\, I_0}{4\, \Gnb^2}\, \chi_1\, |E(\zeta)|^2 \int_{0}^{1} d u\, \Gn(u)\, K(u)\, \frac{\partial}{\partial \tau}\, \phi(\tau - 2 u)\, .
+% \end{equation}
+\begin{equation}
+    i\, \mathcal{C}^2\, \widehat{K}\left[\Im\left(E\,\frac{\partial}{\partial \tau}\, E^\ast\right)\right] = -i\, |E(\tau)|^2\, \frac{\mathcal{C}^2}{\Gnb} \int_{0}^{1} d u\, \Gn(u)\, K(u)\, \frac{\partial}{\partial \tau}\, \phi(\tau - 2 u)\, .
+\end{equation}
+Using integration by parts, the integral can be rewritten as
+\begin{equation} \label{eqn:mflt_nlo_ibp}
+    \begin{split}
+        \frac{\mathcal{C}^2}{\Gnb} \int_{0}^{1} d u\, \Gn(u)\, K(u)\, & \frac{\partial}{\partial \tau}\, \phi(\tau - 2 u) \\
+       &= -\frac{\mathcal{C}^2}{2\, \Gnb} \int_{0}^{1} d u\, \Gn(u)\, K(u) \frac{\partial}{\partial u}\, \phi(\tau - 2 u) \\
+        &= -\frac{\mathcal{C}^2}{2\, \Gnb}\, \Gn(u)\, K(u)\, \phi(\tau - 2 u) \Big|_0^1 + \frac{\mathcal{C}^2}{2\, \Gnb} \int_{0}^{1} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, \left[\Gn(u)\, K(u)\right] \\
+        &= \frac{\mathcal{C}^2}{2\, \Gnb} \int_{0}^{1} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, \left[\Gn(u)\, K(u)\right]
+    \end{split}
+\end{equation}
+since $G_0$, $K$, and $\phi$ are periodic in the unfolded cavity.
+
+% This nonlinear convolution term is therefore
+% \begin{equation} \label{eqn:mflt_nlo_con}
+%     \frac{i\, \Gth^2\, I_0}{4\, \Gnb}\, \chi_1\, \widehat{K}\left[\Im\left(E\,\frac{\partial}{\partial \tau}\, E^\ast\right)\right] = -\frac{i\, \Gth^2\, I_0}{8\, \Gnb^2}\, \chi_1\, |E(\zeta)|^2 \int_{0}^{1} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, \left[\Gn(u)\, K(u)\right]\, .
+% \end{equation}
+%For the time being, let's assume that the unsaturated gain is constant and fills the resonator, so that $\Gn\z = \Gn$.
+%Then we can use integration by parts to obtain
+% \begin{equation} %\label{eqn:mflt_nlo_con}
+%     \begin{split}
+%         \int_{0}^{1} d u\, K(u)\, \frac{\partial}{\partial \zeta}\, \phi(\zeta + 2 u) &= \half \int_{0}^{1} d u\, K(u)\, \frac{\partial}{\partial u}\, \phi(\zeta + 2 u) \\
+%         &= \half\, K(u)\, \phi(\zeta + 2 u) \Big|_0^1 - \half \int_{0}^{1} d u\, \phi(\zeta + 2 u)\, \frac{d}{d u}\, K(u)\, .
+%     \end{split}
+% \end{equation}
+% \begin{equation} %\label{eqn:mflt_nlo_con}
+%     \begin{split}
+%         \int_{0}^{1} d u\, K(u)\, \frac{\partial}{\partial \tau}\, \phi(\tau - 2 u) &= -\half \int_{0}^{1} d u\, K(u)\, \frac{\partial}{\partial u}\, \phi(\tau - 2 u) \\
+%         &= -\half\, K(u)\, \phi(\tau - 2 u) \Big|_0^1 + \half \int_{0}^{1} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, K(u)\, .
+%     \end{split}
+% \end{equation}
+%The first term on the final \rhs vanishes because both $K$ and $\phi$ are periodic.
+
+% The saturation terms in the first line of the \rhs of \eqn{mflt_ezt_con} arise from the Taylor series expansion of \eqn{ld1d_shb_sw_low_g}, where we assumed that the gain is only slightly above threshold and the resulting circulating intensities are very small compared to the saturation intensity. In \sct{laser_statics_shb_1d}, we determined that this approximation led to very inaccurate results as the pump increases above the threshold value. Instead, we found a good approximation to the continuous-wave solution for the intensity circulating within a standing-wave laser cavity (assuming constant unsaturated gain and background loss that fills the resonator). Adapting that result for the unfolded cavity, we write
+For the time being, let's assume that the unsaturated gain and the background loss are constants and fill the resonator, so that $\Gnz = \Gnb$. In this case, the approximate expression given by the second line of \eqn{mflt_kz_def} becomes
+\begin{equation} \label{eqn:mflt_kz_approx}
+    K\z \approx \left[ \theta(z)\, \theta(1/2 - z) + \theta(z - 1/2)\, \theta(1 - z)\, R_2 \right] \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) z\right]\, .
+\end{equation}
+% and
+% \begin{equation}
+%     I_0 \approx \frac{\mathcal{C}^2}{\kappa} \left( \frac{\Gnb}{\Gth}  - 1 \right)\, ,
+% \end{equation}
+% where $\mathcal{C}$ is defined by \eqn{laser_resonator_1d_u_norm_swl}.
+% For consistency, we must replace the saturation term on the \rhs of \eqn{mflt_mean_sat} with $\kappa\, [|E(\tau)|^2 - 1]$.
+We can immediately calculate the average value of the effective gain from \eqn{mflt_kbar_def} as
+% \begin{equation}
+%     \begin{split}
+%         \overline{J} &= \int_{0}^{1} d u\, \frac{\kappa\, K(u)}{\left[1 + \kappa\, I_0\, K(u)\right]^2} \\
+%         &= \kappa \int_{0}^{1/2} d u\, \frac{\exp\left[\ln\left(1/R_1\, R_2\right) u\right]}{\left\{1 + \exp\left[\ln\left(1/R_1\, R_2\right) u\right]\right\}^2} + \kappa\, R_2 \int_{1/2}^{1} d u\, \frac{\exp\left[\ln\left(1/R_1\, R_2\right) u\right]}{\left\{1 + R_2\, \exp\left[\ln\left(1/R_1\, R_2\right) u\right]\right\}^2} \\
+%         &= \frac{\kappa}{\mathcal{C}^2}\, \frac{R_1\, \sqrt{R_2}}{\sqrt{R_1} + \sqrt{R_2}} \left[ \frac{1}{\left(R_1 + \kappa\, I_0\right)\left(1 + \kappa\, I_0\, \sqrt{R_2/R_1}\right)} + \frac{1}{\left(1 + \kappa\, I_0\right)\left(\sqrt{R_1\, R_2} + \kappa\, I_0\right)} \right].
+%     \end{split}
+% \end{equation}
+\begin{equation}
+    \begin{split}
+        \overline{K} &= \int_{0}^{1/2} d \zeta\, \exp\left[\ln\left(1/R_1\, R_2\right) \zeta\right] + R_2 \int_{1/2}^{1} d \zeta\, \exp\left[\ln\left(1/R_1\, R_2\right) \zeta\right] \\
+        &= \left(1 + \sqrt{\frac{R_2}{R_1}}\right) \int_{0}^{1/2} d \zeta\, \exp\left[\ln\left(1/R_1\, R_2\right) \zeta\right] \\
+        &= \frac{1}{\mathcal{C}^2}.
+    \end{split}
+\end{equation}
+% We recall that
+% \begin{equation}
+%     \mathcal{C}^2 \longrightarrow \frac{R\, \ln(1/R)}{1 - R}
+% \end{equation}
+% when either $\{R_1 = R, R_2 = 1\}$ or $\{R_1 = R, R_2 = R\}$, and we note that
+% \begin{multline}
+%     \frac{R_1\, \sqrt{R_2}}{\sqrt{R_1} + \sqrt{R_2}} \left[ \frac{1}{\left(R_1 + \kappa\, I_0\right)\left(1 + \kappa\, I_0\, \sqrt{R_2/R_1}\right)} + \frac{1}{\left(1 + \kappa\, I_0\right)\left(\sqrt{R_1\, R_2} + \kappa\, I_0\right)} \right] \\ \longrightarrow \frac{1}{\left(1 + \kappa\, I_0\right)\left(1 + \kappa\, I_0/R\right)}
+% \end{multline}
+% in these same cases of the greatest practical interest.
+% \begin{equation}
+%     \begin{split}
+%         \frac{d}{d u}\, K(u) &= \left[\delta(u) - R_2\, \delta(u - 1) - (1 - R_2)\, \delta(u - 1/2)\right] \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) u\right] \\
+%         &\qquad + \left[ \theta(u)\, \theta(1/2 - u) + \theta(u - 1/2)\, \theta(1 - u)\, R_2 \right] \frac{d}{d u}\, \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) u\right]
+%     \end{split}
+% \end{equation}
+Next, differentiating \eqn{mflt_kz_approx}, we find
+\begin{equation}
+    \begin{split}
+        \frac{d}{d u}\, K(u) &= \delta(u) - \frac{\delta(u - 1)}{R_1} - \frac{(1 - R_2)\, \delta(u - 1/2)}{\sqrt{R_1\, R_2}} \\
+        &\qquad + \left[ \theta(u)\, \theta(1/2 - u) + \theta(u - 1/2)\, \theta(1 - u)\, R_2 \right] \frac{d}{d u}\, \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) u\right]\, ,
+    \end{split}
+\end{equation}
+% \begin{multline}
+%     -\half \int_{0}^{1} d u\, \phi(\zeta + 2 u)\, \frac{d}{d u}\, K(u) \\
+%     =  -\half \int_{0}^{1} d u\, \left[ \delta(u) - \frac{\delta(u - 1)}{R_1} - \frac{(1 - R_2)\, \delta(u - 1/2)}{\sqrt{R_1\, R_2}} \right] \phi(\zeta + 2 u) \\
+%     - \half \left( 1 + \sqrt{\frac{R_2}{R_1}}\, \right) \int_{0}^{1/2} d u\, \phi(\zeta + 2 u)\, \frac{d}{d u}\, \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) u\right]
+% \end{multline}
+and then we substitute this result into the convolution integral given by \eqn{mflt_nlo_ibp} to obtain
+% \begin{multline}
+%     \half \int_{0}^{1} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, K(u)
+%     =  \frac{\ln\left(1/\sqrt{R_1\, R_2}\right)}{\mathcal{C}^2}\, \phi(\tau) \\
+%     - \half \left( 1 + \sqrt{\frac{R_2}{R_1}}\, \right) \int_{0}^{1/2} d u\, \phi(\zeta + 2 u)\, \frac{d}{d u}\, \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) u\right]
+% \end{multline}
+\begin{multline}
+    \frac{\mathcal{C}^2}{2\, \Gnb} \int_{0}^{1} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, \left[\Gn(u)\, K(u)\right]
+    =  - \ln\left(1/\sqrt{R_1\, R_2}\right)\, \phi(\tau) \\
+    + \frac{\mathcal{C}^2}{2} \, \left( 1 + \sqrt{\frac{R_2}{R_1}}\, \right) \int_{0}^{1/2} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) u\right]
+\end{multline}
+To simplify the remaining integral on the \rhs of this expression, we cheat and approximate the exponential with a linear function that has the same values at the limits of integration:
+\begin{equation}
+    \exp\left[\ln\left(\frac{1}{R_1\, R_2}\right) u\right] \approx 1 + 2 \left(\frac{1}{\sqrt{R_1\, R_2}} - 1\right) u\, .
+\end{equation}
+The final nonlinear differential convolution integral is therefore
+% \begin{equation}
+%     \frac{\mathcal{C}^2}{2\, \Gnb} \int_{0}^{1} d u\, \phi(\tau - 2 u)\, \frac{d}{d u}\, \left[\Gn(u)\, K(u)\right]
+%     \approx  - \ln\left(1/\sqrt{R_1\, R_2}\right) \left[\phi(\tau) - \overline{\phi}\right] \,
+% \end{equation}
+\begin{equation}
+    i\, \mathcal{C}^2\, \widehat{K}\left[\Im\left(E\,\frac{\partial}{\partial \tau}\, E^\ast\right)\right] \approx i\, \ln\left(\frac{1}{\sqrt{R_1\, R_2}}\right) \left|E(\tau)\right|^2 \left[\phi(\tau) - \overline{\phi}\right]\, ,
+\end{equation}
+% \begin{equation}
+%     \int_{0}^{1} d u\, K(u)\, \frac{\partial}{\partial \tau}\, \phi(\tau - 2 u) \approx -\frac{\ln\left(1/\sqrt{R_1\, R_2}\right)}{\mathcal{C}^2}\left[\phi(\tau) - \overline{\phi}\right] \,
+% \end{equation}
+where we have used \eqn{int_periodic_funcs_a_bpmp} and defined
+\begin{equation}
+    \overline{\phi} \equiv \int_{0}^{1} d \tau\, \phi(\tau)\, .
+\end{equation}
+We can follow exactly the same procedure for the second nonlinear convolution term. We find that
+% \begin{equation}
+%     \frac{i\, \Gth^2\, I_0}{4\, \Gnb}\, \chi_2\, \widehat{K}\left[\frac{\partial}{\partial \tau}\, |E|^2\right] = -\frac{\Gth}{2\, \Gnb} \left( \Gnb - \Gth \right)\, \frac{2\, \chi_2}{2\, \kappa}\, \ln\left(\frac{1}{\sqrt{R_1\, R_2}}\right) \left|E(\tau)\right|^2 \left[\psi(\tau) - \overline{\psi}\right]\, .
+% \end{equation}
+\begin{equation}
+    \begin{split}
+        \frac{3}{2}\, \mathcal{C}^2\, \widehat{K}\left[\frac{\partial}{\partial \tau}\, |E|^2\right] &= 3 \left|E(\tau)\right|^2 \frac{\mathcal{C}^2}{\Gnb} \int_{0}^{1} d u\, \Gn(u)\, K(u)\, \frac{\partial}{\partial \tau}\, \psi(\tau - 2 u) \\
+        &= - 3\, \ln\left(\frac{1}{\sqrt{R_1\, R_2}}\right) \left|E(\tau)\right|^2 \left[\psi(\tau) - \overline{\psi}\right]\, .
+    \end{split}
+\end{equation}
+
+Therefore, after collecting results \eqn{mflt_nlse} becomes
+% \begin{multline}% \label{eqn:mflt_nlsx}
+%     \frac{\partial E(\zeta)}{\partial T} = \half \left( \Gn\, \tau_\perp^2 - i\, D_2 \right) \frac{\partial^2}{\partial \zeta^2}\, E(\zeta) - \frac{\Gn\, I_0}{2\, \mathcal{C}^2}\, \Bigg\{ \kappa \left[\left|E(\zeta)\right|^2 - 1\right] \\
+%     - \frac{i}{2} \left(2 \tau_\parallel + \tau_\perp\right) \ln\left(\frac{1}{\sqrt{R_1\, R_2}}\right) \left|E(\zeta)\right|^2 \left[\phi(\zeta) - \overline{\phi}\right]\Bigg\}\, E(\zeta)\, .
+% \end{multline}
+% \begin{multline} %\label{eqn:mflt_nlsx}
+%     -i\, \frac{\partial}{\partial T}\, E(\zeta) = -\half \left( D_2 + i\, \Gn\, \tau_\perp^2 \right) \frac{\partial^2}{\partial \zeta^2}\, E(\zeta) + \frac{\Gn\, I_0}{2\, \mathcal{C}^2}\, \Bigg\{ i\, \kappa \left[\left|E(\zeta)\right|^2 - 1\right] \\
+%     + \half \left(2 \tau_\parallel + \tau_\perp\right) \ln\left(\frac{1}{\sqrt{R_1\, R_2}}\right) \left|E(\zeta)\right|^2 \left[\phi(\zeta) - \overline{\phi}\right]\Bigg\}\, E(\zeta)\, ,
+% \end{multline}
+% \begin{multline} %\label{eqn:mflt_nlsx}
+%     -i\, \frac{\partial}{\partial T}\, E(\tau) = -\half \left( D_2^\prime + i\, \frac{\Gth^2}{\Gnb}\, \frac{\tau_\perp^2}{1 + \alpha^2} \right) \frac{\partial^2}{\partial \tau^2}\, E(\tau) + i\, (1 - i\, \alpha)\, \rho\,  \mathcal{R}[E] \left[\left|E(\tau)\right|^2 - 1\right]\, E(\tau) \\
+%     + (1 - i\, \alpha)\, \sigma\, \mathcal{R}^2(E) \left|E(\tau)\right|^2 \left[\phi(\tau) - \overline{\phi}\right] E(\tau)+ i\, 3\, \sigma\, (1 - i\, \alpha) \left|E(\tau)\right|^2 \left[\psi(\tau) - \overline{\psi}\right] E(\tau)\, ,
+% \end{multline}
+% \begin{multline} %\label{eqn:mflt_nlsx}
+%     -i\, \frac{\partial}{\partial T}\, E(\tau) = -\half \left[ D_2^\prime + i\, \frac{\Gth}{\Gnb}\, \mathcal{R}^2(E)\frac{\Gth\, \tau_\perp^2}{1 + \alpha^2} \right] \frac{\partial^2}{\partial \tau^2}\, E(\tau) + i\, (1 - i\, \alpha)\, \rho\,  \mathcal{R}[E] \left[\left|E(\tau)\right|^2 - 1\right]\, E(\tau) \\
+%     + (1 - i\, \alpha)\, \sigma\, \mathcal{R}^2(E) \left|E(\tau)\right|^2 \left\{ \left[\phi(\tau) - \overline{\phi}\right] + i\, 3 \left[\psi(\tau) - \overline{\psi}\right] \right\} E(\tau)\, ,
+% \end{multline}
+% \begin{multline}
+%     -i\, \frac{\partial}{\partial T}\, E(\tau) = -\half \left[ D_2^\prime + i\, \frac{\Gth}{\Gnb}\, \mathcal{R}^2(E)\frac{\Gth\, \tau_\perp^2}{1 + \alpha^2} \right] \frac{\partial^2}{\partial \tau^2}\, E(\tau) \\
+%     + (1 - i\, \alpha)\, \rho\,  \mathcal{R}[E] \left( i\, \left[\left|E(\tau)\right|^2 - 1\right] + \mu\, \mathcal{R}[E] \left|E(\tau)\right|^2 \left\{ \left[\phi(\tau) - \overline{\phi}\right] + i\, 3 \left[\psi(\tau) - \overline{\psi}\right] \right\} \right) E(\tau)\, ,
+% \end{multline}
+\begin{multline} \label{eqn:mflt_nlsx}
+    -i\, \frac{\partial}{\partial T}\, E(\tau) = -\half \left[ D_2^\prime + i\, \frac{\Gth\, \tau_\perp^2}{\left(1 + \alpha^2\right) \Hnb}\, \mathcal{R}^2[E]] \right] \frac{\partial^2}{\partial \tau^2}\, E(\tau) \\
+    + (1 - i\, \alpha)\, \rho\,  \mathcal{R}[E] \left( i\, \left[\left|E(\tau)\right|^2 - 1\right] + \mu\, \mathcal{R}[E] \left|E(\tau)\right|^2 \left\{ \left[\phi(\tau) - \overline{\phi}\right] + i\, 3 \left[\psi(\tau) - \overline{\psi}\right] \right\} \right) E(\tau)\, ,
+\end{multline}
+where
+% \begin{subequations}
+%     \begin{align}
+%         \begin{split}
+%         r &\equiv \frac{\Gn}{2} \left( \frac{\Gn}{\Gth}  - 1 \right) \frac{R_1\, \sqrt{R_2}}{\sqrt{R_1} + \sqrt{R_2}} \\
+%         &\qquad \times \left[ \frac{1}{\left(R_1 + \kappa\, I_0\right)\left(1 + \kappa\, I_0\, \sqrt{R_2/R_1}\right)} + \frac{1}{\left(1 + \kappa\, I_0\right)\left(\sqrt{R_1\, R_2} + \kappa\, I_0\right)} \right]\, , \nd
+%         \end{split} \\
+%         \gamma &\equiv \frac{\Gn}{4\, \kappa} \left( \frac{\Gn}{\Gth}  - 1 \right) \left(2 \tau_\parallel + \tau_\perp\right) \ln\left(\frac{1}{\sqrt{R_1\, R_2}}\right)\, .
+%     \end{align}
+% \end{subequations}
+\begin{equation}
+    \label{eqn:mflt_mu_def} \mu \equiv \frac{2\, \tau_\parallel + 3\, \tau_\perp}{8}\, \ln\left(\frac{1}{\sqrt{R_1\, R_2}}\right)\, .
+\end{equation}
+This is the final form of our approximate complex NLSE.
+
+We can obtain an approximate analytic solution by making the ansatz \eqn{mflt_field_ansatz} with
+\begin{align}
+    \psi(\tau) &\equiv -\half\, a\, \tau^2\, , \nd \\
+    \phi(T,\tau) &\equiv \lambda\, T - \half\, b\, \tau^2\, .
+\end{align}
+We seek estimates of the four parameters $A$, $\lambda$, $a$, and $b$, but --- in contrast to Burghoff --- we will assume that $a \ll 1$, rather than $\Gn \longrightarrow \Gth$. Let's initially take $\alpha = 0$ and substitute \eqn{mflt_field_ansatz} into \eqn{mflt_nlse}, expand the result to first order in $a$, and compare the coefficients of terms of order zero and 2 in $\tau$. Then we obtain the coupled parametric equations
+% \begin{subequations}
+%     \begin{align}
+%         -\lambda  - \half\, b\, \frac{\Gth^2}{\Gn}\, \tau_\perp^2 + \frac{\mu\, \rho}{6}\, b\, A^2 &= -\half\, a\, D_2\, ,\\
+%         \half\, b^2 D_2 - \frac{\mu\, \rho}{2}\, b\, A^2 &= a\, b \left( \frac{\mu\, \rho}{6}\, A^2 - \frac{\Gth^2}{\Gn}\, \tau_\perp^2 \right)\, ,\\
+%         \half\, b\, D_2 + \rho \left( A^2 - 1 \right) &= -\half\, a\, \left( \frac{\Gth^2}{\Gn}\, \tau_\perp^2 + \mu\, \rho\, A^2 \right)\, , \nd \\
+%         \half\, b^2\, \frac{\Gth^2}{\Gn}\, \tau_\perp^2 &= a \left( \frac{2 + 3\, \mu}{2}\, \rho\, A^2 + b\, D_2 \right)\, .
+%     \end{align}
+% \end{subequations}
+% \begin{subequations}
+%     \begin{align}
+%         -\lambda  - \half\, b\, \mathcal{R}^2(A) \left(\frac{\Gth^2}{\Gn}\, \tau_\perp^2 - \frac{\mu\, \rho}{3}\, A^2\right) &= -\half\, a\, D_2\, ,\\
+%         \half\, b\, D_2 - \frac{\mu\, \rho}{2}\, \mathcal{R}^2(A)\, A^2 &= a\, \mathcal{R}^3(A) \left\{ \frac{\mu\, \rho}{6}\, [1 - \sigma\, (A^2 + 1)]\, A^2 - (1 - \sigma)\, \frac{\Gth^2}{\Gn}\, \tau_\perp^2 \right\}\, ,\\
+%         \half\, b\, D_2 + \rho\, \mathcal{R}(A) \left( A^2 - 1 \right) &= -\half\, a\, \mathcal{R}^2(A) \left( \frac{\Gth^2}{\Gn}\, \tau_\perp^2 + \mu\, \rho\, A^2 \right)\, , \nd \\
+%         \half\, \mathcal{R}^2(A)\, b^2\, \frac{\Gth^2}{\Gn}\, \tau_\perp^2 &= a \left[ \frac{2 + 3\, \mu}{2}\, \rho\, \mathcal{R}^2(A)\, A^2 + b\, D_2 \right]\, ,
+%     \end{align}
+% \end{subequations}
+\begin{subequations}
+    \begin{align}
+        \label{eqn:mflt_eqn_1} -\lambda  - \frac{b}{4\, \tau_p}\, \mathcal{R}^2(A) \left(\frac{\tau_\perp^2}{\Hnb} - \frac{\mu\, \sigma}{3}\, A^2\right) &= -\half\, a\, D_2\, ,\\
+        \label{eqn:mflt_eqn_2} b\, D_2\, \tau_p - \mu\, \sigma\, \mathcal{R}^2(A)\, A^2 &= a\, \mathcal{R}^3(A) \left\{ \frac{\mu\, \sigma}{6}\, [1 - \sigma\, (A^2 + 1)]\, A^2 - (1 - \sigma)\, \frac{\tau_\perp^2}{\Hnb} \right\}\, ,\\
+        \label{eqn:mflt_eqn_3} b\, D_2\, \tau_p + \sigma\, \mathcal{R}(A) \left( A^2 - 1 \right) &= -\half\, a\, \mathcal{R}^2(A) \left( \frac{\tau_\perp^2}{\Hnb} + \mu\, \sigma\, A^2 \right)\, , \nd \\
+        \label{eqn:mflt_eqn_4} \mathcal{R}^2(A)\, b^2\, \frac{\tau_\perp^2}{\Hnb} &= a \left[ (2 + 3\, \mu)\, \sigma\, \mathcal{R}^2(A)\, A^2 + 4\, b\, D_2\, \tau_p \right]\, ,
+    \end{align}
+\end{subequations}
+where $\mathcal{R}(A) = 1/[1 + \sigma\, (A^2 - 1)]$.
+Now we can develop estimates of the four unknown parameters in \eqn{mflt_field_ansatz} by solving these equations in turn:
+\begin{enumerate}
+    \item Solve \eqn{mflt_eqn_1} and  \eqn{mflt_eqn_2} for $\lambda$ and $b$ with $a = 0$.
+    \item Use these order-zero estimates to solve \eqn{mflt_eqn_3} for $A$ with $a = 0$.
+    \item Substitute these results into \eqn{mflt_eqn_4} to solve for $a$.
+    \item Find perturbative first-order (in $a$) corrections to $A$ and $b$ using \eqn{mflt_eqn_1} and \eqn{mflt_eqn_3}. Keep only contributions that are first order in the dispersion and gain curvature.
+\end{enumerate}
+If we define
+% \begin{equation}
+%     A_0^2 \equiv \left(1 + \frac{\mu}{2}\right)^{-1} \approx 1 - \frac{\mu}{2}\, ,
+% \end{equation}
+\begin{equation}
+    A_0^2 \equiv 1 - \frac{2 + \mu - \sqrt{(2 + \mu)^2 - 8\, \mu\, \sigma}}{4\, \sigma} \approx 1 - \frac{\mu}{2} + (1 - \sigma)\, \frac{\mu^2}{4}
+\end{equation}
+so that
+\begin{equation}
+    \mathcal{R}(A_0) = \frac{1}{4}\left[ 2 - \mu + \sqrt{(2 + \mu)^2 - 8\, \mu\, \sigma} \right] \approx 1 + \sigma\, \frac{\mu}{2} - \sigma\, (1 - 2\, \sigma)\, \frac{\mu^2}{4}\, ,
+\end{equation}
+then we finally obtain
+% \begin{subequations} %\label{eqn:mflt_approx_analytic}
+%     \begin{align}
+%         \begin{split} %\label{eqn:mflt_approx_amplitude}
+%             A^2 &\approx A_0^2 - \frac{\mu^2\, A_0^2}{4\, (1 + \mu)\, (1 - \mu/2)} \left(\frac{\Gth}{\Gn}\right)^2\, \frac{\Gth^2\, \tau_\perp^4}{D_2^2} \\
+%             &= A_0^2 - \frac{\mu^2\, A_0^2}{4\, (1 + \mu)\, (1 - \mu/2)}\ \left(\frac{1}{\Gn\, \tau_p}\,\frac{\tau_\perp^2}{D_2\, \tau_p}\right)^2\, ,
+%         \end{split}\\
+%         \begin{split} %\label{eqn:mflt_approx_lambda}
+%             \lambda &\approx \frac{\mu^2\, A_0^4\, \rho^2}{6\, D_2} - \frac{\mu\, A_0^2\, \rho}{2} \left(\frac{\Gth}{\Gn}\right) \frac{\Gth\, \tau_\perp^2}{D_2} \\
+%             &= \frac{\mu^2\, A_0^4}{24} \left(\frac{\Gn\, \tau_p - 1}{\Gn\, \tau_p}\right)^2 \frac{1}{D_2\, \tau_p^2} - \frac{\mu\, A_0^2}{4}\, \frac{\Gn\, \tau_p - 1}{(\Gn\, \tau_p)^2} \frac{\tau_\perp^2}{D_2\, \tau_p^2}\, ,
+%         \end{split}\\
+%         \begin{split} %\label{eqn:mflt_approx_a}
+%             a &\approx \frac{\mu^2\, A_0^2\, \rho}{2\, (1 + \mu)}\, \frac{\Gth}{\Gn}\, \frac{\Gth\, \tau_\perp^2}{D_2^2} \\
+%             &= \frac{\mu^2\, A_0^2}{4\, (1 + \mu)}\, \frac{\Gn\, \tau_p - 1}{(\Gn\, \tau_p)^2} \left(\frac{\tau_\perp}{D_2\, \tau_p}\right)^2\, , \nd
+%         \end{split}\\
+%         \begin{split} %\label{eqn:mflt_approx_b}
+%             b &\approx \frac{\mu\, A_0^2\, \rho}{D_2} - \frac{\mu^3\, A_0^2\, \rho}{4\, (1 + \mu)\, (1 - \mu/2)}\, \left(\frac{\Gth}{\Gn}\right)^2 \frac{(\Gth\, \tau_\perp^2)^2}{D_2^3} \\
+%             &= \frac{\mu\, A_0^2}{2}\, \frac{\Gn\, \tau_p - 1}{\Gn\, \tau_p}\, \frac{1}{D_2\, \tau_p} - \frac{\mu^3\, A_0^2}{8\, (1 + \mu)\, (1 - \mu/2)}\, \frac{\Gn\, \tau_p - 1}{(\Gn\, \tau_p)^3}\, \frac{\tau_\perp^4}{(D_2\, \tau_p)^3}\, .
+%         \end{split}
+%     \end{align}
+% \end{subequations}
+% \begin{subequations}
+%     \begin{align}
+%         \begin{split}
+%             A^2 &\approx A_0^2 - \frac{\Gth^2\, \tau_\perp^2}{(2 - \mu)\, \Gn}\, \frac{a}{\rho}\, ,
+%         \end{split}\\
+%         \begin{split}
+%             \lambda &\approx \frac{\mu^2\, A_0^4\, \rho^2}{6\, D_2} - \frac{\mu\, A_0^2\, \rho}{2} \left(\frac{\Gth}{\Gn}\right) \frac{\Gth\, \tau_\perp^2}{D_2}\, ,
+%         \end{split}\\
+%         \begin{split}
+%             a &\approx \frac{\mu^2\, A_0^2\, \rho}{(2 + 5\, \mu)}\, \frac{\Gth}{\Gn}\, \frac{\Gth\, \tau_\perp^2}{D_2^2}\, , \nd
+%         \end{split}\\
+%         \begin{split}
+%             b &\approx \frac{\mu\, A_0^2\, \rho}{D_2} - \frac{\mu}{2 - \mu}\, \frac{\Gth}{\Gn}\, \frac{\Gth\, \tau_\perp^2}{D_2}\, a\, .
+%         \end{split}
+%     \end{align}
+% \end{subequations}
+\begin{subequations} \label{eqn:mflt_approx_analytic}
+    \begin{align}
+        \label{eqn:mflt_approx_amplitude} A^2 &\approx A_0^2 - \frac{\mu\, (2 - \sigma)}{3}\, a\, ,\\
+        \label{eqn:mflt_approx_lambda} \lambda &\approx A_0^4\, \mathcal{R}^4(A_0)\, \frac{\mu^2\, \sigma^2}{24\, D_2\, \tau_p^2}\, , \\
+        \label{eqn:mflt_approx_a} a &\approx A_0^2\, \mathcal{R}^4(A_0)\, \frac{\mu^2\, \sigma}{2\, (2 + 5\, \mu)}\, \left(\frac{1}{D_2\, \tau_p}\right)^2\, \frac{\tau_\perp^2}{\Hnb}\, , \nd \\
+        \label{eqn:mflt_approx_b} b &\approx A_0^2\, \mathcal{R}^2(A_0)\, \frac{\mu\, \sigma}{2\, D_2\, \tau_p} + \frac{\mu\, \sigma\, (1 - 2\, \sigma)}{6\, D_2\, \tau_p}\, a\, .
+    \end{align}
+\end{subequations}
+
+Expressions for $A^2 - 1$, $\lambda$, $a$, and $b$ have been plotted in \fig{mflt_approx_al} and \fig{mflt_approx_ab} as a function of the ratio of the unsaturated round-trip gain to the threshold gain for several dispersion coefficients. Here (in units of the group round-trip time) $\tau_\perp = 0.000769$, $\tau_\parallel = 10\, \tau_\perp$, $R_1 = R_2 = 0.3$, $\mu = 0.00266$, and the round-trip loss is 14~dB. Because $\mu$ is so small, $A^2$ differs negligibly from 1 for all pump and dispersion values. We see that $a$ peaks near an unsaturated gain that is twice the threshold. For the selected input values, dispersions with $D_2 < 5 \times 10^{-6}$ are likely to lead to unstable combs. Nevertheless, output fields with $b/2 \pi > 200$ are achievable for even modest gains.
+
+% \begin{figure}
+%     \centering
+%     \begin{subfigure}[b]{0.95\textwidth}
+%         \centering
+%         \includegraphics[width=5.0in]{figures/mflt_approx_kappa}
+%         \caption{Approximate mean-field saturation factor}
+%         \label{fig:mflt_approx_kappa}
+%     \end{subfigure}
+%     \par\vspace{0.25in}
+%     \begin{subfigure}[b]{0.95\textwidth}
+%         \centering
+%         \includegraphics[width=5.0in]{figures/mflt_approx_mu}
+%         \caption{Approximate effective phase decay coefficient}
+%         \label{fig:mflt_approx_mu}
+%     \end{subfigure}
+%     \caption{\label{fig:mflt_approx_km} Approximate analytic solutions for the mean-field saturation factor and amplitude and shift as functions of $\Hnb$ for various second-order dispersion coefficients. (a) Approximate mean-field saturation factor $\kappa$ (including spatial hole-burning) given by \eqn{ld1d_sw_shb_kappa}. (b) Approximate effective phase decay coefficient given by \eqn{mflt_mu_def}.}
+% \end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/mflt_approx_amplitude}
+        \caption{Approximate analytic squared amplitude}
+        \label{fig:mflt_approx_amplitude}
+    \end{subfigure}
+    \par\vspace{0.25in}
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/mflt_approx_lambda}
+        \caption{Approximate analytic mean-field eigenvalue (shift)}
+        \label{fig:mflt_approx_lambda}
+    \end{subfigure}
+    \caption{\label{fig:mflt_approx_al} Approximate analytic solutions for the mean-field squared amplitude and shift as functions of $\Hnb$ for various second-order dispersion coefficients. (a) Approximate analytic solution for the mean-field amplitude given by \eqn{mflt_approx_amplitude}. (b) Approximate analytic solution for the mean-field eigenvalue/shift given by \eqn{mflt_approx_lambda}.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/mflt_approx_a}
+        \caption{Approximate analytic mean-field quadratic decay coefficient}
+        \label{fig:mflt_approx_a}
+    \end{subfigure}
+    \par\vspace{0.25in}
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/mflt_approx_b}
+        \caption{Approximate analytic mean-field frequency chirp coefficient}
+        \label{fig:mflt_approx_b}
+    \end{subfigure}
+    \caption{\label{fig:mflt_approx_ab} Approximate analytic solutions for the mean-field quadratic coefficients as functions of $\Hnb$ for various second-order dispersion coefficients. (a) Approximate analytic solution for the mean-field quadratic decay coefficient given by \eqn{mflt_approx_a}. (b) Approximate analytic solution for the mean-field frequency chirp coefficient given by \eqn{mflt_approx_b}.}
+\end{figure}
+
+Note that the requirement that $a$ remain small (say, less than unity) places a constraint on the number of lines $|b| / 2 \pi$ comprising the laser comb. Let's restore the scaling of $\tau_\perp$ by the group round-trip travel time $\tau_0$, and write
+\begin{equation}
+    \begin{split}
+        a &= \frac{b^2}{\Hnb - 1} \left(\frac{\tau_\perp}{\tau_0}\right)^2 \\
+        &= \frac{b^2}{\Hnb - 1} \left(\frac{2}{\Delta \omega_g\, \tau_0}\right)^2 \\
+        & < 1\, ,
+    \end{split}
+\end{equation}
+where --- as in \sct{laser_statics_1d_amp} --- $\Delta \omega_g = 2\, \tau_0 / \tau_\perp$ is the unsaturated FWHM of the gain curve. The comb bandwidth is given by $\Delta \omega_c = (|b| / 2 \pi) (2 \pi / \tau_0)$, so we have
+\begin{equation}
+    \Delta \omega_c < \half\, \left(\Hnb - 1\right)^{1/2}\, \Delta \omega_g\, .
+\end{equation}
+This scaling of the comb bandwidth by the square-root of the unsaturated round-trip gain above threshold is a direct result of the reduction of the gain curvature by power broadening discussed in \sct{laser_statics_1d_amp}. Substituting \eqn{sml_1d_int} into \eqn{amplifier_1d_cw_fwhm}, we find for the power-broadened laser gain bandwidth
+\begin{equation}
+    \Delta \omega_\mathrm{FWHM} = \left(1 + \kappa\, I\right)^{1/2}\, \Delta \omega_g = \Hnb^{1/2}\, \Delta \omega_g\, ,
+\end{equation}
+consistent with our result for the comb bandwidth.
+
+% \begin{equation} \label{eqn:mflt_kz_approx_obs}
+%     \begin{split}
+%         K\z &\approx \theta(z)\, \theta(z_1 - z)\, \exp\left(-\alpha_0\, z\right) \\
+%         &+ \theta(z - z_1)\, \theta(z_2 - z)\, \exp\left(-\alpha_0\, z_1\right)\, \exp\left[\beta (z - z_1)\right] \\
+%         &+ \theta(z - z_2)\, \theta(1/2 - z)\, \exp\left\{-\alpha_0\left[z - (z_2 - z_1)\right]\right\}\, \exp\left[\beta (z_2 - z_1)\right] \\
+%         &+ \theta(z - 1/2)\, \theta(1 - z_2 - z)\, R_2\, \exp\left\{-\alpha_0\left[z - (z_2 - z_1)\right]\right\}\, \exp\left[\beta (z_2 - z_1)\right] \\
+%         &+ \theta\left[z - (1 - z_2)\right]\, \theta(1 - z_1 - z)\, R_2\, \exp\left\{-\alpha_0\left[1 - (2 z_2 - z_1)\right]\right\}\, \exp\left[\beta (z - 1 + 2 z_2 - z_1)\right] \\
+%         &+ \theta\left[z - (1 - z_1)\right]\, \theta(1 - z)\, R_2\, \exp\left\{-\alpha_0\left[z - 2( z_2 - z_1)\right]\right\}\, \exp\left[2 \beta (z_2 - z_1)\right] \, ,
+%     \end{split}
+% \end{equation}
+% Since $K(1) = 1/R_1$,
+% \begin{equation}
+%     \beta = \frac{1}{2 (z_2 - z_1)} \left\{ \ln\left(\frac{1}{R_1\, R_2}\right) + \alpha_0 \left[1 - 2 (z_2 - z_1)\right]\right\}
+% \end{equation}
+
+% \begin{equation} \label{eqn:mflt_gz_z12}
+%     \Gnz = \frac{\Gnb}{2\, (z_2 - z_1)} \left[ \theta(z - z_1)\, \theta(z_2 - z) + \theta\left[z - (1 - z_2)\right]\, \theta(1 - z_1 - z) \right]
+% \end{equation}
+
+% \begin{equation} \label{eqn:mflt_kz_approx_z12}
+%     \begin{split}
+%         K\z &\approx \exp(-\alpha_0\, z)\, \Big\{\theta(z)\, \theta(z_1 - z) \\
+%         &+ \theta(z - z_1)\, \theta(z_2 - z)\, \exp\left[\beta (z - z_1)\right] \\
+%         &+ \theta(z - z_2)\, \theta(1/2 - z)\, \exp\left[\beta (z_2 - z_1)\right] \\
+%         &+ \theta(z - 1/2)\, \theta(1 - z_2 - z)\, R_2\, \exp\left[\beta (z_2 - z_1)\right] \\
+%         &+ \theta\left[z - (1 - z_2)\right]\, \theta(1 - z_1 - z)\, R_2\, \exp\left[\beta (z - 1 + 2 z_2 - z_1)\right] \\
+%         &+ \theta\left[z - (1 - z_1)\right]\, \theta(1 - z)\, R_2\, \exp\left[2 \beta (z_2 - z_1)\right]\Big\}\, ,
+%     \end{split}
+% \end{equation}
+% Since $K(1) = 1/R_1$, we require that
+% \begin{equation}
+%     \beta = \frac{1}{2\, (z_2 - z_1)} \left[ \ln\left(\frac{1}{R_1\, R_2}\right) + \alpha_0 \right]
+% \end{equation}
+
+When the linewidth enhancement factor $\alpha \ne 0$, there are three primary modifications to \eqn{mflt_approx_analytic}:
+\begin{enumerate}
+    \item As we learned in \sct{laser_statics_1d_lef}, the asymmetric unsaturated gain curve is broadened when $|\alpha| > 0$, resulting in the replacement $\tau_\perp^2 \longrightarrow \tau_\perp^2 / (1 + \alpha^2)$.
+    \item In \sct{laser_statics_1d_frq} we found that the dispersion is modified to include a contribution from the imaginary part of the lineshape function, such that
+    \begin{equation}
+        D_2 \longrightarrow D_2^\prime = D_2 + A_2 = D_2 + \frac{4\, \tau_\perp^2}{2\, \tau_p + \tau_\perp}\, \frac{\alpha}{1 + \alpha^2}\, .
+    \end{equation}
+    Whether the magnitude of the net dispersion $|D_2^\prime|$ is greater or less than that of $|D_2|$ depends on the relative sign of $D_2$ and $\alpha$.
+    \item The evolution of the phase $\phi(\tau)$ is coupled to both the field amplitude $A$ and the quadratic time coefficient $a$ through the nonlinear terms in the approximate NLSE given by \eqn{mflt_nlsx}. Following the same procedure that led to \eqn{mflt_approx_analytic}, we find
+    \begin{subequations} \label{eqn:mflt_approx_analytic_lef}
+        \begin{align}
+            \label{eqn:mflt_approx_amplitude_lef} A^2 &\approx 1 - \frac{\mu}{2} + (1 - \sigma)\, \frac{\mu^2}{4} \left( 1 + \frac{\alpha}{3\, D_2^\prime\, \tau_p}\right)\, , \nd \\
+            \label{eqn:mflt_approx_a_lef} a &\approx A_0^2\, \mathcal{R}^4(A_0)\, \frac{\mu^2\, \sigma}{2\, (2 + 5\, \mu)}\, \left(\frac{1}{D_2^\prime\, \tau_p}\right)^2 \left[\frac{\tau_\perp^2}{\left(1 + \alpha^2\right) \Hnb} + 2\, \alpha\, D_2^\prime\, \tau_p\right]\, .
+        \end{align}
+    \end{subequations}
+    As shown in \fig{mflt_approx_a_lef}, there will be significant changes to the dynamics when $\alpha \gtrsim \tau_\perp^2 / 2\, \Hnb\, D_2^\prime\, \tau_p$, which is much less than 1 for the parameters we've been considering here. In this case, we'll need to rely on \eqn{mflt_nlse} to study the evolution of our mode-locked laser.
+\end{enumerate}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=5.0in]{figures/mflt_approx_a_lef}
+    \caption{\label{fig:mflt_approx_a_lef} Approximate analytic solution for the mean-field quadratic decay coefficient given by \eqn{mflt_approx_a_lef} as a function of $\Hnb$ for various linewidth enhancement factors. Here $D_2 = 1.5 \times 10^{-5}$. }
+\end{figure}
+  

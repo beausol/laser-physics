@@ -1,0 +1,232 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Electrodynamics in Vacuum\label{sct:em_wave_prop_vac}}
+
+ \subsection{The Microscopic Maxwell-Lorentz Equations\label{sct:mic_maxwell_lorentz}}
+
+Let's begin by considering a region of space containing a collection of $N$ point-particles with mass $m_n$ and charge $q_n$, $n \in \{1, \dots, N\}$, located at position $\mathbf{r}_n(t)$ with velocity $\mathbf{v}_n(t) = d \mathbf{r}_n(t)/d t$. The charge and current densities of this system can be written as
+ \begin{subequations} \label{eqn:point_charges}
+ \begin{align}
+ \rho\rt &= \sum_n q_n\, \delta\left[\mathbf{r} - \mathbf{r}_n(t)\right] , \label{eqn:rho_point_def} \\
+ \bmi{j}\rt &= \sum_n q_n\, \mathbf{v}_n(t)\, \delta\left[\mathbf{r} - \mathbf{r}_n(t)\right] , \label{eqn:j_point_def}
+ \end{align}
+ \end{subequations}
+where $\delta(\mathbf{r}) \equiv \delta(x) \delta(y) \delta(z)$ is the three-dimensional Dirac delta function \cite{ref:cohentannoudji1977qm}. These expressions satisfy the microscopic continuity equation
+ \begin{equation} \label{eqn:micro_continuity}
+ \divr \bmi{j}\rt + \ppt \rho\rt = 0 .
+ \end{equation}
+We can demonstrate this claim explicitly by relying on the vector identity \eqn{divr_fa} and proving that\footnote{This sort of blithe treatment of $\delta(x)$ as just another function --- or the movement of differentiation operators into and out of integrals, or changes in the order of integration over different variables --- is a staple in physics and can frustrate students who prefer that more attention be paid to formal mathematical details. Given the appropriate understanding of $\delta(x)$ as the limit (in the sense of distributions) of sequences of well-behaved sharply-peaked functions with unit area, all is well here. However, we will rarely specify the validity conditions needed to justify a particular instance of mathematical horseplay, because a physicist's love of mathematical rigor is almost always unrequited: our models of the underlying physical systems will break down long before our mathematical assumptions become untenable.}
+ \begin{equation*}
+ \mathbf{v}_n(t) \bm{\cdot \nabla} \delta\left[\mathbf{r} - \mathbf{r}_n(t)\right] + \ppt \delta\left[\mathbf{r} - \mathbf{r}_n(t)\right] = 0 ,
+ \end{equation*}
+or by representing the delta function using its Fourier transform as given by \eqn{dirac_delta_3d_ft} and then showing that
+ \begin{equation*}
+ \mathbf{v}_n(t) \bm{\cdot \nabla} \exp\left\{i \mathbf{k} \dotp \left[\mathbf{r} - \mathbf{r}_n(t)\right]\right\} + \ppt \exp\left\{i \mathbf{k} \dotp \left[\mathbf{r} - \mathbf{r}_n(t)\right]\right\} = 0 .
+ \end{equation*}
+\Eqn{micro_continuity} is a local (differential) expression of the conservation of the global electric charge
+ \begin{equation} \label{eqn:global_charge}
+ Q = \int_\mathcal{V} d^3 r\, \rho\rt
+ \end{equation}
+as the surface of the bounding volume $\mathcal{V}$ becomes infinitely large.
+
+The dynamics of the motion of each particle under the influence of electric and magnetic forces are described by the Newton-Lorentz equation\index{Newton-Lorentz equation} as
+ \begin{equation} \label{eqn:newton_lorentz}
+ \mathbf{F}_n (t) \equiv m_n \frac{d^2}{dt^2} \mathbf{r}_n = q_n \left\{\bmc{E}\left[\mathbf{r}_n(t), t\right] + \mathbf{v}_n(t) \cross \bmc{B}\left[\mathbf{r}_n(t), t\right]\right\} ,
+ \end{equation}
+where $\bmc{E}\rt$ is the external electric field and $\bmc{B}\rt$ is the external magnetic induction (or magnetic flux density).\footnote{We will (usually) use bold calligraphic characters to denote \emph{real} rapidly-varying vector field quantities.} At the same time, these external fields evolve under the influence of both the local charge and current densities according to the microscopic Maxwell equations\index{Maxwell's equations!microscopic}, given in MKS units by \cite{ref:jackson1999ce}
+ \begin{subequations}
+ \label{eqn:micro_maxwell}
+ \begin{align}
+ \divr\bmc{E}\rt &= \frac{1}{\varepsilon_0} \rho\rt && \text{Gauss's Law}\label{eqn:micro_gauss} \\
+ \divr\bmc{B}\rt &= 0  && \text{Gauss's Law for Magnetism} \label{eqn:micro_div_b} \\
+ \curl\bmc{E}\rt + \ppt \bmc{B}\rt &= 0  && \text{Faraday's Law} \label{eqn:micro_faraday} \\
+ \curl\bmc{B}\rt - \varepsilon_0 \mu_0 \ppt \bmc{E}\rt &= \mu_0\, \bmi{j}\rt  && \text{Ampere's Law}
+\label{eqn:micro_ampere}
+ \end{align}
+ \end{subequations}
+When Maxwell's displacement current ($\varepsilon_0 \mu_0\, \partial \bmc{E}/\partial t$) is included in Ampere's Law, charge conservation is implicit in \eqn{micro_maxwell}: the continuity equation \eqref{eqn:micro_continuity} can be derived by taking the divergence of \eqn{micro_ampere} and applying
+Gauss's Law \eqref{eqn:micro_gauss}. Also, note that Faraday's Law \eqn{micro_faraday} is consistent with \eqn{micro_div_b}. The constants $\varepsilon_0$ and $\mu_0$ are known as the permittivity of the vacuum and the permeability of the vacuum, respectively, and satisfy $\varepsilon_0 \mu_0 c^2 = 1$, where the speed of light in vacuum is defined to have the value $c \equiv 299\, 792\, 458$~m/s \cite{ref:mohr2008crv}. Since the constant $\mu_0 \equiv 4 \pi \times 10^{-7}$~N/A is defined exactly, the value of $\varepsilon_0 \equiv (\mu_0 c^2)^{-1} \approx 8.85418782 \times 10^{-12}$~F/m is also exact.
+
+ \subsection{Poynting's Theorem in Vacuum\label{sct:poynting_theorem_vac}}\index{Poynting's theorem!vacuum}
+
+The rate at which work is done by the external fields on particle $n$ is given by \eqn{newton_lorentz} as
+ \begin{equation} \label{eqn:dW_n_dt}
+ \begin{split}
+ \mathbf{F}_n(t) \dotp \mathbf{v}_n(t) &= q_n \mathbf{v}_n(t) \dotp \bmc{E}\left[\mathbf{r}_n(t), t\right] \\
+ &= \int_\mathcal{V} d^3r\, \delta\left[\mathbf{r} - \mathbf{r}_n(t)\right] q_n \mathbf{v}_n(t) \dotp \bmc{E}\rt ,
+ \end{split}
+ \end{equation}
+since $\mathbf{v}_n(t) \dotp \left\{\mathbf{v}_n(t) \cross \bmc{B}\left[\mathbf{r}_n(t), t\right]\right\} = 0$. Therefore, the total work $W$ done by the fields on \emph{all} of the particles changes with time according to
+ \begin{equation} \label{eqn:dW_dt}
+ \begin{split}
+ \frac{d W}{d t} = \sum_n \mathbf{F}_n(t) \dotp \mathbf{v}_n(t) &= \int_\mathcal{V} d^3r\, \sum_n \delta\left[\mathbf{r} - \mathbf{r}_n(t)\right] q_n \mathbf{v}_n(t) \dotp \bmc{E}\rt \\
+ &= \int_\mathcal{V} d^3r\, \bmi{j}\rt \dotp \bmc{E}\rt .
+ \end{split}
+ \end{equation}
+Using \eqn{micro_faraday}, \eqn{micro_ampere}, and the vector identity given by \eqn{divr_a_cross_b}, we can rewrite the integrand on the \rhs of \eqn{dW_dt} as
+ \begin{equation} \label{eqn:j_dot_e}
+ \begin{split}
+\bmi{j}\rt \dotp \bmc{E}\rt &= \left[ \frac{1}{\mu_0} \curl\bmc{B}\rt - \varepsilon_0 \ppt \bmc{E}\rt \right] \dotp \bmc{E}\rt \\
+&= \frac{1}{\mu_0} \bmc{B}\rt \dotp \curl\bmc{E}\rt - \frac{1}{\mu_0} \divr \left[\bmc{E}\rt \cross \bmc{B}\rt\right] - \varepsilon_0\, \bmc{E}\rt \dotp \ppt \bmc{E}\rt \\
+&= -\left\{ \frac{1}{\mu_0} \divr \left[\bmc{E}\rt \cross \bmc{B}\rt\right] + \varepsilon_0\, \bmc{E}\rt \dotp \ppt \bmc{E}\rt + \frac{1}{\mu_0} \bmc{B}\rt \dotp \ppt \bmc{B}\rt \right\} .
+ \end{split}
+ \end{equation}
+
+\Eqn{j_dot_e} is correct as it stands, since it relies only on the validity of Maxwell's equations. However, we will be studying characteristics of optical fields --- such as intensity, peak power, and average power --- that can be measured by conventional square-law photodetectors. Generally, these instruments are sensitive over a frequency range that has a maximum well below typical optical frequencies, which suggests that we should try to factor out high-frequency behavior that will be averaged out of the detector's photocurrent. Therefore, we consider \emph{nearly harmonic} fields\index{Nearly-harmonic fields} at some optical ``carrier'' frequency $\omega_0$, so that (for example) we can write the real field $\bmc{E}\rt$ as
+ \begin{equation} \label{eqn:bmc_e_def}
+ \begin{split}
+ \bmc{E}\rt &\equiv \Re\left[\emwnt \Ert\right]\\
+ &= \frac{\emwnt}{2} \Ert + \frac{\epwnt}{2} \mathbf{E}^\ast \rt \\
+ &\equiv \frac{\emwnt}{2} \Ert + \cc ,
+ \end{split}
+ \end{equation}
+where ``c.c.''\ indicates the complex conjugate, and $\Ert$ is a complex envelope function that varies slowly relative to $\emwnt$. In other words, we assume that
+ \begin{equation} \label{eqn:svea_t}
+ \ddt \Ert \ll -i \omega_0 \Ert ,
+ \end{equation}
+where the inequality is separately true for both the real and imaginary parts of the relation. This assumption is known as the ``slowly-varying envelope approximation'' (SVEA),\index{Slowly-varying envelope approximation (SVEA)} and we will use it often in both the temporal and spatial domains to simplify Maxwell's equations in physically appropriate situations. In \sct{math_prelim_time_average} of \app{math_prelim}, we show that the time average of the product of two nearly harmonic variables $\mathcal{A}(t)$ and $\mathcal{B}(t)$ --- defined by \eqn{ABdef} --- is given by \eqn{ABfin} as
+ \begin{equation}
+\overline{\mathcal{A}(t) \mathcal{B}(t)} \cong
+\frac{1}{4} A(t) B^\ast(t) + c.c. = \half \Re \left[ A(t) B^\ast(t) \right] ,
+ \end{equation}
+where we have assumed that both $\mathcal{A}(t)$ and $\mathcal{B}(t)$ oscillate near frequency $\omega_0$ (i.e., that $\omega_a = \omega_b$). In \sct{math_prelim_time_average}, we note that the corresponding averaging time is greater than $2 \pi/\omega_0$, but much smaller than the characteristic time of the complex envelope functions $A(t)$ and $B(t)$. Therefore, with the goal of understanding detectable lower-frequency electrodynamic behavior, we ignore terms oscillating rapidly at optical frequencies and take the time average of \eqn{j_dot_e}. For example, given $\bmc{B}\rt \equiv \Re[\emwnt \Brt]$ and $\bmi{j}\rt \equiv \Re[\emwnt \mathbf{j}\rt]$, we note that
+ \begin{equation} \label{eqn:j_dot_e_avg}
+\overline{\bmi{j}\rt \dotp \bmc{E}\rt} = \half\Re\left[\mathbf{j}\rt \dotp \mathbf{E}^\ast\rt\right] ,
+ \end{equation}
+and
+ \begin{equation} \label{eqn:B_dot_dBdt_avg}
+ \begin{split}
+\overline{\bmc{B}\rt \dotp \ppt \bmc{B}\rt} &= \half \Re\left[ \Brt \dotp \ppt \mathbf{B}^\ast\rt \right] \\
+&= \frac{1}{4} \left[ \Brt \dotp \ppt \mathbf{B}^\ast\rt + \mathbf{B}^\ast\rt \dotp \ppt \Brt \right] \\
+&= \frac{1}{4} \ppt \left[ \Brt \dotp \mathbf{B}^\ast\rt \right] \\
+&= \frac{1}{4} \ppt \abs{\Brt}^2 .
+ \end{split}
+ \end{equation}
+
+Thus, if we define the time-averaged Poynting vector\index{Poynting vector!vacuum}
+ \begin{equation} \label{eqn:poynting_vector_vac}
+\mathbf{S}\rt \equiv \half \varepsilon_0 c^2 \Re\left[\Ert \cross \mathbf{B}^\ast\rt\right]
+ \end{equation}
+and the time-averaged energy density\index{Energy density!vacuum}
+ \begin{equation} \label{eqn:energy_density_vac}
+u\rt \equiv \frac{\varepsilon_0}{4} \abs{\Ert}^2 + \frac{1}{4 \mu_0} \abs{\Brt}^2 = \frac{\varepsilon_0}{4} \left[ \abs{\Ert}^2 + c^2 \abs{\Brt}^2\right] ,
+ \end{equation}
+where we have used $\varepsilon_0 \mu_0 c^2 = 1$, then we can take the time average of both sides of \eqn{j_dot_e} and write \emph{Poynting's Theorem} as
+ \begin{equation} \label{eqn:poynting_thm_vac}
+\ppt u\rt + \divr \mathbf{S}\rt  = -\frac{1}{2 \mu_0} \Re\left[\mathbf{j}\rt \dotp \mathbf{E}^\ast\rt\right] .
+ \end{equation}
+Perhaps it is easiest to interpret this result by taking the volume integral of both sides, as in \eqn{dW_dt}. We consider an integration volume $\mathcal{V}$ with a bounding surface $\mathcal{S}$ large enough to contain all of the charges in the system. The term on the \rhs of \eqn{poynting_thm_vac} is the time-averaged rate at which energy is being transferred from the charged particles to the fields, while the first term on the \lhs of \eqn{poynting_thm_vac}, $(\partial/\partial t) \intV u\rt$, is the time-averaged rate at which the energy stored in the fields is changing. Using the Divergence Theorem given by \eqn{divr_thm}, the second term on the \lhs can be written
+ \begin{equation} \label{eqn:poynting_power_flow}
+ \intV \divr \mathbf{S}\rt = \intS \nhat \dotp \mathbf{S}\rt ,
+ \end{equation}
+representing the time-averaged rate at which energy stored in the fields is flowing out of $\mathcal{V}$ through $\mathcal{S}$. The magnitude of the Poynting vector is usually referred to as either ``energy flux'' in electromagnetics\index{Energy flux} or ``intensity''\index{Intensity} in laser physics and engineering, and it has units of power (energy per unit time) per unit area.
+
+ \subsection{Electromagnetic Wave Propagation in Vacuum\label{sct:em_wave_eqn_vac}}\index{Electromagnetic waves!vacuum}
+
+Let us now study the behavior of optical-frequency electromagnetic fields in a volume within which there are no charges, or $\rho\rt = 0$ and $\bmi{j}\rt = 0$. Taking the curl of \eqn{micro_faraday} and then employing \eqn{micro_ampere}, we find
+ \begin{equation}
+ \curl\curl\bmc{E}\rt = -\ppt\curl\bmc{B}\rt = -\frac{1}{c^2} \pptt \bmc{E}\rt .
+ \end{equation}
+We can find an identical relationship for $\bmc{B}\rt$ by taking the curl of \eqn{micro_ampere}, and then applying \eqn{micro_faraday}. Using \eqn{curl_curl_a}, and noting that $\divr \bmc{E}\rt = 0$ and $\divr \bmc{B}\rt = 0$, we derive the second-order decoupled wave equations\index{Wave equations!exact, in vacuum}
+ \begin{subequations} \label{eqn:wave_eqns_vac}
+ \begin{align}
+ \lapl \bmc{E}\rt - \frac{1}{c^2} \pptt \bmc{E}\rt &= 0, \nd \label{eqn:wave_eqn_e_vac} \\
+ \lapl \bmc{B}\rt - \frac{1}{c^2} \pptt \bmc{B}\rt &= 0 . \label{eqn:wave_eqn_b_vac}
+ \end{align}
+ \end{subequations}
+These wave equations are solved by any function $\bmc{F}(\nhat \dotp \mathbf{r} - c t)$, where $\nhat \equiv \{n_x, n_y, n_z\}$ is an arbitrary unit vector, since $\lapl \bmc{F} = 2(n_x^2 + n_y^2 + n_z^2) \bmc{F}'' = 2\, \bmc{F}''$, and $\partial^2 \bmc{F}/\partial t^2 = 2 c^2\, \bmc{F}''$. Physically, $\bmc{E}$ and $\bmc{B}$ represent \emph{vector}
+waves of constant shape traveling in the $\nhat$ direction at speed $c$. For example, let $\nhat$ = $\hatb{z}$. Then, in \fig{constant_field}, the amplitude of the field point $A$ corresponds to a fixed value of the argument $z - c t = \text{ constant }$, which implies $\partial z/\partial t = 0$.
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=4.0in]{figures/constant_field}
+  \caption{\label{fig:constant_field}Propagation of a constant field with amplitude $|\mathbf{E}(z, t)|$.}
+ \end{figure}
+
+Rather than examine in detail other properties of general solutions to \eqn{wave_eqns_vac}, we will analyze the case where the fields are nearly harmonic and propagate nearly unidirectionally, or $\bmc{E}\rt = \Re\{\exp[i(\mathbf{k} \dotp \mathbf{r} - \omega_0 t)] \Ert\}$ and $\bmc{B}\rt = \Re\{\exp[i(\mathbf{k} \dotp \mathbf{r} - \omega_0 t)] \Brt\}$ for a choice of $\mathbf{k}$ that will capture rapidly-varying spatial behavior. Since
+ \begin{equation} \label{eqn:d_emwt_f_dt}
+ \frac{\partial^n}{\partial t^n} \left[\emwnt f(t)\right] = \emwnt (-i)^n \left(\omega_0 + i \ppt\right)^n f(t) ,
+ \end{equation}
+where $(\omega_0 + i \partial/\partial t)^n$ represents the operator $\omega_0 + i \partial/\partial t$ applied $n$ consecutive times, by judicious use of \eqn{divr_fa} and \eqn{curl_fa} we find that the complex amplitude functions $\Ert$ and $\Brt$ obey the complex Maxwell equations
+ \begin{subequations} \label{eqn:micro_maxwell_c}
+ \begin{align}
+ \divr\Ert + i \mathbf{k} \dotp \Ert &= 0 \label{eqn:micro_gauss_c} \\
+ \divr\Brt + i \mathbf{k} \dotp \Brt &= 0 \label{eqn:micro_div_c} \\
+ \curl\Ert + i \mathbf{k} \cross \Ert - i\left(\omega_0 + i \ppt\right) \Brt &= 0 \label{eqn:micro_faraday_c} \\
+ \curl\Brt + i \mathbf{k} \cross \Brt + \frac{i}{c^2} \left(\omega_0 + i \ppt\right) \Ert &= 0
+\label{eqn:micro_ampere_c}
+ \end{align}
+ \end{subequations}
+In the case of nearly unidirectional propagation, we can adopt the slowly-varying envelope approximation\index{Slowly-varying envelope approximation (SVEA)}
+ \begin{subequations} \label{eqn:svea_r}
+ \begin{align}
+ \divr\Ert &\ll i \mathbf{k} \dotp \Ert , \nd \\
+ \curl\Ert &\ll i \mathbf{k} \cross \Ert ,
+ \end{align}
+ \end{subequations}
+with similar expressions for $\Brt$. As in the case of \eqn{svea_t}, these inequalities hold for both the real and imaginary parts of the corresponding relations. Applying the SVEA to \eqn{micro_maxwell_c}, we see immediately that
+ \begin{align*}
+ \mathbf{k} \dotp \Ert &\approx 0 &\mathbf{k} \cross \Ert &\approx \omega_0 \Brt \\
+ \mathbf{k} \dotp \Brt &\approx 0 &\mathbf{k} \cross \Brt &\approx -\frac{\omega_0}{c^2} \Ert
+ \end{align*}
+In other words, both $\Ert$ and $\Brt \approx \mathbf{k} \cross \Ert/\omega_0$ are approximately perpendicular to $\mathbf{k}$, and the orientations of the three vectors $\mathbf{k}$, $\Ert$, and $\Brt$ follow the right-hand rule if they are purely real. Since, by \eqn{a_cross_b_cross_c}, $\mathbf{k} \cross [\mathbf{k} \cross \Ert] = - (\mathbf{k} \dotp \mathbf{k}) \Ert$, the two equations on the \rhs are consistent if $\mathbf{k}$ is real and $|\mathbf{k}| = \omega_0/c$. In this case, we can use \eqn{poynting_vector_vac} and \eqn{energy_density_vac} to calculate the time-averaged Poynting vector and energy density for a nearly unidirectional wave to be
+ \begin{align}
+\mathbf{S}\rt &= \half \varepsilon_0 c \left|\Ert\right|^2 \hatb{k} , \label{eqn:poynting_vector_ud_vac} \nd \\
+u\rt &= \half \varepsilon_0 \left|\Ert\right|^2 , \label{eqn:energy_density_ud_vac}
+ \end{align}
+where $\hatb{k} \equiv \mathbf{k}/|\mathbf{k}|$ is a unit vector oriented in the primary direction of propagation. Note that $|\mathbf{S}\rt| = c u\rt$, consistent with our interpretation of the \lhs of \eqn{poynting_thm_vac}.
+
+If we apply \eqn{lapl_fa} and \eqn{d_emwt_f_dt} to \eqn{wave_eqn_e_vac}, then we find the modified wave equation for the complex electric field amplitude function $\Ert$ to be
+ \begin{equation} \label{eqn:wave_eqn_vac_c}
+\left(\lapl - \frac{1}{c^2} \pptt\right) \Ert + i\, 2\left(\mathbf{k} \dotp \grad\right) \Ert + i \frac{2 \omega_0}{c^2} \ppt \Ert - \left[ \left|\mathbf{k}\right|^2 - \left(\frac{\omega_0}{c}\right)^2 \right] \Ert = 0 ,
+ \end{equation}
+or, in the time-independent case where $\partial \Ert/\partial t = 0$,
+ \begin{equation} \label{eqn:wave_eqn_vac_ti}
+\lapl \mathbf{E}(\mathbf{r}) + i\, 2\, k_z \ppz \mathbf{E}(\mathbf{r}) - \left[ k_z^2 - \left(\frac{\omega_0}{c}\right)^2 \right] \mathbf{E}(\mathbf{r}) = 0 ,
+ \end{equation}
+where we have taken $\mathbf{k}$ to be parallel to the $+z$-axis. Depending on the relevant boundary conditions and assumptions made about the functional form of $\Ert$, there are a number of well-known analytic solutions to \eqn{wave_eqn_vac_ti} found in textbooks and the literature, including:
+ \begin{description}
+ \item[Plane Waves.] If we choose $\Ert$ to be completely independent of space and time, then the resulting electric and magnetic fields are given by
+     \begin{subequations} \label{eqn:plane_wave_eb_vac}
+     \begin{align}
+     \bmc{E}\zt &= \half \epkzwnt \mathbf{E} + \cc , \label{eqn:plane_wave_e_vac} \nd \\
+     \bmc{B}\zt &= \half \epkzwnt \mathbf{B} + \cc , \label{eqn:plane_wave_b_vac}
+     \end{align}
+     \end{subequations}
+     where $k = \omega_0/c$ exactly. Both $\bmc{E}\zt$ and $\bmc{B}\zt$ are infinite in extent transverse to the $z$-axis, and for any particular value of $z$ the spatial contribution to the phase of each field is constant over the $x y$-plane. These \emph{plane waves}\index{Plane waves!vacuum} are often useful for building an intuitive picture of the physics of some matter-field system, particularly in the context of the Fourier expansion given by \eqn{fourier_expn}, which may be thought of as a sum over coherent contributions from a collection of plane waves $\epkrwnt$ that have different propagation directions in space. By inspection of \eqn{micro_gauss_c}, given $\mathbf{k} = \hatb{z}\, \omega_0/c$ the constant complex vector amplitude for the electric field can be written as
+     \begin{equation} \label{eqn:epsilon_def}
+     \mathbf{E} = E\, \hatb{\epsilon} \equiv E \left( \epsilon_x \hatb{x} + \epsilon_y \hatb{y} \right) ,
+     \end{equation}
+     where $E$ is a real number and $\epsilon_x$ and $\epsilon_y$ are complex numbers satisfying $|\epsilon_x|^2 + |\epsilon_y|^2 = 1$. Then \eqn{micro_faraday_c} yields
+     \begin{equation}
+     \mathbf{B} = \frac{E}{c}\, \hatb{z} \cross \hatb{\epsilon} = \frac{E}{c} \left( -\epsilon_y \hatb{x} + \epsilon_x \hatb{y} \right) .
+     \end{equation}
+     We see immediately that $\mathbf{E} \dotp \mathbf{B} = 0$, and a little algebra shows that $\bmc{E}\zt \dotp \bmc{B}\zt = 0$ exactly even though $\mathbf{E} \dotp \mathbf{B}^\ast \ne 0$. From \eqn{poynting_vector_ud_vac} and \eqn{energy_density_ud_vac}, we note the energy density is constant everywhere in space, so that the total energy $U = \int d^3 r\, u\rt$ diverges. In other words, we'd need infinite energy to generate a true plane wave, so we usually pretend that a model plane wave under consideration has a finite transverse extent.
+ \item[Nondiffracting Beams.] If we consider only azimuthally symmetric scalar fields that are independent of $z$, then $\mathbf{E}(\mathbf{r}) \equiv E(\bm{\rho})$, where $\bm{\rho} \equiv \rho \bm{\hat{\rho}} \equiv \hatb{x}\, x + \hatb{y}\, y$. Applying \eqn{lapl_cyln} to \eqn{wave_eqn_vac_ti} yields
+     \begin{equation} \label{eqn:bessel_pde}
+     \frac{\partial^2}{\partial \rho^2} E + \frac{1}{\rho} \frac{\partial}{\partial \rho} E + k_\rho^2 E = 0 ,
+     \end{equation}
+     where $k_\rho^2 = (\omega_0/c)^2 - k_z^2$. This is simply Bessel's equation of order 0 \cite{ref:abramowitz1972hmf}, which has the solution
+     \begin{equation} \label{eqn:bessel_beam}
+     E(\rho) = J_0(k_\rho \rho) .
+     \end{equation}
+     Note that (by assumption) the transverse profile of this field is invariant as it propagates along the $z$-axis, leading to its designation as a ``nondiffracting'' beam \cite{ref:durnin1987dfb}. As in the case of the plane wave, the total energy of the field diverges \cite{ref:durnin1987esn}, but there are a number of laboratory techniques that can be used to create quasi-Bessel beams with a large depth of field \cite{ref:brzobohaty2008hqq}. Practical applications of the quasi-Bessel beams include micromanipulation and guiding of particles \cite{ref:cizmar2006smp} and long-range optical coherence tomography \cite{ref:ding2002hro}.
+ \item[Gaussian Beams.] Suppose now that we allow $\mathbf{E}(\mathbf{r})$ to vary with $z$, but we make the \emph{paraxial approximation}\index{Paraxial approximation} and assume that $\mathbf{E}$ transversely expands (or contracts) and longitudinally attenuates (or grows) very slowly compared to $e^{\pm i k z}$. Then, in \eqn{wave_eqn_vac_ti}, we have (1) $k_x^2 + k_y^2 = k_\rho^2 + k_\phi^2 \ll k_z^2 \approx (\omega_0/c)^2$, and (2) $\partial^2 \mathbf{E}/\partial z^2 \ll i k_z \partial \mathbf{E}/\partial z$, giving \cite{ref:siegman1986l,ref:oughstun1987urm}
+     \begin{equation} \label{eqn:paraxial_pde_vac}
+     \nabla_\perp^2 \mathbf{E}(\mathbf{r}) + i\, 2\, k_z \ppz \mathbf{E}(\mathbf{r}) = 0 ,
+     \end{equation}
+     where, by \eqn{lapl_cart} and \eqn{lapl_cyln},
+     \begin{equation} \label{eqn:lapl_perp_def}
+     \nabla_\perp^2 \equiv \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} = \frac{1}{\rho} \frac{\partial}{\partial \rho} \left(\rho \frac{\partial}{\partial \rho}\right) + \frac{1}{\rho^2} \frac{\partial^2}{\partial \phi^2} .
+     \end{equation}
+     Well-known analytic solutions to \eqn{paraxial_pde_vac} --- denoted collectively as ``Gaussian beams'' for reasons that will become clear in \chp{laser_resonators_3d} --- exist for both forms of $\nabla_\perp^2$. These fields are eigenmodes of stable spherical-mirror laser resonators, and in each of these cases the integral of the energy density over the transverse plane converges. In laser modeling problems where mirror substrates are circular and cylindrical symmetry is likely to hold, families of analytic solutions to \eqn{paraxial_pde_vac} known as ``circular beams'' \cite{ref:bandres2008cb} have been studied extensively, but this symmetry is less relevant in practice than one might think. First, many laser resonators (such as the ring cavity shown in \fig{laser_resonator_1d_ring}) do not necessarily have cylindrical symmetry, because of astigmatism in the $x y$-plane due to off-axis reflection from curved mirrors or asymmetric gain or thermal loading in the laser amplifier. Even in the case of a standing-wave resonator with circular mirrors (such as the cavity shown in \fig{laser_resonator_1d_sw}), the mirror mounts generally have cartesian adjustments, and we will often see high-order cartesian beams in the laboratory as a result. Nevertheless, unless we need to make highly accurate predictions of cavity stability under conditions of large-angle alignment errors \cite{ref:beausoleil1999sml}, we will usually take advantage of cylindrical symmetry when we model optimum laser system performance.
+ \end{description}

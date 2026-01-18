@@ -1,0 +1,36 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{The Dirac Delta Function\label{sct:math_prelim_dirac_delta}}
+
+ \subsection{Fourier Transform\label{sct:math_prelim_dirac_delta_fourier}}
+ The Fourier transform of the one-dimensional Dirac delta function is given by
+ \begin{equation} \label{eqn:dirac_delta_1d_ft}
+ \delta\left(x - x_0\right) = \int_{-\infty}^{+\infty} \frac{d k}{2 \pi} e^{i k (x - x_0)} ,
+ \end{equation}
+with the straightforward extension to three dimensions written as
+ \begin{equation} \label{eqn:dirac_delta_3d_ft}
+ \delta\left(\mathbf{r} - \mathbf{r}_0\right) = \int_{-\infty}^{+\infty} \frac{d^3 k}{(2 \pi)^3} e^{i \mathbf{k} \dotp (\mathbf{r} - \mathbf{r}_0)} .
+ \end{equation}
+
+ \subsection{Composition with a Function\label{sct:math_prelim_dirac_delta_composition}}
+If $g(x)$ is a continuously differentiable function with a set $\{x_k\}$ of simple roots, and it's derivative $g'(x) \neq 0$ everywhere in the domain of interest, then
+ \begin{equation} \label{eqn:dirac_delta_composition}
+\delta\left[g(x)\right] = \sum_k \frac{\delta\left(x - x_k\right)}{\left| g^\prime(x_k) \right|} .
+ \end{equation}
+For example,
+ \begin{equation*}
+\delta(a x) = \frac{\delta(x)}{|a|} ,
+ \end{equation*}
+and
+ \begin{equation*}
+\delta\left(x^2 - b^2\right) = \frac{1}{2 |b|} \left[ \delta(x + b) + \delta(x - b) \right] .
+ \end{equation*}

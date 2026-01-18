@@ -1,0 +1,571 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id: $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Quasi-Normal Modes\label{sct:laser_resonators_1d_qnm}}
+
+In \eqn{bmc_e_def}, we have defined the real vector electric field that is rapidly varying in both space and time as
+ \begin{equation}
+\bmc{E}\rt = \frac{\emwnt}{2}\, \Ert + \cc ,
+ \end{equation}
+where $\Ert$ is a complex vector electric field amplitude that varies rapidly in space but slowly in time. In turn, following \eqn{e_field_1d_pz}, we express this vector amplitude for the case of forward and backward propagating waves in one dimension in terms of the complex scalar amplitudes $E^+\zt$ and $E^-\zt$ of fields that varies slowly in both space and time as
+ \begin{subequations}
+ \begin{align}
+ \mathbf{E}^{+}\rt &\equiv \hatb{\epsilon}\, e^{+i\, k_0\wn\, z}\, E^{+}\zt , \nd \\
+ \mathbf{E}^{-}\rt &\equiv \hatb{\epsilon}\, e^{-i\, k_0\wn\, z}\, E^{-}\zt
+ \end{align}
+ \end{subequations}
+where $\hatb{\epsilon}$ is a complex polarization vector and $k_0\wn = \Re\left[\beta\wn\right] = (\omega_0/c) n\wn$ is the effective propagation vector magnitude. These slowly-varying envelope functions solve the appropriate homogeneous wave equation, given by \eqn{wave_eqn_1d_w_lin_pz} and \eqn{wave_eqn_1d_w_lin_mz} in the frequency domain. In the following discussion, our goal will be to use the solutions to these equations --- given in \sct{wg_smat} --- to find the frequencies of the eigenmodes of \eqn{wave_eqn_1d_w_lin_pz} and \eqn{wave_eqn_1d_w_lin_mz} that satisfy the internal boundary conditions appropriate for a laser resonator.
+%\eqn{wave_eqn_1d} in the time domain as
+% \begin{subequations} \label{eqn:wave_eqn_1d_fb}
+% \begin{align}
+% \label{eqn:wave_eqn_1d_forward} \ppt E^+\zt + \frac{c}{n^\prime\wn}\, \ppz E^+\zt + \frac{c}{2\, n^\prime\wn}\, \alpha\wn\, E^+\zt
+%&= i \frac{\omega_0}{2\, \varepsilon_0}\, \frac{\eta\wn}{n^\prime\wn}\, P^+\zt , \nd \\
+% \label{eqn:wave_eqn_1d_backward} \ppt E^-\zt - \frac{c}{n^\prime\wn}\, \ppz E^-\zt + \frac{c}{2\, n^\prime\wn}\, \alpha\wn\, E^-\zt
+%&= i \frac{\omega_0}{2\, \varepsilon_0}\, \frac{\eta\wn}{n^\prime\wn}\, P^-\zt .
+% \end{align}
+% \end{subequations}
+%In the following discussion, our goal will be to use the solutions to the corresponding homogenous wave equation in the frequency domain --- given in \sct{wg_smat} --- to find the frequencies of the eigenmodes of the \lhs of \eqn{wave_eqn_1d_forward} and \eqn{wave_eqn_1d_backward} that satisfy the internal boundary conditions appropriate for a laser resonator.
+
+ \red{This section needs a better introduction than this. The concept of ``modes of the universe'' and the history of approaches to this problem should be described, so that the utility of the approach here is highlighted. It would probably be a good idea to move \eqn{forward_prop_w_z} here.}
+
+ \subsection{Eigenfunctions of a 1D Unidirectional Ring Resonator\label{sct:laser_resonators_1d_url}}
+Consider a laser cavity selected from the set of one-dimensional resonators shown in \fig{resonator_1d_smat} with $R_2 = 1$ and $\mathbf{F}_2(t) = 0$. We will define the reflectivity of the output coupling mirror $\mathcal{M}_1$ as $R \equiv R_1$.
+%, and we will incorporate any scattering and absorption losses in the coatings of the other mirrors using the approach followed in developing \eqn{alpha_general}.
+In the absence of the injected field $\mathbf{F}_1(t)$, the boundary condition satisfied by the forward-propagating intracavity field amplitude $\mathbf{E}^+(z, \omega)$ is given by \eqn{resonator_1d_w_bc} as
+ \begin{equation} \label{eqn:laser_resonator_1d_w_bc_pz}
+\mathbf{E}^+(0, \omega) = \sqrt{R}\, \mathbf{E}^+(1, \omega) ,
+ \end{equation}
+As described in \sct{wg_smat}, the solution to \eqn{wave_eqn_1d_w_lin_pz} in the frequency domain is given by \eqn{forward_prop_w}, which when substituted into \eqn{e_field_1d_pz} yields
+ \begin{equation} \label{eqn:laser_resonator_1d_w_forward}
+\mathbf{E}^+(1, \omega) = G(1, \omega)\, \mathbf{E}^+(0, \omega) ,
+ \end{equation}
+as given by \eqn{e_prop_1d_p} for the case where $z_1 = 0$ and $z_2 = 1$. If we substitute \eqn{laser_resonator_1d_w_forward} into the \rhs of \eqn{laser_resonator_1d_w_bc_pz}, we obtain the constraint
+ \begin{equation} \label{eqn:laser_resonator_1d_eigen_eqn}
+\sqrt{R}\, G(1, \omega) = \sqrt{R}\, \exp\left[ i\, \omega_0\, \tau/\tau_g + i\, \omega - \half \alpha\wn \right] = \Gamma\, e^{i \omega} = 1 ,
+ \end{equation}
+where $\Gamma$ is given by \eqn{fpi_gamma_def} with $R_1 \equiv R$ and $R_2 = 1$. We note that the contribution of $\omega_0\, \tau = k_0\wn$ in $\Gamma$ is in fact the result of the rapidly-varying factor $e^{+i\, k_0\wn\, z}$ accumulating phase over one full cavity round-trip, and should be neglected in our construction of slowly-varying spatial eigenmodes of the cavity. We can do this by modifying the boundary condition given by \eqn{laser_resonator_1d_w_bc_pz} to include a factor of $e^{i \omega_0 \tau}$, or by choosing $\omega_0$ such that $e^{i \omega_0 \tau} = 1$.
+
+By comparing this result with \eqn{fpi_fw_def} and \eqn{mittag_leffler}, we see immediately that the eigenfrequencies $\omega \equiv \nu_q$ which satisfy \eqn{laser_resonator_1d_eigen_eqn} are those of the poles of \eqn{fpi_fghw_def}, with the rapidly-varing phase removed. The corresponding complex propagation constant is given by \eqn{f_pole_q} as
+ \begin{equation} \label{eqn:laser_resonator_1d_kappa_def}
+\frac{\nu_q}{c} \equiv \frac{2 q \pi + i \ln \left|\Gamma\right|}{L_g} ,
+ \end{equation}
+where the round-trip group cavity length is defined in terms of \eqn{tau_group_def} as
+ \begin{equation} \label{eqn:laser_resonator_1d_L_group_def}
+L_g \equiv c \tau_g = n^\prime\wn L .
+ \end{equation}
+The eigenfunctions $u_q\z$ we seek satisfy \eqn{wave_eqn_1d_w_lin_pz} with $\omega = \nu_q$ (and $e^{i \omega_0 \tau} = 1$), or
+ \begin{equation} \label{eqn:laser_resonator_1d_u_hlde}
+\ddz u_q\z -i\, \nu_q\, u_q\z + \half\, \alpha\wn\, u_q\z = 0 ,
+ \end{equation}
+which has the solution
+ \begin{equation} \label{eqn:laser_resonator_1d_u_unnorm}
+u_q\z = \mathcal{C} \exp\left[ \left( i 2 q \pi + \ln\frac{1}{\sqrt{R}} \right) z \right] ,
+ \end{equation}
+where $\mathcal{C}$ is a normalization factor. We note that $u_q(0) = \mathcal{C}$, and $u_q(1) = \mathcal{C}/\sqrt{R}$, so an expansion of $E^+\zt$ as a series of these eigenfunctions satisfies the boundary condition given by \eqn{laser_resonator_1d_w_bc_pz} for the complex vector envelope function.
+
+In fact, we would like to follow the usual eigenfunction expansion approach for a self-adjoint differential operator, where we might expect that $\int_0^{1} dz\, u_q\z\, u^\ast_{p}\z  = |\mathcal{C}|^2 \delta_{q p}$. However, when $u_q\z$ is given by \eqn{laser_resonator_1d_u_unnorm}, we find
+ \begin{equation}
+ \begin{split}
+\int_0^1 dz\, u_q\z\, u_{p}^\ast\z &= |\mathcal{C}|^2 \int_0^1 dz\, e^{\left[i 2 \left(q - p\right) \pi + \ln(1/R)\right] z} \\
+&= |\mathcal{C}|^2\, \frac{e^{i 2 \left(q - p\right) \pi + \ln(1/R)} - 1}{i 2 \left(q - p\right) \pi + \ln(1/R)} ,
+ \end{split}
+ \end{equation}
+giving
+ \begin{equation}
+\int_0^1 dz\, u_q\z\, u_{p}^\ast\z = \Delta_{q - p}(R) ,
+ \end{equation}
+where
+\begin{equation} \label{eqn:laser_resonator_1d_Delta_qR}
+\Delta_q(R) \equiv \frac{1}{1 + i 2 q \pi / \ln\left( 1/R \right)} \approx
+  \begin{cases}
+    1 & \textrm{if } q = 0 \\
+    \left[\ln(1/R) / (2 q \pi)\right]^2 - i \left[\ln(1/R) / (2 q \pi)\right] & \textrm{if } q \ne 0
+  \end{cases}
+ \end{equation}
+and we have chosen the normalization constant
+ \begin{equation}\label{eqn:laser_resonator_1d_u_norm_url}
+ \mathcal{C} \equiv \sqrt{\frac{R \ln(1/R)}{1 - R}} .
+ \end{equation}
+We are forced to conclude that the forward-propagating eigenmodes are not strictly self-orthogonal. As shown in \fig{laser_resonator_1d_Delta_qR}, $\Delta_q(R)$ can be reasonably approximated as a Kronecker delta function only as $R \rightarrow 1$. This nonorthogonality of the longitudinal eigenmodes has observable physical consequences, such as excess spontaneous emission into each mode of a laser~\cite{ref:hamel1990oef}.
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=4.5in]{figures/Delta_qR}
+  \caption{\label{fig:laser_resonator_1d_Delta_qR} Plot of the real and imaginary parts of $\Delta_q(R)$, defined by \eqn{laser_resonator_1d_Delta_qR}, as a function of the output coupler reflectivity $R$.}
+ \end{figure}
+
+ \begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.00in]{figures/resonator_1d_forward}
+   \caption{Forward propagation}
+   \label{fig:resonator_1d_forward}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.00in]{figures/resonator_1d_backward}
+   \caption{Backward propagation}
+   \label{fig:resonator_1d_backward}
+  \end{subfigure}
+  \caption{\label{fig:resonator_1d_prop} Diagrams of ``unfolded'' cavities depicting round-trip propagation in the (a) forward and (b) backward directions. Although each of these pictures resembles a standing-wave cavity, they in fact represent any of the resonator configurations shown in \fig{resonator_1d_smat}.}
+ \end{figure}
+
+The difficulty arises because the boundary condition at the output coupler turns the laser resonator into an ``open system:'' although the differential operator governing our wave equation is self-adjoint, the boundary condition given by \eqn{laser_resonator_1d_w_bc_pz} breaks this symmetry. We can see this immediately for the simple case where the interior of the cavity is vacuum, so that $n^\prime = 1$ and $\alpha = 0$. If we formally integrate the \lhs of \eqn{wave_eqn_1d_w_lin_pz}, then we obtain
+ \begin{equation}
+E^+\zw = -i \frac{\omega}{c} \int_{0}^{1} d z^\prime\, K\left(z, z^\prime\right)\, E^+\left(z^\prime, \omega\right) ,
+ \end{equation}
+where $K\left(z, z^\prime\right)$ is the Green's function (or \emph{propagator}) that satisfies both the differential equation
+ \begin{equation}
+\ppz K\left(z, z^\prime\right) = -\delta\left(z - z^\prime\right)
+ \end{equation}
+and the boundary condition $K\left(0, z^\prime\right) = \sqrt{R}\, K\left(1, z^\prime\right)$. By inspection, we construct this propagator as
+ \begin{equation}
+K\left(z, z^\prime\right) = -\frac{\Theta\left(z - z^\prime\right) + \sqrt{R}\, \Theta\left(z^\prime - z\right)}{1 - \sqrt{R}} ,
+ \end{equation}
+where $\Theta\z$ is the Heaviside Theta function. We note immediately that $K\left(z, z^\prime\right)$ is \emph{not} Hermitian: since $\Theta\z$ is not even in its argument, $K\left(z, z^\prime\right) \neq K\left(z^\prime, z\right)$. This property is ubiquitous in laser physics; we shall see in \chp{laser_resonators_3d} that the transverse eigenmodes of open-sided laser resonators are not self-orthogonal.
+
+ \subsection{Biorthogonality and Completeness of the Eigenfunctions}
+
+ \red{This subsection needs a proper introduction.}
+ \begin{equation} \label{eqn:laser_resonator_1d_w_bc_mz}
+\mathbf{E}^-(1, \omega) = \sqrt{R}\, \mathbf{E}^-(0, \omega) ,
+ \end{equation}
+
+Therefore, the slowly-varying backward-propagating eigenfunctions we seek satisfy \eqn{wave_eqn_1d_w_lin_mz} with $\omega = \nu_q$, or
+ \begin{equation} \label{eqn:laser_resonator_1d_v_hlde}
+\ddz v_q\z + i\, \nu_q\, v_q\z - \half\, \alpha\wn\, v_q\z = 0 ,
+ \end{equation}
+which has the solution
+ \begin{equation} \label{eqn:laser_resonator_1d_v_unnorm}
+v_q\z \equiv \mathcal{C}^\prime \exp\left[ -\left( i 2 q \pi + \ln\frac{1}{\sqrt{R}} \right) z \right] .
+ \end{equation}
+In this case, we find that $v_q(0) = \mathcal{C}^\prime$, and $v_q(1) = \mathcal{C}^\prime \sqrt{R}$, so these eigenfunctions satisfy the same boundary condition given by \eqn{laser_resonator_1d_w_bc_mz} as the backward-propagating complex vector envelope function.
+
+%\red{so an expansion of $E^-\zt$ as a series of these eigenfunctions satisfies the boundary condition given by \eqn{laser_resonator_1d_w_bc_mz} for the backward-propagating complex vector envelope function.}
+
+\red{Let us now try to find an integral relationship that allows us to \dots} If we multiply \eqn{laser_resonator_1d_u_hlde} by $v_{p}\z$ and \eqn{laser_resonator_1d_v_hlde} (with $q \rightarrow p$) by $u_q\z$ and then add the results, we obtain
+ \begin{equation}
+\ddz \left[u_q\z v_{p}\z\right] - i\, 2 \pi \left(q - p\right) u_q\z v_{p}\z = 0 .
+ \end{equation}
+Integrating both sides of this equation from $z = 0$ to $z = 1$ yields
+ \begin{equation}
+2 \pi \left(q - p\right) \int_{0}^{1} dz\, u_q\z\, v_{p}\z = -i\left[ u_q(1)\, v_{p}(1) - u_q(0)\, v_{p}(0) \right] = 0 ,
+ \end{equation}
+since $u_q(1) v_{p}(1) = u_q(0) v_{p}(0) = \mathcal{C} \mathcal{C}^\prime$. Therefore, if $q \neq p$, the integral on the \lhs of this equation must vanish. We can verify this explicitly using the functional forms of $u_q\z$ and $v_q\z$ given by \eqn{laser_resonator_1d_u_unnorm} and \eqn{laser_resonator_1d_v_unnorm}, respectively; we find that the result of the integral is given by $\mathcal{C} \mathcal{C}^\prime \delta_{q p}$. If we choose the scaling constant $\mathcal{C}^\prime = 1/\mathcal{C}$, where $\mathcal{C}$ is given by \eqn{laser_resonator_1d_u_norm_url}, and define
+ \begin{subequations} \label{eqn:laser_resonator_1d_uv}
+ \begin{align}
+ u_q\z &\equiv \mathcal{C}\, e^{+\left[ i 2 q \pi + \ln(1/\sqrt{R}) \right] z} , \nd \label{eqn:laser_resonator_1d_u} \\
+ v_q\z &\equiv \frac{1}{\mathcal{C}}\, e^{-\left[ i 2 q \pi + \ln(1/\sqrt{R}) \right] z} , \label{eqn:laser_resonator_1d_v}
+ \end{align}
+ \end{subequations}
+then $u_q\z$ and $v_q\z$ jointly satisfy the weighted \emph{biorthogonality relation}\index{Biorthogonality}
+ \begin{equation} \label{eqn:laser_resonator_1d_uv_biortho}
+\int_{0}^{1} dz\, u_q\z\, v_{p}\z = \delta_{q p} .
+ \end{equation}
+
+Before we can develop a self-consistent approach to expanding the intracavity slowly-varying scalar envelope function $E^+\zt$, we need to find a relation that establishes the completeness of the eigenfunctions defined by \eqn{laser_resonator_1d_uv}. Consider the sum
+ \begin{equation} \label{eqn:laser_resonator_1d_uv_precomp}
+\sum_{q = -\infty}^\infty u_q\z\, v_q\zp = e^{- \ln\left(\sqrt{R}\right)\, (z - z^\prime)}\, \sum_{q = -\infty}^\infty e^{i 2 q \pi (z - z^\prime)} .
+ \end{equation}
+Relying on the definition of the Dirac comb~\cite{ref:stone2009mfp},
+ \begin{equation} \label{eqn:dirac_comb}
+\sum_{q = -\infty}^\infty e^{i 2 q \pi (z - z^\prime)} = \sum_{m = -\infty}^\infty \delta\left(z - z^\prime + m\right) ,
+ \end{equation}
+we find
+ \begin{equation} \label{eqn:laser_resonator_1d_uv_precomp2}
+\sum_{q = -\infty}^\infty u_q\z\, v_q\zp = \sum_{m = -\infty}^\infty R^{m/2} \delta\left(z - z^\prime + m\right) .
+ \end{equation}
+If we confine $\abs{z - z^\prime} < 1$, then terms on the \rhs of this expression with $m \neq 0$ will not contribute, and we have the \emph{completeness relation}\index{Completeness}
+ \begin{equation} \label{eqn:laser_resonator_1d_uv_complete}
+\sum_{q = -\infty}^\infty u_q\z\, v_q\zp = \delta\left(z - z^\prime\right) ,
+ \end{equation}
+valid for $0 < z < 1$ (i.e., everywhere in the cavity \emph{except} at the boundary).
+
+We now have the machinery at our disposal to find a valid expansion of the forward-propagating field $E^+\zt$ as a series of time-dependent coefficients multiplied by the functions $u_q\z$. Dropping the subscript, we have
+ \begin{equation}% \label{eqn:f_ml}
+ \begin{split}
+E\zt &= \int_{0}^{1} d z^\prime\, \delta\left(z - z^\prime\right) E(z^\prime, t) \\
+     &= \sum_{q = -\infty}^\infty u_q\z \int_{0}^{1} d z^\prime\, v_q\zp  E(z^\prime, t) ,
+ \end{split}
+ \end{equation}
+or
+ \begin{equation}
+E\zt = \sum_{q = -\infty}^\infty u_q\z\, E_q(t) ,
+ \end{equation}
+where
+ \begin{equation}
+E_q(t) \equiv \int_{0}^{1} d z\, v_q\z  E\zt .
+ \end{equation}
+We make two adjustments to these expressions before choosing the final form of our slowly-varying eigenfunction expansions. The argument $2 q \pi \equiv \Delta k_q$ in the exponent of $u_q\z$ represents a small change in the propagation constant $k_0\wn$. There must be a corresponding small shift in the carrier frequency $\omega_0$, since
+ \begin{equation}
+ \begin{split}
+k_0\left(\omega_0 + \delta \omega\right) &= \frac{\left(\omega_0 + \delta \omega\right) n\left(\omega_0 + \delta \omega\right)}{c} \\
+&\cong k_0\wn + \frac{\delta \omega}{c}\, \left[ n\wn + \omega_0 \frac{d n\wn}{d \omega_0} \right] \\
+&= k_0\wn + \frac{n^\prime\wn}{c}\, \delta \omega \\
+&\equiv k_0\wn + \delta k .
+ \end{split}
+ \end{equation}
+If $\delta k = \Delta k_q$, then we must have
+ \begin{equation}\label{eqn:delta_w_q_def}
+\delta \omega = \Delta \omega_q \equiv \frac{c}{n^\prime\wn}\, \Delta k_q = \frac{2 q \pi}{\tau_g} = q \Delta \omega_\text{FSR} ,
+ \end{equation}
+where $\Delta \omega_\text{FSR}$ is defined by \eqn{delta_w_fsr_def}.
+Therefore, we can define the effective rapidly-varying propagation vector and frequency of each eigenmode as
+ \begin{subequations}
+ \begin{align}
+ \label{eqn:k_q_def} k_q &\equiv k_0\wn + 2 q \pi , \nd \\
+ \label{eqn:w_q_def} \omega_q &\equiv \omega_0 + 2 q \pi ,
+ \end{align}
+ \end{subequations}
+For convenience, then, we make this frequency shift explicit, and write our expansions as
+ \begin{equation} \label{eqn:laser_resonator_1d_ezt_expansion}
+E\zt = \sum_{q = -\infty}^\infty u_q\z\, e^{-i \Delta \omega_q t}\, E_q(t) ,
+ \end{equation}
+where
+ \begin{equation} \label{eqn:laser_resonator_1d_eq_def}
+E_q(t) \equiv e^{+i \Delta \omega_q t} \int_{0}^{1} d z\, v_q\z  E\zt .
+ \end{equation}
+The analogs of these two equations in the frequency domain are straightforward.
+
+The output electric field $E_1(t) = \sqrt{1 - R}\, E(1, t)$ takes on a particularly elegant form given \eqn{laser_resonator_1d_u} and \eqn{laser_resonator_1d_ezt_expansion}. Since $u_q(1) = \mathcal{C}/\sqrt{R}$, using \eqn{laser_resonator_1d_u_norm_url} we obtain
+ \begin{equation}\label{eqn:laser_resonator_1d_url_out}
+E_1(t) = \sqrt{\ln\left(\frac{1}{R}\right)}\, \sum_{q = -\infty}^\infty e^{-i \Delta \omega_q t}\, E_q(t) .
+ \end{equation}
+
+%Corresponding to the spatially slowly-varying eigenfunctions given by \eqn{laser_resonator_1d_uv}, we have the rapidly-varying basis functions
+% \begin{subequations} \label{eqn:laser_resonator_1d_rv}
+% \begin{align}
+%\tilde{u}_q\z &\equiv \mathcal{C}\, e^{+\left[ i k_q + \ln\left(1/\sqrt{R}\right)\right] z} , \nd \label{eqn:laser_resonator_1d_u_rv} \\
+%\tilde{v}_q\z &\equiv \frac{1}{\mathcal{C}}\, e^{-\left[ i k_q + \ln\left(1/\sqrt{R}\right)\right] z} , \label{eqn:laser_resonator_1d_v_rv}
+% \end{align}
+% \end{subequations}
+%where $k_q$ is given by \eqn{k_q_def}. By inspection, these spatially rapidly-varying eigenmodes satisfy the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho} and the completeness relation given by \eqn{laser_resonator_1d_uv_complete}. Therefore, we can define the spatially rapidly-varying eigenfunction expansion
+% \begin{equation} \label{eqn:laser_resonator_1d_ezt_expansion_rv}
+%\tilde{E}\zt = \sum_{q = -\infty}^\infty \tilde{u}_q\z\, e^{-i \Delta \omega_q t}\, E_q(t) ,
+% \end{equation}
+%where
+% \begin{equation} \label{eqn:laser_resonator_1d_eq_def_rv}
+%E_q(t) \equiv e^{+i \Delta \omega_q t} \int_{0}^{1} d z\, \tilde{v}_q\z  \tilde{E}\zt .
+% \end{equation}
+%We note that both $\tilde{E}\zt$ and $E_q(t)$ continue to vary slowly in time.
+
+We close this section with the subtle but important observation that the functions $v_{q}\z$ are \emph{not} normalized. Rather, they are scaled to allow us to project field amplitudes such as $E^+\zt$ and $P^+\zt$ onto the space of functions $u_q\z$ using \eqn{laser_resonator_1d_eq_def}. Although $v_{q}\z$ has the functional form of backward-propagating fields, a bidirectional ring laser would need two properly normalized eigenfunction basis sets, $u^{+}_{q}\z$ and $u^{-}_{q}\z$, with the corresponding biorthogonal projectors, $v^{+}_{q}\z$ and $v^{-}_{q}\z$, to expand the counterpropagating fields within the resonator. We see this explicitly in the next section for the case of a standing-wave resonator.
+
+ \subsection{Eigenfunctions of a 1D Standing-Wave Resonator\label{sct:laser_resonators_1d_swl}}
+Let us now construct a similar set of eigenmodes for the standing-wave laser resonator shown in \fig{resonator_1d_sw_smat}, where both mirror reflection coefficients differ from unity. When we were analyzing the scattering matrices of resonant cavities in \sct{resonator_1d_smat}, it was convenient to ``fold'' the coordinate system so that $0 < z < 1/2$ represented the coordinate for propagation from the reference plane at $\mathcal{M}_1$ (just \emph{after} reflection) to the reference plane at $\mathcal{M}_2$ (just \emph{before} reflection), and $1/2 < z < 1$ represented the coordinate for propagation from the reference plane at $\mathcal{M}_2$ (just \emph{after} reflection) to the reference plane at $\mathcal{M}_1$ (just \emph{before} reflection). But this convenience isn't as helpful when we begin to construct physical models of lasers, where the total electric field at each point within the laser amplifier drives the evolution of the local population inversion.
+
+In the absence of the injected fields $\mathbf{F}_1(t)$ and $\mathbf{F}_1(t)$, the boundary conditions satisfied by the intracavity field amplitudes $\mathbf{E}^\pm(z, \omega)$ are given by \eqn{resonator_1d_w_bc} as
+ \begin{subequations} \label{eqn:laser_resonator_1d_w_bc_sw}
+ \begin{align}
+\mathbf{E}^+(0, \omega) &= -\sqrt{R_1}\, \mathbf{E}^-(0, \omega) , \nd \\
+\mathbf{E}^-(1/2, \omega) &= -\sqrt{R_2}\, \mathbf{E}^+(1/2, \omega) ,
+ \end{align}
+ \end{subequations}
+where we have repositioned the reference planes using \eqn{mirror_smat_new} to be consistent with the sign convention chosen in many of the discussions of standing-wave cavities in the literature. Then, in this case, the most convenient choice is to represent the rapidly-varying eigenmodes as a ``vector'' with components representing the solution of the full wave equations on $0 < z < 1/2$ subject to the boundary conditions. If we write~\cite{ref:hamel1989nle}
+%where $\Gamma$ is given by \eqn{fpi_gamma_def} with $R_1 \equiv R$ and $R_2 = 1$, and $\tau$ and $\tau_g$ are defined by \eqn{tau_def}.
+ \begin{equation} \label{eqn:laser_resonator_1d_u_sw_vec}
+\mathbf{u}_q\z = \begin{bmatrix} u^{+}_q\z \\ u^{-}_q\z \end{bmatrix} ,
+ \end{equation}
+then, following the analysis of \sct{laser_resonators_1d_url}, we find
+ \begin{subequations} \label{eqn:laser_resonator_1d_u_sw}
+ \begin{align}
+u^{+}_q\z &=\mathcal{C} e^{+\left[ i 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} , \nd \\
+ \begin{split}
+u^{-}_q\z &=-\mathcal{C} \sqrt{R_2}\, e^{+\left[ i 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] (1 - z)}  \\
+&=-\frac{\mathcal{C}}{\sqrt{R_1}} e^{-\left[ i 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} .
+ \end{split}
+ \end{align}
+ \end{subequations}
+It is clear that both of the boundary conditions --- at $z = 0$ and $z = 1/2$ --- are satisfied when we assume that $e^{i \omega_0 \tau} = e^{i k_0\wn} = 1$.  The normalization integral
+ \begin{equation}
+ \begin{split}
+\int_{0}^{1/2} dz\, \mathbf{u}_{q}\z \dotp \mathbf{u}_q^\ast\z &= |\mathcal{C}|^2 \left[ \int_{0}^{1/2} dz\, e^{z \ln\left( 1/ R_1 R_2 \right)} + \frac{1}{R_1} \int_{0}^{1/2} dz\, e^{-z \ln\left( 1/ R_1 R_2 \right)} \right] \\
+&= |\mathcal{C}|^2\, \frac{\left( \sqrt{R_1} + \sqrt{R_2} \right) \left( 1 - \sqrt{R_1 R_2} \right)}{R_1 \sqrt{R_2} \ln\left( 1/ R_1 R_2 \right)}
+ \end{split}
+ \end{equation}
+is unity if we choose the normalization constant
+ \begin{equation}\label{eqn:laser_resonator_1d_u_norm_swl}
+\mathcal{C} = \left[ \frac{2\, R_1 \sqrt{R_2}\, \ln\left( 1/\sqrt{R_1 R_2} \right)}{\left( \sqrt{R_1} + \sqrt{R_2} \right) \left( 1 - \sqrt{R_1 R_2} \right)} \right]^{1/2} .
+ \end{equation}
+Then the nonorthogonality integral is given by
+\begin{equation}
+  \begin{split}
+    \int_{0}^{1/2} dz\, \mathbf{u}_{p}\z \dotp \mathbf{u}_q^\ast\z &= \mathcal{C}^2 \left[ \int_{0}^{1/2} dz\, e^{[i\, 2\, (p - q)\, \pi + \ln\left( 1/ R_1 R_2 \right)]\, z} + \frac{1}{R_1} \int_{0}^{1/2} dz\, e^{-[i\, 2\, (p - q)\, \pi + \ln\left( 1/ R_1 R_2 \right)]\, z} \right] \\
+    &= \Delta^\prime_{p - q}(R_1\, R_2)\, ,
+  \end{split}
+\end{equation}
+where
+\begin{equation}  \label{eqn:laser_resonator_1d_Deltap_qR}
+\Delta^\prime_q(R_1\, R_2) \equiv 
+  \begin{cases}
+    \Delta_q(R_1\, R_2) & \textrm{if } q \textrm{ is even} \\
+    \frac{\left(1 + \sqrt{R_1\, R_2}\right) \left(\sqrt{R_2} - \sqrt{R_1}\right)}{\left(\sqrt{R_1} + \sqrt{R_2}\right) \left(1 - \sqrt{R_1\, R_2}\right)}\, \Delta_q(R_1\, R_2) & \textrm{if } q \textrm{ is odd}
+  \end{cases}
+\end{equation}
+and $\Delta_q(R)$ is given by \eqn{laser_resonator_1d_Delta_qR}. Once again, we see that the eigenmodes are not strictly orthogonal unless both $R_1$ and $R_2$ approach unity. Note that when $R_1 = R_2$, all the odd-$q$ modes vanish, and when $R_2 = 1$, $\Delta^\prime_q(R_1\, R_2) = \Delta_q(R_1\, R_2)$ for any value of $q$.
+
+We define the backward-propagating projection eigenmodes in vector form as
+ \begin{equation} \label{eqn:laser_resonator_1d_v_sw_vec}
+\mathbf{v}_q\z = \begin{bmatrix} v^{+}_q\z \\ v^{-}_q\z \end{bmatrix} ,
+ \end{equation}
+and simply reverse the directions of the standing-wave functions given by \eqn{laser_resonator_1d_u_sw} to obtain
+ \begin{subequations} \label{eqn:laser_resonator_1d_v_sw}
+ \begin{align}
+v^{+}_q\z &=\mathcal{C}^\prime e^{-\left[ i 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} , \nd \\
+ \begin{split}
+v^{-}_q\z &=-\frac{\mathcal{C}^\prime}{\sqrt{R_2}}\, e^{-\left[ i 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] (1 - z)}  \\
+&=-\mathcal{C}^\prime \sqrt{R_1} e^{+\left[ i 2 q \pi + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} .
+ \end{split}
+ \end{align}
+ \end{subequations}
+It is easy to verify that the two sets of eigenmodes are biorthogonal, since
+ \begin{equation} \label{eqn:laser_resonator_1d_uv_biortho_sw}
+\int_{0}^{1/2} dz\, \mathbf{u}_q\z \dotp \mathbf{v}_{p}\z = \delta_{q p} ,
+ \end{equation}
+where again $\mathcal{C}^\prime = 1/\mathcal{C}$.
+
+At first glance, it isn't entirely obvious how to craft a completeness relation that would allow us to expand a spatially rapidly-varying, single-transverse-mode field in a series over the eigenfunctions $\mathbf{u}_q\z$. As a guide, we note that the sum $\sum_{q} \mathbf{u}_q\z \mathbf{v}^{T}_q\z$ contains diagonal terms proportional to $\sum_q e^{\pm i 2 q \pi (z - z^\prime)}$ that will simplify to $\delta(z - z^\prime)$ using \eqn{dirac_comb}, and off-diagonal terms proportional to $\sum_q e^{\pm i 2 q \pi (z + z^\prime)}$ that will become $\sum_m \delta(z + z^\prime + m)$. These latter arguments are never zero for any $m$ over the interval $0 < z < 1/2$, so we have
+ \begin{equation} \label{eqn:laser_resonator_1d_sw_complete}
+\sum_{q = -\infty}^\infty \mathbf{u}_q\z \mathbf{v}^{T}_q\zp = \begin{bmatrix} \delta\left(z - z^\prime\right) & 0  \\ 0 & \delta\left(z - z^\prime\right) \end{bmatrix} ,
+ \end{equation}
+Therefore, if we write the coefficients of the total spatially rapidly-varying electric field $\widetilde{E}\zt = E^+\zt e^{+i k_0\wn z} + E^-\zt  e^{-i k_0\wn z}$ in vector form as
+ \begin{equation}\label{eqn:laser_resonators_1d_e_sw_def}
+\mathbf{E}\zt = \begin{bmatrix} E^{+}\zt \\ E^{-}\zt \end{bmatrix} ,
+ \end{equation}
+then
+ \begin{equation}% \label{eqn:f_ml}
+ \begin{split}
+\mathbf{E}\zt &= \int_{0}^{1/2} d z^\prime\,  \begin{bmatrix} \delta\left(z - z^\prime\right) & 0  \\ 0 & \delta\left(z - z^\prime\right) \end{bmatrix} \mathbf{E}(z^\prime, t) \\
+     &= \sum_{q = -\infty}^\infty \mathbf{u}_q\z \int_{0}^{1/2} d z^\prime\, \mathbf{v}^{T}_q\zp  \mathbf{E}(z^\prime, t) ,
+ \end{split}
+ \end{equation}
+or
+ \begin{equation} \label{eqn:laser_resonator_1d_ezt_expansion_sw}
+\mathbf{E}\zt = \sum_{q = -\infty}^\infty \mathbf{u}_q\z\, e^{-i \Delta \omega_q t}\, E_q(t) ,
+ \end{equation}
+where
+ \begin{equation} \label{eqn:laser_resonator_1d_eq_def_sw}
+E_q(t) \equiv e^{+i \Delta \omega_q t} \int_{0}^{1/2} d z\, \mathbf{v}_q\z \dotp \mathbf{E}\zt .
+ \end{equation}
+
+The output fields from each mirror can be calculated given \eqn{laser_resonator_1d_u_sw} and \eqn{laser_resonator_1d_ezt_expansion_sw}:
+ \begin{subequations}%\label{}
+ \begin{align}%\label{}
+ E_1 &= i\, \sqrt{1 - R_1}\, \sum_q u_q^-(0)\, e^{-i \Delta \omega_q t}\, E_q(t) , \nd\\
+ E_2 &= i\, \sqrt{1 - R_2}\, \sum_q u_q^+(1/2)\, e^{-i \Delta \omega_q t}\, E_q(t) .
+ \end{align}
+ \end{subequations}
+Since $u_q^-(0) = -\mathcal{C}/\sqrt{R_1}$, and $u_q^+(1/2) = (-1)^q\, C/(R_1 R_2)^{1/4}$, using \eqn{laser_resonator_1d_u_norm_swl} we find
+ \begin{subequations} \label{eqn:laser_resonator_1d_swl_out}
+ \begin{align}
+\label{eqn:laser_resonator_1d_swl_out_1} E_1 &= -i\, \left[ \frac{2 \left(1 - R_1\right) \sqrt{R_2}\, \ln\left( 1/\sqrt{R_1 R_2} \right)}{\left( \sqrt{R_1} + \sqrt{R_2} \right) \left( 1 - \sqrt{R_1 R_2} \right)} \right]^{1/2}\, \sum_q e^{-i \Delta \omega_q t}\, E_q(t) , \nd\\
+\label{eqn:laser_resonator_1d_swl_out_2} E_2 &= i\, \left[ \frac{2\, \sqrt{R_1} \left(1 - R_2\right) \ln\left( 1/\sqrt{R_1 R_2} \right)}{\left( \sqrt{R_1} + \sqrt{R_2} \right) \left( 1 - \sqrt{R_1 R_2} \right)} \right]^{1/2}\, \sum_q (-1)^q\, e^{-i \Delta \omega_q t}\, E_q(t) .
+ \end{align}
+ \end{subequations}
+Although in general each of these expressions lacks the elegance of \eqn{laser_resonator_1d_url_out}, they each give exactly the same result in two cases of practical interest:
+ \begin{enumerate}
+   \item
+    In the limit where one of the mirrors has unit reflectivity --- either the substitution $R_1 = R$ and $R_2 = 1$ for $E_1$, or $R_1 = 1$ and $R_2 = R$ for $E_2$, will simplify the magnitude of the corresponding coefficient on the left of the sum to $\sqrt{\ln(1/R)}$.
+   \item
+    When $R_1 = R_2 \equiv R,$ the magnitude of each coefficient on the left of the corresponding sum becomes $\sqrt{\ln(1/R)}$.
+ \end{enumerate}
+In fact, it is remarkable that over a wide range of values of $R_1$ and $R_2$, we can make the same approximation without significant loss of accuracy. If we write $R_1 \equiv 1 - \delta_1$ and $R_2 \equiv 1 - \delta_2$, then we find as $\{\delta_1, \delta_2\} \longrightarrow \{0, 0\}$ that
+ \begin{equation}
+\left[ \frac{2 \sqrt{R_1 R_2}\, \ln\left( 1/\sqrt{R_1 R_2} \right)}{\left( \sqrt{R_1} + \sqrt{R_2} \right) \left( 1 - \sqrt{R_1 R_2} \right)} \right]^{1/2} \approx 1 - \frac{\delta_1^2 - \delta_1 \delta_2 + \delta_2^2}{48}\, ,
+ \end{equation}
+so that we can almost always approximate the product of this coefficient and the factor $\sqrt{(1 - R_j)/R_j}$ as simply $\sqrt{\ln(1/R_j)}$.
+
+
+%It is tempting to follow the example of the unidirectional ring laser and construct a set of rapidly-varying eigenfunctions for the standing-wave laser simply by multiplying $u_q^\pm(z)$ by $e^{\pm i k_0\wn z}$. These new functions would trivially satisfy the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho_sw} and the completeness relation given by \eqn{laser_resonator_1d_sw_complete}. However, the primary physical effect that we would study using rapidly-varying standing-wave eigenmodes would be the spatial interference of counterpropagating electric fields within the laser amplifier. Therefore, we approximate these effects using the functions
+% \begin{subequations} \label{eqn:laser_resonator_1d_uv_sw_rv}
+% \begin{align}
+%\label{eqn:laser_resonator_1d_u_sw_rv} \tilde{u}_q\z &=\mathcal{C} \left\{ e^{+\left[ i k_q + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} - \frac{1}{\sqrt{R_1}}\, e^{-\left[ i k_q + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \right\}, \nd \\
+%\label{eqn:laser_resonator_1d_v_sw_rv} \tilde{v}_q\z &=\mathcal{C}^\prime \left\{ e^{-\left[ i k_q + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} - \sqrt{R_1}\, e^{+\left[ i k_q + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \right\} .
+% \end{align}
+% \end{subequations}
+%We recall from \eqn{k_q_def} that $k_q = k_0\wn + 2 q \pi$, and that $k_0\wn = 2 \pi n\wn/\lambda_0$. In a standing-wave laser, each resonance corresponds to an integer number $q_0$ of half-physical-wavelengths stored within half the vacuum round-trip length of the laser cavity, or $L/2 = q_0 \lambda_0 / 2 n\wn$. This means that we can write $k_q = 2(q_0 + q) \pi$, and therefore the normalization constant $\mathcal{C}$ defined by \eqn{laser_resonator_1d_u_norm_swl} doesn't change, since
+% \begin{equation}
+%\int_{0}^{1/2} dz\, \tilde{u}_{q}\z \tilde{u}_q^\ast\z = 1 .
+% \end{equation}
+%But the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho_sw} must be updated to read
+% \begin{equation}
+%\int_{0}^{1/2} dz\, \tilde{u}_q\z \tilde{v}_{p}\z = \delta_{q p} - \frac{\left( \sqrt{R_1} + \sqrt{R_2} \right) \left( 1 - \sqrt{R_1 R_2} \right)}{2 \sqrt{R_1 R_2} \ln\left( 1/ R_1 R_2 \right)}\, \Delta_{2 q_0}\left( R_1 R_2 \right)\, ,
+% \end{equation}
+%where we have assumed that $2 q_0 \gg q + p$, and $\Delta_q(R)$ is defined by \eqn{laser_resonator_1d_Delta_qR}. As indicated by \fig{laser_resonator_1d_Delta_qR}, the second term on the \rhs of this equation is negligible whenever $4 q_0 \pi/\ln(1/ R_1 R_2) \gg 1$, so the rapidly-varying modes given by \eqn{laser_resonator_1d_uv_sw_rv} are approximately biorthogonal. However, the completeness relation for the standing-wave eigenmodes requires a nontrivial update. The arguments presented for the neglect of the rapidly-varying terms in \eqn{laser_resonator_1d_sw_complete} remain valid, but because of the structure of \eqn{laser_resonator_1d_u_sw_rv} we must take the trace of \eqn{laser_resonator_1d_sw_complete} to obtain
+% \begin{equation} \label{eqn:laser_resonator_1d_sw_rv_complete}
+%\sum_{q = -\infty}^\infty \tilde{u}_q\z\, \tilde{v}_q\zp = 2\, \delta\left(z - z^\prime\right)\, .
+% \end{equation}
+
+In \sct{laser_dynamics_1d_mml_mll}, we will describe the intracavity spatial dependence of the total field of longitudinal mode $q$ as
+ \begin{equation} \label{eqn:laser_resonator_1d_u_sw_rv}
+ \begin{split}
+ \widetilde{u}_q\z &= u_q^+\z\, e^{+i k_0 z} + u_q^-\z\, e^{-i k_0 z} \\
+ &=\mathcal{C} \left\{ e^{+\left[ i k_q + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} - \frac{1}{\sqrt{R_1}}\, e^{-\left[ i k_q + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \right\}\, ,
+ \end{split}
+ \end{equation}
+where $k_q$ is given by \eqn{k_q_def}. In the case where $R_1 = 1$ and $R_2 \equiv R$, \eqn{laser_resonator_1d_u_sw_rv} can be approximated quite accurately by assuming that $\ln(1/\sqrt{R}) \ll 1$, and expanding $\exp[\ln(1/\sqrt{R}) z]$ linearly in $z$ to obtain
+ \begin{equation}\label{eqn:laser_resonator_1d_u_sw_rv_approx}
+\widetilde{u}_q\z \approx i 2 \mathcal{C} \left[ \sin\left(k_q z\right) - i \ln\left( \frac{1}{\sqrt{R}} \right)\, z\, \cos\left(k_q z\right) \right] .
+ \end{equation}
+In \fig{field_approx}, we have plotted \eqn{laser_resonator_1d_u_sw_rv} with \eqn{laser_resonator_1d_u_sw_rv_approx} for $k_q = 10\, \pi$, $R_1 = 1$, and $R_2 \equiv R = 0.3$. We have scaled all functions by a factor of $i\, 2\, \mathcal{C}$ to allow a direct comparison with the simple function $\sin(k_q z)$ that is often chosen in the literature. The relative accuracy of \eqn{laser_resonator_1d_u_sw_rv_approx} is surprising for a reflectivity this low, but it is clear that the simple approximation fails badly near the output coupler.
+
+ \begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/field_approx_re}
+   \caption{Real part of $\widetilde{u}_q(z)/(i\, 2\, \mathcal{C})$}
+   \label{fig:field_approx_re}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/field_approx_im}
+   \caption{Imaginary part of $\widetilde{u}_q(z)/(i\, 2\, \mathcal{C})$}
+   \label{fig:field_approx_im}
+  \end{subfigure}
+  \caption{Plot of \eqn{laser_resonator_1d_u_sw_rv} with \eqn{laser_resonator_1d_u_sw_rv_approx} for $k_q = 10\, \pi$, $R_1 = 1$, and $R_2 \equiv R = 0.3$. We have scaled all functions by a factor of $i\, 2\, \mathcal{C}$ to allow a direct comparison with the simple function $\sin(k_q z)$ that is often chosen in the literature. The relative accuracy of \eqn{laser_resonator_1d_u_sw_rv_approx} is surprising for a reflectivity this low, but it is clear that the simple approximation fails badly near the output coupler.\label{fig:field_approx}}
+ \end{figure}
+
+%As in the case of the unidirectional ring laser, we can also construct a set of rapidly-varying eigenfunctions for the standing-wave laser. Defining the eigenstate vector
+% \begin{equation} \label{eqn:laser_resonator_1d_u_sw_vec_rv}
+%\mathbf{\tilde{u}}_q\z = \begin{bmatrix} \tilde{u}^{+}_q\z \\ \tilde{u}^{-}_q\z \end{bmatrix}
+% \end{equation}
+%and then following the analysis of \sct{laser_resonators_1d_url}, we find
+% \begin{subequations} \label{eqn:laser_resonator_1d_u_sw_rv}
+% \begin{align}
+%\tilde{u}^{+}_q\z &=\mathcal{C} e^{+\left[ i k_q + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} , \nd \\
+% \begin{split}
+%\tilde{u}^{-}_q\z &=-\mathcal{C} \sqrt{R_2}\, e^{+\left[ i k_q + \ln\left(1/\sqrt{R_1 R_2}\right) \right] \left(L - z\right)/L}  \\
+%&=-\frac{\mathcal{C}}{\sqrt{R_1}} e^{-\left[ i k_q + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} .
+% \end{split}
+% \end{align}
+% \end{subequations}
+%As in the traveling-wave case of the unidirectional ring laser, these spatially rapidly-varying eigenmodes satisfy the .
+
+ \section{Temporal Coupled-Mode Theory\label{sct:laser_resonators_1d_tcm}}
+As an example of the utility of the quasi-normal mode methods discussed above, we expand the intracavity fields of the resonators shown in \fig{resonator_1d_smat} for the scalar case where $R_2 = 1$ and, therefore, $F_2(\omega) = 0$.
+
+ \subsection{One-Dimensional Unidirectional Ring Resonator}
+We begin by using \eqn{fourier_freq} to calculate the Fourier Transform of the expansion coefficient in \eqn{laser_resonator_1d_eq_def} as
+ \begin{equation} \label{eqn:eqw_url}
+E_q(\omega) = \int_{-\infty}^{+\infty} d t\, \epwt\, E_q(t) = \int_0^1 d z\, v_q\z\, E(z, \omega + 2 q \pi)\, ,
+ \end{equation}
+where we have reapplied the Fourier Shift Theorem given by \eqn{fourier_shift_thm} in the frequency domain. From \eqn{forward_prop_w},
+ \begin{equation} \label{eqn:forward_prop_w_z}
+E(z, \omega) = \exp\left[ i\, \omega\, z - \half \alpha\wn\, z \right] E(0, \omega)\, ,
+ \end{equation}
+where $E(0, \omega)$ is given by \eqn{forward_prop_w_0} for the ring resonator under consideration here. Substituting \eqn{forward_prop_w_z} into \eqn{eqw_url}, we find
+ \begin{equation} \label{eqn:forward_prop_e_q_w}
+ \begin{split}
+E_q(\omega) &= \frac{i \sqrt{\eta T}}{\mathcal{C}} \frac{F(\omega + 2 q \pi)}{1 - \Gamma\, e^{i \omega}} \int_{0}^{1} d z\, e^{(i \omega + \ln \Gamma) z} \\
+&= \frac{i \sqrt{\eta T}}{\mathcal{C}} \frac{F(\omega + 2 q \pi)}{1 - \Gamma\, e^{i \omega}}\, \frac{e^{i \omega + \ln \Gamma} - 1}{i \omega + \ln \Gamma} \\
+&= -\frac{i \sqrt{\eta T}}{\mathcal{C}} \frac{F(\omega + 2 q \pi)}{i \omega + \ln \Gamma}\, .
+ \end{split}
+ \end{equation}
+
+We can follow either of two approaches to determine $E_q(t)$ for general $F(\omega)$. Choosing the method of integration, we can take the Fourier transform of \eqn{forward_prop_e_q_w} and apply the shift theorem to obtain
+ \begin{equation} \label{eqn:eqt_int}
+E_q(t) = \frac{\sqrt{\eta T}}{\mathcal{C}} e^{i 2 q \pi t} \int_{-\infty}^{+\infty} \frac{d \omega}{2 \pi}\, \emwt \frac{F(\omega)}{\nu_q - \omega}\, ,
+ \end{equation}
+where $\nu_q$ is defined by \eqn{f_pole_q}. Alternatively, we can multiply both sides of \eqn{forward_prop_e_q_w} by $i \omega + \ln \Gamma$, take the Fourier transform, and then apply the Fourier derivative theorem to find the ordinary differential equation
+ \begin{equation} \label{eqn:forward_prop e_q_t}
+\dot{E}_q(t) + \frac{1}{2 \tau_p}\, E_q(t) = \frac{i \sqrt{\eta T}}{\mathcal{C}}\, e^{i 2 q \pi t} F(t)\, ,
+ \end{equation}
+where we have used \eqn{f_fwhm} to write $\ln(1/\Gamma) = 1/2 \tau_p$. The damping term on the \lhs of this equation has two contributions:
+ \begin{equation}
+\frac{1}{2 \tau_p} = \half\, \alpha\wn + \half\, \ln \left( \frac{1}{1 - T} \right)\, ,
+ \end{equation}
+First, $\alpha\wn/2$ describes the rate (scaled by $\tau_g^{-1}$) at which the intracavity field in \eqn{forward_prop e_q_t} decays due to internal dissipative losses. Second, in the limit $T \ll 1$, the term $T/2$ represents the rate at which cavity fields ``leak'' out of the resonator. The relationship between this leakage rate --- proportional to $T$ --- and the coupling coefficient for the field incident on the external reference plane of the mirror $\mathcal{M}_1$ --- proportional to $\sqrt{T}$ --- is consistent with the formulations of temporal coupled-mode theory developed in \cite{ref:haus1984wfo} and \cite{ref:fan2003tcm}.
+
+Consider the simple case where $F(\omega)$ describes a single-mode input field, given by
+ \begin{equation}
+F(\omega) = \frac{2 \pi}{\sqrt{\eta}} \, \delta(\omega - \Delta \omega)\, .
+ \end{equation}
+Direct application of \eqn{eqt_int} gives
+ \begin{equation} \label{eqn:eqt_inj}
+E_q(t) = \frac{\sqrt{T}}{\mathcal{C} (\nu_q - \Delta \omega)}\, e^{i (2 q \pi - \Delta \omega) t}\, .
+ \end{equation}
+Therefore, substitution of this expression into \eqn{laser_resonator_1d_eq_def} yields the time-domain expansion
+ \begin{equation} \label{eqn:eqt_exp}
+E\zt = \sqrt{T}\, e^{-i \Delta \omega t} \sum_q \frac{e^{\left[ i 2 q \pi + \ln(1/\sqrt{R}) \right] z}}{\nu_q - \Delta \omega}\, ,
+ \end{equation}
+while the Fourier transform of \eqn{forward_prop_w_z} given the same single-mode input field yields
+ \begin{equation} \label{eqn:eqt_exact}
+E\zt = i\, \sqrt{T}\, e^{-i \Delta \omega t} \frac{e^{\left[ i \Delta \omega - \alpha\wn/2\right] z}}{1 - \Gamma\, e^{i \Delta \omega}}\, .
+ \end{equation}
+In \fig{qnm_inj_jq}, we show a plot of \eqn{eqt_inj} for 11 modes at $t = 0$ with $R = 0.5$, $\alpha\wn = 0.1$, and $\Delta \omega = 0.5$. Using the same parameters, \fig{qnm_inj_ez} shows plots of \eqn{eqt_exp} and \eqn{eqt_exact} at $t = 0$, where we have truncated the sum in \eqn{eqt_exp} at three different values of $\pm q_\mathrm{max}$. Note that the eigenmode expansion for $\Re[E(z, 0)]$ is quite accurate even for $q_\mathrm{max} = 5$, but larger sets of modes improve the estimates of $\Im[E(z, 0)]$, particularly near the mirrors.
+ \begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/qnm_inj_jq_abs}
+   \caption{Absolute value of $E_q(0)$}
+   \label{fig:qnm_inj_jq_abs}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/qnm_inj_jq_ang}
+   \caption{Phase angle of $E_q(0)$}
+   \label{fig:qnm_inj_jq_ang}
+  \end{subfigure}
+  \caption{Plot of \eqn{eqt_inj} for 11 modes at $t = 0$ with $R = 0.5$, $\alpha\wn = 0.1$, and $\Delta \omega = 0.5$. We have defined $E_q(t) \equiv |E_q(t)|\, e^{i \phi_q(t)}$, and graphed $|E_q(0)|$ and $\phi_q(0)$ separately.\label{fig:qnm_inj_jq}}
+ \end{figure}
+
+ \begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/qnm_inj_ez_re}
+   \caption{Real part of $E(z, 0)$}
+   \label{fig:qnm_inj_ez_re}
+  \end{subfigure}
+  \par\vspace{0.25in}
+  \begin{subfigure}[b]{0.8\textwidth}
+   \centering
+   \includegraphics[width=5.0in]{figures/qnm_inj_ez_im}
+   \caption{Imaginary part of $E(z, 0)$}
+   \label{fig:qnm_inj_ez_im}
+  \end{subfigure}
+  \caption{Plots of \eqn{eqt_exp} and \eqn{eqt_exact} at $t = 0$ using the same values of $R$, $\alpha\wn$, and $\Delta \omega$ as in \fig{qnm_inj_jq}. We have truncated the sum in \eqn{eqt_exp} at three different values of $\pm q_\mathrm{max}$. Note that the eigenmode expansion for $\Re[E(z, 0)]$ is quite accurate even for $q_\mathrm{max} = 5$, but larger sets of modes improve the estimates of $\Im[E(z, 0)]$, particularly near the mirrors. \label{fig:qnm_inj_ez}}
+ \end{figure}
+
+% \red{\begin{itemize}
+%   \item Show that the convergence of \eqn{laser_resonator_1d_ezt_expansion} --- using \eqn{forward_prop e_q_w} --- is quite good everywhere \emph{except} at the boundaries. Although it looks like a straightforward example of Gibbs' phenomenon, it is actually a result of setting $z = 0$ or $z = L$ in \eqn{laser_resonator_1d_ezt_expansion}, computing the value of $u_q\z$ for some values of $q$, and then performing the sum. In the spirit of \eqn{laser_resonator_1d_uv_complete}, introduce the idea of a regularization scheme where the value of the series is computed at a value of $z$ that is \emph{almost} at the reference plane.
+% \end{itemize}}
+ \subsection{One-Dimensional Standing-Wave Resonator}
+
+For a standing-wave resonator, we compute the expansion coefficient in \eqn{laser_resonator_1d_eq_def_sw} in the frequency domain as
+ \begin{equation} \label{eqn:eqw_swl_def}
+E_q(\omega) = \int_{-\infty}^{+\infty} d t\, \epwt\, E_q(t) = \int_0^{1/2} d z\, \mathbf{v}_q\z \dotp \mathbf{E}(z, \omega + 2 q \pi)\, .
+ \end{equation}
+Both \eqn{forward_prop_w_z} and \eqn{forward_prop_w_0} remain valid for $E^{+}\zw$ in the standing-wave case where $0 < z < 1/2$, provided that we define $\Gamma^2 = R_1 R_2\, e^{-\alpha\wn}$. Rewriting \eqn{resonator_1d_w_bc} to be consistent with the sign convention chosen in \eqn{laser_resonator_1d_w_bc_sw}, we calculate the field amplitude just inside the reference plane of mirror $\mathcal{M}_1$ as
+ \begin{equation}
+E^{-}(0, \omega) = -\frac{1}{\sqrt{R_1}}\, \left[ E^{+}(0, \omega) - i\, \sqrt{\eta T_1}\, F(\omega) \right] = -i\, \sqrt{\frac{\eta T_1}{R_1}}\, \frac{\Gamma\, e^{i \omega}}{1 - \Gamma\, e^{i \omega}}\, F(\omega)\, ,
+ \end{equation}
+and then write $E^{-}\zw$ as
+ \begin{equation}
+E^{-}\zw = \exp\left[ -i\, \omega\, z + \half \alpha\wn\, z \right] E^{-}(0, \omega)\, .
+ \end{equation}
+
+Substituting this expression and \eqn{forward_prop_w_z} into \eqn{eqw_swl_def} yields
+ \begin{equation} \label{eqn:eqw_swl}
+ \begin{split}
+E_q(\omega) &= \frac{i}{\mathcal{C}}\, \frac{\sqrt{\eta T_1}\, F(\omega + 2 q \pi)}{1 - \Gamma\, e^{i \omega}}\, \int_0^{1/2} d z\, \left[ e^{(i \omega + \ln \Gamma) z} + \Gamma e^{i \omega} e^{-(i \omega + \ln \Gamma) z} \right] \\
+&= \frac{i}{\mathcal{C}}\, \frac{\sqrt{\eta T_1}\, F(\omega + 2 q \pi)}{\left(1 - \Gamma\, e^{i \omega}\right)\left(i \omega + \ln \Gamma\right)}\, \left\{ \left[ e^{(i \omega + \ln \Gamma)/2} - 1 \right] - \Gamma e^{i \omega} \left[ e^{-(i \omega + \ln \Gamma)/2} - 1 \right] \right\} \\
+&= -\frac{i \sqrt{\eta T_1}}{\mathcal{C}} \frac{F(\omega + 2 q \pi)}{i \omega + \ln \Gamma}\, ,
+ \end{split}
+ \end{equation}
+which is identical to \eqn{forward_prop_e_q_w} with $T \longrightarrow T_1$ and a properly generalized definition of $\Gamma$.
+

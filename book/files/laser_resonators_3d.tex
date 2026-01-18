@@ -1,0 +1,114 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Chapter file included in main project file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \chapter{Laser Beams and Resonators: Three-Dimensional Models\label{chp:laser_resonators_3d}}
+
+%  \section{Paraxial laser amplifiers\label{sct:paraxial_laser_amp}}\index{Paraxial approximation}
+
+% We begin by considering the class of lasers that can be well-described using the paraxial approximation we introduced in \sct{em_wave_eqn_vac}. Typically, in the laser amplifiers and resonators used in these systems, there is a clearly definable longitudinal propagation axis (which we chose to be the $+z$ axis) along which all of the rapidly-varying spatial field behavior occurs, and the characteristics of the fields change only very slowly in the transverse directions perpendicular to that axis. \Fig{laser_resonator_1d} illustrates the two most common macroscopic paraxial laser systems, but there are a number of other configurations (such as optical fiber lasers\footnote{Here our analysis applies only to \emph{weakly-guiding} optical fibers, where the propagation constant is approximately given by $n(\omega_0)\, \omega_0/c$.}) that also fall into this category.
+
+% In these cases, we can separate the functions $\varepsilon\rw$ and $\mu\rw$ into (spatially constant) longitudinal and (spatially varying) transverse contributions, so that
+%  \begin{subequations} \label{eqn:paraxial_eps_mu_def}
+%  \begin{align}
+%  \varepsilon\rwn &\equiv \varepsilon(\omega_0) + \Delta \varepsilon(x, y, \omega_0) , \label{eqn:paraxial_eps_def} \nd \\
+%  \mu\rwn &\equiv \mu(\omega_0) + \Delta \mu(x, y, \omega_0) . \label{eqn:paraxial_mu_def}
+%  \end{align}
+%  \end{subequations}
+% where (by assumption) $|\Delta \varepsilon(x, y, \omega_0)| \ll |\varepsilon(\omega_0)|$ and $|\Delta \mu(x, y, \omega_0)| \ll |\mu(\omega_0)|$ everywhere the fields have significant amplitudes. We generally take $\Delta \varepsilon(0, 0, \omega_0) = 0$ and $\Delta \mu(0, 0, \omega_0) = 0$, and we confine ourselves to values of $\Delta \varepsilon$ and $\Delta \mu$ away from the $z$-axis that will allow guided modes (e.g., negative for typical right-handed materials). Using \eqn{ref_index_def_rw}, the refractive index in this system can therefore be written
+%  \begin{equation} \label{eqn:paraxial_n_def}
+%  n\rwn \approx n(\omega_0) + \sqrt{\frac{\mu(\omega_0)}{\varepsilon(\omega_0)}} \frac{\Delta \varepsilon(x, y, \omega_0)}{2} + \sqrt{\frac{\varepsilon(\omega_0)}{\mu(\omega_0)}} \frac{\Delta \mu(x, y, \omega_0)}{2} \equiv n(\omega_0) + \Delta n(x, y, \omega_0) ,
+%  \end{equation}
+% where $|\Delta n(x, y, \omega_0)| \ll |n(\omega_0)|$.
+
+% Under these considerations, we inspect the first two terms in \eqn{wave_eqn_inter} and seek solutions $\mathbf{u}(\mathbf{r})$ to a simplified version of the equation
+%  \begin{equation} \label{eqn:curl_curl_u_idm}
+% \curl \left\{\frac{1}{\Re\left[\mu\rwn\right]} \curl \left[ \epkz \mathbf{u}(\mathbf{r}) \right]\right\} = \left(\frac{\omega_0}{c}\right)^2 \Re\left[\varepsilon\rwn\right]\, \left[ \epkz \mathbf{u}(\mathbf{r}) \right]
+%  \end{equation}
+% that is valid in the paraxial approximation. Our goal is to understand these solutions as eigenmodes of an equation similar to \eqn{paraxial_pde_vac} that is valid within laser amplifiers, and then to determine how best to use these eigenmodes as basis functions in models of paraxial laser systems. We will not have all of the tools we need until we complete this chapter, but we will be able to develop a wave equation that we can use in simple one-dimensional models of laser dynamics. Note that we are making the subtle assumption in both \eqn{wave_eqn_inter} and \eqn{curl_curl_u_idm} that the spatial properties of the eigenmodes are not sensitive functions of $\omega_0$, and therefore that we can represent the most important features of dispersion in the time domain alone.
+
+% or, restoring all of our arguments,
+%  \begin{equation} \label{eqn:curl_curl_u_parax_final}
+% \nabla_\perp^2 \mathbf{u}(\mathbf{r}) + i 2 k \ppz \mathbf{u}(\mathbf{r}) - i \left[ \mathbf{u}(\mathbf{r}) \dotp \grad \ln n^{-2}\rwn \right]\mathbf{k} - \left\{k^2 - \left[\frac{n\rwn\, \omega_0}{c}\right]^2\right\} \mathbf{u}(\mathbf{r}) = 0 .
+%  \end{equation}
+
+% We see immediately that if we choose
+%  \begin{equation} \label{eqn:paraxial_k_def}
+%  k = \frac{n(\omega_0)\, \omega_0}{c} ,
+%  \end{equation}
+% then by \eqn{paraxial_n_def} the final term of the \lhs of \eqn{curl_curl_u_parax_final} is approximately $- 2 k^2 (\Delta n/n) \mathbf{u}$.
+% %It is also apparent that the term proportional to $\mathbf{k}$ is purely longitudinal; in fact, if we separate $\mathbf{u}$ into a transverse component $\mathbf{u}_\perp$ and a longitudinal component $u_z \hatb{z}$, then the longitudinal contribution to \eqn{curl_curl_u_parax_final} is
+% % \begin{equation}
+% %\nabla_\perp^2 u_z + i 2 k \ppz u_z - i \left( \mathbf{u}_\perp \dotp \grad_\perp \ln n^{-2} \right)k + 2 k^2 \frac{\Delta n}{n} u_z = 0 .
+% % \end{equation}
+% %But, from \eqn{divr_epu_idm},
+% % \begin{equation}
+% %\grad_\perp \dotp \mathbf{u}_\perp + \ppz u_z + i k u_z = \mathbf{u}_\perp \dotp \grad_\perp \ln \varepsilon^{-1} ,
+% % \end{equation}
+% with the transverse contribution to \eqn{curl_curl_u_parax_final}
+%  \begin{equation} \label{eqn:lapl_u_final}
+%  \nabla_\perp^2 \mathbf{u}_\perp(\mathbf{r}) + i 2 k \ppz \mathbf{u}_\perp(\mathbf{r}) + 2 k^2 \frac{\Delta n(x, y, \omega_0)}{n(\omega_0)} \mathbf{u}_\perp(\mathbf{r}) = 0
+%  \end{equation}
+% as a paraxial wave equation governing the primary ``steady-state'' spatial behavior of the electric field envelope function.
+
+% In general, we will assume that we can write $\mathbf{u}_\perp(\mathbf{r}) \equiv \hatb{\epsilon}\, u(\mathbf{r})$, where $\hatb{\epsilon}$ is the purely transverse constant complex polarization vector introduced in \eqn{epsilon_def}. Then \eqn{lapl_u_final} becomes the par\-axial Helmholtz scalar equation that we will study extensively later in this chapter, where we will use this differential equation to develop a linear homogeneous Fredholm integral equation for the spatial eigenmodes of a laser resonator. There we will learn that this integral equation is \emph{not} Hermitian, even though the scalar form of \eqn{lapl_u_final} is itself Hermitian. The problem arises because the \emph{boundary conditions} of an open-sided resonator (e.g., any resonator that allows fields to ``leak'' outside its boundaries due to diffraction) result in different fields depending on which propagation direction we choose. For every eigensolution of \eqn{lapl_u_final} --- which we will denote  $u_{m n}(\mathbf{r})$ --- at a particular reference plane $z$ that we determine by propagating the wavefront a full round-trip through the cavity in one direction, we will find an adjoint solution  $v_{m n}(\mathbf{r})$ that corresponds to propagation around the resonator in the opposite direction. Neither $u_{m n}(\mathbf{r})$ nor $v_{m n}(\mathbf{r})$ alone satisfy a conventional orthogonality relation, but together these eigenmodes obey the biorthogonality condition\cite{ref:siegman1986l,ref:oughstun1987urm}
+%  \begin{equation} \label{eqn:biorthogonal_intro}
+%  \int dx dy\, v_{m^\prime n^\prime}(x, y, z)\, u_{m n}(x, y, z) = \delta_{m^\prime m} \delta_{n^\prime n}
+%  \end{equation}
+% at every reference plane $z$ in the resonator.\footnote{In the case of a stable laser resonator that is well modeled by Gaussian beams, $v_{m n}(\mathbf{r}) = u_{m n}^\ast(\mathbf{r})$, and \eqn{biorthogonal_intro} reduces to a conventional orthogonality relation.} This suggests that the most general series expansion of the complex electric field envelope function $\Ert$ in \eqn{wave_eqn_inter} anywhere within the cavity will be
+%  \begin{equation} \label{eqn:e_expansion_idm}
+%  \Ert \equiv \hatb{\epsilon}\, \epkz \sum_{m n} E_{m n}\zt\, u_{m n}(\mathbf{r}) ,
+%  \end{equation}
+% where the complex scalar envelope functions $E_{m n}\zt$ are slowly varying compared to $\epkzwt$. Note that we are expanding the \emph{active} electric field $\Ert$ --- the macroscopic field in the presence of the the nonlinear macroscopic polarization $\mathbf{P}\rt$ --- as a linear combination of eigenmodes of the \emph{passive} laser cavity (i.e., excluding the embedded particles that provide the laser gain). However, there is no rigorous guarantee that the spatial eigenmodes $u_{m n}(\mathbf{r})$ form a complete set. Instead, we will assume that we can use them in \eqn{e_expansion_idm} as basis functions for an expansion of the intracavity electromagnetic field, with expansion coefficients determined by the nonlinear laser dynamics, and we will check this assumption by carefully examining the convergence of the expansion.
+
+%  \begin{equation} \label{eqn:ert_bc_intro}
+% E(x,y,0,t) = \rho(x, y) E(x,y,p,t)
+%  \end{equation}
+
+%  \begin{equation} \label{eqn:umn_bc_intro}
+% \gamma_{m n}\, u_{m n}(x, y, 0) = \rho(x, y) u_{m n}(x, y, p)
+%  \end{equation}
+
+%  \begin{equation} \label{eqn:umn_fredholm_intro}
+% \gamma_{m n}\, u_{m n}(x, y, p) = \iint_{-\infty}^\infty dx^\prime\, dy^\prime\, \rho(x^\prime, y^\prime) K(x, y; x^\prime, y^\prime) u_{m n}(x^\prime, y^\prime, p)
+%  \end{equation}
+
+% When we substitute \eqn{curl_curl_e_inter} into \eqn{wave_eqn_inter}, we see that the terms proportional to $(\omega_0/c)^2 n^2\rwn$ --- which include the largest contributions of $\Delta n(x, y, \omega_0)$ --- cancel. In the remaining terms, we neglect these very small transverse variations, but we allow for the possibility that different regions within the laser resonator (located within pairs of longitudinally separated reference planes) will have different refractive indices by allowing $\varepsilon(\omega_0)$ and $\mu(\omega_0)$ to take on different values at different reference planes. \Eqn{wave_eqn_inter} then becomes
+%  \begin{multline} \label{eqn:wave_eqn_modes}
+% \sum_{mn} u_{m n}(x, y, z) \left[\ppt E_{m n}\zt + \frac{c}{n_g\zwn}\, \ppz E_{m n}\zt + \frac{c}{2\, n_g\zwn}\, \alpha\zwn\, E_{m n}\zt\right] \\
+% = \frac{i}{2\, \varepsilon_0}\, \frac{\mu\zwn \omega_0}{n\zwn\, n_g\zwn}\, \hatb{\epsilon}^\ast \dotp \mathbf{P}\rt ,
+%  \end{multline}
+% or, after multiplying both sides of this equation by $v_{m^\prime n^\prime}(x, y, z)$ and applying \eqn{biorthogonal_intro},
+%  \begin{multline} \label{eqn:wave_eqn_final}
+% \ppt E_{m n}\zt + \frac{c}{n_g\zwn}\, \ppz E_{m n}\zt + \frac{c}{2\, n_g\zwn}\, \alpha\zwn\, E_{m n}\zt \\
+% = \frac{i}{2\, \varepsilon_0}\, \frac{\mu\zwn \omega_0}{n\zwn\, n_g\zwn}\, P_{m n}\zt ,
+%  \end{multline}
+% where
+%  \begin{equation}
+%  P_{m n}\zt \equiv \int dx dy\, v_{m n}(x, y, z)\, e^{-i k z}\, \hatb{\epsilon}^\ast \dotp \mathbf{P}\rt ,
+%  \end{equation}
+% consistent with the expansion
+%  \begin{equation} \label{eqn:p_expansion_idm}
+%  \mathbf{P}\rt \equiv \hatb{\epsilon}\, \epkz \sum_{m n} P_{m n}\zt\, u_{m n}(\mathbf{r}) ,
+%  \end{equation}
+% similar to \eqn{e_expansion_idm}. In general, the transverse spatial profile of $\mathbf{P}\rt$ will depend on interactions between the gain distribution (which is a function of absorbed pump energy) and laser saturation effects, and will couple different spatial eigenmodes.
+
+%  With this substitution, using \sct{math_prelim_int_periodic_funcs} our integral becomes
+%  \begin{equation}
+%  \begin{split}
+%  I_l(z) &= \int_{\theta-\frac{\pi}{2}}^{\theta+\frac{3 \pi}{2}} d \phi\, e^{i \left[z \sin \phi - l \left(\phi + \frac{\pi}{2}\right)\right]} \\
+%  &= \frac{1}{i^l} \int_{-\pi}^{\pi} d \phi\, e^{i \left(z \sin \phi - l \phi\right)} \\
+%  &= \frac{1}{i^l} \int_{-\pi}^{\pi} d \phi\, \left[ \cos\left(z \sin \phi - l \phi\right) + i\, \sin\left(z \sin \phi - l \phi\right)\right] \\
+%  &= \frac{2}{i^l} \int_{0}^{\pi} d \phi\, \cos\left(z \sin \phi - l \phi\right) \\
+%  &= \frac{2 \pi}{i^l} J_l(z) ,
+%  \end{split}
+%  \end{equation}
+% where $J_l(z)$ is the Bessel function of order $l$, and we have applied \eqn{int_periodic_funcs_a_bpmp} and used the fact that $\cos(z)$ and $\sin(z)$ are even and odd functions of their arguments, respectively.
+

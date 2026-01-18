@@ -1,0 +1,624 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Subsection file included in section file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \section{Passively Mode-Locked Lasers\label{sct:laser_dynamics_1d_mml_mll}}
+
+% \subsection{New and Busted: Mode-Locked Lasers}
+% \begin{subequations}
+%     \begin{align}
+%         \widetilde{E}\zt &= \sum_{m n} E_{m n}\, \widetilde{u}_m(z)\, e^{-i\, \Delta \omega_n\, t}\, , \nd \\
+%         \widetilde{F}\zt &= \sum_{l q} F_{l q}\, \widetilde{u}_l\z\, e^{-i\, \Delta \omega_q\, t}\, .
+%     \end{align}
+% \end{subequations}
+% where $\Delta \omega_n \equiv 2\, n\, \pi$, and
+% \begin{subequations}
+%     \begin{align}
+%         E_{m n} &\equiv \int_{z_\mathrm{min}}^{z_\mathrm{max}} d z\, \int_{-\half}^{+\half}\, d t\, \widetilde{v}_m(z)\, e^{i\, \omega_n\, t}\, E\zt\, , \nd \\
+%         F_{l q} &\equiv \int_{z_\mathrm{min}}^{z_\mathrm{max}} d z\, \int_{-\half}^{+\half}\, \widetilde{v}_l\z\, e^{i\, \Delta \omega_q\, t}\, \widetilde{F}\zt\, .
+%     \end{align}
+% \end{subequations}
+
+% \begin{equation}
+%     2\, \Re\left[\widetilde{E}^\ast\zt\, \widetilde{F}\zt\right] = \sum_{i j m n} \widetilde{u}_i\z\, \widetilde{u}^\ast_{j}\z\, e^{-i\, \Delta \omega_{m - n}\, t} \left( E_{i m}\, F^\ast_{j n} + F_{i m}\, E^\ast_{j n} \right)\, .
+% \end{equation}
+
+% \begin{equation}
+%     \widetilde{G}\zt = \Gnz - \sum_{i j m n} \widetilde{u}_i\z\, \widetilde{u}^\ast_{j}\z\, e^{-i\, \Delta \omega_{m - n}\, t}\, \mathcal{C}_{m - n} \left( E_{i m}\, F^\ast_{j n} + F_{i m}\, E^\ast_{j n} \right)\, ,
+% \end{equation}
+% where
+% \begin{equation}
+%     \mathcal{C}_q \equiv \left(1 - i\, \Delta \omega_q\, \tau_\parallel\right)^{-1}\, .
+% \end{equation}
+
+% \begin{multline}
+%     \widetilde{E}\zt\, \widetilde{G}\zt = \Gnz \sum_{k p} \widetilde{u}_k\z\, e^{-i\, \Delta \omega_p\, t} E_{l p} \\
+%     - \sum_{i j k m n p} \widetilde{u}_i\z\, \widetilde{u}^\ast_j\z\, \widetilde{u}_k\z\, e^{-i\, \Delta \omega_{m - n + p}\, t}\, \mathcal{C}_{m - n} \left( E_{i m}\, F^\ast_{j n} + F_{i m}\, E^\ast_{j n} \right) E_{k p}\, .
+% \end{multline}
+
+% \begin{multline}
+%     \widetilde{F}\zt = \half\, \Gnz \sum_{k p} \widetilde{u}_k\z\, e^{-i\, \Delta \omega_p\, t}\, \mathcal{L}\left(\Omega_p\right)\, E_{k p} \\
+%     - \half \sum_{i j k m n p} \widetilde{u}_i\z\, \widetilde{u}^\ast_j\z\, \widetilde{u}_k\z\, e^{-i\, (\Delta \omega_{m - n + p})\, t}\, \mathcal{L}\left(\Omega_{m - n + p}\right)\,  \mathcal{C}_{m - n} \left( E_{i m}\, F^\ast_{j n} + F_{i m}\, E^\ast_{j n} \right) E_{k p}\, .
+% \end{multline}
+
+% Perform the time integral to obtain
+% \begin{equation}
+%     \begin{split}
+%         F_{l q} &= \half\, \mathcal{L}\left(\Omega_q\right) \sum_k\, E_{k q} \int d z\, \widetilde{v}_l\z\, \widetilde{u}_k\z\, \Gnz \\
+%         &- \half\, \mathcal{L}\left(\Omega_q\right) \sum_{i j k m n} \mathcal{C}_{m - n} \left( E_{i m}\, F^\ast_{j n} + F_{i m}\, E^\ast_{j n} \right) E_{k, m - n + q}\, \int d z\, \widetilde{v}_l\z\, \widetilde{u}_i\z\, \widetilde{u}^\ast_j\z\, \widetilde{u}_k\z \\
+%         &\equiv \half\, \mathcal{L}\left(\Omega_q\right) \left[ \sum_k\, \overline{G}_{k l}\, E_{k q} - \sum_{i j k m n} \kappa_{i j k l}\, \mathcal{C}_{m - n} \left( E_{i m}\, F^\ast_{j n} + F_{i m}\, E^\ast_{j n} \right) E_{k, m - n + q}\right]\, ,
+%     \end{split}
+% \end{equation}
+% where
+% \begin{align}
+%     \overline{G}_{k l} &\equiv \int d z\, \widetilde{v}_l\z\, \widetilde{u}_k\z\, \Gnz\, , \nd \\
+%     \kappa_{i j k l} &\equiv \int d z\, \widetilde{v}_l\z\, \widetilde{u}_i\z\, \widetilde{u}^\ast_j\z\, \widetilde{u}_k\z\, .
+% \end{align}
+
+% \begin{equation}
+%     \begin{split}
+%         F_{q p} &= \half\, \mathcal{L}\left(\Omega_q\right) \sum_k\, E_{q k} \int d z\, \widetilde{u}_k\z\, \widetilde{v}_p\z\, \Gnz \\
+%         &- \half\, \mathcal{L}\left(\Omega_q\right) \sum_{i j k m n} \mathcal{C}_{m - n} \left( E_{m j}\, F^\ast_{n k} + F_{m j}\, E^\ast_{n k} \right) E_{m - n + q,\, l}\, \int d z\, \widetilde{u}_j\z\, \widetilde{u}^\ast_k\z\, \widetilde{u}_l\z\, \widetilde{v}_p\z \\
+%         &\equiv \half\, \mathcal{L}\left(\Omega_q\right) \left[ \sum_k\, E_{q k}\, \overline{G}_{k p} - \sum_{j k l m n} \mathcal{C}_{m - n}\, \kappa_{j k l p} \left( E_{m j}\, F^\ast_{n k} + F_{m j}\, E^\ast_{n k} \right) E_{m - n + q,\, l}\right]\, ,
+%     \end{split}
+% \end{equation}
+% where
+% \begin{align}
+%     \overline{G}_{k p} &\equiv \int d z\, \widetilde{u}_k\z\, \widetilde{v}_p\z\, \Gnz\, , \nd \\
+%     \kappa_{j k l p} &\equiv \int d z\, \widetilde{u}_j\z\, \widetilde{u}^\ast_k\z\, \widetilde{u}_l\z\, \widetilde{v}_p\z\, .
+% \end{align}
+
+% \subsubsection{Unidirectional Ring Lasers}
+% In the case of a unidirectional ring laser, the rapidly-varying quasi-normal spatial modes are given by
+% \begin{subequations} %\label{eqn:laser_resonator_1d_uv}
+%     \begin{align}
+%        \widetilde{u}_q\z &\equiv \mathcal{C}\, e^{+\left[ i 2 q \pi + \ln(1/\sqrt{R}) \right] z}\, e^{i\, k_0\, z} , \nd \\ %\label{eqn:laser_resonator_1d_u} \\
+%        \widetilde{v}_q\z &\equiv \frac{1}{\mathcal{C}}\, e^{-\left[ i 2 q \pi + \ln(1/\sqrt{R}) \right] z}\, e^{-i\, k_0\, z}\, , %\label{eqn:laser_resonator_1d_v}
+%     \end{align}
+% \end{subequations}
+% where $\mathcal{C}$ is given by \eqn{laser_resonator_1d_u_norm_url}. Therefore,
+% \begin{equation} %\label{eqn:mll_url_zqp_spec}
+%     \overline{G}_{k l} = \int_{z_1}^{z_2} d z\, e^{i\, 2 (k - l)\, \pi\, z} \Gnz\, ,
+% \end{equation}
+% and we see that $\overline{G}_{k l}$ is the Fourier series coefficient of order $k - l$ for $\Gnz$ in the resonator. \red{In practice, we can use this representation as a guide to the range of values of $l$ that we need to include to provide a numerically accurate computation of the intracavity gain.} Suppose that $\Gnz = \Gnb/(z_2 - z_1)$ for $0 < z_1 \le z \le z_2 < 1$, and is zero otherwise. In this (common) special case, when $k \ne l$ we have
+% \begin{equation} %\label{eqn:mll_url_zqp_spec}
+%     \overline{G}_{k l} = \frac{\Gnb}{z_2 - z_1}\, \int_{z_1}^{z_2} d z\, e^{i\, 2 (k - l)\, \pi\, z} = -i\, \Gnb\, \frac{\exp[i\, 2 \left(k - l\right) \pi\, z_2] - \exp[i\, 2 \left(k - l\right) \pi\, z_1]}{2 \left(k - l\right) \pi \left(z_2 - z_1\right)}\, ,
+% \end{equation}
+% and $\overline{G}_{l l} = \Gnb$. Note that when $\{z_1, z_2\} \longrightarrow \{0, 1\}$, $\overline{G}_{k l} \longrightarrow \delta_{k l}\, \Gnb$.
+
+% \begin{equation}
+%     \kappa_{i j k l} = \mathcal{C}^2 \int_0^1 d z\, e^{\left[i\, 2 \left(i - j + k - l\right) \pi + \ln(1/R)\right] z} = \Delta_{i - j + k - l}(R)\, .
+% \end{equation}
+
+% \subsection{Old Hotness: Mode-Locked Lasers}
+As in the case of the $Q$-switched laser discussed in \sct{laser_dynamics_1d_mml_qsl}, intermodal coupling through nonlinearities in the macroscopic polarization $\widetilde{F}\zt$ add dynamics to the gain and saturation of each mode that can lead to novel dynamical behavior. In a mode-locked laser, the amplitude and phases of the longitudinal modes are fixed in such a way that the output of the laser has particularly desirable properties, such as very short pulses or very stable (quasi-continuous-wave) behavior. We can understand this behavior through formal expansions of $\widetilde{F}\zt$ and $\widetilde{G}\zt$ in the Fourier frequency domain, but we must relax the rate-equation approximation that led to \eqn{qsl_ftzt_rea} to allow fluctuations in the polarization and gain that occur at integer multiples of the cavity free-spectral range $2 \pi/\tau_g$.
+
+\begin{equation}
+  G_{q p}(t) = \overline{G}_{q p} - \sum_{m n} e^{-i\, \Delta \omega_{m - n}\, t} \kappa_{q p m n}\, \mathcal{C}_{m - n} \left( E_m\, F_n^\ast + F_m\, E_n^\ast \right)\, ,
+\end{equation}
+where
+\begin{equation}
+  \mathcal{C}_q \equiv \left(1 - i\, \Delta \omega_q\, \tau_\parallel\right)^{-1}\, .
+\end{equation}
+
+\begin{equation}
+    \label{eqn:mml_f_q}
+    \begin{split}
+        F_q &= \half\, \Lq \sum_p e^{i\, \Delta \omega_{q - p}\, t}\, \overline{G}_{q p}\, E_p \\
+        &- \half\, \Lq \sum_{m n p} e^{i\, \Delta \omega_{q - p - m + n}\, t}\, \kappa_{q p m n}\, \mathcal{C}_{m - n} \left( E_m\, F_n^\ast + F_m\, E_n^\ast \right) E_p\, ,
+    \end{split}
+\end{equation}
+
+Referring to \eqn{mml_1d_deq_dt_final}, when $\dot{E}_q(t) = 0$, we find that $F_q$ must also satisfy the expression
+\begin{equation}
+    F_q = B_q\, E_q\, ,
+\end{equation}
+where
+\begin{equation}
+    B_q \equiv \frac{1}{2\, \tau_\lambda} \left(1 + i\, \Omega_q\right) - i\, \delta D_q\, .
+\end{equation}
+Therefore,
+\begin{equation}
+    \sum_p e^{i\, \Delta \omega_{q - p}\, t}\, \overline{G}_{q p}\, E_p - 2\, \mathcal{L}^{-1}\bigl(\Omega_q\bigr)\, B_q\, E_q
+    = \sum_{m n p} e^{i\, \Delta \omega_{q - p - m + n}\, t}\, \kappa_{q p m n}\, C_{m - n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_p
+\end{equation}
+This expression must be true at all times, so for convenience, let's use it to calculate $E_q$ at $t = 0$. We obtain
+\begin{equation}
+    \sum_p \overline{G}_{q p}\, E_p - 2\, \mathcal{L}^{-1}\bigl(\Omega_q\bigr)\, B_q\, E_q = \sum_{m n p} \kappa_{q p m n}\, C_{m n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_p
+\end{equation}
+
+
+% As a general representation of the spatially rapidly-varying fields in both unidirectional ring and standing-wave resonator configurations, we follow \sct{laser_resonators_1d_swl} and represent the electric field amplitude function as
+%  \begin{equation} \label{eqn:mml_e_1d_t_rv}
+% \widetilde{E}\zt \equiv \sum_{p = -\infty}^\infty \widetilde{u}_p\z\, e^{-i\, \Delta \omega_p\, t}\, E_p(t)\, .
+%  \end{equation}
+% In the unidirectional ring case,
+%  \begin{equation}
+% \widetilde{u}_q\z = u^{+}_q\z\, e^{+i k_0 z}\, ,
+%  \end{equation}
+% where $k_0$ is the propagation constant associated with the carrier frequency $\omega_0$. For a standing-wave resonator,
+%  \begin{equation}
+% \widetilde{u}_q\z = u^{+}_q\z\, e^{+i k_0 z} + u^{-}_q\z\, e^{-i k_0 z}\, .
+%  \end{equation}
+% We use a similar approach to the expansion of the amplitude of the macroscopic polarization, with a subtle difference:
+%  \begin{equation} \label{eqn:mml_f_1d_t_rv}
+% \widetilde{F}\zt \equiv \sum_{q = -\infty}^\infty \widetilde{w}_q\z\, e^{-i\, \Delta \omega_q\, t}\, F_q(t)\, .
+%  \end{equation}
+% Here $\widetilde{w}_q(z)$ represents the spatial dependence of each frequency component of the macroscopic polarization. If we look carefully at \eqn{cw_sml_gtz_scaled}, we see that to first order in $\widetilde{E}\zt$, the gain is given by the function $\overline{G}\zt$ that describes the pump. Suppose that the pump is constant in time, so that $\overline{G}\zt \equiv \overline{G}\z$. Then we can write the pump function as
+% \begin{equation} \label{eqn:mml_1d_pump_sep}
+%   \overline{G}\z \equiv \Gn\, \mathcal{Z}\z\, ,
+% \end{equation}
+% \begin{equation}
+%   G_0\z \equiv \Gn\, \mathcal{Z}\z\, ,
+% \end{equation}
+% where $\mathcal{Z}\z$ is a real function of $z$ normalized such that $\int_0^1 d z\, \mathcal{Z}\z = 1$ in the URL case or $2 \int_0^{1/2} d z\, \mathcal{Z}\z = 1$ in the SWL case, and $\Gn$ represents the \emph{small-signal (unsaturated) round-trip intensity gain}. Then a comparison of both sides of \eqn{cw_sml_ftz_scaled} suggests that
+%  \begin{equation}
+% \widetilde{w}_q\z \approx \mathcal{Z}\z\, \widetilde{u}_q\z\, .
+%  \end{equation}
+% In the following analysis, we'll also make a simplifying assumption: as discussed in \sct{laser_dynamics_1d_mml_frq}, $\delta \omega_q$ and, therefore, $\Delta \omega_q$ are linear in $q$.
+
+% In this section, our primary tools will be the formal solutions of \eqn{cw_sml_ftz_scaled} and \eqn{cw_sml_gtz_scaled}, obtained through Fourier transform expansions. For example, consider the ordinary differential equation
+%  \begin{equation}
+% \ddt y(t) = -\frac{1}{\tau} \left[y(t) + s(t)\right]\, ,
+%  \end{equation}
+% for some function $s(t)$. Applying the Fourier Transform and using \eqn{fourier_freq} and \eqn{fourier_shift_thm}, we find
+%  \begin{equation}
+% y(\omega) = \frac{s(\omega)}{1 - i\, \omega\, \tau}\, .
+%  \end{equation}
+% %We obtain
+% % \begin{equation}
+% %A(t) = \left(1 + \tau\, \ddt\right)^{-1} B(t)\, ,
+% % \end{equation}
+% % \begin{equation}
+% %\left(1 + \tau\, \ddt\right)^{-1} \equiv \sum_{l = 0}^{\infty} \left( -\tau\, \ddt \right)^l \, .
+% % \end{equation}
+% Suppose that $s(t)$ can be written as
+%  \begin{equation}
+% s(t) = \sum_q e^{-i\, \Delta \omega_q\, t}\, s_q(t)\, ,
+%  \end{equation}
+% giving the transform
+%  \begin{equation}
+% s(\omega) = \sum_q s_q(\omega - \Delta \omega_q)\, .
+%  \end{equation}
+% %If we define $\nu_q \equiv \omega - \Delta \omega_q$, and
+% % \begin{equation}
+% %c_q \equiv \frac{1}{1 - i\, \Delta \omega_q\, \tau}\, .
+% % \end{equation}
+% If we define $\nu_q \equiv \omega - \Delta \omega_q$, then we can rewrite $y(\omega)$ as
+%  \begin{equation}
+% y(\omega) = \sum_q \frac{1}{1 - i\, \Delta \omega_q\, \tau - i\, \nu_q\, \tau}\, s_q(\nu_q)\, .
+%  \end{equation}
+% With our usual casual indifference to mathematical rigor, we expand the denominator of this equation as a power series, and then apply the inverse Fourier transform over the frequency $\omega$ to each term separately. We obtain
+%  \begin{equation}
+% y(t) = \sum_q e^{-i\, \Delta \omega_q\, t}\, \left(1 - i\, \Delta \omega_q\, \tau + \tau\, \ddt\right)^{-1} s_q(t)\, ,
+%  \end{equation}
+% where for convenience we have defined the differential operator
+% % \begin{equation}% \label{eqn:mll_diff_oper}
+% %   \begin{split}
+% %     \left(1 - i\, \Delta \omega_q\, \tau + \tau\, \ddt\right)^{-1} &= \sum_{l = 0}^{\infty} \left( i\, \Delta \omega_q\, \tau - \tau\, \ddt \right)^l \\
+% %     &= \sum_{l = 0}^{\infty} \sum_{j = 0}^{l} \binom{l}{j} \left( i\, \Delta \omega_q\, \tau\right)^{l - j} (-\tau)^j\, \frac{d^j}{d t^j} \\
+% %     &= \sum_{j = 0}^{\infty} \frac{(-\tau)^j}{\left(1 - i\, \Delta \omega_q\, \tau\right)^{j + 1}}\, \frac{d^j}{d t^j}\, .
+% %   \end{split}
+% % \end{equation}
+% \begin{equation} \label{eqn:mll_diff_oper}
+%   \begin{split}
+%     \left(1 - i\, \Delta \omega_q\, \tau + \tau\, \ddt\right)^{-1} &= \left(1 - i\, \Delta \omega_q\, \tau\right)^{-1} \left(1 + \frac{\tau}{1 - i\, \Delta \omega_q\, \tau}\, \ddt\right)^{-1} \\
+%     &= \frac{1}{1 - i\, \Delta \omega_q\, \tau}\, \sum_{l = 0}^{\infty} \left(-\frac{\tau}{1 - i\, \Delta \omega_q\, \tau}\right)^l\, \frac{d^l}{d t^l}\, .
+%   \end{split}
+% \end{equation}
+
+% Let's apply this technique to solve the evolution equation for $\widetilde{G}\zt$ given by \eqn{cw_sml_gtz_scaled}. Using \eqn{mml_e_1d_t_rv} and \eqn{mml_f_1d_t_rv}, the nonlinear term on the \rhs can be written as
+%  \begin{equation*}
+%  \begin{split}
+%     2 \Re \left[ \widetilde{E}^\ast\zt\, \widetilde{F}\zt \right] &= \widetilde{E}^\ast\zt\, \widetilde{F}\zt + c.c. \\
+%     &= \sum_{m n}  e^{-i\, \Delta \omega_{m - n}\, t}\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, \mathcal{Z}\z \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right]\, ,
+%  \end{split}
+%  \end{equation*}
+% Therefore, using the Fourier transform expansion described above, we quickly find the formal solution
+%  \begin{equation}  \label{eqn:mll_gzt_formal}
+%  \begin{split}
+% \widetilde{G}\zt &= \Gn\, \mathcal{Z}\z - \sum_{m n}  e^{-i\, \Delta \omega_{m - n}\, t}\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, \mathcal{Z}\z \\
+% &\qquad \times \left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right]\, .
+%  \end{split}
+%  \end{equation}
+% %where
+% % \begin{equation} \label{eqn:mll_1d_c_def}
+% %C_q \equiv \frac{1}{1 - i\, \Delta \omega_q\, \tau_\parallel}\, .
+% % \end{equation}
+% We see that $\widetilde{G}\zt$ is rapidly-varying in space, and oscillates in time at a collection of frequencies that are approximately integer multiples of the free spectral range of the resonator. The Fourier transform approach to \eqn{cw_sml_ftz_scaled} is equally straightforward, giving the formal solution
+%  \begin{equation}  \label{eqn:mll_fzt_formal}
+%  \begin{split}
+% \widetilde{F}\zt &= \frac{\Gn}{2}\, \sum_p e^{-i\, \Delta \omega_p\, t}\, \widetilde{u}_p\z\, \mathcal{Z}\z \left(1 - i\, \Omega_p + \tau_\perp\, \ddt\right)^{-1} E_p(t) \\
+% &\quad - \half\, \sum_{m n p}  e^{-i\, \Delta \omega_{m - n + p}\, t}\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, \widetilde{u}_p\z\, \mathcal{Z}\z \left(1 - i\, \Omega_{m - n + p} + \tau_\perp\, \ddt\right)^{-1} E_p(t) \\
+% &\qquad \times \left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right]\, ,
+%  \end{split}
+%  \end{equation}
+% where $\Omega_q \equiv \Omega_0 + \Delta \omega_q\, \tau_\perp$, and $\Omega_0$ is given by \eqn{tls_omega_0_def}.
+
+% \begin{subequations} \label{eqn:mll_fgtzt_formal}
+% \begin{align}
+% \label{eqn:mll_ftzt_formal} \widetilde{F}\zt &= \frac{\gamma_\perp}{2}\, e^{-\gamma_\perp ( 1 - i\, \Omega_0 ) t} \int_{-\infty}^{t} d t^\prime\, e^{\gamma_\perp ( 1 - i\, \Omega_0 ) t^\prime}\, \widetilde{G}\left(z, t^\prime\right) \widetilde{E}\left(z, t^\prime\right) \, , \nd \\
+% \label{eqn:mll_gtzt_formal} \widetilde{G}\zt &= \gamma_\parallel\, e^{-\gamma_\parallel t} \int_{-\infty}^{t} d t^\prime\, e^{\gamma_\parallel t^\prime}\, \left\{ \overline{G}\left(z, t^\prime\right) - 2 \Re \left[ \widetilde{E}^\ast\left(z, t^\prime\right) \widetilde{F}\left(z, t^\prime\right) \right] \right\} \, ,
+% \end{align}
+% \end{subequations}
+%and our goal will be an expression for $\widetilde{F}\zt$ that is accurate to third order in $\widetilde{E}\zt$ \cite{ref:sargent1974lp}. Following the assumptions leading to \eqn{mml_1d_omega_q_def} and \eqn{mml_1d_freq_shift}, we'll take $\Omega_0 = 0$ in the remainder of this discussion.
+%
+%Suppose that the pump $\overline{G}\zt$ applied to the laser amplifier changes very slowly compared to the upper laser level lifetime $\tau_\parallel = \gamma_\parallel^{-1}$. (In most cases of practical interest, this constraint is equivalent to assuming that the pump is constant in time.) Then, to zeroth-order in the electric field amplitude, \eqn{mll_gtzt_formal} predicts that
+% \begin{equation} \label{eqn:mll_gzt0}
+%\widetilde{G}^{(0)}\zt = \gamma_\parallel\, e^{-\gamma_\parallel t} \int_{-\infty}^{t} d t^\prime\, e^{\gamma_\parallel t^\prime} \, \overline{G}\left(z, t^\prime\right) \cong \overline{G}\zt\, \gamma_\parallel\, e^{-\gamma_\parallel t} \int_{-\infty}^{t} d t^\prime\, e^{\gamma_\parallel t^\prime} = \overline{G}\zt\, .
+% \end{equation}
+%Next, we substitute this expression and \eqn{mml_e_field_1d_t} into \eqn{mll_ftzt_formal} to obtain an expression for $\widetilde{F}\zt$ that is accurate to first-order in $E_p(t)$. We find
+% \begin{equation}
+%\widetilde{F}^{(1)}\zt = \half\, \sum_p  \widetilde{u}_p\z\, \gamma_\perp\, e^{-\gamma_\perp\, t} \int_{-\infty}^{t} d t^\prime\, e^{\gamma_\perp ( 1 - i\, \Omega_p ) t^\prime}\, \overline{G}\left(z, t^\prime\right)\, E_p\left(t^\prime\right)\, ,
+% \end{equation}
+%where $\Omega_p = \Delta \omega_p\, \tau_\perp = (2 p \pi + \delta \omega_p) / \gamma_\perp$. Let's refine the rate equation approximation in this multimode case to assume that neither $\overline{G}\zt$ nor $E_p(t)$ change significantly during a time duration $\tau_\perp = \gamma_\perp^{-1}$. Moving both $\overline{G}\left(z, t^\prime\right)$ and $E_p\left(t^\prime\right)$ outside the time integral yields
+% \begin{equation} \label{eqn:mll_fzt1}
+%\widetilde{F}^{(1)}\zt = \frac{\overline{G}\zt}{2}\, \sum_p \frac{e^{-i\, \Delta \omega_p\, t}}{1 - i\, \Omega_p}\, E_p(t)\, \widetilde{u}_p\z\, .
+% \end{equation}
+%
+%Our next assignment is to use \eqn{mml_e_field_1d_t}, \eqn{mll_gtzt_formal} and \eqn{mll_fzt1} to determine $\widetilde{G}^{(2)}\zt$. To second order in $E_q(t)$, the nonlinear term in \eqn{mll_gtzt_formal} becomes
+% \begin{equation*}
+% \begin{split}
+%    2 \Re \left[ \widetilde{E}^\ast\zt\, \widetilde{F}^{(1)}\zt \right] &= \widetilde{E}^\ast\zt\, \widetilde{F}^{(1)}\zt + c.c. \\
+%    &\equiv \overline{G}\zt\, \sum_{m n}  e^{-i (\Delta \omega_m - \Delta \omega_n) t}\, B_{m n}\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, E_m(t)\, E_n^\ast(t)\, ,
+% \end{split}
+% \end{equation*}
+%where
+% \begin{equation} \label{eqn:mll_1d_b_def}
+%B_{m n} \equiv \half\, \left( \frac{1}{1 - i\, \Omega_m} + \frac{1}{1 + i\, \Omega_n} \right)\, .
+% \end{equation}
+%Substituting this result into \eqn{mll_gtzt_formal} yields
+% \begin{equation}
+%\widetilde{G}^{(2)}\zt = -\overline{G}\zt\, \sum_{m n} B_{m n}\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, \gamma_\parallel\, e^{-\gamma_\parallel t} \int_{-\infty}^{t} d t^\prime\, e^{[\gamma_\parallel - i (\Delta \omega_m - \Delta \omega_n)] t^\prime}\, E_m\left(t^\prime\right)\, E_n^\ast\left(t^\prime\right)\, .
+% \end{equation}
+%In practice, it may be difficult to claim that $E_q(t)$ will vary slowly relative to the timescale $\tau_\parallel = \gamma_\parallel^{-1}$. However, we can make the much more reasonable assumption that the dynamical variables will not change significantly during the group round-trip time $\tau_g$, so that $e^{- i (\Delta \omega_m - \Delta \omega_n) t}$ varies rapidly compared to $E_q(t)$. In this case, we have
+% \begin{equation} \label{eqn:mll_gzt2}
+%\widetilde{G}^{(2)}\zt \equiv -\overline{G}\zt\, \sum_{m n} e^{-i (\Delta \omega_m - \Delta \omega_n) t}\, B_{m n}\, C_{m n}\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, E_m(t)\, E_n^\ast(t)\, .
+% \end{equation}
+%Finally, substitution of \eqn{mml_e_field_1d_t} and \eqn{mll_gzt2} into \eqn{mll_ftzt_formal}, followed by application of the rate-equation approximation,  yields for the third-order macroscopic polarization
+% \begin{equation} \label{eqn:mll_fzt3}
+% \begin{split}
+%\widetilde{F}^{(3)}\zt &= -\frac{\overline{G}\zt}{2}\, \sum_{p m n}  \frac{e^{-i (\Delta \omega_p + \Delta \omega_m - \Delta \omega_n) t}}{1 - i (\Omega_p + \Omega_m - \Omega_n)}\, B_{m n}\, C_{m n} \\
+%&\qquad \times \widetilde{u}_p\z\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, E_p(t)\, E_m(t)\, E_n^\ast(t)\, .
+% \end{split}
+% \end{equation}
+%The total macroscopic polarization, valid to third order in $E_q(t)$, is given by the sum of \eqn{mll_fzt1} and \eqn{mll_fzt3}.
+
+%  \subsection{Unidirectional Ring Lasers\label{sct:laser_dynamics_1d_mml_mll_url}}
+% As discussed above, in the case of the URL, the rapidly-varying spatial function $\exp(+i k_0 z)$ is common to both $\widetilde{E}\zt$ and $\widetilde{F}\zt$, and can therefore be ignored in \eqn{mll_fzt_formal}. If we substitute \eqn{mll_fzt_formal} into \eqn{mml_fq_sol}, we obtain
+% % \begin{equation}
+% % \begin{split}
+% %F_q(t) &\cong \half\, \sum_p \frac{e^{i (\Delta \omega_q - \Delta \omega_p) t}}{1 - i\, \Omega_p}\, \overline{G}_{q - p}(t)\, E_p(t) \\
+% %&\qquad - \half\, \sum_{p m n} \frac{e^{i (\Delta \omega_q - \Delta \omega_p - \Delta \omega_m + \Delta \omega_n) t}}{1 - i (\Omega_p + \Omega_m - \Omega_n)}\, B_{m n}\, C_{m n}\, \overline{G}_{q - p, m - n}(t)\, E_p(t)\, E_m(t)\, E_n^\ast(t)\,  ,
+% % \end{split}
+% % \end{equation}
+%  \begin{equation} \label{eqn:mll_url_fqt_g}
+%  \begin{split}
+% F_q(t) &= \frac{\Gn}{2}\, \sum_p e^{i\, \Delta \omega_{q - p}\, t}\, \mathcal{Z}_{q - p}\, \left(1 - i\, \Omega_p + \tau_\perp\, \ddt\right)^{-1} E_p(t) \\
+% &\quad - \half\, \sum_{m n p}  e^{i\, \Delta \omega_{q - m + n - p}\, t}\, \kappa_{q m n p}\, \left(1 - i\, \Omega_{m - n + p} + \tau_\perp\, \ddt\right)^{-1} E_p(t) \\
+% &\qquad \times \left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right]\, ,
+%  \end{split}
+%  \end{equation}
+% where
+%  \begin{equation} \label{eqn:mll_url_zqp_def}
+% \mathcal{Z}_{q - p} \equiv \int_0^1 d z\, v_q\z\, u_p\z\, \mathcal{Z}\z = \int_0^1 d z\, e^{-i 2 (q - p) \pi z}\, \mathcal{Z}\z
+%  \end{equation}
+% is essentially a one-dimensional discrete spatial Fourier transform of $\mathcal{Z}\z$, and
+%  \begin{equation}
+% \kappa_{q m n p} \equiv \int_0^1 d z\, v_q\z\, u_p\z\, u_m\z\, u_n^\ast\z\, \mathcal{Z}\z\, .
+%  \end{equation}
+%
+% Then
+% \begin{equation} \label{eqn:mll_url_gbqp_def}
+%\overline{G}_{q - p} = \Gn \int_0^1 d z\, e^{-i 2 (q - p) \pi z}\, \mathcal{Z}\z \equiv \Gn\, \mathcal{Z}_{q - p}\, .
+% \end{equation}
+% \begin{equation} \label{eqn:mll_url_fqt1}
+%F_q^{(1)}(t) = \frac{\Gnt}{2}\, \sum_p \frac{e^{i 2 ( q - p ) \pi t}}{1 - i\, \Omega_p}\, \mathcal{Z}_{q - p}\, E_p(t)\, .
+% \end{equation}
+% Suppose that $\mathcal{Z}\z = 1/(z_2 - z_1)$ for $0 < z_1 \le z \le z_2 < 1$, and is zero otherwise. In this (common) special case, when $q \ne p$ we have
+%  \begin{equation} \label{eqn:mll_url_zqp_spec}
+% \mathcal{Z}_{q - p} = i\, \frac{\exp[-i 2 (q - p) \pi z_2] - \exp[-i 2 (q - p) \pi z_1]}{2 (q - p) \pi (z_2 - z_1)}\, ,
+%  \end{equation}
+% and $\mathcal{Z}_0 = 1$ due to the normalization of $\mathcal{Z}\z$. Note that when $\{z_1, z_2\} \longrightarrow \{0, 1\}$, $\mathcal{Z}_{q - p} \longrightarrow \delta_{q p}$. However, if the intracavity laser amplifier does not fill the resonator, then \emph{in general} the quasi-normal spatial modes of the cavity will couple at first order through the Fourier transform included in \eqn{mll_url_zqp_def}.
+
+% But we now make a crucial observation that will simplify our numerical analysis of mode-locked URLs. Since we have assumed that $|\dot{E}_q(t)| \ll |E_q(t)|/\tau_g$, terms in the first sum on the \rhs of \eqn{mll_url_fqt_g} with $p \ne q$, as well as terms in the second sum with $p \ne q - m + n$, are rapidly varying and will average out after the laser has reached stable operation. If we neglect these terms, then the polarization becomes
+% \begin{equation}
+%F_q(t) \cong \frac{\Gnt}{2 \left(1 - i\, \Omega_q\right)} \left[ E_q(t) - \kappa\, \sum_{m n} e^{-i\, \delta \phi_{q m n}(t)}\, B_{m n}\, C_{m n}\, E_{q - m + n}(t)\, E_m(t)\, E_n^\ast(t) \right]\,  ,
+% \end{equation}
+%  \begin{equation} \label{eqn:mll_url_fqt}
+%  \begin{split}
+% F_q(t) &= \half\, \Gn\, \left(1 - i\, \Omega_q + \tau_\perp\, \ddt\right)^{-1} E_q(t) - \frac{\kappa}{2}\, \left(1 - i\, \Omega_q + \tau_\perp\, \ddt\right)^{-1} \\
+% &\qquad \times \sum_{m n} E_{q - m + n}(t)\, \left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right]\, ,
+%  \end{split}
+%  \end{equation}
+% where
+% \begin{equation}
+%\delta \phi_{q m n}(t) \equiv (\delta \omega_{q - m + n} - \delta \omega_q + \delta \omega_m - \delta \omega_n)\, t\, , \nd
+% \end{equation}
+%  \begin{equation}
+% \kappa \equiv \mathcal{C}^2 \int_0^1 d z\, e^{\ln(1/R)\, z}\, \mathcal{Z}\z\, .
+%  \end{equation}
+% In the case where $\mathcal{Z}\z = 1/(z_2 - z_1)$ for $0 < z_1 \le z \le z_2 < 1$, and is zero otherwise, we find
+%  \begin{equation}
+% \kappa = \frac{R}{1 - R}\, \frac{e^{\ln(1/R)\, z_2} - e^{\ln(1/R)\, z_1}}{z_2 - z_1} .
+%  \end{equation}
+% If $\{z_1, z_2\} \longrightarrow \{0, 1\}$, then $\kappa \longrightarrow 1$.
+
+%In the third-order term of \eqn{mll_url_fqt}, we have made the approximation
+% \begin{equation}
+%\Omega_{q - m + n} + \Omega_m - \Omega_n = \Omega_q + \delta \phi_{q m n}(\tau_\perp) \approx \Omega_q
+% \end{equation}
+%because we have assumed throughout this analysis that $\delta \omega_q \ll 2 q \pi$. We can make a similar approximation for the coefficients $B_{m n}$ and $C_{m n}$ under the same assumption, but not for $\delta \phi_{q m n}(t)$. Because the shift caused by frequency pulling is linear in $q$ by \eqn{mml_1d_freq_shift}, if we can neglect dispersion then $\delta \phi_{q m n}(t) = 0$. However, if we include the effects of dispersion, then (to third order)
+% \begin{equation}
+%\delta \phi_{q m n}(t) = \frac{(q - m)(m - n)(2 \pi)^2}{1 + \tau_\perp/2\, \tau_p} \left[ D_2\wn + (q + n)\, \pi\, D_3\wn \right] t\, .
+% \end{equation}
+%Including this phase shift allows us to reduce the temporal fluctuations in the amplitudes $E_q(t)$, and in practice allows numerical solutions of \eqn{mml_1d_deq_dt_final} to converge more rapidly.
+
+%  \subsubsection{Standing-Wave Lasers\label{sct:laser_dynamics_1d_mml_mll_swl}}
+
+% The calculation of the macroscopic polarization for a standing-wave laser proceeds in essentially the same fashion as the unidirectional ring laser, but interference between the counterpropagating fields will complicate our calculations of the spatial coupling between electric field modes contributing to the nonlinear terms in the macroscopic polarization. Our strategy is straightforward, if a bit tedious. Following our approach in both \sct{laser_statics_1d_shb} and \sct{laser_dynamics_1d_mml_qsl}, we begin with the spatially rapidly-varying polarization given by \eqn{mll_fzt_formal}, now written explicitly as
+% \begin{multline}
+%F^{+}\zt\, e^{+i k_0 z} + F^{-}\zt\, e^{-i k_0 z} = \\ \frac{\overline{G}\zt}{2}\, \sum_p \frac{e^{-i\, \Delta \omega_p\, t}}{1 - i\, \Omega_p}\, \left[u^+_p\z\, e^{+i k_0 z} + u^-_p\z\, e^{-i k_0 z}\right] E_p(t)\, .
+% \end{multline}
+%  \begin{equation*}%  \label{eqn:mll_fzt_formal}
+%  \begin{split}
+% F^{+}\zt\, e^{+i k_0 z} + F^{-}\zt\, e^{-i k_0 z} &= \frac{\Gn}{2}\, \sum_p e^{-i\, \Delta \omega_p\, t}\, \left[u^+_p\z\, e^{+i k_0 z} + u^-_p\z\, e^{-i k_0 z}\right] \mathcal{Z}\z \\
+% &\quad \times \left(1 - i\, \Omega_p + \tau_\perp\, \ddt\right)^{-1} E_p(t) \\
+% &\quad - \half\, \sum_{m n p}  e^{-i\, \Delta \omega_{m - n + p}\, t}\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, \widetilde{u}_p\z\, \mathcal{Z}\z \\
+% &\quad \times \left(1 - i\, \Omega_{m - n + p} + \tau_\perp\, \ddt\right)^{-1} E_p(t) \\
+% &\quad \times \left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right]\, .
+%  \end{split}
+%  \end{equation*}
+% Let's start with the linear (first) term on the \rhs of this expression. If we make the reasonable assumption that $\mathcal{Z}\z$ is spatially slowly-varying on the scale of a wavelength, then the counterpropagating components of the polarization cleanly separate, and
+%  \begin{equation}
+% \mathbf{F}^{(1)}\zt = \frac{\Gn}{2}\, \sum_p e^{-i\, \Delta \omega_p\, t}\, \mathbf{u}_p\z\, \mathcal{Z}\z \left(1 - i\, \Omega_p + \tau_\perp\, \ddt\right)^{-1} E_p(t)\, ,
+%  \end{equation}
+% where we have used \eqn{laser_resonator_1d_u_sw_vec}. We substitute this result into \eqn{mml_fq_sol} to reproduce the first term on the \rhs of \eqn{mll_url_fqt_g}, where now
+%  \begin{equation} \label{eqn:mll_swl_zqp_def}
+% \mathcal{Z}_{q - p} \equiv \int_0^{1/2} d z\, \mathbf{v}_q\z \dotp \mathbf{u}_p\z\, \mathcal{Z}\z = 2 \int_0^{1/2} d z\, \cos\left[ 2\, (q - p)\, \pi\, z \right]\, \mathcal{Z}\z\, .
+%  \end{equation}
+% Let's suppose that $\mathcal{Z}\z = 1/2 (z_2 - z_1)$ for $0 <  z_1 \le z \le z_2 < 1/2$, and is zero otherwise. In this (common) special case, for $p \ne q$
+%  \begin{equation} \label{eqn:mml_1d_zeta_12_swl}
+% \mathcal{Z}_{q - p} = \frac{\sin[2\, (q - p)\, \pi\, z_2] - \sin[2\, (q - p)\, \pi\, z_1]}{2\, (q - p)\, \pi\, (z_2 - z_1)}\, .
+%  \end{equation}
+% When $\{z_1, z_2\} \longrightarrow \{0, 1/2\}$, $\mathcal{Z}_{q - p} \longrightarrow \delta_{q p}$.
+
+% We must go through the same exercise with the nonlinear contribution to the macroscopic polarization given by \eqn{mll_fzt_formal}. First we expand the rapidly-varying spatial functions to explicitly show their net dependence on $e^{\pm i k_0 z}$. We find
+%  \begin{equation}
+%  \begin{split}
+% \widetilde{U}_{m n p}\z & \equiv \widetilde{u}_p\z\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z \\
+% &= \left[u^+_p\z\, e^{+i k_0 z} + u^-_p\z\, e^{-i k_0 z}\right] \Big[u_m^{+}\z\, u_n^{+ \ast}\z + u_m^{-}\z\, u_n^{- \ast}\z \\
+%     & \qquad \left. + u_m^{+}\z\, u_n^{- \ast}\z\, e^{+i 2 k_0 z} + u_m^{-}\z\, u_n^{+ \ast}\z\, e^{-i 2 k_0 z}\right]\, ,
+%  \end{split}
+%  \end{equation}
+% or, neglecting terms proportional to $e^{\pm i 3 k_0 z}$, we follow \eqn{laser_resonator_1d_u_sw_vec} and write
+%  \begin{equation}
+% \mathbf{U}_{m n p}\z = \begin{bmatrix}
+% u_p^+\z\, \left[u_m^{+}\z\, u_n^{+ \ast}\z + u_m^{-}\z\, u_n^{- \ast}\z\right] + u_p^-\z\, u_m^{+}\z\, u_n^{- \ast}\z \\
+% u_p^-\z\, \left[u_m^{+}\z\, u_n^{+ \ast}\z + u_m^{-}\z\, u_n^{- \ast}\z\right] + u_p^+\z\, u_m^{-}\z\, u_n^{+ \ast}\z
+%                    \end{bmatrix}
+%  \end{equation}
+% Let us again assume that we can neglect all terms in the macroscopic polarization that vary on timescales greater than or equal to $\tau_g$, leading to $p = q$ in the first-order contribution, and $p = q - m + n$ for the nonlinear term. Then in order to derive $F_q(t)$ for the standing-wave laser, we need to calculate the integral
+%  \begin{equation}
+% \kappa_{q m n} \equiv \int_0^{1/2} d z\, \mathbf{v}_q\z \dotp \mathbf{U}_{q - m + n, m, n}\z\, \mathcal{Z}\z\, .
+%  \end{equation}
+% Once this result is in hand, coefficient $q$ of the modal macroscopic polarization expansion becomes
+%  \begin{equation} \label{eqn:mll_swl_fqt}
+%  \begin{split}
+% F_q(t) &= \half\, \Gn\, \left(1 - i\, \Omega_q + \tau_\perp\, \ddt\right)^{-1} E_q(t) - \half\, \left(1 - i\, \Omega_q + \tau_\perp\, \ddt\right)^{-1} \\
+% &\qquad \times \sum_{m n} \kappa_{q m n}\, E_{q - m + n}(t)\, \left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right]\, ,
+%  \end{split}
+%  \end{equation}
+
+% If $\mathcal{Z}\z = 1/2 (z_2 - z_1)$ for $0 < z_1 \le z \le z_2 < 1/2$, and is zero otherwise, then
+%  \begin{multline} \label{eqn:mll_1d_kappa_def_swl}
+% \kappa_{q m n} \equiv \frac{1}{2 \left(z_2 - z_1\right)}\, \int_{z_1}^{z_2} d z\, \left\{ \mathbf{v}_q\z \dotp \mathbf{u}_{q - m + n}\z \left[u_m^{+}\z\, u_n^{+ \ast}\z + u_m^{-}\z\, u_n^{- \ast}\z\right] \right. \\ \left. + v_q^{+}\z\, u_{q - m + n}^{-}\z\, u_m^+\z\, u_n^{- \ast}\z + v_q^{-}\z\, u_{q - m + n}^{+}\z\, u_m^-\z\, u_n^{+ \ast}\z \right\}\, .
+%  \end{multline}
+% Using \eqn{laser_resonator_1d_u_sw} and \eqn{laser_resonator_1d_v_sw}, this spatial coupling constant becomes
+%  \begin{equation} \label{eqn:mll_1d_kappa_swl}
+%  \begin{split}
+% \kappa_{q m n} &= \frac{\mathcal{C}^{-1} \mathcal{C}^3}{2 \left(z_2 - z_1\right)}\, \int_{z_1}^{z_2} d z\, \left\{ \left[e^{i 2 (m - n) \pi z} + e^{-i 2 (m - n) \pi z}\right] \right. \\
+% &\qquad\qquad \times \left[e^{i 2 (m - n) \pi z} e^{\ln(1/R_1 R_2) z} + \frac{1}{R_1}\, e^{-i 2 (m - n) \pi z} e^{-\ln(1/R_1 R_2) z}\right] \\
+% &\qquad \left. + e^{i 4 (q -m) \pi z} e^{\ln(1/R_1 R_2) z} + \frac{1}{R_1}\, e^{-i 4 (q - m) \pi z} e^{-\ln(1/R_1 R_2) z} \right\} \\
+% & \equiv \Delta^\prime_{0}\left(R_1, R_2\right) + \Delta^\prime_{2 (m - n)}\left(R_1, R_2\right) + \Delta^\prime_{2 (q - m)}\left(R_1, R_2\right)\, ,
+%  \end{split}
+%  \end{equation}
+% where
+%  \begin{equation}
+%  \begin{split}
+% \Delta^\prime_{2 q}\left(R_1, R_2\right) &\equiv \frac{\mathcal{C}^2}{2 \left(z_2 - z_1\right)}\, \int_{z_1}^{z_2} d z\, \left\{ e^{\left[ i 4 q \pi + \ln(1/R_1 R_2)\right] z} + \frac{1}{R_1}\, e^{-\left[ i 4 q \pi + \ln(1/R_1 R_2)\right] z} \right\} \\
+% &= \Delta_{2 q}(R_1 R_2)\, \frac{\mathcal{C}^2}{2 \left(z_2 - z_1\right) \ln(1/R_1 R_2)} \left\{ \left[e^{\left[i 4 q \pi + \ln(1/R_1 R_2)\right] z_2} - e^{\left[i 4 q \pi + \ln(1/R_1 R_2)\right] z_1}\right] \right. \\
+% &\qquad \left.- R_1^{-1} \left[e^{-\left[i 4 q \pi + \ln(1/R_1 R_2)\right] z_2} - e^{-\left[i 4 q \pi + \ln(1/R_1 R_2)\right] z_1}\right] \right\}\,
+% \, ,
+%  \end{split}
+%  \end{equation}
+% and $\Delta_q(R)$ is defined by \eqn{laser_resonator_1d_Delta_qR}. If $\{z_1, z_2\} \longrightarrow \{0, 1/2\}$, then $\Delta^\prime_{2 q}(R_1, R_2) \longrightarrow \Delta_{2 q}(R_1 R_2)$. In this case, $\kappa_{q m n}$ becomes
+%  \begin{equation} \label{eqn:mll_1d_kappa_swl_smpl}
+% \kappa_{q m n} = 1 + \Delta_{2 (m - n)}(R_1 R_2) + \Delta_{2 (q - m)}(R_1 R_2)\, ,
+%  \end{equation}
+% The first term on the \rhs of \eqn{mll_1d_kappa_swl} and \eqn{mll_1d_kappa_swl_smpl} is simply the nonlinear coupling for the unidirectional ring laser. The second term arises from cross-saturation \emph{neglecting} interference between the counterpropagating fields, while the third term adds these interference effects. Note that \eqn{mll_1d_kappa_swl_smpl} predicts that $\kappa_{qqq} = 3$, which is the saturation constant appropriate for weak fields as described toward the end of \sct{laser_statics_1d_shb}.
+
+ \subsection{Numerics}
+Let's assume that in all cases of practical interest the transverse coherence time $\tau_\perp$ (which has been scaled by the group round-trip time $\tau_g$) is small enough that we can ignore the corresponding differential operators on the \rhs of \eqn{mll_swl_fqt}, giving
+ \begin{equation} \label{eqn:mll_swl_fqt_prac}
+ \begin{split}
+F_q(t) &= \half\, \mathcal{L}_q\, \Gn\, E_q(t) - \half\, \mathcal{L}_q\, \sum_{m n} \kappa_{q m n}\, E_{q - m + n}(t) \\
+&\qquad \times \left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right]\, ,
+ \end{split}
+ \end{equation}
+where $\mathcal{L}_{q}$ is defined by \eqn{mml_lmc_q_def}.
+% \begin{equation} \label{eqn:mll_1d_l_def}
+%\mathcal{L}_{q} \equiv \frac{1}{1 - i\, \Omega_q}\, .
+% \end{equation}
+In general, we can't make assumptions about the scaled value of $\tau_\parallel$; it could be smaller or larger than unity. In the case of a single-mode laser with no dispersion, our incorporation of frequency pulling into \eqn{mml_1d_deq_dt_fp} means that a constant pump will eventually result in $\dot{E}_q(t) = 0$. One approach to estimating the impact of the differential operator on the \rhs of \eqn{mll_swl_fqt_prac} to a multimode laser is to expand the nonlinear contribution to $F_q(t)$ to third order in the electric field coefficients. Using
+ \begin{equation}
+F^{(1)}_q(t) = \half\, \mathcal{L}_q\, \Gn\, E_q(t)\, ,
+ \end{equation}
+we obtain
+ \begin{equation} \label{eqn:mll_swl_fqt_fwm_prac}
+ \begin{split}
+F_q(t) &\cong \half\, \mathcal{L}_q\, \Gn E_q(t) \\
+&\quad - \half\, \mathcal{L}_q\, \Gn \sum_{m n} \kappa_{q m n}\, B_{m n}\, E_{q - m + n}(t) \left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} E_m(t)\, E_n^\ast(t)\, ,
+ \end{split}
+ \end{equation}
+where
+ \begin{equation} \label{eqn:mll_1d_b_def}
+B_{m n} \equiv \half\, \left( \mathcal{L}_m + \mathcal{L}^\ast_n \right)\, .
+ \end{equation}
+From \eqn{mll_diff_oper}, we note that
+ \begin{equation} %\label{eqn:mll_diff_oper}
+\left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} \left[E_m(t)\, E_n^\ast(t)\right] = \sum_{l = 0}^{\infty} \left( i\, \Delta \omega_{m - n} \, \tau_\parallel - \tau_\parallel\, \ddt \right)^l \left[ E_m(t)\, E_n^\ast(t)\right]\, .
+ \end{equation}
+The $l = 1$ term of the sum on the \rhs has the form
+ \begin{equation}
+ \begin{split}
+\left( i\, \Delta \omega_{m - n} \, \tau_\parallel - \tau_\parallel\, \ddt \right) \left[ E_m(t)\, E_n^\ast(t)\right] &= i\, \Delta \omega_{m - n} \, \tau_\parallel \left[ E_m(t)\, E_n^\ast(t)\right] \\
+&\quad - \tau_\parallel \left[E_n^\ast(t)\, \dot{E}_m(t) + E_m(t)\, \dot{E}_n^\ast(t)\right]\, .
+ \end{split}
+ \end{equation}
+Consistent with our third-order expansion of $F_q(t)$, we use \eqn{mml_1d_deq_dt_final} to estimate $\dot{E}_q(t)$ to first order in $E_q(t)$. We obtain
+ \begin{equation} %\label{eqn:mml_1d_deq_dt_final}
+ \dot{E}_q(t) \approx \gamma_q\, E_q(t)\, ,
+ \end{equation}
+where
+ \begin{equation} \label{eqn:mml_1d_gamma_q_def}
+ \gamma_q \equiv \frac{1}{1 + \delta \tau_q\wn} \left[ \half \left( 1 + i\, \Omega_q \right) \left( \frac{\Gn}{1 + \Omega_q^2} - \frac{1}{\tau_p} \right) + i\, \delta D_q\wn \right] .
+ \end{equation}
+Therefore
+ \begin{equation}
+\left( i\, \Delta \omega_{m - n} \, \tau_\parallel - \tau_\parallel\, \ddt \right) \left[ E_m(t)\, E_n^\ast(t)\right] \approx \left[ i\, \Delta \omega_{m - n} - \left(\gamma_m + \gamma_n^\ast\right) \right] \tau_\parallel\, \, E_m(t)\, E_n^\ast(t)\, ,
+ \end{equation}
+and
+ \begin{equation}
+ \begin{split}
+\left(1 - i\, \Delta \omega_{m - n} \, \tau_\parallel + \tau_\parallel\, \ddt\right)^{-1} E_m(t)\, E_n^\ast(t) &= \sum_{l = 0}^{\infty} \left\{\left[ i\, \Delta \omega_{m - n} - \left(\gamma_m + \gamma_n^\ast\right) \right] \tau_\parallel\right\}^l\, \left[ E_m(t)\, E_n^\ast(t)\right] \\
+&\equiv C_{m n}\, E_m(t)\, E_n^\ast(t)\, ,
+ \end{split}
+ \end{equation}
+where
+ \begin{equation} \label{eqn:mll_1d_cp_def}
+C_{m n} \equiv \frac{1}{1 + \left(\gamma_m + \gamma_n^\ast - i\, \Delta \omega_{m - n}\right)\, \tau_\parallel}\, .
+ \end{equation}
+Suppose that $\tau_\parallel \lesssim 1$, and that $\Gn$ is only moderately above threshold, so that $\gamma_0 < 1$. Then $\gamma_m + \gamma_n^\ast$ can be neglected in favor of $\Delta \omega_{m - n}$. If $\tau_\parallel \gg 1$, then even at moderate gains $C_{m n}$ will be strongly suppressed; we have
+ \begin{equation}
+C_{m n} \approx \frac{\delta_{m n}}{1 + 2 \Re (\gamma_n)\, \tau_\parallel}\, .
+ \end{equation}
+%where
+% \begin{equation}
+%2 \Re (\gamma_n)\, \tau_\parallel = \frac{\tau_\parallel}{1 + \delta \tau_n\wn} \left( \frac{\Gn}{1 + \Omega_n^2} - \frac{1}{\tau_p} \right)\, .
+% \end{equation}
+This effect is even more pronounced for multimode systems well above threshold. Note that modes \emph{below} threshold should have $C_{n n} = 1$.
+
+Let's now investigate numerical solutions of \eqn{mml_1d_deq_dt_final} after replacing the differential operator in \eqn{mll_swl_fqt_prac} with $C_{m n}$ in our computations of $F_q(t)$. First, in the ``all-wave-mixing'' (AWM) case, we choose
+ \begin{equation} \label{eqn:mll_swl_fqt_awm}
+ F_q(t) \cong \half\, \mathcal{L}_q\, \left\{ \Gn\, E_q(t) - \sum_{m n} \kappa_{q m n}\, C_{m n}\, E_{q - m + n}(t) \left[ E_m(t)\, F_n^\ast(t) + F_m(t)\, E_n^\ast(t) \right] \right\}\, .
+ \end{equation}
+This equation can be rewritten as a matrix equation for $F_q(t)$ in the form
+ \begin{equation}\label{eqn:mll_1d_fqt_swl_awm}
+\sum_m \left[ A_{q m}(t)\, F_m(t) + B_{q m}(t)\, F^\ast_m(t) \right] = H_q(t)\, ,
+ \end{equation}
+where
+ \begin{align*}
+A_{q m}(t) &\equiv \delta_{q, m} + \sum_n \mathcal{K}_{qmn}\, E_{q - m + n}(t)\, E_n^\ast(t)\, , \\
+B_{q m}(t) &\equiv \sum_n \mathcal{K}_{qnm}\, E_{q - n + m}(t)\, E_n(t)\, , \\
+\mathcal{K}_{qmn} &\equiv \half\, \mathcal{L}_q\, \kappa_{q m n}\, C_{m n}\, , \nd \\
+H_q(t) &\equiv \half\, \Gn\, \mathcal{L}_q\, E_q(t)\, .
+ \end{align*}
+Suppose that the total number of modes in our simulation is $\mathcal{N} \equiv 2 q_\text{max} + 1$. Then we can think of $A_{q m}(t)$ and $B_{q m}(t)$ as $\mathcal{N} \times \mathcal{N}$ complex square matrices, and $F_q(t)$ and $H_q(t)$ as $\mathcal{N} \times 1$ complex column vectors. Separating all of these variables into their real and imaginary parts, we can rewrite \eqn{mll_1d_fqt_swl_awm} as the $(2 \mathcal{N} \times 2 \mathcal{N}) \cdot (2 \mathcal{N} \times 1)$ real matrix equation
+ \begin{equation}\label{eqn:mml_1d_fqt_sw_mat}
+\begin{bmatrix}
+  \Re[A(t) + B(t)] & -\Im[A(t) - B(t)] \\
+  \Im[A(t) + B(t)] & \Re[A(t) - B(t)]
+\end{bmatrix} \begin{bmatrix}
+                  \Re[\mathbf{F}(t)] \\
+                  \Im[\mathbf{F}(t)]
+                \end{bmatrix}
+                 = \begin{bmatrix}
+                  \Re[\mathbf{H}(t)] \\
+                  \Im[\mathbf{H}(t)]
+                \end{bmatrix}\, ,
+ \end{equation}
+which can be solved using standard numerical linear algebra techniques.% However, as written, this approach --- with $\mathcal{K}_{qmn}(t)$ incorporating $e^{-i\, \delta \phi_{q m n}(t)}$ --- can be numerically inefficient. In practice, a better algorithm would be:
+% \begin{enumerate}
+% \item replace $E_q(t)$ in $H(t)$ with $E_q(t) e^{-i \delta \omega_q t}$;
+% \item drop $e^{-i\, \delta \phi_{q m n}(t)}$ from $\mathcal{K}_{qmn}(t)$;
+% \item solve \eqn{mml_1d_fqt_sw_mat};
+% \item multiply $F_q(t)$ by $e^{+i \delta \omega_q t}$; and
+% \item substitute the result into \eqn{mml_1d_deq_dt_final}.
+% \end{enumerate}
+%It is easy to see that precisely the same approach can be applied to $F_q(t)$ in \eqn{mll_swl_fqt}.
+
+In the low-gain, weak-field case, we can use the expansion of $F_q(t)$ to third-order in the electric field amplitude --- the ``four-wave mixing'' (FWM) case:
+ \begin{equation} \label{eqn:mll_swl_fqt_fwm}
+F_q(t) \cong \half\, \mathcal{L}_q\, \Gn \left[ E_q(t) - \sum_{m n} \kappa_{q m n}\, B_{m n}\, C_{m n}\, E_{q - m + n}(t)\, E_m(t)\, E_n^\ast(t) \right]\, .
+ \end{equation}
+In principle, \eqn{mml_1d_deq_dt_final} can be solved much more efficiently with $F_q(t)$ obtained from \eqn{mll_swl_fqt_fwm} than with \eqn{mml_1d_fqt_sw_mat}.
+%
+%As the unsaturated gain increases, numerical solutions of \eqn{mml_edot} relying on the third-order expansion of the macroscopic polarization given by \eqn{mll_swl_fqt} can become unstable. We can improve this stability --- at the expense of some loss of accuracy at high gains --- by treating \eqn{mll_swl_fqt} as a geometric series, and (indirectly) ``re-summing'' the terms. In this case, we find
+% \begin{multline}\label{eqn:mll_swl_fqt_num}
+%F_q(t) \approx \frac{1}{2 \left( 1 - i\, \Omega_q \right)} \Bigg\{ \Gnt\, E_q(t) - \\ \sum_{m n}  e^{-i\, \delta \phi_{q m n}(t)}\, \kappa_{q m n}\, C_{m n}\, E_{q - m + n}(t)  \left[ F_m(t)\, E_n^\ast(t) + E_m(t)\, F_n^\ast(t) \right] \Bigg\}\, .
+% \end{multline}
+%
+%
+%It is straightforward to show that a perturbative expansion of this expression reproduces \eqn{mll_swl_fqt}.
+
+\subsubsection{Preliminary Solver}
+\begin{equation}
+  \left|E_q(t)\right|^2 -2 \Re\left[E_q^\ast(t)\, F_q(t)\right] = 0\, .
+\end{equation}
+
+In our code, we scale the time variable by the photon lifetime $\tau_p$, and compute the derivative using
+\begin{equation}
+  \dot{E}_q(t) = \left[-\half + i\, \left(\delta \omega_q\, \tau_p + \delta D_q\right)\right] E_q(t) + F_q(t)\, ,
+\end{equation}
+where $\delta \omega_q$ and $\delta D_q$ are given by \eqn{mml_1d_freq_pull} and \eqn{mml_1d_delta_d_q_def}, respectively.
+Therefore,
+\begin{equation}
+  E^\ast_q(t)\, \dot{E}_q(t) = \left[-\frac{1}{2} + i\, \left(\delta \omega_q\, \tau_p + \delta D_q\right)\right] \left|E_q(t)\right|^2 + E^\ast_q(t)\, F_q(t)\, ,
+\end{equation}
+giving
+\begin{align}
+  \Re\left[ \frac{\dot{E}_q(t)}{E_q(t)} \right] &= -\frac{1}{2} + \Re\left[ \frac{F_q(t)}{E_q(t)} \right]\, , \text{ and} \\
+  \Im\left[ \frac{\dot{E}_q(t)}{E_q(t)} \right] &= \delta \omega_q\, \tau_p + \delta D_q + \Im\left[ \frac{F_q(t)}{E_q(t)} \right]\, .
+\end{align}
+We see in the top two plots that $\Re[\dot{E}_q(t) / E_q(t)] \longrightarrow 0$ as $t \longrightarrow t_f$, and that in the same limit $\Im[\dot{E}_q(t) / E_q(t)] \longrightarrow \delta \nu_q\, \tau_p$, where
+\begin{equation}
+  \delta \nu_q \equiv \delta \omega_q + \frac{\delta D_q}{\tau_p} + \frac{1}{\tau_p}\, \Im\left[ \frac{F_q(t)}{E_q(t)} \right] \equiv \text{constant}\, .
+\end{equation}
+So we can use as our FOM the equations
+\begin{align}
+  \Re\left[ \frac{2\, F_q(t_f)}{E_q(t_f)} \right] &= 1\, , \text{ and} \\
+  \Im\left[ \frac{\ddot{E}_q(t_f)}{E_q(t_f)} \right] &= 0\, ;
+\end{align}
+but how do we estimate $\ddot{E}_q(t_f)$?
+
+ \subsubsection{Power Spectral Density}
+Suppose that we have a numerically stable (steady-state) solution to \eqn{mml_edot_temp}, and we wish to compute the frequency content of the output intensity, defined as the square of the absolute value of an output field given by one of \eqn{laser_resonator_1d_swl_out}. Neglecting the overall normalization constant, we have
+ \begin{align}%\label{}
+I_\text{out}(t) &= \left| \sum_{p} e^{-i\, 2\, p\, \pi\, t}\, E_p \right|^2 = \sum_{p, p^\prime} e^{-i\, 2\, (p - p^\prime)\, \pi\, t} E_p\, E^\ast_{p^\prime} \\
+&\equiv \sum_q A_q\, e^{-i\, 2\, \pi\, q\, t} ,
+ \end{align}
+where
+ \begin{equation}
+A_q \equiv \sum_p E_p\, E^\ast_{p - q} .
+ \end{equation}
+If $p \in \{-p_\textrm{max}, \dots, +p_\textrm{max}\}$, then, since $I_\text{out}(t)$ is real,
+ \begin{align} \label{eqn:mml_1d_iout_final}
+I_\text{out}(t) &= A_0 + 2 \sum_{q = 1}^{2\, p_\textrm{max}} \Re\left[ A_q\, e^{-i\, 2\, \pi\, q\, t} \right] \\
+&= A_0 + 2 \sum_{q = 1}^{2\, p_\textrm{max}} \left[ \Re(A_q) \cos(2\, \pi\, q\, t) + \Im(A_q) \sin(2\, \pi\, q\, t) \right] .
+ \end{align}
+Therefore, following standard practice\footnote{Although both the in-phase and quadrature components are included in the definition given by \eqn{mml_1d_psd_def}, the factor of 2 in the sum of \eqn{mml_1d_iout_final} is ignored for essentially the same reason we neglect the negative frequencies when plotting the digital Fourier transform of a real signal.}, we define the \emph{power spectral density} at each frequency as
+ \begin{equation} \label{eqn:mml_1d_psd_def}
+P_q \equiv \frac{\sqrt{\Re(A_q)^2 + \Im(A_q)^2}}{A_0} = \frac{|A_q|}{A_0}\, ,
+ \end{equation}
+valid for $q \in \{0, \dots, 2\, p_\textrm{max}\}$.
+
+ \subsubsection{Chaotic Behavior}
+ \subsubsection{Passive Temporal Mode-Locking with a Saturable Absorber}
+ \subsubsection{Passive Frequency Mode-Locking}
+
+\input{files/laser_dynamics_1d_mfl}

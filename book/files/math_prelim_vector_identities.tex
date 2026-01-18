@@ -1,0 +1,90 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Vector Identities\label{sct:math_prelim_vector_identities}}
+
+ \newcommand{\bfa}{\mathbf{A}}
+ \newcommand{\bfb}{\mathbf{B}}
+ \newcommand{\bfc}{\mathbf{C}}
+ \newcommand{\bfd}{\mathbf{D}}
+
+ \newcommand{\da}{d\mathbf{a}}
+ \newcommand{\dl}{d\mathbf{l}}
+
+In the following \cite{ref:jackson1999ce}, $\mathbf{r}$ is the three-dimensional coordinate of some point in space (measured with respect to some origin), $f$ and $g$ are well-behaved (i.e., differentiable and integrable) scalar functions of $\mathbf{r}$, and $\bfa$, $\bfb$, and $\bfc$ are well-behaved vector functions of $\mathbf{r}$.
+
+% \begin{subequations}
+ \begin{align}
+ \bfa \dotp \left(\bfb \cross \bfc\right) &=  \bfb \dotp \left(\bfc \cross \bfa\right) =  \bfc \dotp \left(\bfa \cross \bfb\right) \label{eqn:a_dot_b_cross_c} \\
+ \bfa \cross \left(\bfb \cross \bfc\right) &=  \left(\bfa \dotp \bfc\right) \bfb - \left(\bfa \dotp \bfb\right) \bfc \label{eqn:a_cross_b_cross_c} \\
+ \left(\bfa \cross \bfb\right) \dotp \left(\bfc \cross \bfd\right) &= \left(\bfa \dotp \bfc\right)\left(\bfb \dotp \bfd\right) - \left(\bfa \dotp \bfd\right)\left(\bfb \dotp \bfc\right) \label{eqn:a_cross_b_dot_c_cross_d} \\
+ \curl\grad f &= 0 \label{eqn:curl_grad_f} \\
+ \divr \left(\curl \bfa\right) & = 0 \label{eqn:divr_curl_a} \\
+ \curl \left(\curl \bfa\right) &= \grad \left(\divr \bfa\right) - \lapl \bfa \label{eqn:curl_curl_a} \\
+ \divr \left(f \bfa \right) &= f\, \divr \bfa + \bfa \bm{\cdot \nabla} f \label{eqn:divr_fa} \\
+ \curl \left(f \bfa \right) &= f\, \curl \bfa + \grad f \cross \bfa \label{eqn:curl_fa} \\
+ \lapl \left(f \bfa \right) &= f\, \lapl \bfa + \bfa\, \lapl f + 2\left(\grad f \dotp \grad\right) \bfa \label{eqn:lapl_fa} \\
+ \grad \left(\bfa \dotp \bfb\right) &= \left(\bfa \dotp \grad\right) \bfb + \left(\bfb \dotp \grad\right) \bfa + \bfa \cross \left(\curl \bfb\right) + \bfb \cross \left(\curl \bfa\right) \label{eqn:grad_a_dot_b} \\
+ \divr \left(\bfa \cross \bfb\right) &= \bfb \dotp \left(\curl \bfa\right) - \bfa \dotp \left(\curl \bfb\right) \label{eqn:divr_a_cross_b} \\
+ \curl \left(\bfa \cross \bfb\right) &= \bfa \left(\divr \bfb\right) - \bfb \left(\divr \bfa\right) - \left(\bfa \dotp \grad\right) \bfb + \left(\bfb \dotp \grad\right) \bfa \label{eqn:curl_a_cross_b}
+ \end{align}
+% \end{subequations}
+
+In the special case where $\mathbf{k}$ is a constant vector, we have
+ \begin{align}
+ \grad \left(e^{i\, \mathbf{k} \dotp \mathbf{r}}\, f \right) &= e^{i\, \mathbf{k} \dotp \mathbf{r}} \left(\grad + i\, \mathbf{k}\right) f , \label{eqn:grad_eikr_f} \\
+ \divr \left(e^{i\, \mathbf{k} \dotp \mathbf{r}}\, \mathbf{A} \right) &= e^{i\, \mathbf{k} \dotp \mathbf{r}} \left(\grad + i\, \mathbf{k}\right) \dotp \mathbf{A} , \label{eqn:divr_eikr_a} \\
+ \curl \left(e^{i\, \mathbf{k} \dotp \mathbf{r}}\, \mathbf{A} \right) &= e^{i\, \mathbf{k} \dotp \mathbf{r}} \left(\grad + i\, \mathbf{k}\right) \cross \mathbf{A} , \nd \label{eqn:curl_eikr_a} \\
+ \lapl \left(e^{i\, \mathbf{k} \dotp \mathbf{r}}\, \mathbf{A} \right) &= e^{i\, \mathbf{k} \dotp \mathbf{r}}\, \left( \lapl  + i\, 2\, \mathbf{k} \dotp \grad - k^2 \right) \mathbf{A} , \label{eqn:lapl_eikr_a}
+ \end{align}
+where $k^2 = \mathbf{k} \dotp \mathbf{k} = |\mathbf{k}|^2$.
+
+In the following \cite{ref:jackson1999ce}, $\mathcal{V}$ is a three-dimensional volume with volume element $d^3 r$, and $\mathcal{S}$ is a two-dimensional closed surface bounding $\mathcal{V}$ with surface normal element $\da$.
+
+% \begin{subequations}
+ \begin{align}
+ \intV \grad f &= \intS f &\text{Gradient Theorem} \label{eqn:grad_thm} \\
+ \intV \divr \bfa &= \intS \dotp \bfa &\text{Divergence Theorem} \label{eqn:divr_thm} \\
+ \intV \curl \bfa &= \intS \cross \bfa &\text{Curl Theorem} \label{eqn:curl_thm} \\
+ \intV \left( f\, \lapl g + \grad f \dotp \grad g \right) &= \intS \dotp \left(f\, \grad g\right) &\text{Green's First Identity} \label{eqn:greens_first_identity} \\
+ \intV \left( f\, \lapl g - g\, \lapl f \right) &= \intS \left( f\, \grad g - g\, \grad f \right) &\text{Green's Theorem} \label{eqn:greens_thm}
+ \end{align}
+% \end{subequations}
+
+In the following \cite{ref:jackson1999ce}, $\mathcal{S}$ is a two-dimensional open surface with surface normal element $\da$, and $\mathcal{C}$ is the contour bounding $\mathcal{S}$ with curve element $\dl$. The direction of $\da$ is defined relative to that of $\dl$ by the right-hand rule.
+
+% \begin{subequations}
+ \begin{align}
+ \intS \dotp \left(\curl \bfa\right) &= \intC \cdot \bfa &\text{Stokes' Theorem} \label{eqn:stokes_thm} \\
+ \intS \cross \grad f &= \intC f & \label{eqn:ints_gradf}
+ \end{align}
+% \end{subequations}
+
+ \begin{align}
+ \grad f &= \hatb{x}\, \frac{\partial f}{\partial x} + \hatb{y}\, \frac{\partial f}{\partial y} + \hatb{z}\, \frac{\partial f}{\partial z} \label{eqn:grad_cart} \\
+ \divr \bfa &= \frac{\partial A_x}{\partial x} + \frac{\partial A_y}{\partial y} + \frac{\partial A_z}{\partial z} \label{eqn:divr_cart} \\
+ \curl \bfa &= \hatb{x}\, \left( \frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partial z} \right) + \hatb{y}\, \left( \frac{\partial A_x}{\partial z} - \frac{\partial A_z}{\partial x} \right) + \hatb{z}\, \left( \frac{\partial A_y}{\partial x} - \frac{\partial A_x}{\partial y} \right) \label{eqn:curl_cart} \\
+ \lapl f &= \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2} \label{eqn:lapl_cart}
+ \end{align}
+
+ \begin{align}
+ \grad f &= \hatb{\rho}\, \frac{\partial f}{\partial \rho} + \hatb{\phi}\, \frac{1}{\rho} \frac{\partial f}{\partial \phi} + \hatb{z}\, \frac{\partial f}{\partial z} \label{eqn:grad_cyln} \\
+ \divr \bfa &= \frac{1}{\rho} \frac{\partial}{\partial \rho} \left(\rho A_\rho\right) + \frac{1}{\rho} \frac{\partial A_\phi}{\partial \phi} + \frac{\partial A_z}{\partial z} \label{eqn:divr_cyln} \\
+ \curl \bfa &= \hatb{\rho}\, \left( \frac{1}{\rho} \frac{\partial A_z}{\partial \phi} - \frac{\partial A_\phi}{\partial z} \right) + \hatb{\phi}\, \left( \frac{\partial A_\rho}{\partial z} - \frac{\partial A_z}{\partial \rho} \right) + \hatb{z}\, \frac{1}{\rho} \left( \frac{\partial}{\partial \rho} \left[\rho  A_\phi\right] - \frac{\partial A_\rho}{\partial \phi} \right) \label{eqn:curl_cyln} \\
+ \lapl f &= \frac{1}{\rho} \frac{\partial}{\partial \rho} \left(\rho \frac{\partial f}{\partial \rho}\right) + \frac{1}{\rho^2} \frac{\partial^2 f}{\partial \phi^2} + \frac{\partial^2 f}{\partial z^2} \label{eqn:lapl_cyln}
+ \end{align}
+
+ \begin{align}
+ \grad f &= \hatb{r}\, \frac{\partial f}{\partial r} + \hatb{\theta}\, \frac{1}{r} \frac{\partial f}{\partial \theta} + \hatb{\phi}\, \frac{1}{r \sin \theta} \frac{\partial f}{\partial \phi} \label{eqn:grad_sphr} \\
+ \divr \bfa &= \frac{1}{r^2} \frac{\partial}{\partial r} \left(r^2 A_r\right) + \frac{1}{r \sin \theta} \frac{\partial}{\partial \theta} \left[\sin \theta A_\theta\right] + \frac{1}{r \sin \theta} \frac{\partial A_\phi}{\partial \phi} \label{eqn:divr_sphr} \\
+ \curl \bfa &= \hatb{r}\,  \frac{1}{r \sin \theta}\left[ \frac{\partial}{\partial \theta}\left(\sin \theta  A_\phi \right) - \frac{\partial A_\theta}{\partial \phi} \right] + \hatb{\theta}\, \left[ \frac{1}{r \sin \theta} \frac{\partial A_r}{\partial \phi} - \frac{1}{r} \frac{\partial}{\partial r}\left(r  A_\phi\right) \right] \nonumber \\ & \qquad\qquad + \hatb{\phi}\, \frac{1}{r} \left[ \frac{\partial}{\partial r} \left(r  A_\theta\right) - \frac{\partial A_r}{\partial \theta} \right] \label{eqn:curl_sphr} \\
+ \lapl f &= \frac{1}{r} \frac{\partial^2}{\partial r^2} \left(r f\right) + \frac{1}{r^2 \sin \theta} \frac{\partial}{\partial \theta} \left(\sin \theta \frac{\partial f}{\partial \theta}\right) + \frac{1}{r^2 \sin^2\theta} \frac{\partial^2 f}{\partial \phi^2} \label{eqn:lapl_sphr}
+ \end{align}

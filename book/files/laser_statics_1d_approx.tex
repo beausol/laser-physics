@@ -1,0 +1,422 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Approximate Continuous-Wave Single-Mode Laser Models\label{sct:laser_statics_1d_approx}}
+
+% \red{--- BEGIN IGNORE ---}
+% \subsection{Old and Busted}
+
+% In the steady-state ``continuous wave'' case, we can build a simple but quite useful model of a laser using the approach outlined in \sct{laser_resonators_1d_sml}. There we  developed a set of single-mode laser evolution equations by performing a separation of variables between $z$ and $t$. For a unidirectional ring laser, we specified $E\zt = u_0\z\, E(t)$, with the spatial function specified by the $q = 0$ eigenfunction
+% \begin{equation} \label{eqn:sml_1d_u_url}
+%   u_0\z = \mathcal{C}_\mathrm{URL}\, \exp\left[ \left( \ln\frac{1}{\sqrt{R}} \right) z \right]\, ,
+% \end{equation}
+% where $0 < z < 1$ and $\mathcal{C}_\mathrm{URL}$ is given by \eqn{laser_resonator_1d_u_norm_url}. For a standing-wave laser (neglecting interference between the counterpropagating fields in the amplifier), we used $E^\pm\zt = u_0^\pm\z\, E(t)$, using
+% \begin{subequations} \label{eqn:sml_1d_u_swl}
+%   \begin{align}
+%     u^{+}_0\z &=\mathcal{C}_\mathrm{SWL}\, e^{+\left[ \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} , \nd \\
+%     u^{-}_0\z &=-\frac{\mathcal{C}_\mathrm{SWL}}{\sqrt{R_1}}\, e^{-\left[ \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \, ,
+%   \end{align}
+% \end{subequations}
+% where $0 < z < 1/2$ and $\mathcal{C}_\mathrm{SWL}$ is given by \eqn{laser_resonator_1d_u_norm_swl}. In both cases, $E(t)$ is a complex function of time satisfying the ordinary differential equations given by \eqn{lr1d_epd_dot_sml}. Here we will use these equations to find a steady-state approximation of both URLs and SWLs that accurately predict the output characteristics of continuous-wave lasers.
+
+% Let's define the complex amplitude $E(t)$ in terms of a real amplitude $A(t)$ and a real phase $\phi(t)$ as
+% \begin{equation} \label{eqn:sml_1d_a_phi_def}
+%   E(t) \equiv A(t)\, e^{i\, \phi(t)} .
+% \end{equation}
+% Substituting this expression into \eqn{lr1d_edot_sml}, and then separating the result into real and imaginary parts, we find
+% \begin{subequations} \label{eqn:sml_1d_a_phi_sep}
+%   \begin{align}
+%     \label{eqn:sml_1d_a_dot} \dot{A}(t) &= -\frac{1}{2\, \tau_p}\, A(t) + \Re[f(t)] , \nd \\
+%     \label{eqn:sml_1d_phi_dot} \dot{\phi}(t) &= \delta \omega_0 +  \frac{\Im[f(t)]}{A(t)},
+%   \end{align}
+% \end{subequations}
+% where $f(t) \equiv e^{-i\, \phi(t)} F(t)$. In the steady state, we must have both $\dot{A}(t) = 0$ and $\dot{\phi}(t) = 0$, giving
+% \begin{subequations}\label{eqn:sml_1d_a_phi_cw}
+%   \begin{align}
+%     \label{eqn:sml_1d_a_cw} A &= 2\, \tau_p\, \Re[f]\, , \nd \\
+%     \label{eqn:sml_1d_phi_cw} \delta \omega_0 &= -\frac{1}{2\, \tau_p}\, \frac{\Im[f]}{\Re[f]}\, .
+%   \end{align}
+% \end{subequations}
+
+% If we assume that the rate equation approximation is valid --- $\tau_\perp\, \dot{F}(t) \ll F(t)$ --- then we may solve \eqn{lr1d_fdot_sml} and \eqn{lr1d_gdot_sml} for $F$ and $G$ as
+% \begin{subequations}
+%   \begin{align}
+%     \label{eqn:sml_1d_f_cw} F &= \half\, \mathcal{L}(\Omega)\, G\, E\, , \nd \\
+%     \label{eqn:sml_1d_g_cw} G &= \Gnb - 2\, \kappa\, \Re\left[E^\ast F\right]\, ,
+%   \end{align}
+% \end{subequations}
+% where again $\mathcal{L}(\Omega)$ is a general lineshape function, given in the Lorentzian case by \eqn{lineshape_lorentzian}.
+% %  \begin{equation} \label{eqn:sml_lmc_0_def}
+% % \mathcal{L}_0 \equiv \frac{1}{1 - i\, \Omega_0}\, .
+% %  \end{equation}
+% Substituting \eqn{sml_1d_f_cw} into \eqn{sml_1d_g_cw}, we find the gain
+% \begin{equation} \label{eqn:sml_1d_gain}
+%   G = \frac{\Gnb}{1 + \kappa\, \rels\, A^2}
+% \end{equation}
+% and then the continuous-wave polarization
+% \begin{equation} \label{eqn:sml_1d_f_cw_final}
+%   f = \half\, \frac{\mathcal{L}(\Omega)\, \Gnb\, A}{1 + \kappa\, \rels\, A^2}\, ,
+% \end{equation}
+% where $\rels$ is given by \eqn{lineshape_re_rho_def}
+
+% \subsection{New Hotness}
+% \red{--- END IGNORE ---}
+
+Let's derive a simple single-mode model of continuous-wave laser oscillators based on the quasi-normal modes developed in \sct{laser_resonators_1d_qnm}, applied to \eqn{laser_statics_1d_sml_cw_scaled} in order. We begin with the unidirectional ring laser (URL) shown in \fig{resonator_1d_ring_gain}, which is the ring resonator of \fig{resonator_1d_ring_smat} with an incorporated laser amplifier. Note that this amplifier may or may not fill the entire resonator, and that only one pass is made through the amplifier every round trip. We define the spatially slowly-varying field as $E\z \equiv u_0\z\, E_0$, where $u_0\z$ and the corresponding biorthogonal eigenfunction $v_0\z$ in the range $0 < z < 1$ are given by \eqn{laser_resonator_1d_u_unnorm} and \eqn{laser_resonator_1d_v_unnorm} with $q = 0$, and the corresponding normalization constant $\mathcal{C}_\mathrm{URL}$ is given by \eqn{laser_resonator_1d_u_norm_url}.
+Then
+\begin{subequations}
+  \begin{align}
+    \label{eqn:sml_1d_u0_url} u_0\z &=\mathcal{C}_\mathrm{URL}\, \exp\left[ +\left( \ln\frac{1}{\sqrt{R}} \right) z \right]\, , \\
+    \label{eqn:sml_1d_v0_url} v_0\z &=\mathcal{C}^{-1}_\mathrm{URL}\, \exp\left[ -\left( \ln\frac{1}{\sqrt{R}} \right) z \right]\, ,
+  \end{align}
+\end{subequations}
+We apply the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho} to \eqn{cw_sml_ez_scaled} by substituting $E^{+}\z = u_0\z\, E_0$ and $F^{+}\z = u_0\z\, F_0$; multiplying both sides through by $v_0\z$; and then integrating the result from $z = 0$ to $z = 1$. We find
+\begin{equation} \label{eqn:e0_temp}
+  \left( \frac{1}{2\, \tau_\lambda} - i\, \delta \omega_0 \right) E_0 = F_0\, ,
+\end{equation}
+where $\tau_\lambda \equiv 1/\ln[1 / R \exp(-\anb)]$ is the photon lifetime\index{Photon lifetime} given by \eqn{f_fwhm} and $\anb \equiv \int_0^1 dz\, \alpha_0(z)$.
+
+The appropriate corresponding rapidly-varying biorthogonal eigenfunctions are
+\begin{subequations}
+  \begin{align}
+    \label{eqn:sml_1d_u0_rv_url} \widetilde{u}_0\z &=\mathcal{C}_\mathrm{URL}\, \exp\left[ +\left( i\, k_0 + \ln\frac{1}{\sqrt{R}} \right) z \right]\, , \\
+    \label{eqn:sml_1d_v0_rv_url} \widetilde{v}_0\z &=\mathcal{C}^{-1}_\mathrm{URL}\, \exp\left[ -\left( i\, k_0 + \ln\frac{1}{\sqrt{R}} \right) z \right]\, ,
+  \end{align}
+\end{subequations}
+If we substitute $\widetilde{E}\z = E_0\, \widetilde{u}_0\z$ and $\widetilde{F}\z = F_0\, \widetilde{u}_0\z$ into \eqn{cw_sml_fz_scaled}, multiply through by $\widetilde{v}_0\z$, and integrate from $z = 0$ to $z = 1$, then we obtain
+\begin{equation} \label{eqn:f0_temp}
+  F_0 = \half\, \Lo\, \overline{G}\, E_0\, ,
+\end{equation}
+where $\overline{G} \equiv \int_{0}^{1} dz\, \widetilde{G}\z$ is the round-trip gain. Then, performing this integral directly on \eqn{cw_sml_gz_scaled}, we obtain
+\begin{equation} \label{eqn:gbar_temp}
+  \overline{G} = \Gnb - 2 \Re \left[\int_{0}^{1} dz\, E^{+\, \ast}\z\, F^+\z \right]\, ,
+\end{equation}
+where $\Gnb \equiv \int_{0}^{1} dz\, \overline{G}_0\z$ is the round-trip unsaturated gain. Applying the substitutions we've used above, the integral on the \rhs of this expression is
+\begin{equation}
+  \int_{0}^{1} dz\, E^{+\, \ast}\z\, F^+\z = E^\ast_0\, F_0\, \mathcal{C}^2_\mathrm{URL} \int_{0}^{1} dz\, e^{\ln(1/R)\, z} = \frac{E^\ast_0\, F_0\, \mathcal{C}^2_\mathrm{URL}}{\ln(1/R)} \left(\frac{1}{R} - 1\right) = \half\, \Lo\, \overline{G}\, \left|E_0\right|^2\, ,
+\end{equation}
+yielding
+\begin{equation}
+  \overline{G} = \frac{\Gnb}{1 + \rels\, \left|E_0\right|^2}\, .
+\end{equation}
+% To find $F_0$ in terms of $E_0$, we first substitute \eqn{cw_sml_gz_scaled} into \eqn{cw_sml_fz_scaled}, giving
+% \begin{equation}
+%   \widetilde{F}\z = \half\, \mathcal{L}(\Omega)\, \Gnz\, \widetilde{E}\z - \half\, \mathcal{L}(\Omega) \left[ \widetilde{E}^\ast\z\, \widetilde{F}\z + \widetilde{F}^\ast\z\, \widetilde{E}\z \right] \widetilde{E}\z\, .
+% \end{equation}
+% If we substitute $\widetilde{E}\z = E_0\, \widetilde{u}_0\z$ and $\widetilde{F}\z = F_0\, \widetilde{u}_0\z$ into this expression, multiply through by $\widetilde{v}\z$, and integrate from $z = 0$ to $z = 1$ to obtain
+
+
+% \begin{equation} \label{eqn:cw_sml_fz_scaled_sub}
+%   F^{+}\z = \half\, \mathcal{L}(\Omega)\, \Gnz\, E^{+}\z - \half\, \mathcal{L}(\Omega) \left[ E^{+\, \ast}\z\, F^{+}\z + F^{+\, \ast}\z\, E^{+}\z \right] E^{+}\z\, .
+% \end{equation}
+
+
+% After cancelling the common factor of $e^{i\, k_0\wn\, z}$ on both sides of \eqn{cw_sml_fz_scaled}, we can follow the same steps to find
+
+% Next, we apply the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho} by following a few simple steps:
+%  \begin{enumerate}
+%    \item substitute $E^{+}\zt = \mathcal{C}\, e^{\ln\left(1/\sqrt{R}\right) z}\, E(t)$ and $F^{+}\zt = \mathcal{C}\, e^{\ln\left(1/\sqrt{R}\right) z}\, F(t)$ into \eqn{cw_sml_etz_scaled};
+%    \item multiply both sides through by $v_0 = \mathcal{C}^{-1}\, e^{-\ln\left(1/\sqrt{R}\right) z}$; and
+%    \item integrate the result from $z = 0$ to $z = 1$.
+%  \end{enumerate}
+% We then obtain
+%  \begin{equation} \label{eqn:edot_temp}
+% \dot{E}(t) = \left[i\, \delta \omega_0 - \half \ln \left(\frac{1}{|\Gamma|^2} \right) \right] E(t) + F(t)\, ,
+%  \end{equation}
+% where $|\Gamma|^2 \equiv R\, e^{-\alpha\wn}$. After cancelling the common factor of $e^{i\, k_0\wn\, z}$ on both sides of \eqn{cw_sml_ftz_scaled}, we can follow the same steps to find
+% \begin{equation} \label{eqn:fdot_temp}
+%   \dot{F}(t) = -\frac{\mathcal{B}(\Omega)}{\tau_\perp} \left[ F(t) - \half\, \Lo\, G(t)\, E(t) \right]\, ,
+% \end{equation}
+% where $G(t) \equiv \int_{0}^{1} dz\, G\zt$. Then, performing this integral directly on \eqn{cw_sml_gtz_scaled}, we obtain
+%  \begin{equation} \label{eqn:gdot_temp}
+% \dot{G}(t) = -\frac{1}{\tau_\parallel} \left\{ G(t) - \Gnt + 2 \Re \left[\int_{0}^{1} dz\, E^{+\, \ast}\zt\, F^+\zt \right] \right\}\, ,
+%  \end{equation}
+% where $\Gnt \equiv \int_{0}^{1} dz\, \overline{G}\zt$. Given the substitutions in the enumerated list above, the integral on the \rhs of this expression is
+%  \begin{equation}
+% \int_{0}^{1} dz\, E^{+\, \ast}\zt\, F^+\zt = E^\ast(t) F(t)\, \mathcal{C}^2 \int_{0}^{1} dz\, e^{\ln(1/R)\, z} = \frac{E^\ast(t) F(t) \mathcal{C}^2}{\ln(1/R)} \left(\frac{1}{R} - 1\right) = E^\ast(t) F(t) .
+%  \end{equation}
+
+ \begin{figure}
+   \centering
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/resonator_1d_ring_gain}
+      \caption{Saturated and broadened gain lineshape}
+      \label{fig:resonator_1d_ring_gain}
+   \end{subfigure}
+   \par\vspace{0.25in}
+   \begin{subfigure}[b]{0.9\textwidth}
+      \centering
+      \includegraphics[width=6.0in]{figures/resonator_1d_sw_gain}
+      \caption{Normalized and broadened gain lineshape}
+      \label{fig:resonator_1d_sw_gain}
+   \end{subfigure}
+   \caption{\label{fig:resonator_1d_cw_gain} Schematics of laser resonators with an incorporated laser amplifier, which may or may not fill the entire resonator. (a) The unidirectional ring resonator of \fig{resonator_1d_ring_smat}, where only one pass is made through the amplifier every round trip. (b) The standing-wave resonator of \fig{resonator_1d_sw_smat}, where two passes are made through the amplifier every round trip, and counterpropagating fields are linked by boundary conditions at the two mirrors.}
+\end{figure}
+
+The derivation of the model for a standing-wave laser (SWL) proceeds similarly, provided that we consider interference between the counterpropagating fields within the amplifier. The slowly-varying biorthogonal eigenfunctions that we now use for the standing-wave case are $\mathbf{u}_0\z$ and $\mathbf{v}_0\z$, given by \eqn{laser_resonator_1d_u_sw_vec}, \eqn{laser_resonator_1d_u_sw}, \eqn{laser_resonator_1d_v_sw_vec}, and \eqn{laser_resonator_1d_v_sw} with $q = 0$, and the corresponding normalization constant $\mathcal{C}_\mathrm{SWL}$ is given by \eqn{laser_resonator_1d_u_norm_swl}. Then
+\begin{subequations} \label{eqn:sml_1d_uv0_swl}
+  \begin{align}
+    \label{eqn:sml_1d_u0_swl}
+    \mathbf{u}_0\z &\equiv \begin{bmatrix} u^{+}_0\z \\ u^{-}_0\z \end{bmatrix} = \mathcal{C}_\mathrm{SWL} \begin{bmatrix} e^{+\left[ \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \\ -\frac{1}{\sqrt{R_1}}\, e^{-\left[ \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \end{bmatrix}\, , \nd \\
+    \label{eqn:sml_1d_v0_swl}
+    \mathbf{v}_0\z &\equiv \begin{bmatrix} v^{+}_0\z \\ v^{-}_0\z \end{bmatrix} = \mathcal{C}^{-1}_\mathrm{SWL} \begin{bmatrix} e^{-\left[ \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \\ -\sqrt{R_1}\, e^{+\left[ \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \end{bmatrix}\, ,
+  \end{align}
+\end{subequations}
+where $0 < z < 1/2$. In this case, we apply the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho_sw} to \eqn{cw_sml_ez_scaled} by substituting $E^{\pm}\z = u^{\pm}_0\z\, E_0$ and $F^{\pm}\z = u_0^{\pm}\z\, F_0$; forming the inner product of both sides with $\mathbf{v}_0\z$; and then integrating the result from $z = 0$ to $z = 1/2$. We note that $\mathbf{v}_0\z \dotp \mathbf{u}_0\z = 2$ and $\int_{0}^{1/2} dz\, \mathbf{v}_0\z \dotp \mathbf{u}_0\z = 1$. Therefore, \eqn{e0_temp} remains valid for the standing-wave case with $\tau_\lambda \equiv 1 / \ln[1 / R_1 R_2 \exp(-\anb)]$ and $\anb \equiv 2 \int_0^{1/2} dz\, \alpha_0(z)$.
+
+Because the gain in our amplifier can be sensitive to spatial interference between the counterpropagating fields, we must be careful in how we apply these eigenfunctions to \eqn{cw_sml_fz_scaled} and \eqn{cw_sml_gz_scaled}. We begin by substituting $\widetilde{E}\z = \widetilde{u}_0\z\, E_0$ and $\widetilde{F}\z = \widetilde{u}_0\z\, F_0$ into \eqn{cw_sml_fz_scaled}, where $\widetilde{u}_0\z$ and the corresponding rapidly-varying standing-wave biorthognal eigenfunction $\widetilde{v}_0\z$ are given by
+\begin{subequations} \label{eqn:sml_1d_rv_uv0_swl}
+  \begin{align}
+    \label{eqn:sml_1d_rv_u0_swl}
+    \widetilde{u}_0\z &= \mathcal{C}_\mathrm{SWL} \left\{ e^{+\left[ i\, k_0 + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} - \frac{1}{\sqrt{R_1}}\, e^{-\left[ i\, k_0 + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \right\}\, , \nd \\
+    \label{eqn:sml_1d_rv_v0_swl}
+    \widetilde{v}_0\z & = \mathcal{C}^{-1}_\mathrm{SWL} \left\{ e^{-\left[ i\, k_0 + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} -\sqrt{R_1}\, e^{+\left[ i\, k_0 + \ln\left(1/\sqrt{R_1 R_2}\right) \right] z} \right\}\, .
+  \end{align}
+\end{subequations}
+Then we multiply both sides of the resulting expression by $\widetilde{v}_0\z$, noting that
+\begin{equation}
+  \widetilde{v}_0\z\, \widetilde{u}_0\z = 2 - \sqrt{R_1}\, e^{+\left[ i\, 2\, k_0 + \ln\left(1/R_1 R_2\right) \right] z} - \frac{1}{\sqrt{R_1}}\, e^{-\left[ i\, 2\, k_0 + \ln\left(1/R_1 R_2\right) \right] z}\, .
+\end{equation}
+Using \eqn{idm_pol_m_def} as our guide, we first average this expression over one wavelength $\lambda_0 = 2 \pi / k_0$ to eliminate the rapidly-varying terms, and then integrate the result from $z = 0$ to $z = 1/2$. We find
+\begin{equation}
+  F_0\, \int_0^{1/2} d z\, \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z'\,\widetilde{v}_0\zp\, \widetilde{u}_0\zp = F_0 = \half\, \Lo\, \overline{G}\, E_0\, ,
+\end{equation}
+where
+\begin{equation}
+  \overline{G} = \int_{0}^{1/2} dz\, \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z'\, \widetilde{v}_0\zp\, \widetilde{u}_0\zp\, \widetilde{G}\zp\, ,
+\end{equation}
+so that we have recovered \eqn{f0_temp}. Performing this integral directly on \eqn{cw_sml_gz_scaled}, we obtain
+\begin{equation} \label{eqn:gbar_swl_temp}
+  \begin{split}
+    \overline{G} &= \int_{0}^{1/2} dz\, \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z'\, \widetilde{v}_0\zp\, \widetilde{u}_0\zp \left\{ \Gnz - 2 \Re \left[E_0^\ast\, F_0\right] \left|\widetilde{u}_0\zp\right|^2 \right\} \\
+    &= \Gnb - \rels \left|E_0\right|^2\, \overline{G}\, \int_{0}^{1/2} dz\, \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z'\, \widetilde{v}_0\zp\, \widetilde{u}_0\zp\, \left|\widetilde{u}_0\zp\right|^2\, ,
+  \end{split}
+\end{equation}
+where $\Gnb \equiv 2 \int_{0}^{1/2} dz\, \Gnz$ is the round-trip unsaturated gain, and
+\begin{equation}
+  \left|\widetilde{u}_0\z\right|^2 = \mathcal{C}_\mathrm{SWL}^2 \left[ e^{+\ln\left(1/R_1 R_2\right)\, z} + \frac{1}{R_1}\, e^{-\ln\left(1/R_1 R_2\right)\, z} - \frac{1}{\sqrt{R_1}} \left( e^{+ i\, 2\, k_0 \, z} + e^{- i\, 2\, k_0\, z} \right)\right]\, .
+\end{equation}
+
+When we compute the average over one wavelength in \eqn{gbar_swl_temp}, we have the option of either neglecting or including spatial interference between the counterpropagating fields. When gain diffusion is high, and spatial hole-burning (SHB) can be neglected, we can treat the two fields as independent within the amplifier, and completely ignore the rapidly-varying terms in $\left|\widetilde{u}_0\z\right|^2$ when performing the average. However, when gain diffusion is low, and SHB effects are important, we must include the full expression for $\left|\widetilde{u}_0\z\right|^2$ when performing the average to describe the spatially periodic modulation of the gain within the amplifier. In either case, we find that
+\begin{equation}
+  \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z'\, \widetilde{v}_0\zp\, \widetilde{u}_0\zp\, \left|\widetilde{u}_0\zp\right|^2 = \widetilde{\kappa}\, \mathcal{C}_\mathrm{SWL}^2 \left[ e^{+\ln\left(1/R_1 R_2\right)\, z} + \frac{1}{R_1}\, e^{-\ln\left(1/R_1 R_2\right)\, z} \right]\, ,
+\end{equation}
+where we use $\widetilde{\kappa} = 2$ if we neglect spatial interference between the counterpropagating fields, and $\widetilde{\kappa} = 3$ if we include it. The integral over $z$ on the \rhs of \eqn{gbar_swl_temp} is then
+\begin{equation} %\label{}
+  \widetilde{\kappa}\, \mathcal{C}_\mathrm{SWL}^2 \int_{0}^{1/2} dz\, \left[ e^{+\ln\left(1/R_1 R_2\right)\, z} + \frac{1}{R_1}\, e^{-\ln\left(1/R_1 R_2\right)\, z} \right] = \widetilde{\kappa}\, .
+\end{equation}
+
+Collecting results, the approximate governing equations for continuous-wave single-mode one-dimensional lasers are
+\begin{subequations} \label{eqn:laser_statics_1d_sml_eg}
+\begin{align}
+  \label{eqn:laser_statics_1d_sml_e} \left( \frac{1}{2\, \tau_\lambda} - i\, \delta \omega_0 \right) &= \half\, \Lo\, \overline{G}\, , \nd \\
+  \label{eqn:laser_statics_1d_sml_g} \overline{G} &= \frac{\Gnb}{1 + \widetilde{\kappa}\, \rels\, I_0}\, ,
+\end{align}
+\end{subequations}
+where $I_0 \equiv \left|E_0\right|^2$ is the average intracavity intensity in units of the saturation intensity $I_s$,
+\begin{equation} \label{eqn:lr1d_gbar_sml}
+  \Gnb \equiv \begin{cases}
+    \int_0^{1} d z\, \Gnz & \mbox{(URL)}\, , \\
+    2 \int_0^{1/2} d z\, \Gnz & \mbox{(SWL or SHB)}\, ,
+  \end{cases}
+\end{equation}
+is the \emph{round-trip unsaturated intensity gain}, and
+\begin{equation} \label{eqn:lr1d_kappa_sml}
+  \widetilde{\kappa} \equiv \begin{cases}
+    1 & \mbox{(URL)}\, , \\
+    2 & \mbox{(SWL)}\, , \\
+    3 & \mbox{(SHB)}\, ,
+  \end{cases}
+\end{equation}
+is the \emph{effective saturation parameter}\index{Effective saturation parameter}. We will discover in \sct{laser_statics_shb_1d_al} that $\widetilde{\kappa} = 3$ is in fact an \emph{overestimate} of the effective saturation parameter, and we'll find an analytic approach that allows us to choose a value that is more accurate.
+
+Applying \eqn{laser_statics_1d_sml_g} to the real part of \eqn{laser_statics_1d_sml_e}, we find
+\begin{equation} \label{eqn:sml_1d_int}
+  I_0 = \frac{\Hnb - 1}{\widetilde{\kappa}\, \rels}\, ,
+\end{equation}
+where
+\begin{equation}
+  \Hnb \equiv \rels\, \tau_\lambda\, \Gnb \equiv \frac{\Gnb}{\Gth}\, ,
+\end{equation}
+and the \emph{threshold}\index{Threshold} gain is
+\begin{equation} \label{eqn:la1d_threshold}
+  \Gth \equiv  \frac{1}{\rels\, \tau_\lambda}\, ,
+\end{equation}
+or
+\begin{equation} \label{eqn:la1d_threshold_lor}
+  \Gth = \frac{1 + \Omega^2}{\tau_\lambda}
+\end{equation}
+when the lineshape is Lorentzian.
+
+%If we assume (without loss of generality) that we can write the electric field as
+% \begin{equation} \label{eqn:la1d_e_ss}
+%E(t) = E_0 ,%\, e^{-i\, \omega \tau_g\, t} ,
+% \end{equation}
+%where the amplitude $E_0$ is both constant in time and real, then we quickly obtain
+% \begin{subequations}\label{eqn:laser_statics_1d_simple}
+% \begin{align}
+%\label{eqn:laser_statics_1d_sml_cw_e} F &= \frac{1}{2\, \tau_p} \left(1 - i\, 2 \delta \omega_0\, \tau_p \right) E_0\, , \\
+%\label{eqn:laser_statics_1d_sml_cw_g} G &= \frac{1 + \Omega^2}{1 + \Omega^2 + \kappa\, E_0^2}\, \Gn \, ,  \nd \\
+%\label{eqn:laser_statics_1d_sml_cw_f} F &= \half\, \frac{1 + i\, \Omega}{1 + \Omega^2 + \kappa\, E_0^2}\, \Gn \, E_0 \, .
+% \end{align}
+% \end{subequations}
+%Therefore, substituting \eqn{laser_statics_1d_sml_cw_e} into \eqn{laser_statics_1d_sml_cw_f} and cancelling the common factor of $E_0$ gives
+%%In this case, the dimensionless macroscopic polarization is given by
+%% \begin{equation} \label{eqn:la1d_p_ss}
+%%P = -i\, \frac{1 + i\, \Omega}{1 + \Omega^2}\, G\, E_0 . %E(t) .
+%% \end{equation}
+%%Substituting \eqn{la1d_p_ss} into \eqn{la1d_gdot_nodims}, we find the steady-state gain
+%% \begin{equation}\label{eqn:la1d_g_ss}
+%%G = \frac{1 + \Omega^2}{1 + \Omega^2 + \kappa E_0^2}\, \Gn ,
+%% \end{equation}
+%%and then \eqn{la1d_edot_nodims} gives
+% \begin{equation}
+%-i\, \delta \omega_0 + \frac{1}{2\, \tau_p} = \half\, \frac{1 + i\, \Omega}{1 + \Omega^2 + \kappa E_0^2}\, \Gn ,
+% \end{equation}
+%or, separately equating the real and imaginary parts of this expression,
+% \begin{subequations} \label{eqn:la1d_ss}
+% \begin{align}
+% \label{eqn:la1d_ss_real} \frac{1}{\tau_p} &= \frac{\Gn}{1 + \Omega^2 + \kappa E_0^2} , \nd \\
+% \label{eqn:la1d_ss_imag} \delta \omega_0 &= -\half\, \frac{\Omega\, \Gn}{1 + \Omega^2 + \kappa E_0^2} .
+% \end{align}
+% \end{subequations}
+%Solving \eqn{la1d_ss_real} for the scaled intracavity intensity (in units of $I_s$), we find
+% \begin{equation}\label{eqn:la1d_ss_e02}
+% \begin{split}
+%   E_0^2 &= \frac{1}{\kappa} \left[ \tau_p\, \Gn - \left(1 + \Omega^2\right) \right] \\
+%   &= \frac{1}{\kappa} \left[ \frac{1}{\ln(1/|\Gamma|^2)}\, \Gn - \left(1 + \Omega^2\right) \right] .
+% \end{split}
+% \end{equation}
+%where we have applied \eqn{f_fwhm}.
+Note that $I_0 > 0$ only if the pump is strong enough that the round-trip unsaturated gain $\Gnb$ exceeds the threshold gain. If $\Gnb \leq \Gth$, then $I \longrightarrow 0$. Remarkably, if we substitute \eqn{sml_1d_int} into \eqn{laser_statics_1d_sml_g}, we find that --- when $\Gnb > \Gth$ --- the \emph{saturated} round-trip gain is given by
+\begin{equation} \label{eqn:la1d_g_ss_clamp}
+  \overline{G} = \Gth\, ,
+\end{equation}
+\emph{independent} of $\Gnb$. Above threshold, the steady-state gain is clamped at the threshold value regardless of the strength of the pump.
+
+Suppose that each mirror has a small absorption/scattering of incident laser intensity $A$, so that the transmission is given by $T = 1 - A - R$. To find the intensity output from the URL's single mirror, we compute $I_\mathrm{out} = (1 - A - R)\, \left|u_0(1)\right|^2\, I_0$, giving
+\begin{equation} \label{eqn:ls1d_i_out_approx}
+  I_\textrm{out} = \frac{1 - A - R}{1 - R}\, \ln\left(\frac{1}{R}\right)\, \frac{\Hnb - 1}{\widetilde{\kappa}\, \rels}\, .
+\end{equation}
+For the SWL, the output fields are $I^+_\mathrm{out} = (1 - A_2 - R_2)\, \left|u^+_0(1/2)\right|^2\, I_0$ and $I^-_\mathrm{out} = (1 - A_1 - R_1)\, \left|u^-_0(0)\right|^2\, I_0$. If either one of the mirrors has an intensity reflectance of $1$, then the other mirror is the sole output coupler with reflectance $R$, and the intensity output through that mirror is also given by \eqn{ls1d_i_out_approx}. In both cases, the threshold gain is
+% \begin{equation}
+%   \Gth =\reils\, \ln\left(\frac{1}{R\, e^{-\anb}}\right)\, .
+% \end{equation}
+\begin{equation}
+  \Gth =\reils\, \ln\left(\frac{1}{\left|\Gamma^\prime\right|^2 R}\right)\, ,
+\end{equation}
+where $|\Gamma^\prime|^2 = e^{-\anb}$. If necessary, we can generalize the definition of $\Gamma^\prime$ to include all round-trip boundary and background losses in the laser cavity \emph{except} the transmission and absorption of the output coupler.
+
+If the resonator is strictly lossless, so that $\anb = A = 0$, then $\Gth = \reils\, \ln(1/R)$, and the output intensity becomes
+\begin{equation}
+  I_\textrm{out} = \frac{1}{\widetilde{\kappa}} \left( \Gnb - \Gth \right)\, .
+\end{equation}
+In this (unphysical) case, the output intensity increases monotonically with $R$ until the threshold gain vanishes as $R \longrightarrow 1$, while the intensity incident on the output coupler increases to $\Gnb / \widetilde{\kappa}\, (1 - R)$ in the same limit. The result would be a damaged mirror reflection coating. In \sct{laser_statics_1d_shb}, published models of intracavity intensity distributions in standing-wave lasers assume that $\anb = 0$, so we'll avoid the quandary in the limit $R \longrightarrow 1$ by assuming that the output coupler \emph{always} has a small finite loss and writing
+\begin{equation} \label{eqn:ls1d_i_out_approx_lossless}
+  I_\textrm{out} = \frac{1 - A - R}{1 - R}\,  \frac{ \Gnb - \Gth }{\widetilde{\kappa}}\, .
+\end{equation}
+
+In the practical case where losses are present, there's an optimum output coupling that maximizes $I_\mathrm{out}$. We can optimize \eqn{ls1d_i_out_approx} numerically to find $R_\mathrm{opt}$, but there's a simple trick we can use to obtain an analytic approximation that is quite reasonably accurate. We note in \fig{laser_statics_1d_approx} that the reflectance normalization of \eqn{ls1d_i_out_approx} is only slightly different from the function $\ln[(1 - A)/R]$ even when $A$ is very large. Hence, we rewrite $I_\mathrm{out}$ as
+\begin{equation} \label{eqn:ls1d_i_out_approxx}
+  I_\textrm{out} = \ln\left(\frac{1 - A}{R}\right)\, \frac{\Hnb - 1}{\widetilde{\kappa}\, \rels}\, ,
+\end{equation}
+differentiate the \rhs with respect to $R$, set the result to 0, and then solve for $R_\mathrm{opt}$. We find
+\begin{equation} \label{eqn:la1d_r_opt}
+  R_\text{opt} = \frac{1}{\left|\Gamma^\prime\right|^2} \exp\left\{ -\sqrt{\rels\, \Gnb\, \ln\left[\frac{1}{(1 - A) \left|\Gamma^\prime\right|^2}\right]} \right\}\, .
+\end{equation}
+The corresponding optimum output intensity is given by
+\begin{equation} \label{eqn:la1d_i_opt}
+  I_\text{opt} = \frac{1}{\widetilde{\kappa}\, \rels} \left\{ \sqrt{\rels\, \Gnb} - \sqrt{\ln\left[\frac{1}{(1 - A) \left|\Gamma^\prime\right|^2}\right]} \right\}^2 .
+\end{equation}
+Note that these equations make sensible predictions only when $(1 - A) \left|\Gamma^\prime\right|^2 < 1$. Also, the maximum value of the reflectance given by $R = 1 - A$ is the ``optimum'' output coupler reflectance when the gain $\Gnb$ has the minimum value
+\begin{equation} \label{eqn:lald_g_min}
+  G_\text{min} = \reils\, \ln\left[\frac{1}{(1 - A) \left|\Gamma^\prime\right|^2}\right]\, ,
+\end{equation}
+corresponding to $I_\text{opt} = 0$, as it must. %If $A \ll 1$ and $\anb \ll 1$, then
+
+  
+% From either \eqn{laser_resonator_1d_url_out} or \eqn{laser_resonator_1d_swl_out_1} --- subject to the discussion immediately following \eqn{laser_resonator_1d_swl_out} --- we obtain the output intensity (again, in units of $I_s$) at the output coupler with reflectance $R$ as
+% \begin{equation} \label{eqn:la1d_i_out_1}
+%   I_\text{out} = \frac{\tau_p}{\kappa}\, \ln\left(\frac{1}{R}\right) \left( \Gnb - \Gth \right) .
+% \end{equation}
+% Strictly speaking, we should have been calculating $T\, E_0^2$ as the output intensity, where $T \equiv 1 - A - R$, and $A$ represents a small absorbance in the mirror itself. We can incorporate the effect of mirror absorption in our simple single-mode model --- rigorously enforcing $I_\text{out} = 0$ when $T = 0$ and $R = 1 - A$  --- by replacing $R$ with $R/(1 - A)$ in \eqn{la1d_i_out_1} to obtain
+% \begin{equation}\label{eqn:la1d_i_out}
+%   I_\text{out} = \frac{\tau_p}{\kappa}\, \ln\left(\frac{1 - A}{R}\right) \left( \Gnb - \Gth \right) .
+% \end{equation}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=5.0in]{figures/laser_statics_1d_approx}
+  \caption{\label{fig:laser_statics_1d_approx} A comparison of the exact reflectance normalization given by \eqn{ls1d_i_out_approx} and the approximation used in \eqn{ls1d_i_out_approxx} for a relatively large value of the mirror intensity scattering and absorption coefficient. }
+\end{figure}
+
+What happens to the approximate model when the gain and loss are arbitrary functions of $z$ (e.g., they don't fill the resonator)? We can patch the function $u_0(z)$ to take this spatial nonuniformity into account while continuing to satisfy the boundary condition (e.g., for a URL) at $z = 1$:
+\begin{equation} \label{eqn:sml_1d_u_url_nu}
+    \left|u^\prime_0(z)\right|^2 = \mathcal{C}_\mathrm{URL}^2\, K(z)\, ,
+\end{equation}
+where
+\begin{subequations}
+  \begin{align}
+    \label{eqn:sml_1d_u_url_nu_kz} K\z &\equiv \exp\left[ \beta \int_0^z d z^\prime\, G_0(z^\prime) - \int_0^z d z^\prime\, \alpha_0(z^\prime) \right]\, , \nd \\
+    \label{eqn:sml_1d_u_url_nu_beta} \beta &\equiv \frac{\ln(1/R\, e^{-\overline{\alpha}_0})}{\overline{G}_0} = \frac{\rels}{\Hnb}\, .
+  \end{align}
+\end{subequations}
+Similarly, we can extend $u^\pm_0(z)$ for the case of standing-wave lasers by defining
+\begin{subequations} \label{eqn:sml_1d_u_swl_nu}
+  \begin{align}
+    \label{eqn:sml_1d_u_swl_nu_p} \left|u^{+ \prime}_0(z)\right|^2 &= \mathcal{C}_\mathrm{SWL}^2\, K\z\, , \nd \\
+    \label{eqn:sml_1d_u_swl_nu_m} \left|u^{- \prime}_0(z)\right|^2 &= \frac{\mathcal{C}_\mathrm{SWL}^2}{R_1\, K\z}
+  \end{align}
+\end{subequations}
+and using $R = R_1\, R_2$ in \eqn{sml_1d_u_url_nu_beta}. We'll see that this approach works surprisingly well for both unidirectional ring lasers (URLs) and standing-wave lasers (SWLs) when the gain and loss are not uniform.
+
+% Let's define $\Gamma^\prime$ to include all round-trip boundary and background losses in the laser cavity \emph{except} the transmission and absorption of the output coupler, and then write $\ln |\Gamma|^2 \equiv \ln R + \ln |\Gamma^\prime|^2$. Temporarily defining $\xi \equiv \ln(1/R)$, and solving $\partial I_\text{out} / \partial \xi = 0$ for $\xi$, we find that $I_\text{out}$ reaches a maximum when
+%  \begin{equation} \label{eqn:la1d_r_opt}
+% R_\text{opt} = \frac{1}{\left|\Gamma^\prime\right|^2} \exp\left\{ -\sqrt{\frac{\Gnb}{1 + \Omega_0^2} \ln\left[\frac{1}{(1 - A) \left|\Gamma^\prime\right|^2}\right]} \right\}\, .
+%  \end{equation}
+% The corresponding optimum output intensity is given by
+%  \begin{equation} \label{eqn:la1d_i_opt}
+% I_\text{opt} = \frac{1 + \Omega_0^2}{\kappa} \left\{ \sqrt{\frac{\Gnb}{1 + \Omega_0^2}} - \sqrt{\ln\left[\frac{1}{(1 - A) \left|\Gamma^\prime\right|^2}\right]} \right\}^2 .
+%  \end{equation}
+% Note that these equations make sensible predictions only when $(1 - A) \left|\Gamma^\prime\right|^2 < 1$. Also, the maximum value of the reflectance given by $R = 1 - A$ is the ``optimum'' output coupler reflectance when the gain $\Gnb$ has the minimum value
+%  \begin{equation} \label{eqn:lald_g_min}
+% G_\text{min} = \left(1 + \Omega_0^2\right) \ln\left[\frac{1}{(1 - A) \left|\Gamma^\prime\right|^2}\right]\, ,
+%  \end{equation}
+% corresponding to $I_\text{opt} = 0$, as it must.
+
+% \begin{equation}\label{eqn:la1d_r_opt}
+%R_\text{opt} = \exp\left[ \ln\frac{1}{\left|\Gamma^\prime\right|^2} - \sqrt{\ln\left(\frac{1}{\left|\Gamma^\prime\right|^2}\right) \frac{\Gn}{1 + \Omega^2}}\, \right] = \frac{1}{\left|\Gamma^\prime\right|^2} \exp\left[ -\sqrt{\ln\left(\frac{1}{\left|\Gamma^\prime\right|^2}\right) \frac{\Gn}{1 + \Omega^2}}\, \right] ,
+% \end{equation}
+%with the value
+% \begin{equation}\label{eqn:la1d_i_opt}
+%I_\text{opt} = \frac{1}{\kappa} \left[ \sqrt{\Gn} - \sqrt{\left({1 + \Omega^2}\right) \ln\left(\frac{1}{\left|\Gamma^\prime\right|^2}\right)}\, \right]^2 .
+% \end{equation}
+
+Returning to the phase of the field, we take the ratio of the imaginary and real parts of \eqn{laser_statics_1d_sml_e} to find the steady-state frequency shift
+\begin{equation} \label{eqn:la1d_dw0_def}
+  \delta \omega_0 = -\frac{1}{2\, \tau_\lambda}\, \frac{\imls}{\rels}\, .
+\end{equation}
+Let's define $\Omega_0 \equiv (\omega_0 - \omega_{a b})\, \tau_\perp$. Then the total normalized detuning is
+\begin{equation}
+  \Omega = \Omega_0 + \delta \omega_0\, \tau_\perp,
+\end{equation}
+and we find $\delta \omega_0$ by substituting this expression into \eqn{la1d_dw0_def} and then solving. For example, if the lineshape is Lorentzian, then $\imls/\rels = \Omega$, and
+% which, through $\Omega_0 \equiv (\omega_0 + \delta \omega_0 - \omega_{a b}) \tau_\perp$, can then be solved for the frequency shift $\delta \omega_0$ to obtain
+\begin{equation} \label{eqn:la1d_ss_fp}
+  % \delta \omega_0 = -\frac{\tau_\perp}{2\, \tau_p}\frac{\omega_0 - \omega_{a b}}{1 + \tau_\perp /2\, \tau_p} .
+  \delta \omega_0 = -\frac{1}{2\, \tau_\lambda}\, \frac{\Omega_0}{1 + \tau_\perp /2\, \tau_\lambda} .
+\end{equation}
+Recall that the total angular frequency of the electric field is $\omega_0 + \delta \omega_0$, and that we have chosen the carrier frequency $\omega_0$ to be aligned with one of the modes of the unloaded cavity, such that $\exp(\pm i\, \omega_0 \tau) = 1$. If the frequency of that cavity mode does not coincide with the resonance frequency $\omega_{a b}$ of the gain medium, then \eqn{la1d_ss_fp} predicts that the total frequency of the laser will be \emph{pulled} away from that of the cavity mode toward the resonance of the medium. Note that the corresponding value of the total normalized frequency detuning $\Omega$ is
+ \begin{equation} \label{eqn:la1d_ss_omega}
+\Omega = \frac{\Omega_0}{1 + \tau_\perp/2\, \tau_\lambda}\, .
+ \end{equation}
+Therefore, the net result of this frequency-pulling\index{Frequency-pulling} effect is to \emph{reduce} the detuning, and \emph{increase} the unsaturated gain. But \eqn{la1d_ss_fp} indicates that this detuning depends on the total intracavity loss through $\tau_\lambda$, and \emph{not} the unsaturated gain at all. This apparent contradiction is resolved by \eqn{la1d_g_ss_clamp}: the gain is clamped at the threshold value, which is indeed independent of the pump.

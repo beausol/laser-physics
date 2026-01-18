@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: rgb_laser_physics.aux
+Reallocating 'name_of_file' (item size: 1) to 5 items.
+The style file: lsip.bst
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+Database file #1: lsip_cse.bib
+Database file #2: lsip_lsr.bib
+Database file #3: lsip_pic.bib
+Database file #4: lsip_qit.bib
+Database file #5: lsip_url.bib
+Warning--can't use both author and editor fields in ref:oughstun1987urm
+You've used 32 entries,
+            2695 wiz_defined-function locations,
+            1339 strings with 14349 characters,
+and the built_in function-call counts, 10110 in all, are:
+= -- 666
+> -- 310
+< -- 8
++ -- 181
+- -- 71
+* -- 614
+:= -- 1103
+add.period$ -- 52
+call.type$ -- 32
+change.case$ -- 8
+chr.to.int$ -- 12
+cite$ -- 33
+duplicate$ -- 1012
+empty$ -- 1105
+format.name$ -- 92
+if$ -- 2360
+int.to.chr$ -- 0
+int.to.str$ -- 32
+missing$ -- 268
+newline$ -- 103
+num.names$ -- 33
+pop$ -- 464
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 245
+stack$ -- 0
+substring$ -- 297
+swap$ -- 632
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 60
+width$ -- 34
+write$ -- 277
+(There was 1 warning)

@@ -1,0 +1,182 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{One-Dimensional Unidirectional Ring Lasers\label{sct:laser_statics_1d_url}}
+
+%  \begin{figure}
+%   \centering
+%   \includegraphics[width=5.0in]{figures/unidirectional_ring_intensity_1d}
+%   \caption{\label{fig:unidirectional_ring_intensity_1d} A comparison of the direct computation of the intracavity intensity given by \eqn{ld1d_uni_amp_iz} for a unidirectional ring laser with the simple single-mode model given by the first term in \eqn{laser_resonator_1d_ezt_expansion}. }
+%  \end{figure}
+
+In general, the simple one-dimensional unidirectional ring laser shown in \fig{resonator_1d_ring_gain} has an amplifier with position-dependent gain and loss distributed from $z = 0$ to $z = 1$. Let's begin to understand the performance characteristics of this laser by assuming that the gain and loss are constant, with the values $\Gnz \equiv \Gnb$ and $\anz \equiv \anb$, so that we can use \eqn{ld1d_uni_amp_iz_loss} to determine the intensity $I(1)$ incident on the output coupler. Substituting the boundary condition $I(0) = R\, I(1)$ into \eqn{ld1d_uni_amp_iz_loss}, we obtain
+\begin{equation} \label{eqn:ls1d_i1_url}
+    % I(1) = \left[ \frac{\Gnb}{\anb} - \left(1 + \Omega_0^2\right) \right] \frac{1 - e^{-\xi}}{1 - R\, e^{-\xi}}\, ,
+    I(1) = \left[ \frac{\Gnb}{\anb} - \reils \right] \frac{1 - e^{-\xi}}{1 - R\, e^{-\xi}}\, ,
+\end{equation}
+where $\rels$ is defined by \eqn{lineshape_re_rho_def}, and
+\begin{equation} \label{eqn:ls1d_url_xidef}
+    \xi \equiv \frac{\anb}{\Gnb} \left( \Gnb - \Gth \right)\, .
+\end{equation}
+In the limit where $\anb/\Gnb \ll 1$,
+\begin{equation}
+    % I(1) \approx \frac{\Gnb - \Gth}{1 - R} \left\{ 1 - \left[ \frac{1 + R}{2 (1 - R)} \left(\Gnb - \Gth\right) + \left(1 + \Omega_0^2\right) \right] \frac{\anb}{\Gnb} \right\}\, .
+    I(1) \approx \frac{\Gnb - \Gth}{1 - R} \left\{ 1 - \left[ \frac{1 + R}{2 (1 - R)} \left(\Gnb - \Gth\right) + \reils \right] \frac{\anb}{\Gnb} \right\}\, .
+\end{equation}
+(Often, when intracavity loss is nonzero, the analytic formulas that we use to drive our intuition tend to become fairly complicated.)
+
+For a lossless cavity with $\anb = 0$, we have $I(1) = (\Gnb - \Gth) / (1 - R)$, and an output intensity given by
+\begin{equation} \label{eqn:ls1d_i_out_url_lossless}
+    I_\mathrm{out} = \frac{1 - A - R}{1 - R}\,  \left( \Gnb - \Gth \right)\, ,
+\end{equation}
+which is identical to \eqn{ls1d_i_out_approx_lossless} with $\kappa = 1$. In \fig{url_1d_izr_loss0}, we have assumed that $\Re[\mathcal{L}(0)] = 1$ and plotted the intracavity and output intensity for a lossless unidirectional ring laser in one dimension. In \fig{url_1d_iz_loss0}, the intracavity intensity is computed using three methods: the direct numerical integration of \eqn{ls1d_amp_didz} using the Scientific Python routine \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_bvp.html}{\texttt{scipy.integrate.solve\_bvp}}; the numerical solution of \eqn{ld1d_uni_amp_iz} using the Scientific Python routine \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html}{\texttt{scipy.optimize.brentq}}; and the approximate solution provided by \eqn{sml_1d_int} in the form
+\begin{equation} \label{eqn:ld1d_url_sol_approx}
+  I\z \approx \frac{\Hnb - 1}{\kappa\, \rels}\, \left|u_0\z\right|^2
+\end{equation}
+with $\kappa = 1$. The approximate laser model described in \sct{laser_statics_1d_approx} essentially assumes that the intracavity gain profile will be exponential, which corresponds to the low-gain limit of \eqn{ld1d_uni_amp_iz_small}. But when the gain is significantly above threshold, the intensity becomes a more linear function of $z$, consistent with the approximation of \eqn{ld1d_uni_amp_iz_large}. Nevertheless, for a lossless laser the simple model accurately predicts the values of both $I(0)$ and $I(1)$, so that we can make reliable predictions of the laser output intensity. In \fig{url_1d_ir_loss0}, we compare the corresponding output intensity as a function of $R$ using \eqn{ls1d_i_out_approxx} (with $\anb = 0$) and \eqn{ls1d_i_out_url_lossless}. The results are virtually identical.
+
+% Note that only one pass is made through the amplifier every round trip. If we define $\left|\Gamma^\prime\right|^2$ as the fraction of the light exiting the laser amplifier which reaches the output coupling mirror (\emph{including} the background loss $\exp[-\alpha\wn)$]\footnote{This approximation is equivalent to the assumption that the background loss is small enough that we can pretend that it is located at the exit facet of the amplifier.}, then the intensity at the input plane of the amplifier is related to that at the output plane by
+%  \begin{equation} \label{eqn:ld1d_uni_amp_i_in}
+% I(0) = \left|\Gamma\right|^2 I(1) = \left|\Gamma^\prime\right|^2 R\, I(1)\, ,
+%  \end{equation}
+% so that \eqn{ld1d_uni_amp_iz} gives
+%  \begin{equation} \label{eqn:ld1d_uni_amp_i_out}
+% I(1) = \frac{1}{1 - \left|\Gamma^\prime\right|^2 R} \left[ \Gn - \left(1 + \Omega^2\right) \ln \frac{1}{\left|\Gamma^\prime\right|^2 R}\right]\, ,
+%  \end{equation}
+% where $\Gn \equiv g_0 = \int_0^1 d z\, \overline{G}\z$. We can begin to see the difference between the single-spatial-mode dynamic model developed in \sct{laser_statics_1d_approx} and the exact case by comparing \eqn{ld1d_uni_amp_iz} with the first term in \eqn{laser_resonator_1d_ezt_expansion}, as shown in \fig{unidirectional_ring_intensity_1d}.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/url_1d_iz_loss0}
+        \caption{Intracavity intensity}
+        \label{fig:url_1d_iz_loss0}
+    \end{subfigure}
+    \par\vspace{0.25in}
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/url_1d_ir_loss0}
+        \caption{Output intensity}
+        \label{fig:url_1d_ir_loss0}
+    \end{subfigure}
+    \caption{\label{fig:url_1d_izr_loss0} Intracavity and output intensity for a lossless unidirectional ring laser in one dimension with $R = 0.5$, $\Omega = 0$, and $\Gnb = 4$. We have assumed that $\Re[\mathcal{L}(0)] = 1$. (a) The intracavity intensity computed using three methods: direct numerical integration of \eqn{ls1d_amp_didz}; numerical solution of \eqn{ld1d_uni_amp_iz}; and the approximate solution provided by \eqn{ld1d_url_sol_approx}. (b) Output intensity as a function of $R$ comparing \eqn{ls1d_i_out_approxx} (with $\anb = 0$) and \eqn{ls1d_i_out_url_lossless}. }
+\end{figure}
+
+In the general case of a one-dimensional unidirectional ring laser with intracavity absorption and nonzero scattering and loss in the output coupler, the output intensity is given by
+\begin{equation} \label{eqn:ls1d_i_out_url}
+    % I_\mathrm{out} = (1 - A - R)\, I(1) = (1 - A - R)\, \left[ \frac{\Gnb}{\anb} - \left(1 + \Omega_0^2\right) \right] \frac{1 - e^{-\xi}}{1 - R\, e^{-\xi}}\, ,
+    I_\mathrm{out} = (1 - A - R)\, I(1) = (1 - A - R)\, \left[ \frac{\Gnb}{\anb} - \reils \right] \frac{1 - e^{-\xi}}{1 - R\, e^{-\xi}}\, ,
+\end{equation}
+where $\xi$ is defined by \eqn{ls1d_url_xidef}. In \fig{url_1d_izr_loss1}, we have plotted the intracavity and output intensity for a unidirectional ring laser in one dimension. Again, we have assumed that $\Re[\mathcal{L}(0)] = 1$. In \fig{url_1d_iz_loss1}, our approach is identical to that of \fig{url_1d_iz_loss0}. We see that our approximate model slightly overestimates the value of the intensity arriving at the output coupler when $\anb \ne 0$. In \fig{url_1d_ir_loss1}, we compare the corresponding output intensity as a function of $R$ using \eqn{ls1d_i_out_approxx} and \eqn{ls1d_i_out_url}. Even at relatively high gains, our simple model matches the exact analytic result reasonably well. This agreement is echoed by the computations of optimum output coupler reflectance and output intensity shown in \fig{url_1d_opt} for $A = 1\%$, $\Omega = 0$, and $\anb = \ln(1.25)$. In \fig{url_1d_opt_r}, we compare the optimum output coupler reflectance as a function of $\Gnb$ computed using \eqn{la1d_r_opt} and a numerical solution of \eqn{ls1d_i_out_url}. The close agreement of these two predictions is consistent with the corresponding output intensity computed using \eqn{la1d_i_opt} and \eqn{ls1d_i_out_url} shown in \fig{url_1d_opt_i}.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/url_1d_iz_loss1}
+        \caption{Intracavity intensity}
+        \label{fig:url_1d_iz_loss1}
+    \end{subfigure}
+    \par\vspace{0.25in}
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/url_1d_ir_loss1}
+        \caption{Output intensity}
+        \label{fig:url_1d_ir_loss1}
+    \end{subfigure}
+    \caption{\label{fig:url_1d_izr_loss1} Intracavity and output intensity for a  unidirectional ring laser in one dimension with $R = 0.5$, $A = 1\%$, $\Omega = 0$, $\anb = \ln(1.25)$, and $\Gnb = 4$. (a) The intracavity intensity computed using three methods: direct numerical integration of \eqn{ls1d_amp_didz}; numerical solution of \eqn{ld1d_uni_amp_iz_loss}; and the approximate solution provided by \eqn{ld1d_url_sol_approx}. (b) Output intensity as a function of $R$ comparing \eqn{ls1d_i_out_approxx} and \eqn{ls1d_i_out_url}. }
+\end{figure}
+    
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/url_1d_opt_r}
+        \caption{Intracavity intensity}
+        \label{fig:url_1d_opt_r}
+    \end{subfigure}
+    \par\vspace{0.25in}
+    \begin{subfigure}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=5.0in]{figures/url_1d_opt_i}
+        \caption{Output intensity}
+        \label{fig:url_1d_opt_i}
+    \end{subfigure}
+    \caption{\label{fig:url_1d_opt} Optimum output coupler reflectance as a function of unsaturated round-trip gain for a unidirectional ring laser in one dimension with $A = 1\%$, $\Omega = 0$, and $\anb = \ln(1.25)$. (a) The optimum output coupler reflectance as a function of $\Gnb$ computed using \eqn{la1d_r_opt} and a numerical solution of \eqn{ls1d_i_out_url}. (b) The corresponding output intensity comparing \eqn{la1d_i_opt} and \eqn{ls1d_i_out_url}. }
+\end{figure}
+
+Suppose that the amplifier in the laser resonator is spatially nonuniform. For example, consider a gain region with constant $\Gnb$ extending from $z = z_1$ to $z = z_2$. Then $\Gnz$ is given by
+\begin{equation}
+    \Gnz = \frac{\Gnb}{z_2 - z_1}\,
+\end{equation}
+which clearly satisfies $\int_0^1 d z\, \Gnz = \Gnb$. For our approximate model of this unidirectional ring laser, we use $I(z) = I(0)\, |u_0\z|^2$, but we replace $|u_0\z|^2$ with $|u^\prime_0(z)|^2$ defined by \eqn{sml_1d_u_url_nu}. The result is shown in \fig{url_1d_iz_trap} for $z_1 = 0.25$ and $z_2 = 0.75$. The numerical solution of \eqn{ld1d_uni_amp_iz_loss} fails to predict the correct intensities everywhere except at the mirrors, but our approximate model using \eqn{sml_1d_u_url_nu} does a very reasonable job of matching the result of a direct numerical integration of \eqn{ls1d_amp_didz}.
+\begin{figure}
+    \centering
+    \includegraphics[width=5.0in]{figures/url_1d_iz_trap}
+    \caption{\label{fig:url_1d_iz_trap} Intracavity intensity as a function of $z$ for a constant gain region that extends from $z = 0.25$ to $z = 0.75$. The numerical solution of \eqn{ld1d_uni_amp_iz_loss} predicts the correct intensities at the mirrors, but (as it must) otherwise fails. On the other hand, an approximate model using \eqn{sml_1d_u_url_nu} does a credible job of matching the result of a direct numerical integration of \eqn{ls1d_amp_didz}. }
+\end{figure}
+    
+Finally, we can use \eqn{laser_statics_1d_phase} to determine the small phase shift $\delta \omega_0$ that arises when the frequencies of the carrier ($\omega_0$), the center of the gain distribution ($\omega_\mathrm{a b}$), and the nearest cavity mode are not perfectly aligned. We require that the round-trip phase accumulated by the electric field must be zero, and we apply the boundary condition $I(0) = R\, I(1)$ to obtain
+ \begin{equation} %\label{eqn:laser_statics_1d_phase}
+0 = \phi(1) - \phi(0) = - \delta \omega_0 - \half\, \frac{\imls}{\rels}\,  \ln \left[ \frac{1}{e^{-\anb}\, R} \right] \, .
+ \end{equation}
+ Since $e^{-\alpha\wn} R \equiv |\Gamma|^2$, using \eqn{f_fwhm} we again have
+ \begin{equation}
+\delta \omega_0 = - \frac{1}{2\, \tau_p}\, \frac{\imls}{\rels}\, ,
+ \end{equation}
+in precise agreement with the frequency shift defined by \eqn{la1d_dw0_def}.
+
+%  \begin{figure}
+%   \centering
+%   \includegraphics[width=5.0in]{figures/unidirectional_ring_output_1d}
+%   \caption{\label{fig:unidirectional_ring_output_1d} A comparison of the direct computation of the output intensity given by \eqn{ld1d_uni_amp_i_out} for a constant gain-per-unit-length unidirectional ring laser with the simple single-mode model given by \eqn{la1d_i_out} with $\kappa = 1$. }
+%  \end{figure}
+
+% Given an output coupling mirror with transmittance $T = 1 - A - R$, where $A$ represents a small power absorbance in the mirror itself, the output intensity of the unidirectional ring laser is
+%  \begin{equation} \label{eqn:ld1d_ur_i_out}
+% I_\text{out} = T\, I(1) = \frac{1 - A - R}{1 - \left|\Gamma^\prime\right|^2 R} \left[ \Gn - \left(1 + \Omega^2\right) \ln \frac{1}{\left|\Gamma^\prime\right|^2 R}\right] .
+%  \end{equation}
+%For comparison, we can incorporate the effect of mirror absorption in our simple single-mode model --- rigorously enforcing $I_\text{out} = 0$ when $R = 1 - A$  --- by replacing $R$ with $R/(1 - A)$ in \eqn{la1d_i_out}, giving
+% \begin{equation} \label{eqn:ld1d_ur_i_out_smpl}
+%I_\text{out} \approx \frac{\ln\left[(1 - A)/R\right]}{\ln(1/\left|\Gamma^\prime\right|^2 R)} \left[ g_0 - \left(1 + \Omega^2\right) \ln \frac{1}{\left|\Gamma^\prime\right|^2 R}\right] .
+% \end{equation}
+% We have plotted both \eqn{ld1d_ur_i_out} and \eqn{la1d_i_out} with $\kappa = 1$ for a laser with relatively high intracavity loss, output coupler absorption, and gain in \fig{unidirectional_ring_output_1d}. Even in this extreme case, the agreement is quite reasonable, and it improves significantly as $\left|\Gamma^\prime\right|^2 \longrightarrow 1$.
+
+% As is evident in \fig{unidirectional_ring_output_1d}, for given values of $A$, $\left|\Gamma^\prime\right|^2$, and $\Gn$, there is an output coupler reflectance $R$ that maximizes the output intensity $I_\text{out}$. Differentiating \eqn{ld1d_ur_i_out} with respect to $R$ and setting the result equal to zero, we obtain the constraint that the optimum reflectance must satisfy:
+%  \begin{equation} \label{eqn:ld1d_ur_r_opt}
+% \left(1 + \Omega^2\right) \left( 1 - \left|\Gamma^\prime\right|^2 R \right) \left( 1 - A - R \right) - R \left[ 1 - (1 - A) \left|\Gamma^\prime\right|^2 \right] \left[ \Gn - \left(1 + \Omega^2\right) \ln \frac{1}{\left|\Gamma^\prime\right|^2 R}\right] = 0
+%  \end{equation}
+% Once we have solved \eqn{ld1d_ur_r_opt} for $R$, we can substitute the result into \eqn{ld1d_ur_i_out} to determine the optimum output intensity. %Similarly, we can differentiate \eqn{ld1d_ur_i_out_smpl} with respect to $\ln(1/R)$, set the corresponding expression to zero, and then analytically solve for the optimum reflectance, given by
+% \begin{equation} \label{eqn:ld1d_ur_r_opt_smpl}
+%R_\text{opt} = \frac{1}{\left|\Gamma^\prime\right|^2} \exp\left\{ -\sqrt{\ln\left[\frac{1}{(1 - A) \left|\Gamma^\prime\right|^2}\right] \frac{g_0}{1 + \Omega^2}} \right\} ,
+% \end{equation}
+%and the optimum output intensity
+% \begin{equation} \label{eqn:ld1d_ur_i_opt_smpl}
+%I_\text{opt} = \left\{ \sqrt{g_0} - \sqrt{\left({1 + \Omega^2}\right) \ln\left[\frac{1}{(1 - A) \left|\Gamma^\prime\right|^2}\right]} \right\}^2 .
+% \end{equation}
+% We compare these exact results and the corresponding approximate results given by \eqn{la1d_r_opt} and \eqn{la1d_i_opt} with $\kappa = 1$ for $R_\text{opt}$ and $I_\text{opt}$ in \fig{unidirectional_ring_opt_1d} for the same extreme high-loss and high-gain case as \fig{unidirectional_ring_output_1d}. Note that \eqn{la1d_r_opt} is quite accurate, and \eqn{la1d_i_opt} slightly underestimates the optimum output intensity, as we'd expect from \fig{unidirectional_ring_output_1d}.
+
+% \begin{figure}
+% \centering
+% \begin{subfigure}[b]{0.8\textwidth}
+% \centering
+% \includegraphics[width=5.0in]{figures/unidirectional_ring_r_opt_1d}
+% \caption{Optimum output coupling}
+% \label{fig:unidirectional_ring_r_opt_1d}
+% \end{subfigure}
+% \par\vspace{0.25in}
+% \begin{subfigure}[b]{0.8\textwidth}
+% \centering
+% \includegraphics[width=5.0in]{figures/unidirectional_ring_i_opt_1d}
+% \caption{Optimum output intensity}
+% \label{fig:unidirectional_ring_i_opt_1d}
+% \end{subfigure}
+% \caption{\label{fig:unidirectional_ring_opt_1d} Optimum output coupling and intensity for a unidirectional ring laser in one dimension. The exact output coupling is found by solving \eqn{ld1d_ur_r_opt} for $R$, and then substituting the result into \eqn{ld1d_ur_i_out}. The approximate optimum reflectivity and output intensity are found using \eqn{la1d_r_opt} and \eqn{la1d_i_opt} with $\kappa = 1$, respectively.}
+% \end{figure}

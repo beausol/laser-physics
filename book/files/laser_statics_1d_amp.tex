@@ -1,0 +1,183 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Nonlinear Gain and Phase Shifts in Unidirectional Laser Amplifiers\label{sct:laser_statics_1d_amp}}
+%We can begin to understand the potential accuracy and limitations of the simple time-dependent one-dimensional laser models that we built in \sct{laser_statics_1d_sml} by comparing them in the steady-state domain with exact solutions obtained by assuming that the gain doesn't depend on time. Using the same scaling conventions as in \sct{la1d_url}, we can rewrite \eqn{fls_mbe_rwa_rea} and \eqn{fls_mbe_rwa_pop_diff_cw} in one dimension as
+% \begin{equation} \label{eqn:ld1d_uni_amp_pz}
+%\widetilde{P}\z = -i\, \frac{1 + i\, \Omega_0}{1 + \Omega_0^2}\, G\z \widetilde{E}\z
+% \end{equation}
+%and
+% \begin{equation} \label{eqn:ld1d_uni_amp_gz}
+%G\z = \frac{1 + \Omega_0^2}{1 + \Omega_0^2 + \left|\widetilde{E}\z\right|^2}\, \overline{G}\z\, .
+% \end{equation}
+%Substituting \eqn{ld1d_uni_amp_gz} into  \eqn{ld1d_uni_amp_pz} then gives the scaled rapidly-varying macroscopic polarization in one dimension as
+% \begin{equation}
+%\widetilde{P}\z = -i\, \frac{1 + i\, \Omega_0}{1 + \Omega_0^2 + \left|\widetilde{E}\z\right|^2}\, \overline{G}\z \widetilde{E}\z\, .
+% \end{equation}
+% \eqn{cw_sml_ez_scaled}, we have for a field propagating in the $+\hatb{z}$ direction the wave equation
+% \begin{equation}
+%\ddz E\z =  F\z\, , \textrm{or}
+% \end{equation}
+In the case of a unidirectional laser amplifier, $\widetilde{E}\z \equiv E^\pm\z e^{\pm i\, k_0\wn\, z}$, so that both $I\z \equiv |\widetilde{E}\z|^2 = |E^\pm\z|^2$ and $G\z$ are slowly-varying in space. Then \eqn{cw_sml_fz_scaled} shows that the rapid spatial variation of $\widetilde{F}\z \equiv F^\pm\z e^{\pm i\, k_0\wn\, z}$ is given entirely by that of $\widetilde{E}\z$, and the common factor of $e^{\pm i\, k_0\wn\, z}$ can be cancelled. Therefore, defining the slowly-varying field amplitude as
+\begin{equation}
+   E^\pm\z \equiv \sqrt{I^\pm\z}\, e^{- i \phi^\pm\z}
+\end{equation}
+we rewrite \eqn{cw_sml_ez_scaled} as
+\begin{equation} \label{eqn:cw_sml_ez_reim}
+   \pm \left[ \frac{1}{2 I^\pm\z}\, \ddz\, I^\pm\z - i\, \ddz \phi^\pm\z \right] = i\, \delta \omega_0 - \half\, \anz + \frac{F^\pm\z}{E^\pm\z}\, .
+\end{equation}
+Using \eqn{laser_statics_1d_sml_cw_fz}, the real part of this equation becomes
+\begin{equation} \label{eqn:cw_sml_ez_re}
+   % \pm \frac{1}{I^\pm\z}\, \ddz I^\pm\z = - \anz + \frac{1}{1 + \Omega_0^2 + I^\pm\z}\, \Gnz\, .
+   \pm \frac{1}{I^\pm\z}\, \ddz I^\pm\z = - \anz + \frac{\rels}{1 + \rels\, I^\pm\z}\, \Gnz\, ,
+\end{equation}
+where
+\begin{equation} \label{eqn:lineshape_re_rho_def}
+   \rels \equiv \Re\left[\mathcal{L}(\Omega)\right]\, .
+\end{equation}
+Let's analyze the forward-propagation intensity $I^+\z \equiv I\z$ in the case of spatially independent unsaturated gain $\Gnz \equiv \Gnb$ and nonsaturable background loss $\anz \equiv \anb$; we find
+\begin{equation} \label{eqn:ls1d_amp_didz}
+   % \ddz I\z = \frac{\Gnb\, I\z}{1 + \Omega_0^2 + I\z} - \anb\, I\z = \frac{\left\{ \Gnb - \anb \left[1 + \Omega_0^2 + I\z \right] \right\} I\z}{1 + \Omega_0^2 + I\z}\, .
+   \ddz I\z = \frac{\rels\, \Gnb\, I\z}{1 + \rels\, I\z} - \anb\, I\z = \frac{\left\{ \rels\, \Gnb - \anb \left[1 + \rels\, I\z \right] \right\} I\z}{1 + \rels\, I\z}\, .
+\end{equation}
+Noting that
+\begin{equation*}
+   % \frac{1 + \Omega_0^2 + I\z}{I\z \left\{ \Gnb - \anb \left[1 + \Omega_0^2 + I\z \right] \right\}} = \frac{1}{\Gnb - \anb \left(1 + \Omega_0^2\right)} \left\{ \frac{1 + \Omega_0^2}{I\z} + \frac{\Gnb}{\left\{ \Gnb - \anb \left[1 + \Omega_0^2 + I\z \right] \right\}}\right\}\, ,
+   \frac{1 + \rels\, I\z}{\left\{ \rels\, \Gnb - \anb \left[1 + \rels\, I\z \right] \right\} I\z} = \frac{1}{\rels\, \Gnb - \anb} \left\{ \frac{1}{I\z} + \frac{\asdf\, \Gnb}{\left\{ \rels\, \Gnb - \anb \left[1 + \rels\, I\z \right] \right\}}\right\}\, ,
+\end{equation*}
+\begin{equation*}
+\end{equation*}
+we quickly obtain the transcendental solution for propagation from the reference plane $z = 0$ to the reference plane $z$, given by
+\begin{equation} \label{eqn:ld1d_uni_amp_iz_loss}
+   % \left( 1 + \Omega_0^2 \right) \ln \frac{I(z)}{I(0)} - \frac{\Gnb}{\anb}\, \ln \left\{\frac{\Gnb - \anb \left[1 + \Omega_0^2 + I(z) \right]}{\Gnb - \anb \left[1 + \Omega_0^2 + I(0) \right]}\right\} = \left[\Gnb - \anb \left(1 + \Omega_0^2\right)\right] z \, .
+   \ln \frac{I(z)}{I(0)} - \frac{\rels\, \Gnb}{\anb}\, \ln \left\{\frac{\rels\, \Gnb - \anb \left[1 + \rels\, I(z) \right]}{\rels\, \Gnb - \anb \left[1 + \rels\, I(0) \right]}\right\} = \left[\rels\, \Gnb - \anb\right] z \, .
+\end{equation}
+         
+ In the limit $\anb/\Gnb \ll 1$, \eqn{ld1d_uni_amp_iz_loss} becomes
+% \begin{equation}
+%     \begin{split}
+%    \left( 1 + \Omega_0^2 \right) \ln \frac{I(z_2)}{I(z_1)} & + \left[I(z_2) - I(z_1)\right] \left\{1 + \frac{\an}{2 \Gn} \left[2 \left(1 + \Omega_0^2\right) + I(z_1) + I(z_2)\right]\right\} \\
+%    & = \left[\Gn - \an \left(1 + \Omega_0^2\right)\right] \left(z_2 - z_1\right) \, .
+%     \end{split}
+% \end{equation}
+\begin{equation}
+   % \ln \frac{I(z)}{I(0)}  + \frac{I(z) - I(0)}{ 1 + \Omega_0^2} = \left(\frac{\Gnb}{ 1 + \Omega_0^2} - \anb\right) z \, .
+   \ln \frac{I(z)}{I(0)}  + \rels \left[I(z) - I(0)\right] = \left[\rels\, \Gnb - \anb\right] z \, .
+\end{equation}
+If in fact $\anz = 0$, then we can relax the constraint that the unsaturated gain be spatially independent, and quickly find
+ \begin{equation} \label{eqn:ld1d_uni_amp_iz}
+\ln \frac{I(z)}{I(0)} + \rels \left[I(z) - I(0)\right] = \rels \int_0^z d z^\prime\, G_0\left(z^\prime\right)\, .
+ \end{equation}
+%where
+%  \begin{equation} \label{eqn:ld1d_uni_amp_g0z}
+% g_0 \equiv \int_{z_1}^{z_2} d z\, \overline{G}(z)\, .
+%  \end{equation}
+% \begin{equation} \label{eqn:laser_statics_1d_amp_hdef}
+%    \Hnz \equiv \exp\left[\frac{1}{1 + \Omega_0^2}\, \int_0^z d z^\prime\, G_0\left(z^\prime\right)\right]\, .
+% \end{equation}
+Suppose that $I(z) \ll 1$ for all $z$. Then \eqn{cw_sml_ez_re} has the solution
+\begin{equation} \label{eqn:ld1d_uni_amp_iz_small}
+   % I(z) \cong I(0)\, \exp\left[\frac{1}{1 + \Omega_0^2}\, \int_0^z d z^\prime\, \Gn\left(z^\prime\right) - \int_0^z d z^\prime\, \an\left(z^\prime\right)\right]\, ,
+   I(z) \cong I(0)\, \exp\left\{\int_0^z d z^\prime\, \left[\rels\, \Gn\left(z^\prime\right) - \an\left(z^\prime\right)\right]\right\}\, ,
+\end{equation}
+which is essentially just Beer's Law given by \eqn{beers_law}. On the other hand, if $I\z \gg 1$ for all $z$ (corresponding to a heavily saturated amplifier), \eqn{ls1d_amp_didz} gives
+\begin{equation} \label{eqn:ld1d_uni_amp_iz_large}
+%   I(z) \cong I(0) + g_0\, .
+   I\z \cong e^{-\int_0^z d z^\prime\, \an\left(z^\prime\right)} \left[I(0) + \rels \int_0^z d z^\prime e^{\int_0^{z^\prime} d z^{\prime\prime}\, \an\left(z^{\prime\prime}\right)} G_0\left(z^\prime\right)\right]\, .
+\end{equation}
+
+In \fig{amplifier_1d_cw_igz}, we plot the effective gain $G_\mathrm{eff}\z \equiv I\z/I(0)$ and the saturated gain $G\z$ as a function of position in an amplifier with constant gain $\Gnb = 1.5$ and absorption $\anb = 0.5$, and a Lorentzian detuning $\Omega = 0.5$. For a relatively small input intensity, the effective gain is exponential in $z$, and the gain saturation is negligible. However, as the input intensity increases, $G_\mathrm{eff}\z$ becomes more linear, until at very high intensities the saturated gain is \emph{less} than the constant loss, and the net gain drops below 1. \Fig{amplifier_1d_cw_iz} was obtained using a numerical solution of \eqn{ld1d_uni_amp_iz_loss}, but a direct initial value integration of \eqn{ls1d_amp_didz} yields the same result.
+
+\begin{figure}
+   \centering
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/amplifier_1d_cw_iz.pdf}
+      \caption{Effective net gain from \eqn{ld1d_uni_amp_iz_loss}}
+      \label{fig:amplifier_1d_cw_iz}
+   \end{subfigure}
+   \par\vspace{0.25in}
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/amplifier_1d_cw_gz.pdf}
+      \caption{Saturated gain from \eqn{laser_statics_1d_sml_cw_gz}}
+      \label{fig:amplifier_1d_cw_gz}
+   \end{subfigure}
+   \caption{\label{fig:amplifier_1d_cw_igz} Plot of the effective gain $G_\mathrm{eff}\z$ and the saturated gain $G\z$ as a function of position in an amplifier with constant gain $\Gnb = 1.5$ and absorption $\anb = 0.5$, and a Lorentzian detuning $\Omega = 0.5$.}
+\end{figure}
+ 
+
+%We can check analytically our neglect of the linear loss coefficient in \eqn{wave_eqn_1d} in the case
+%If the second term in the braces on the \lhs is not small compared to unity, then \eqn{ld1d_ur_i_out} may need to be modified.
+
+We determine the corresponding phase shift in the amplifier using the imaginary part of \eqn{cw_sml_ez_reim}, which is
+\begin{equation} \label{eqn:cw_sml_ez_im}
+   \mp \ddz \phi^\pm\z = \delta \omega_0 + \Im\left[ \frac{F^\pm\z}{E^\pm\z} \right]\, .
+\end{equation}
+From \eqn{laser_statics_1d_sml_cw_fz}, we note that
+\begin{equation*}
+   \Im\left[ \frac{F^\pm\z}{E^\pm\z} \right] = \frac{\imls}{\rels}\, \Re\left[ \frac{F^\pm\z}{E^\pm\z} \right]\, ,
+\end{equation*}
+where
+\begin{equation} \label{eqn:lineshape_im_iota_def}
+   \imls \equiv \Im\left[\mathcal{L}(\Omega)\right]\, .
+\end{equation}
+%$\Im [F^\pm\z/E^\pm\z] = \Omega_0\, \Re [F^\pm\z/E^\pm\z]$,
+Using \eqn{cw_sml_ez_reim}, we have
+\begin{equation} \label{eqn:laser_statics_1d_dpdz}
+   % \ddz \phi^\pm\z = \mp \delta \omega_0 - \frac{\Omega_0}{2} \left[ \pm \anz + \frac{1}{I^\pm\z}\, \ddz I^\pm\z \right]\, ,
+   \ddz \phi^\pm\z = \mp \delta \omega_0 - \half\, \frac{\imls}{\rels} \left[ \pm \anz + \frac{1}{I^\pm\z}\, \ddz I^\pm\z \right]\, .
+\end{equation}
+Integrating from $0$ to $z$, we obtain the solution
+\begin{equation} \label{eqn:laser_statics_1d_phase}
+   % \phi^\pm(z) - \phi^\pm(0) = \mp \delta \omega_0\, z - \frac{\Omega_0}{2} \ln \left[ e^{\pm \int_0^z d z^\prime\, \an\left(z^\prime\right)} \frac{I^\pm(z)}{I^\pm(0)} \right]\, .
+   \phi^\pm(z) - \phi^\pm(0) = \mp \delta \omega_0\, z - \half\, \frac{\imls}{\rels}\, \ln \left[ e^{\pm \int_0^z d z^\prime\, \an\left(z^\prime\right)} \frac{I^\pm(z)}{I^\pm(0)} \right]\, .
+\end{equation}
+We see that the phase shift depends linearly on the ratio of the imaginary part to the real part of the lineshape function $\mathcal{L}(\Omega)$; in the Lorentzian case, this ratio is the net fractional detuning of the laser frequency from the center of the gain distribution, given by $\Omega$. This result is completely general for steady-state one-dimensional laser amplifiers, and will allow us to easily calculate the magnitude of the ``frequency pulling''\index{Frequency pulling} that occurs within continuous-wave laser oscillators. We can also quickly recover the expression for the net phase shift that is commonly found in textbooks\cite{ref:siegman1986l}, valid in the unsaturated-gain forward-propagation case where $\phi^+\z \equiv \phi\z$, $\anz = 0$, $\Gnz \equiv \Gnb \ll 1$; from \eqn{ld1d_uni_amp_iz_small}, for a Lorentzian lineshape we find
+ \begin{equation} \label{eqn:laser_statics_1d_small}
+\phi(z) - \phi(0) = -\left[ \delta \omega_0 + \frac{\Omega}{2}\, \frac{\Gnb}{1 + \Omega^2} \right] z\, .
+ \end{equation}
+When the gain is low, the phase shift also depends linearly on the length of the laser amplifier.
+
+There's a subtle effect of laser intensity on the gain lineshape known as \emph{power broadening}\index{Power Broadening}. From \eqn{cw_sml_ez_re}, the dependence of the saturated gain on the detuning arising from a Lorentzian lineshape is captured by the expression
+\begin{equation} \label{eqn:amplifier_1d_cw_lsat}
+   L_\mathrm{sat}(\Omega) \equiv \frac{1}{1 + I + \Omega^2}\, ,
+\end{equation}
+where $I$ is the unidirectional intensity at the point of interest within the amplifier. Since $L_\mathrm{sat}(0) = 1 / (1 + I)$, when $\Omega = \pm\sqrt{1 + I}$ we have $L_\mathrm{sat}(\Omega) = L_\mathrm{sat}(0) / 2$, giving the full width at half-maximum
+\begin{equation}
+   \Omega_\mathrm{FWHM} = 2\, \sqrt{1 + I}\, ,
+\end{equation}
+or, since $\Omega = \Delta \omega\, \tau_\perp$,
+\begin{equation} \label{eqn:amplifier_1d_cw_fwhm}
+   \Delta \omega_\mathrm{FWHM} = \sqrt{1 + I}\, \Delta \omega_g\, ,
+\end{equation}
+where $\Delta \omega_g = 2 / \tau_\perp$ is the FWHM when $I = 0$. This increase in the width of the gain lineshape is illustrated in \fig{amplifier_1d_cw_gom}. The effect is difficult to untangle visually from saturation, so in \fig{amplifier_1d_cw_gom_norm} we normalize each lineshape to unity at $\Omega = 0$ to make it clearer. Note that power broadening does \emph{not} increase gain at any frequency detuning; rather, it reduces the ``gain curvature''
+\begin{equation}
+   \frac{1}{2}\, \frac{\partial^2}{\partial \Omega^2}\, L_\mathrm{sat}(\Omega) = -\frac{\left(1 + I - 3\, \Omega^2\right)}{\left(1 + I + \Omega^2\right)^3} \approx -\frac{1}{\left(1 + I\right)^2} + \frac{6\, \Omega^2}{\left(1 + I\right)^3}
+\end{equation}
+by a factor of $(1 + I)^2$ near $\Omega = 0$.
+
+\begin{figure}
+   \centering
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/amplifier_1d_cw_gom.pdf}
+      \caption{Saturated and broadened gain lineshape}
+      \label{fig:amplifier_1d_cw_gom}
+   \end{subfigure}
+   \par\vspace{0.25in}
+   \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[width=5.0in]{figures/amplifier_1d_cw_gom_norm.pdf}
+      \caption{Normalized and broadened gain lineshape}
+      \label{fig:amplifier_1d_cw_gom_norm}
+   \end{subfigure}
+   \caption{\label{fig:amplifier_1d_cw_go} Plot of the effective gain lineshape function $L_\mathrm{sat}(\Omega)$ given by \eqn{amplifier_1d_cw_lsat}, including the effects of saturation and detuning.}
+\end{figure}

@@ -1,0 +1,356 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Rate Equation Representations of Multi-Level Systems\label{sct:laser_gain_med_rate_eqn}}
+
+ \subsection{Two-Level Systems\label{sct:laser_gain_med_tls}}
+For example, in the case $j = 2$, we have depopulation of level $a$ to level $b$ at the rate $\gamma^\prime_{a b}$ with the corresponding Lindblad operator
+ \begin{equation}
+ L^\prime_{a b} \equiv \ket{a} \bra{b} = \hat{\sigma}_{a b} = \begin{bmatrix}
+ 0 & 0 \\
+ 0 & 1
+ \end{bmatrix}
+ \end{equation}
+and dephasing of levels $a$ and $b$\footnote{In the case of the strictly two-level atom, we do not need to model dephasing of the lower --- or ``ground'' --- state, since we can use the phase of level $b$ as a reference. However, in our description of the ideal four-level laser gain medium below, we'll rely on the general dephasing model of the laser levels used in the discussion here.} at the rates $\gamma^{\prime \prime}_{a a}$ and $\gamma^{\prime \prime}_{b b}$, respectively, with the operators
+ \begin{subequations}
+ \begin{align}
+L^{\prime \prime}_{a a} &\equiv \frac{1}{\sqrt{2}}\, \left(\hat{1} - 2 \hat{\sigma}_{a a}\right) = \frac{1}{\sqrt{2}}\, \left(-\sigma_{a a} + \sigma_{b b}\right) = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+ -1 & 0 \\
+ 0 & 1
+ \end{bmatrix} , \nd \\
+L^{\prime \prime}_{b b} &\equiv \frac{1}{\sqrt{2}}\, \left(\hat{1} - 2 \hat{\sigma}_{b b}\right) = \frac{1}{\sqrt{2}}\, \left(\sigma_{a a} - \sigma_{b b}\right) = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+ 1 & 0 \\
+ 0 & -1
+ \end{bmatrix} .
+ \end{align}
+ \end{subequations}
+
+Using \eqn{lindblad} to compute the von Neumann form of the damping operator, we obtain
+ \begin{equation}
+ \Gamma[\rho] = \begin{bmatrix}
+ \gamma_{a b} \rho_{a a} & \gamma_\perp \rho_{a b} \\
+ \gamma_\perp \rho_{b a} & -\gamma_{a b} \rho_{a a}
+ \end{bmatrix} ,
+ \end{equation}
+where
+ \begin{subequations}
+ \begin{align}
+\gamma_{a b} &\equiv \gamma^{\prime \prime}_{a a} , \nd \\
+\gamma_\perp &\equiv \half \gamma^{\prime}_{a b} + \gamma^{\prime \prime}_{a a} + \gamma^{\prime \prime}_{b b} .
+ \end{align}
+ \end{subequations}
+The corresponding Liouville superoperator is derived from \eqn{liouville_gamma} as
+ \begin{equation}
+\bmc{L}_\Gamma = \begin{bmatrix}
+ \gamma_{a b} & 0 & 0 & 0 \\
+ 0 & \gamma_\perp & 0 & 0 \\
+ 0 & 0 & \gamma_\perp & 0 \\
+ -\gamma_{a b} & 0 & 0 & 0
+ \end{bmatrix} .
+ \end{equation}
+
+ \begin{equation}
+\hat{H}(t) = \begin{bmatrix}
+ \hslash \omega_a & V_{a b}(t) \\
+ V_{b a}(t) & \hslash \omega_b
+ \end{bmatrix} .
+ \end{equation}
+
+% \begin{equation}
+%\left[\hat{H}(t), \hat{\rho}(t)\right] = \begin{bmatrix}
+% -V_{b a}(t) \rho_{a b}(t) + V_{a b}(t) \rho_{b a}(t) & \omega_{a b} \rho_{a b}(t) - V_{a b}(t) \left[ \rho_{a a}(t) - %\rho_{b b}(t) \right] \\
+% -\omega_{a b} \rho_{b a}(t) + V_{b a}(t) \left[ \rho_{a a}(t) - \rho_{b b}(t) \right] & V_{b a}(t) \rho_{a b}(t) - V_{a %b}(t) \rho_{b a}(t)
+% \end{bmatrix} .
+% \end{equation}
+
+ \begin{equation}
+\bmc{L}_H(t) = \begin{bmatrix}
+ 0 & -V^\ast_{a b}(t) & V_{a b}(t) & 0 \\
+ -V_{a b}(t) & \hslash \omega_{a b} & 0 & V_{a b}(t) \\
+ V^\ast_{a b}(t) & 0 & -\hslash \omega_{a b} & -V^\ast_{a b}(t) \\
+ 0 & V^\ast_{a b}(t) & -V_{a b}(t) & 0
+ \end{bmatrix} .
+ \end{equation}
+
+ \begin{equation}
+-\left[\bmc{L}_\Gamma + \frac{i}{\hbar}\, \bmc{L}_H(t) \right] = \begin{bmatrix}
+ -\gamma_{a b} & \frac{i}{\hslash}\, V^\ast_{a b}(t) & -\frac{i}{\hslash}\, V_{a b}(t) & 0 \\
+ \frac{i}{\hslash}\, V_{a b}(t) & -\gamma_\perp - i \omega_{a b} & 0 & -\frac{i}{\hslash}\, V_{a b}(t) \\
+ -\frac{i}{\hslash}\, V^\ast_{a b}(t) & 0 & -\gamma_\perp + i \omega_{a b} & \frac{i}{\hslash}\, V^\ast_{a b}(t) \\
+ \gamma_{a b} & -\frac{i}{\hslash}\, V^\ast_{a b}(t) & \frac{i}{\hslash}\, V_{a b}(t) & 0
+ \end{bmatrix} .
+ \end{equation}
+
+ \begin{subequations} \label{eqn:tls_dmem}
+ \begin{align}
+\label{eqn:tls_dmem_aa} \ddt \rho_{a a}(t) &= -\gamma_{a b} \rho_{a a}(t) + \frac{i}{\hslash} \left[ V^\ast_{a b}(t) \rho_{a b}(t) - \cc \right] , \\
+\label{eqn:tls_dmem_bb} \ddt \rho_{b b}(t) &= +\gamma_{a b} \rho_{a a}(t) - \frac{i}{\hslash} \left[ V^\ast_{a b}(t) \rho_{a b}(t) - \cc \right] , \nd \\
+\label{eqn:tls_dmem_ab} \ddt \rho_{a b}(t) &= -i \left( \omega_{a b} - i \gamma_\perp \right) \rho_{a b}(t) + \frac{i}{\hslash}\, V_{a b}(t) \left[ \rho_{a a}(t) - \rho_{b b}(t) \right] .
+ \end{align}
+ \end{subequations}
+
+If we multiply both sides of \eqn{tls_dmem_ab} by $e^{i ( \omega_{a b} - i \gamma_\perp) t}$, we can formally integrate the equation of motion for $\rho_{a b}(t)$ to obtain
+ \begin{equation} \label{eqn:tls_dmem_ab_int_formal}
+\rho_{a b}(t) = \frac{i}{\hslash}\, e^{-i ( \omega_{a b} - i \gamma_\perp) t} \int_{-\infty}^t d t^\prime\, e^{i ( \omega_{a b} - i \gamma_\perp) t^\prime}\, V_{a b}\left(t^\prime\right) \left[\rho_{a a}\left(t^\prime\right) - \rho_{b b}\left(t^\prime\right)\right] .
+ \end{equation}
+Suppose that we can write the matrix element of the interaction potential energy as
+ \begin{equation} \label{eqn:tls_vab_exp}
+V_{a b}(t) \equiv V_{a b}^{+}(t) e^{-i \omega_0 t} + V_{a b}^{-}(t) e^{i \omega_0 t} ,
+ \end{equation}
+where both $V_{a b}^{+}(t)$ and $V_{a b}^{-}(t)$ vary slowly compared to $e^{\mp i \omega_0 t}$, and $\omega_0 \approx \omega_{a b}$. If we substitute \eqn{tls_vab_exp} into \eqn{tls_dmem_ab_int_formal}, then we see that we have two integrands contributing to $\rho_{a b}(t)$, with time dependencies $e^{i (\omega_{a b} \pm \omega_0 - i \gamma_\perp) t}$. To understand their relative impact on the final result, let's consider the case where $V_{a b}^\pm$, $\rho_{a a}$, and $\rho_{b b}$ do not depend on time (or, at least, are slowly varying compared to $e^{\pm \gamma_\perp t}$). Then \eqn{tls_dmem_ab_int_formal} immediately gives
+ \begin{equation} \label{eqn:tls_dmem_ab_int_formal_ss}
+\rho_{a b}(t) = \frac{1}{\hslash} \left[ \frac{V_{a b}^{+}}{\omega_0 - \omega_{a b} + i\, \gamma_\perp} e^{-i \omega_0 t} - \frac{V_{a b}^{-}}{\omega_0 + \omega_{a b} - i\, \gamma_\perp} e^{i \omega_0 t} \right] \left( \rho_{a a} - \rho_{b b} \right) .
+ \end{equation}
+When studying laser physics, $\omega_0$ and $\omega_{a b}$ are typically optical frequencies with values of $10^{14}$--$10^{15}$~Hertz, while the dephasing rate $\gamma_\perp$ is at least several orders of magnitude smaller. Therefore, the first term in \eqn{tls_dmem_ab_int_formal_ss} is generally far larger than the second, and in practice we can usually neglect the term proportional to $e^{i \omega_0 t}$ altogether. This approach is known as the \emph{rotating-wave approximation}\index{Rotating-wave approximation}, and is equivalent to writing the interaction potential energy as
+ \begin{equation} \label{eqn:tls_vab_rwa}
+V_{a b}(t) \equiv V_{a b}^{+}(t) e^{-i \omega_0 t} .
+ \end{equation}
+
+We make one more simplification to the two-level density matrix equations of motion to capture the remaining $e^{-i \omega_0 t}$ time dependence in \eqn{tls_dmem_ab_int_formal_ss}. We move into a co-rotating frame by defining
+ \begin{equation}
+\rho_{a b}(t) \equiv \widetilde{\rho}_{a b}(t) e^{-i \omega_0 t} .
+ \end{equation}
+When we substitute this expression into \eqn{tls_dmem}, we obtain
+ \begin{subequations} \label{eqn:tls_dmem_rwa}
+ \begin{align}
+\label{eqn:tls_dmem_rwa_aa} \ddt \rho_{a a}(t) &= -\gamma_{a b}\, \rho_{a a}(t) + \frac{i}{\hslash} \left[ V^{+\ast}_{a b}(t) \widetilde{\rho}_{a b}(t) - \cc \right] , \\
+\label{eqn:tls_dmem_rwa_bb} \ddt \rho_{b b}(t) &= +\gamma_{a b}\, \rho_{a a}(t) - \frac{i}{\hslash} \left[ V^{+\ast}_{a b}(t) \widetilde{\rho}_{a b}(t) - \cc \right] , \nd \\
+\label{eqn:tls_dmem_rwa_ab} \ddt \widetilde{\rho}_{a b}(t) &= i \left( \omega_0 - \omega_{a b} + i \gamma_\perp \right) \widetilde{\rho}_{a b}(t) + \frac{i}{\hslash} V^+_{a b}(t) \left[ \rho_{a a}(t) - \rho_{b b}(t) \right] .
+ \end{align}
+ \end{subequations}
+or
+ \begin{subequations} \label{eqn:tls_dmem_rwa_smp}
+ \begin{align}
+\label{eqn:tls_dmem_rwa_smp_aa} \ddt \rho_{a a}(t) &= -\gamma_{a b}\, \rho_{a a}(t) - \frac{2}{\hslash} \Im \left[ V^{+\ast}_{a b}(t) \widetilde{\rho}_{a b}(t) \right] , \\
+\label{eqn:tls_dmem_rwa_smp_bb} \ddt \rho_{b b}(t) &= +\gamma_{a b}\, \rho_{a a}(t) + \frac{2}{\hslash} \Im \left[ V^{+\ast}_{a b}(t) \widetilde{\rho}_{a b}(t) \right] , \nd \\
+\label{eqn:tls_dmem_rwa_smp_ab} \ddt \widetilde{\rho}_{a b}(t) &= i \left( \omega_0 - \omega_{a b} + i \gamma_\perp \right) \widetilde{\rho}_{a b}(t) + \frac{i}{\hslash} V^+_{a b}(t) \left[ \rho_{a a}(t) - \rho_{b b}(t) \right] .
+ \end{align}
+ \end{subequations}
+
+We define the semiclassical radiative electric dipole interaction Hamiltonian as
+ \begin{equation} \label{eqn:tls_interaction_h_op_def}
+\hat{V}\rt = -\mathbf{\hat{d}} \dotp \bmc{E}\rt
+ \end{equation}
+where the dipole moment operator $\mathbf{\hat{d}} = e\, \mathbf{\hat{r}}$, and $e = -|e|$ is the charge of the electron. Following \eqn{bmc_e_def}, we define $\bmc{E}\rt$ as
+ \begin{equation} \label{eqn:bmc_e_def_2}
+ \bmc{E}\rt \equiv \frac{\emwnt}{2}\, \hatb{\epsilon}\, \widetilde{E}\rt + \cc ,
+ \end{equation}
+where $\widetilde{E}\rt$ is a complex scalar electric field amplitude that varies rapidly in space but slowly in time. We assume that the electric dipole approximation is valid, so that $\widetilde{E}\rt$ is essentially constant over the extent of the electronic wave function, and therefore $\bra{a} \mathbf{\hat{d}}\, \widetilde{E}\rt \ket{b} = \mathbf{d}_{a b} \widetilde{E}\rt$, where $\mathbf{d}_{a b} \equiv \bra{a} \mathbf{\hat{d}} \ket{b}$.
+ \begin{equation} \label{eqn:tls_oab_def}
+V^+_{ab}\rt = = -\frac{1}{2}\, \hatb{\epsilon}\, \dotp \bra{a} \mathbf{\hat{d}} \ket{b} \widetilde{E}\rt \equiv -\frac{d_{a b}}{2}\, \widetilde{E}\rt ,
+ \end{equation}
+where $d_{a b} = d_{b a}^\ast \equiv \hatb{\epsilon} \dotp \bra{a} \mathbf{\hat{d}} \ket{b}$.
+
+ \subsubsection{Level Populations and the Macroscopic Polarization}
+Let $\mathcal{N}$ represent the density of gain dipoles per unit volume\footnote{Here we presume that the distribution of dipoles is uniform throughout the gain volume, but it is straightforward to relax this assumption and allow $\mathcal{N}$ to vary with $\mathbf{r}$.} in the laser amplifier. Then we define the population densities of the two energy levels $a$ and $b$ as
+ \begin{equation} \label{eqn:tls_pop_def}
+ N_a\rt \equiv \mathcal{N} \rho_{a a}\rt \qquad \nd \qquad N_b\rt \equiv \mathcal{N} \rho_{b b}\rt .
+ \end{equation}
+If we multiply \eqn{tls_dmem_rwa_smp_aa} and \eqn{tls_dmem_rwa_smp_bb} by $\mathcal{N}$ and apply \eqn{tls_oab_def}, we obtain
+ \begin{subequations} \label{eqn:tls_dmem_rwa_pop}
+ \begin{align}
+\label{eqn:tls_dmem_rwa_pop_a} \ppt N_a\rt &= -\gamma_{a b}\, N_a\rt + \frac{2}{\hslash} \Im \left[ \mathcal{N} d_{b a} \widetilde{\rho}_{a b}\rt \widetilde{E}^\ast\rt \right] , \nd \\
+\label{eqn:tls_dmem_rwa_pop_b} \ppt N_b\rt &= +\gamma_{a b}\, N_a\rt - \frac{2}{\hslash} \Im \left[ \mathcal{N} d_{b a} \widetilde{\rho}_{a b}\rt \widetilde{E}^\ast\rt \right] ,
+ \end{align}
+ \end{subequations}
+where we have used $d_{a b}^\ast = d_{b a}$.
+
+We define the macroscopic polarization in terms of the expectation value of the microscopic electric dipole moment operator as
+ \begin{equation} \label{eqn:tls_bmc_p_def}
+ \begin{split}
+ \bmc{P}\rt &\equiv \frac{\emwnt}{2}\, \mathbf{P}\rt + \cc \\
+ &= \mathcal{N} \trace\left[ \hat{\rho}\rt\, \mathbf{\hat{d}} \right] \\
+ &= \mathcal{N} \left[ \mathbf{d}_{b a} \rho_{a b}\rt + \mathbf{d}_{a b} \rho_{b a}\rt \right] \\
+ &= \mathcal{N} \mathbf{d}_{b a} \widetilde{\rho}_{a b}\rt \emwnt + \cc ,
+ \end{split}
+ \end{equation}
+Hence, we see that we can associate a complex scalar macroscopic polarization amplitude function (slowly varying in time, but rapidly varying in space) with the microscopic density matrix as
+ \begin{equation} \label{eqn:tls_prt_rwa_def}
+\widetilde{P}\rt \equiv \hatb{\epsilon}^* \dotp \mathbf{P}\rt = 2 \mathcal{N} d_{b a} \widetilde{\rho}_{a b}\rt .
+ \end{equation}
+
+ \begin{subequations} \label{eqn:tls_mbe_rwa}
+ \begin{align}
+\label{eqn:tls_mbe_rwa_pol} \ppt \widetilde{P}\rt &= -\gamma_\perp \left( 1 - i\, \Omega_0 \right) \widetilde{P}\rt - i\, \frac{\left|d_{a b}\right|^2}{\hslash} D\rt \widetilde{E}\rt , \\
+\label{eqn:tls_mbe_rwa_pop_a} \ppt N_a\rt &= -\gamma_{a b}\, N_a\rt + \frac{1}{2 \hslash} \Im \left[ \widetilde{E}^\ast\rt \widetilde{P}\rt \right] , \nd \\
+\label{eqn:tls_mbe_rwa_pop_b} \ppt N_b\rt &= +\gamma_{a b}\, N_a\rt - \frac{1}{2 \hslash} \Im \left[ \widetilde{E}^\ast\rt \widetilde{P}\rt \right] ,
+ \end{align}
+ \end{subequations}
+where we have defined the population difference
+ \begin{equation} \label{eqn:tls_pop_inv_def}
+D\rt \equiv N_a\rt - N_b\rt ,
+ \end{equation}
+and the relative detuning angular frequency
+ \begin{equation} \label{eqn:tls_omega_0_def}
+\Omega_0 \equiv \frac{\omega_0 - \omega_{a b}}{\gamma_\perp} ,
+ \end{equation}
+
+
+ \subsection{Three-Level Systems\label{sct:laser_gain_med_hls}}
+
+ \subsection{Four-Level Systems\label{sct:laser_gain_med_fls}}
+
+ \begin{subequations} \label{eqn:fls_mbe_rwa}
+ \begin{align}
+\label{eqn:fls_mbe_rwa_pol} \ppt \widetilde{P}\rt &= -\gamma_\perp \left( 1 - i\, \Omega_0 \right) \widetilde{P}\rt - i\, \frac{\left|d_{a b}\right|^2}{\hslash} D\rt \widetilde{E}\rt , \\
+\label{eqn:fls_mbe_rwa_pop_a} \ppt N_a\rt &= \Lambda_a\rt - \gamma_{a g}\, N_a\rt - \gamma_{a b}\, N_a\rt + \frac{1}{2 \hslash} \Im \left[ \widetilde{E}^\ast\rt \widetilde{P}\rt \right] , \nd \\
+\label{eqn:fls_mbe_rwa_pop_b} \ppt N_b\rt &= \Lambda_b\rt - \gamma_{b g}\, N_b\rt + \gamma_{a b}\, N_a\rt - \frac{1}{2 \hslash} \Im \left[ \widetilde{E}^\ast\rt \widetilde{P}\rt \right] .
+ \end{align}
+ \end{subequations}
+
+In an \emph{ideal} four-level laser, $\gamma_{b g} \gg \gamma_{a g} \gg \gamma_{a b}$, so henceforth we neglect $\gamma_{a b}$. In addition, if we assume that $\gamma_{b g}$ is large enough that $N_b\rt$ adiabatically follows $\Im \left[ \widetilde{E}^\ast \widetilde{P} \right]$, then $\partial N_b\rt/\partial t \approx 0$, and
+ \begin{align*}
+\ppt \left[N_a\rt - N_b\rt\right] &\approx \ppt N_a\rt , \nd \\
+\ppt \left[N_a\rt - \frac{\gamma_{a g}}{\gamma_{b g}} N_b\rt\right] &\approx \ppt N_a\rt .
+ \end{align*}
+Therefore
+ \begin{equation*}
+\ppt D\rt \approx \gamma_{a g} \left[\frac{\Lambda_a\rt}{\gamma_{a g}} - \frac{\Lambda_b\rt}{\gamma_{b g}}\right] - \gamma_{a g} D\rt + \frac{\gamma_{a g}}{2 \hslash} \left( \frac{1}{\gamma_{a g}} + \frac{1}{\gamma_{b g}} \right) \Im \left[ \widetilde{E}^\ast\rt \widetilde{P}\rt \right] .
+ \end{equation*}
+If we define
+ \begin{align}
+\label{eqn:fls_d0} \overline{D}\rt &\equiv \frac{\Lambda_a\rt}{\gamma_{a g}} - \frac{\Lambda_b\rt}{\gamma_{b g}} , \nd \\
+\label{eqn:fls_gamma_para} \frac{1}{\gamma_\parallel} &\equiv \frac{1}{\gamma_{a g}} + \frac{1}{\gamma_{b g}} ,
+ \end{align}
+then in the ideal case where $1/\gamma_{a g} \gg 1/\gamma_{b g}$ we have
+ \begin{equation}\label{eqn:fls_mbe_rwa_pop_diff}
+\ppt D\rt = -\gamma_\parallel \left[ D\rt - \overline{D}\rt \right] + \frac{1}{2 \hslash} \Im \left[ \widetilde{E}^\ast\rt \widetilde{P}\rt \right] .
+ \end{equation}
+Together, \eqn{fls_mbe_rwa_pol} and \eqn{fls_mbe_rwa_pop_diff} will allow us to analyze a wide variety of laser phenomena.
+
+We can check by direct differentiation that \eqn{fls_mbe_rwa_pol} has the formal solution
+ \begin{equation} \label{eqn:fls_mbe_rwa_pol_formal}
+\widetilde{P}\rt = - i\, \frac{\left|d_{a b}\right|^2}{\hslash}\, e^{-\gamma_\perp (1 - i\, \Omega_0) t} \int_{-\infty}^{t} d t^\prime e^{\gamma_\perp (1 - i\, \Omega_0) t^\prime} D(\mathbf{r}, t^\prime)\, \widetilde{E}(\mathbf{r}, t^\prime) .\end{equation}
+In many cases of practical interest, the dephasing rate $\gamma_\perp$ is so large that we can assume that $\widetilde{P}\rt$ adiabatically follows the driving term $D\rt \widetilde{E}\rt$. We must be careful, though, if $\widetilde{E}\rt$ has a rapidly-varying time dependence on the scale of $1/\gamma_\perp$. For example, suppose that $\widetilde{E}\rt \equiv E^\prime\rt e^{-i\, \omega t}$, where $\omega \sim \gamma_\perp$, and $\partial E^\prime\rt / \partial t \ll \gamma_\perp E^\prime \rt$. Then we can move $D\rt E^\prime\rt$ outside the time integral, and we obtain $\widetilde{P}\rt$ in the \emph{rate equation approximation} (REA)\index{Rate equation approximation} and solve \eqn{fls_mbe_rwa_pol} as
+ \begin{equation}\label{eqn:fls_mbe_rwa_rea}
+\widetilde{P}\rt \cong - i\, \frac{\left|d_{a b}\right|^2}{\hslash\, \gamma_\perp} \frac{1 + i\, \Omega}{1 + \Omega^2}\, D\rt \widetilde{E}\rt ,
+ \end{equation}
+where
+ \begin{equation} \label{eqn:fls_omega_def}
+\Omega \equiv \frac{\omega_0 + \omega - \omega_{a b}}{\gamma_\perp} .
+ \end{equation}
+If the REA is valid, then \eqn{fls_mbe_rwa_pop_diff} becomes
+ \begin{equation}\label{eqn:fls_mbe_rwa_pop_diff_rea}
+\ppt D\rt = -\gamma_\parallel \left[ D\rt - \overline{D}\rt \right] - \frac{\left|d_{a b}\right|^2}{2 \hslash^2 \gamma_\perp} \frac{\left|\widetilde{E}\rt\right|^2}{1 + \Omega^2}.
+ \end{equation}
+If, in addition, both $\overline{D}\rt$ and $|\widetilde{E}\rt|$ are constant in time, then the steady-state population difference is
+ \begin{equation}\label{eqn:fls_mbe_rwa_pop_diff_cw}
+D(\mathbf{r}) = \frac{1 + \Omega^2}{1 + \Omega^2 + \frac{\left|d_{a b}\right|^2}{2 \hslash^2 \gamma_\perp \gamma_\parallel} \left|\widetilde{E}(\mathbf{r})\right|^2}\, \overline{D}(\mathbf{r}) ,
+ \end{equation}
+explicitly showing that the population density is \emph{saturated}\index{Gain saturation} as the electric field intensity increases.
+
+ \section{Single-Mode One-Dimensional Laser Amplifier Evolution Equations\label{sct:laser_amp_1d_pdes}}
+
+In the coming chapters, we will often take the opportunity to understand the fundamental physics and engineering design principles of laser amplifiers and oscillators by reducing the model to a single transverse mode in only one dimension. In this case, we can express the position, field, polarization, and population variables in \eqn{wave_eqn_1d}, \eqn{fls_mbe_rwa_pol}, and \eqn{fls_mbe_rwa_pop_diff} as dimensionless quantities to simplify them considerably for both analytical and numerical use. We begin by introducing the \emph{effective laser cross-section}\index{cross-section, effective laser} (sometimes referred to as the ``differential gain''\index{gain, differential} in the case of a semiconductor laser), given by
+ \begin{equation}\label{eqn:la1d_sigma_def}
+\sigma\wn \equiv \frac{\eta\wn\, \omega_0\, \left|d_{a b}\right|^2}{\varepsilon_0\, c\, \hslash\, \gamma_\perp} ,
+ \end{equation}
+and the \emph{saturation intensity}\index{Saturation intensity}
+ \begin{equation}\label{eqn:la1d_isat_def}
+I_s\wn \equiv \frac{\gamma_\parallel\, \hslash\, \omega_0}{\sigma\wn} = \frac{\varepsilon_0\, c\, \hslash^2\, \gamma_\parallel\, \gamma_\perp}{\eta\wn\, \left|d_{a b}\right|^2} .
+ \end{equation}
+We then scale $E^\pm(z)$, $P^\pm(z)$, $D(z)$, and the position $z$ and time $t$ as follows:
+ \begin{itemize}
+   \item rescale the position $z$ by a convenient physical length $L$ (such as the length of the amplifier, or the round-trip length of the laser cavity), and the time by the corresponding group travel time $\tau_g \equiv n^\prime\wn L/c$:
+   \begin{equation*}
+   z \longrightarrow L\, z \qquad \nd \qquad t \longrightarrow \tau_g\, t\, ;
+   \end{equation*}
+   \item express $E^\pm\zt$ in units of $I_s$, so that the propagating intensity carried by the field is given by $I_s |E^\pm\zt|^2$:
+   \begin{equation*}
+   E^\pm\zt \longrightarrow \sqrt{\frac{2\, \eta\wn}{\varepsilon_0\, c}\, I_s}\, e^{-i \delta \omega_0 t}\, E^\pm\zt\, ,
+   \end{equation*}
+   where $\delta \omega_0 \ll \omega_0$ represents a small frequency shift away from the carrier frequency $\omega_0$;
+   \item rewrite $P^\pm\zt$ in terms of a new variable $F^\pm\zt$ as
+   \begin{equation*}
+   P^\pm\zt \longrightarrow -i\ 2\, \frac{\varepsilon_0\, c}{\eta\wn\, \omega_0\, L}\, \sqrt{\frac{2\, \eta\wn}{\varepsilon_0\, c}\, I_s}\, e^{-i \delta \omega_0 t}\, F^\pm\zt\, ; \nd
+   \end{equation*}
+   \item define the dimensionless gain $G\zt \equiv \sigma\wn\, L\, D\zt$, with $\overline{G}\zt \equiv \sigma\wn\,  \overline{D}\zt$.
+ \end{itemize}
+
+With these modifications, \eqn{wave_eqn_1d}, \eqn{fls_mbe_rwa_pol}, and \eqn{fls_mbe_rwa_pop_diff} become
+% \begin{subequations}\label{eqn:laser_statics_1d_sml_scaled}
+%   \begin{align}
+%   \label{eqn:cw_sml_etz_scaled}
+%   \begin{split} \ppt E^\pm\zt \pm \ppz E^\pm\zt &= \left[ i\, \delta \omega_0 + i\, \sum_{l = 2}^\infty \frac{D_l\wn}{l!} \left(i\, \frac{\partial}{\partial t}\right)^l - \half\, \alpha\wn \right] E^\pm\zt\\
+%    &\quad+ F^\pm\zt\, ,
+%   \end{split} \\
+%   \label{eqn:cw_sml_ftz_scaled} \ppt \widetilde{F}\zt &= -\frac{1}{\tau_\perp} \left[ \left( 1 - i\, \Omega \right) \widetilde{F}\zt - \half\, \widetilde{G}\zt \widetilde{E}\zt \right]\, , \nd \\
+%   \label{eqn:cw_sml_gtz_scaled} \ppt \widetilde{G}\zt &= -\frac{1}{\tau_\parallel} \left\{ \widetilde{G}\zt - \overline{G}\zt + 2 \Re \left[ \widetilde{E}^\ast\zt \widetilde{F}\zt \right] \right\}\, ,
+%   \end{align}
+%   \end{subequations}
+\begin{subequations}\label{eqn:laser_statics_1d_sml_scaled}
+  \begin{align}
+    %\label{eqn:cw_sml_etz_scaled}
+    %\ppt E^\pm\zt \pm \ppz E^\pm\zt &= \left[ i\, \delta \omega_0 + i\, \sum_{l = 2}^\infty \frac{D_l\wn}{l!} \left(i\, \frac{\partial}{\partial t}\right)^l - \half\, \alpha\wn \right] E^\pm\zt + F^\pm\zt\, , \\
+    \label{eqn:cw_sml_etz_scaled}
+    \ppt E^\pm\zt \pm \ppz E^\pm\zt &= \left[ i\, \delta \omega_0 + i\, \widehat{\mathcal{D}}\wn - \half\, \alpha\wn \right] E^\pm\zt + F^\pm\zt\, , \\
+    \label{eqn:cw_sml_ftz_scaled_lor} \ppt \widetilde{F}\zt &= -\frac{1}{\tau_\perp} \left[ \left( 1 - i\, \Omega \right) \widetilde{F}\zt - \half\, \widetilde{G}\zt \widetilde{E}\zt \right]\, , \nd \\
+    \label{eqn:cw_sml_gtz_scaled} \ppt \widetilde{G}\zt &= -\frac{1}{\tau_\parallel} \left\{ \widetilde{G}\zt - \overline{G}\zt + 2 \Re \left[ \widetilde{E}^\ast\zt \widetilde{F}\zt \right] \right\}\, ,
+  \end{align}
+\end{subequations}
+where $\tau_\perp \equiv 1/\gamma_\perp$, $\tau_\parallel \equiv 1/\gamma_\parallel$, $\Omega \equiv (\omega_0 + \delta \omega_0 - \omega_{a b}) \tau_\perp$,
+%\begin{equation} %\label{eqn:cw_sml_disp_coeff}
+%  D_l\wn = \frac{L}{\tau_g^l} \frac{d^l}{d \omega_0^l} \Re\left[\beta\wn\right]\, .
+%\end{equation}
+\begin{subequations}
+  \begin{align}
+    \label{eqn:cw_sml_disp_op}
+    \widehat{\mathcal{D}}\wn &\equiv \sum_{l = 2}^\infty \frac{D_l\wn}{l!} \left(i\, \frac{\partial}{\partial t}\right)^l\, , \nd \\
+    \label{eqn:cw_sml_disp_coeff}
+    D_l\wn &= \frac{L}{\tau_g^l} \frac{d^l}{d \omega_0^l} \Re\left[\beta\wn\right]\, .
+  \end{align}
+\end{subequations}
+Note that we are using $\widetilde{G}\zt$ to represent the dimensionless gain, since we will find that the gain can be spatially rapidly-varying in the case of a standing-wave laser amplifier. We have scaled $\delta \omega_0$ by $\tau_g^{-1}$ and $\alpha\wn$ by $L^{-1}$; by default, our unit of time is $\tau_g$, and our unit of length is $L$. Also, the form of \eqn{cw_sml_disp_coeff} is consistent with the published tables of values of $d^l \Re[\beta\wn] / d \omega_0^l$, which are usually given in units of second$^l$/meter. For example, suppose that we have a material with a \emph{group velocity dispersion} $d^2 \Re[\beta\wn] / d \omega_0^2 = 1000$~fs$^2$/mm in a laser cavity with $L = 4$~mm and $\tau_g = 60$~ps. Then $D_2\wn \cong 10^{-6}$, and is dimensionless. When we discuss dynamical laser oscillators in \chp{laser_dynamics_1d}, we will make slightly different scaling choices for the polarization and gain variables, but the form of the evolution equations will be the same.
+
+We can describe a broader class of (spectrally homogeneous but asymmetric) gain media by introducing two coefficients $\mathcal{A}$ and $\mathcal{B}$ and rewriting the evolution equation for the macroscopic polarization given by \eqn{cw_sml_ftz_scaled_lor} as
+\begin{equation} \label{eqn:cw_sml_ftz_scaled}
+  \begin{split}
+    \ppt \widetilde{F}\zt &= -\frac{1}{\tau_\perp} \left[ \left(\mathcal{B} - i\, \Omega\right) \widetilde{F}\zt - \frac{\mathcal{A}}{2}\, \widetilde{G}\zt \widetilde{E}\zt \right] \\
+    &\equiv -\frac{\mathcal{B} - i\, \Omega}{\tau_\perp} \left[ \widetilde{F}\zt - \half\, \Lo\, \widetilde{G}\zt \widetilde{E}\zt \right]\, ,
+  \end{split}
+\end{equation}
+where
+\begin{equation} \label{eqn:lineshape_general}
+  \Lo \equiv \frac{\mathcal{A}}{\mathcal{B} - i\, \Omega}
+\end{equation}
+is referred to as the ``lineshape function'' of the gain medium. In our analysis of homogeneous gain media above, we chose $\mathcal{A} = \mathcal{B} = 1$, leading to the Lorentzian lineshape function
+\begin{equation} \label{eqn:lineshape_lorentzian}
+  \mathcal{L}(\Omega) = \frac{1}{1 - i\, \Omega} = \frac{1 + i\, \Omega}{1 + \Omega^2}\, .
+\end{equation}
+In the case of the semiconductor laser discussed in \sct{laser_statics_1d_scl}, these coefficients are given by~\cite{ref:columbo2018dbq}
+\begin{subequations}
+  \begin{align}
+    \mathcal{B} &\equiv 1 - i\, \alpha\, , \nd \\
+    \mathcal{A} &= \mathcal{B}^2 = \left(1 - i\, \alpha\right)^2 \, ,
+  \end{align}
+\end{subequations}
+with the asymmetric lineshape function
+\begin{equation} \label{eqn:laser_statics_1d_lef_lineshape}
+  \Lao \equiv \frac{\left(1 - i\, \alpha\right)^2}{1 - i\, (\Omega + \alpha)} \, ,
+\end{equation}
+where $\alpha$ is known historically as the \index{Linewidth enhancement factor}``linewidth enhancement factor.''\footnote{Apologies for the similarity between $\alpha$, the linewidth enhancement factor, and $\an$, the bulk/background absorption coefficient.} Note that when $\alpha = 0$ this function describes the Lorentzian lineshape, and when $\Omega = 0$ we have $\mathcal{L}(\alpha, 0) = 1 - i\, \alpha$. We defer further discussion of this lineshape function to \sct{laser_statics_1d_scl}.
+
+Applying this technique to \eqn{cw_sml_ftz_scaled} and \eqn{cw_sml_gtz_scaled}, we find the formal solutions
+\begin{subequations}\label{eqn:mfl_formal_fg}
+\begin{align}
+\label{eqn:mfl_formal_f} \widetilde{F}\zt &= \half\, \hat{\partial}_\perp^{-1} \left[\widetilde{E}\zt\, \widetilde{G}\zt\right]\, , \nd \\
+\label{eqn:mfl_formal_g} \widetilde{G}\zt &= \hat{\partial}_\parallel^{-1}\, \Gn\zt - \hat{\partial}_\parallel^{-1} \left[ \widetilde{E}^\ast\zt \widetilde{F}\zt + \widetilde{E}\zt \widetilde{F}^\ast\zt \right]\, ,
+\end{align}
+\end{subequations}
+where
+\begin{subequations}
+    \begin{align}
+        \hat{\partial}_\perp^{-1} &\equiv \frac{\mathcal{A}}{\mathcal{B}} \left(1 + \frac{\tau_\perp}{\mathcal{B}}\, \ppt\right)^{-1} \equiv \mathcal{L}\left(i\, \tau_\perp\, \ppt\right)\, , \\
+        \hat{\partial}_\parallel^{-1} &\equiv \left(1 + \tau_\parallel\, \ppt\right)^{-1}\, .
+    \end{align}
+\end{subequations}

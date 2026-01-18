@@ -1,0 +1,148 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Section file included in chapter file using \input{}
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id: $
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \section{Approximate Single-Mode Evolution Equations\label{sct:laser_dynamics_1d_approx}}
+
+%If the upper-level pump is uniform throughout the laser cavity volume, then $\overbar{D}\zt \equiv \overbar{D}(t)$, and from \eqn{qnm_dbarqq_def} we have
+% \begin{equation}\label{eqn:la1d_dbarqq}
+%\overbar{D}_{q\, q^\prime}(t) \equiv \int_0^L d z\, v_q\z\, u_{q^\prime}\z\, \overbar{D}\zt = \overbar{D}(t)\, \delta_{q\, q^\prime}.
+% \end{equation}
+%In this case, the discrete Fourier transform of the dynamical variables defined in \sct{laser_resonators_1d_qnm_leqn} is not particularly useful. However, an explicit incorporation of the boundary condition at the output coupler given by \eqn{laser_resonator_1d_w_bc_pz} allows us to simplify the evolution equations substantially. With this in mind, we compute the volume-averaged electric field
+% \begin{equation}\label{eqn:la1d_et_def}
+%E(t) \equiv \frac{1}{L} \int_0^L d z\, e^{-\ln(1/\sqrt{R})\, (z/L)}\, E\zt ,
+% \end{equation}
+%where $E\zt$ is the slowly-varying complex envelope function defined by \eqn{qnm_e_field_1d_t} satisfying the boundary condition $E(0, t) = \sqrt{R}\, E(L, t)$. Applying this transformation to \eqn{wave_eqn_1d_forward}, we obtain
+% \begin{equation} \label{eqn:la1d_edot_avg}
+%\dot{E}(t) = -\frac{1}{\tau_g}\, \ln\left( \frac{1}{\Gamma}\right)\, E(t) + i \frac{\omega_0}{2\, \varepsilon_0}\, \frac{\eta\wn}{n^\prime\wn}\, P(t) ,
+% \end{equation}
+%which is identical to \eqn{qnm_edot} when $q = 0$. Here we have defined
+% \begin{equation}\label{eqn:la1d_pt_def}
+%P(t) \equiv \frac{1}{L} \int_0^L d z\, e^{-\ln(1/\sqrt{R})\, (z/L)}\, P\zt ,
+% \end{equation}
+%and we have used integration by parts to simplify the contribution of the spatial derivative in \eqn{wave_eqn_1d_forward} as
+% \begin{equation}
+% \begin{split}
+%\frac{1}{L} \int_0^L d z\, e^{-\ln(1/\sqrt{R})\, (z/L)}\, \ppz E\zt &= \frac{1}{L} \left[ \sqrt{R}\, E(L, t) - E(0, t) \right] + \frac{1}{L} \ln\left( \frac{1}{\sqrt{R}} \right) E(t) \\
+%&= \frac{1}{L} \ln\left( \frac{1}{\sqrt{R}} \right) E(t) .
+% \end{split}
+% \end{equation}
+%
+% \begin{equation}\label{eqn:la1d_pdot_init}
+%\dot{P}(t) = -\gamma_\perp \left( 1 - i\, \Omega \right) P(t) - i\, \frac{\left|d_{a b}\right|^2}{\hslash} \frac{1}{L} \int_0^L d z\, e^{-\ln(1/\sqrt{R})\, (z/L)}\, D\zt\, E\zt .
+% \end{equation}
+%Since the argument of the integral on the \rhs ensures that the boundary condition for the electric field will be met, we will simply approximate the integral by the product of the two volume averages $D(t)\, E(t)$, where
+%% \begin{equation}\label{eqn:la1d_pdot_avg}
+%%\dot{P}(t) \approx -\gamma_\perp \left( 1 - i\, \Omega_0 \right) P(t) - i\, \frac{\left|d_{a b}\right|^2}{\hslash}\, D(t)\, E(t) .
+%% \end{equation}
+% \begin{equation}\label{eqn:la1d_dt_def}
+%D(t) \equiv \frac{1}{L} \int_0^L d z\, D\zt .
+% \end{equation}
+%Applying this definition of $D(t)$ to \eqn{fls_mbe_rwa_pop_diff}, we find
+% \begin{equation}\label{eqn:la1d_ddot_init}
+%\dot{D}(t) = -\gamma_\parallel \left[ D(t) - \overbar{D}(t) \right] + \frac{1}{2 \hslash} \Im \left[\frac{1}{L} \int_0^L d z\, E^\ast\zt\, P\zt \right] .
+% \end{equation}
+%Since, by virtue of \eqn{la1d_et_def}, $E\zt \sim \exp[\ln(1/\sqrt{R})\, (z/L)]\, E(t)$, with a similar expression for $P\zt$, we find
+% \begin{equation}\label{eqn:la1d_ddot_avg}
+% \begin{split}
+%\dot{D}(t) &\approx -\gamma_\parallel \left[ D(t) - \overbar{D}(t) \right] + \frac{1}{2 \hslash} \left[\frac{1}{L} \int_0^L d z\, e^{\ln(1/R)\, (z/L)}\right]\, \Im \left[E^\ast(t)\, P(t) \right] \\
+%&= -\gamma_\parallel \left[ D(t) - \overbar{D}(t) \right] + \frac{1}{2 \hslash}\, \frac{1 - R}{R \ln(1/R)}\, \Im \left[E^\ast(t)\, P(t) \right].
+% \end{split}
+% \end{equation}
+%
+%We now scale both $E(t)$ and $P(t)$ by a factor of $\sqrt{R \ln(1/R)/(1 - R)}$, and collect results to obtain
+% \begin{subequations} \label{eqn:la1d_epd_dot}
+% \begin{align}
+%   \label{eqn:la1d_edot} \dot{E}(t) &= -\frac{1}{\tau_g}\, \ln\left( \frac{1}{\Gamma}\right)\, E(t) + i\, \frac{\omega_0}{2\, \varepsilon_0}\, \frac{\eta\wn}{n^\prime\wn}\, P(t) , \\
+%   \label{eqn:la1d_pdot} \dot{P}(t) &= -\gamma_\perp \left( 1 - i\, \Omega \right) P(t) - i\, \frac{\left|d_{a b}\right|^2}{\hslash}\, D(t)\, E(t) , \nd \\
+%   \label{eqn:la1d_ddot} \dot{D}(t) &= -\gamma_\parallel \left[ D(t) - \overbar{D}(t) \right] + \frac{1}{2 \hslash}\, \Im \left[E^\ast(t)\, P(t) \right] .
+% \end{align}
+% \end{subequations}
+%We must take this rescaling of the electric field into account when we calculate the output power of the laser. If we ignore any scattering or absorption losses in the mirror, then
+% \begin{equation}
+% \begin{split}
+%E_\text{out}(t) &= i\, \sqrt{1 - R}\, E(L, t) \\
+%&= i\, \sqrt{1 - R}\, \sqrt{\frac{R \ln(1/R)}{1 - R}}\, e^{+\ln(1/\sqrt{R})}\, E(t) ,
+% \end{split}
+% \end{equation}
+%or
+% \begin{equation}\label{eqn:la1d_e_out}
+%E_\text{out}(t) = i\, \sqrt{\ln\left(\frac{1}{R}\right)}\, E(t) .
+% \end{equation}
+
+We can derive a simple once-dimensional single-mode model of laser oscillators based on the quasi-normal modes developed in \sct{laser_resonators_1d_qnm} by following an approach similar to that used in \sct{laser_statics_1d_approx} for the case of continuous-wave single-mode lasers. The main differences in the present case are:
+\begin{enumerate}
+  \item we replace the constant amplitudes $E_0$ and $F_0$ used in \sct{laser_statics_1d_approx} with time-dependent slowly-varying envelope functions $E(t)$ and $F(t)$; and
+  \item we include the (slowly-varying) time dependence of the population inversion $G\zt$.
+\end{enumerate}
+By following the same steps as in \sct{laser_statics_1d_approx} (and relying on the same integrals), we obtain the approximate evolution equations for single-mode one-dimensional lasers as
+\begin{subequations} \label{eqn:lr1d_epd_dot_sml}
+\begin{align}
+  \label{eqn:lr1d_edot_sml} \dot{E}(t) &= \left(-\frac{1}{2\, \tau_\lambda}  + i\, \delta \omega_0\right) E(t) + F(t)\, , \\
+  \label{eqn:lr1d_fdot_sml} \dot{F}(t) &= -\frac{\mathcal{B}(\Omega)}{\tau_\perp} \left[ F(t) - \half\, \Lo\, G(t)\, E(t) \right]\ , \nd \\
+  \label{eqn:lr1d_gdot_sml} \dot{G}(t) &= -\frac{1}{\tau_\parallel} \left\{ G(t) - \Gnt + 2 \widetilde{\kappa} \Re \left[E^\ast(t)\, F(t) \right] \right\}\, ,
+\end{align}
+\end{subequations}
+where now
+\begin{equation} \label{eqn:lr1d_gbar_sml_t}
+  \Gnt \equiv \begin{cases}
+    \int_0^{1} d z\, \Gn\zt & \mbox{(URL)}\, , \\
+    2 \int_0^{1/2} d z\, \Gn\zt & \mbox{(SWL or SHB)}\, ,
+  \end{cases}
+\end{equation}
+$G(t)$ is the time-dependent generalization of the round-trip gains derived in \sct{laser_statics_1d_approx}, and $\widetilde{\kappa}$ is again defined by \eqn{lr1d_kappa_sml}.
+
+
+% . We begin with the unidirectional ring laser shown in \fig{resonator_1d_ring_gain}, which is the ring resonator of \fig{resonator_1d_ring_smat} with an incorporated laser amplifier. Note that this amplifier may or may not fill the entire resonator, and that only one pass is made through the amplifier every round trip. We define the spatially slowly-varying field as $E\zt \equiv u_0\z\, E(t)$, where $u_0\z$ is given by \eqn{laser_resonator_1d_u_unnorm} with $q = 0$. Next, we apply the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho} by following a few simple steps:
+%  \begin{enumerate}
+%    \item substitute $E^{+}\zt = \mathcal{C}\, e^{\ln\left(1/\sqrt{R}\right) z}\, E(t)$ and $F^{+}\zt = \mathcal{C}\, e^{\ln\left(1/\sqrt{R}\right) z}\, F(t)$ into \eqn{cw_sml_etz_scaled};
+%    \item multiply both sides through by $v_0 = \mathcal{C}^{-1}\, e^{-\ln\left(1/\sqrt{R}\right) z}$; and
+%    \item integrate the result from $z = 0$ to $z = 1$.
+%  \end{enumerate}
+% We then obtain
+%  \begin{equation} \label{eqn:edot_temp}
+% \dot{E}(t) = \left[i\, \delta \omega_0 - \half \ln \left(\frac{1}{|\Gamma|^2} \right) \right] E(t) + F(t)\, ,
+%  \end{equation}
+% where $|\Gamma|^2 \equiv R\, e^{-\alpha\wn}$. After cancelling the common factor of $e^{i\, k_0\wn\, z}$ on both sides of \eqn{cw_sml_ftz_scaled}, we can follow the same steps to find
+% \begin{equation} \label{eqn:fdot_temp}
+%   \dot{F}(t) = -\frac{\mathcal{B}(\Omega)}{\tau_\perp} \left[ F(t) - \half\, \Lo\, G(t)\, E(t) \right]\, ,
+% \end{equation}
+% where $G(t) \equiv \int_{0}^{1} dz\, G\zt$. Then, performing this integral directly on \eqn{cw_sml_gtz_scaled}, we obtain
+%  \begin{equation} \label{eqn:gdot_temp}
+% \dot{G}(t) = -\frac{1}{\tau_\parallel} \left\{ G(t) - \Gnt + 2 \Re \left[\int_{0}^{1} dz\, E^{+\, \ast}\zt\, F^+\zt \right] \right\}\, ,
+%  \end{equation}
+% where $\Gnt \equiv \int_{0}^{1} dz\, \overline{G}\zt$. Given the substitutions in the enumerated list above, the integral on the \rhs of this expression is
+%  \begin{equation}
+% \int_{0}^{1} dz\, E^{+\, \ast}\zt\, F^+\zt = E^\ast(t) F(t)\, \mathcal{C}^2 \int_{0}^{1} dz\, e^{\ln(1/R)\, z} = \frac{E^\ast(t) F(t) \mathcal{C}^2}{\ln(1/R)} \left(\frac{1}{R} - 1\right) = E^\ast(t) F(t) .
+%  \end{equation}
+
+%  \begin{figure}
+%   \centering
+%   \includegraphics[width=4.5in]{figures/resonator_1d_ring_gain}
+%   \caption{\label{fig:resonator_1d_ring_gain} The unidirectional ring resonator of \fig{resonator_1d_ring_smat} with an incorporated laser amplifier, which may or may not fill the entire resonator. Note that only one pass is made through the amplifier every round trip.}
+%  \end{figure}
+
+%  \begin{figure}
+%   \centering
+%   \includegraphics[width=5.0in]{figures/resonator_1d_sw_gain}
+%   \caption{\label{fig:resonator_1d_sw_gain} The standing-wave resonator of \fig{resonator_1d_sw_smat} with an incorporated laser amplifier, which may or may not fill the entire resonator. To conform with the literature, here we consider a laser cavity with single-pass length $d$, and counterpropagating fields linked by boundary conditions at the two mirrors.}
+%  \end{figure}
+
+% The derivation of the model for a standing-wave laser proceeds similarly, provided that we neglect interference between the counterpropagating fields within the amplifier. The slowly-varying eigenmode that we now use for the standing-wave case is $\mathbf{u}_0\z$, given by \eqn{laser_resonator_1d_u_sw_vec} and \eqn{laser_resonator_1d_u_sw} with $q = 0$. The upper limit of integration is now $1/2$, and we note that $\mathbf{v}_0\z \dotp \mathbf{u}_0\z = 2$ and $\int_{0}^{1/2} dz\, \mathbf{v}_0\z \dotp \mathbf{u}_0\z = 1$. Therefore, \eqn{edot_temp} remains valid for the standing-wave case, as does \eqn{fdot_temp} if we redefine $G(t) \equiv 2 \int_{0}^{1/2} dz\, G\zt$. In order to compute the integral on the \rhs of \eqn{gdot_temp} in the standing-wave case, we must replace $\int_{0}^{1} dz\, E^{+\, \ast}\zt\, F^+\zt$ with $2 \int_{0}^{1/2} dz\, \widetilde{E}^{\ast}\zt\, \widetilde{F}\zt$. If we neglect spatial interference between counterpropagating fields, then we find
+%  \begin{equation}%\label{}
+%  \begin{split}
+%     2 \int_{0}^{1/2} dz\, \widetilde{E}^{\ast}\zt\, \widetilde{F}\zt & \approx 2 \int_{0}^{1/2} dz\, \left[ E^{+\, \ast}\zt\, F^+\zt + E^{-\, \ast}\zt\, F^-\zt \right] \\ &= E^\ast(t)\, F(t)\, 2 \int_{0}^{1/2} dz\, \left[ \left|u_0^+\z\right|^2 + \left|u_0^-\z\right|^2 \right] \\
+%       &= 2\, E^\ast(t)\, F(t)\, \mathcal{C}^2 \int_{0}^{1/2} dz\, \left[ e^{\ln(1/R_1 R_2) (z/L)} + \frac{1}{R_1} e^{-\ln(1/R_1 R_2) z} \right] \\
+%       &= 2\, E^\ast(t)\, F(t)\, \frac{\mathcal{C}^2}{2 \ln\left( 1/\sqrt{R_1 R_2} \right)} \left[ \left( \frac{1}{\sqrt{R_1 R_2}} - 1\right) + \frac{1}{R_1} \left( 1 - \sqrt{R_1 R_2}\right) \right] \\
+%       &= 2\, E^\ast(t)\, F(t) .
+%  \end{split}
+%  \end{equation}
+
+% Collecting results, we obtain the evolution equations for single-mode one-dimensional lasers as

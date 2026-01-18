@@ -1,0 +1,83 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Project main file
+%
+% Assumes that LaTeX2e macros and packages defined in rgb_laser_physics.sty
+%   are available
+%
+% $Id$
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \RequirePackage{pdf14}
+ \pdfminorversion=6
+ 
+ \documentclass[11pt]{book}
+
+ \usepackage{rgb_laser_physics}
+
+ \makeindex
+
+ \title{{\Huge\textbf{Fundamentals of Laser Modeling, Simulation, and Design}}\\%
+ {\Large An Introduction to Laser Physics}}
+
+ \author{ R.\ G.\ Beausoleil \\
+ \textit{Hewlett Packard Labs} \\
+ \textit{820 N. McCarthy Blvd., Milpitas, CA  95035}}
+
+ \date{\today}
+
+ \begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Front Matter: Preface and Table of Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \frontmatter
+
+ \maketitle
+
+ \addtotoc{Preface}
+ \input{files/preface}
+
+ \addtotoc{\contentsname}
+ \tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Main Matter: Chapters and Appendices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \mainmatter
+
+ \input{files/introduction}
+
+ \input{files/em_wave_prop}
+
+ \input{files/laser_gain_med}
+
+ \input{files/laser_resonators_1d}
+
+ \input{files/laser_statics_1d}
+
+ \input{files/laser_dynamics_1d}
+
+ \input{files/laser_dynamics_1d_mml}
+
+ \input{files/laser_resonators_3d}
+
+% \input{files/laser_dynamics_3d}
+
+ \appendix
+ \input{files/math_prelim}
+ \input{files/numerical_prelim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Back Matter: Bibliography and Index
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \backmatter
+
+ \addtotoc{\bibname}
+ \bibliographystyle{lsip}
+ \bibliography{lsip_cse,lsip_lsr,lsip_pic,lsip_qit,lsip_url}
+ 
+ \addtotoc{\indexname}
+ \printindex
+
+ \end{document}
