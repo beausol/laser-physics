@@ -106,11 +106,24 @@ where
 \end{equation}
 
 \begin{equation}
-    \label{eqn:mml_f_q}
+    %\label{eqn:mml_f_q}
     \begin{split}
         F_q &= \half\, \Lq \sum_p e^{i\, \Delta \omega_{q - p}\, t}\, \overline{G}_{q p}\, E_p \\
         &- \half\, \Lq \sum_{m n p} e^{i\, \Delta \omega_{q - p - m + n}\, t}\, \kappa_{q p m n}\, \mathcal{C}_{m - n} \left( E_m\, F_n^\ast + F_m\, E_n^\ast \right) E_p\, ,
     \end{split}
+\end{equation}
+\begin{equation}
+    \label{eqn:mml_f_q}
+    F_q = \half\, \Lq \Gnb\, E_q
+    - \half\, \Lq \sum_{m n} \kappa_{q m n}\, \mathcal{C}_{m - n} \left( E_m\, F_n^\ast + F_m\, E_n^\ast \right) E_{q - m + n}\, ,
+\end{equation}
+where
+\begin{equation}
+    \kappa_{q m n} = \begin{cases}
+      \Delta_0(R) & \text{(URL)}\\
+      \Delta_0(R_1\, R_2) + \Delta_{2(m - n)}(R_1\, R_2) & \text{(SWL)} \\
+      \Delta_0(R_1\, R_2) + \Delta_{2(m - n)}(R_1\, R_2) + \Delta_{2(q - m)}(R_1\, R_2) & \text{(SHB)}
+    \end{cases}
 \end{equation}
 
 Referring to \eqn{mml_1d_deq_dt_final}, when $\dot{E}_q(t) = 0$, we find that $F_q$ must also satisfy the expression
@@ -122,14 +135,18 @@ where
     B_q \equiv \frac{1}{2\, \tau_\lambda} \left(1 + i\, \Omega_q\right) - i\, \delta D_q\, .
 \end{equation}
 Therefore,
+% \begin{equation}
+%     \sum_p e^{i\, \Delta \omega_{q - p}\, t}\, \overline{G}_{q p}\, E_p - 2\, \mathcal{L}^{-1}\bigl(\Omega_q\bigr)\, B_q\, E_q
+%     = \sum_{m n p} e^{i\, \Delta \omega_{q - p - m + n}\, t}\, \kappa_{q p m n}\, C_{m - n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_p
+% \end{equation}
 \begin{equation}
-    \sum_p e^{i\, \Delta \omega_{q - p}\, t}\, \overline{G}_{q p}\, E_p - 2\, \mathcal{L}^{-1}\bigl(\Omega_q\bigr)\, B_q\, E_q
-    = \sum_{m n p} e^{i\, \Delta \omega_{q - p - m + n}\, t}\, \kappa_{q p m n}\, C_{m - n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_p
+    \left[ \Lq\, \Gnb - 2\, B_q \right] E_q
+    = \Lq\, \sum_{m n} \kappa_{q m n}\, C_{m - n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_{q - m + n}
 \end{equation}
-This expression must be true at all times, so for convenience, let's use it to calculate $E_q$ at $t = 0$. We obtain
-\begin{equation}
-    \sum_p \overline{G}_{q p}\, E_p - 2\, \mathcal{L}^{-1}\bigl(\Omega_q\bigr)\, B_q\, E_q = \sum_{m n p} \kappa_{q p m n}\, C_{m n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_p
-\end{equation}
+% This expression must be true at all times, so for convenience, let's use it to calculate $E_q$ at $t = 0$. We obtain
+% \begin{equation}
+%     \sum_p \overline{G}_{q p}\, E_p - 2\, \mathcal{L}^{-1}\bigl(\Omega_q\bigr)\, B_q\, E_q = \sum_{m n p} \kappa_{q p m n}\, C_{m n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_p
+% \end{equation}
 
 
 % As a general representation of the spatially rapidly-varying fields in both unidirectional ring and standing-wave resonator configurations, we follow \sct{laser_resonators_1d_swl} and represent the electric field amplitude function as

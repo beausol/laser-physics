@@ -69,7 +69,7 @@ For the one-dimensional standing-wave laser shown in \fig{resonator_1d_sw_gain},
 \end{subequations}
 where $0 < z < 1/2$ In this case, we apply the biorthogonality relation given by \eqn{laser_resonator_1d_uv_biortho_sw} to \eqn{cw_sml_ez_scaled} by substituting $E^{\pm}\z = \sum_p u^{\pm}_p\z\, \, e^{-i\, \Delta \omega_p\, t}\, E_p(t)$ and $F^{\pm}\z = \sum_p u^{\pm}_p\z\, \, e^{-i\, \Delta \omega_p\, t}\, F_p(t)$; forming the inner product of both sides with $e^{i\, \Delta \omega_q\, t}\, \mathbf{v}_q\z$; and then integrating the result from $z = 0$ to $z = 1/2$. Therefore, \eqn{e0_temp} remains valid for the standing-wave case with $\tau_\lambda \equiv 1 / \ln[1 / R_1 R_2 \exp(-\anb)]$ and $\anb \equiv 2 \int_0^{1/2} dz\, \alpha_0(z)$.
 
-As a general representation of the spatially rapidly-varying fields in both unidirectional ring and standing-wave resonator configurations, we follow \sct{laser_resonators_1d_swl} and represent the electric field amplitude function as
+As a general representation of the spatially rapidly-varying fields in both unidirectional ring and standing-wave resonator configurations, we follow \sct{laser_resonators_1d_swl} and write the electric field amplitude function as
 \begin{equation}
   \label{eqn:mml_e_1d_zt_rv}
   \widetilde{E}\zt \equiv \sum_{q = -\infty}^\infty \widetilde{u}_q\z\, e^{-i\, \Delta \omega_q\, t}\, E_q(t)\, .
@@ -96,27 +96,22 @@ We use a similar approach to the expansion of the amplitude of the macroscopic p
   \sum_p \left[ \dot{F}_p(t) - i\, \Delta \omega_p\, F_p(t) \right] \widetilde{u}_p\z\, e^{-i\, \Delta \omega_p\, t} \\
   = -\frac{1}{\tau_\perp} \sum_p \left[ \mathcal{B}\, F_p(t) - \half\, \mathcal{A}\, \widetilde{G}\zt\, E_p(t) \right] \widetilde{u}_p\z\, e^{-i\, \Delta \omega_p\, t}\, .
 \end{multline}
-Now, rather than the rate-equation approximation (REA), we will apply the \emph{slowly-varying envelope approximation}\index{Slowly-varying envelope approximation} (SVEA) to \eqn{mml_ftz_expansion} by assuming that $|\dot{F}_p(t)| \ll |\Delta \omega_p F_p(t)|$ and neglecting the terms $\dot{F}_p(t)$ on the \lhs. This is valid when the time scale for changes in the modal polarization amplitudes $F_p(t)$ is long compared to the polarization relaxation time $\tau_\perp$.
-
-\begin{equation} \label{eqn:mml_zop_def}
-  \int d z \equiv \begin{cases}
-    \int_0^{1} d z & \mbox{(URL)}\, , \\
-    \int_0^{1/2} d z\, \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z' & \mbox{(SWL or SHB)}\, ,
-  \end{cases}
-\end{equation}
-
-\begin{equation} %\label{eqn:mml_fq_sol_temp}
-  \sum_p \mathcal{N}_{q p}\, F_p(t) = \half\, \Lq\, \sum_p e^{i \left(\Delta \omega_q - \Delta \omega_p\right) t}\, G_{q p}(t)\, E_p(t)\, , 
-\end{equation}
+Now, rather than the rate-equation approximation (REA), we will apply the \emph{slowly-varying envelope approximation}\index{Slowly-varying envelope approximation} (SVEA) to \eqn{mml_ftz_expansion} by assuming that $|\dot{F}_p(t)| \ll |\Delta \omega_p F_p(t)|$ and neglecting the terms $\dot{F}_p(t)$ on the \lhs. This is valid when the time scale for changes in the modal polarization amplitudes $F_p(t)$ is long compared to the polarization relaxation time $\tau_\perp$. Then
 \begin{equation} \label{eqn:mml_fq_sol_temp}
   \sum_p \mathcal{N}_{q p}\, \left(\mathcal{B} - i\, \Omega_p\right) F_p(t) = \half\, \mathcal{A}\, \sum_p e^{i \left(\Delta \omega_q - \Delta \omega_p\right) t}\, G_{q p}(t)\, E_p(t)\, , 
 \end{equation}
 where $\Omega_p \equiv \Delta \omega_q\, \tau_\perp$,
 \begin{equation} \label{eqn:mml_nqp_def}
-  \mathcal{N}_{q p} \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, \nd
+  \mathcal{N}_{q p} \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, ,
 \end{equation}
 \begin{equation} \label{eqn:mml_gqp_def}  
-  G_{q p}(t) \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, \widetilde{G}\zt\, .
+  G_{q p}(t) \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, \widetilde{G}\zt\, , \nd
+\end{equation}
+\begin{equation} \label{eqn:mml_zop_def}
+  \int d z \equiv \begin{cases}
+    \int_0^{1} d z & \mbox{(URL)}\, , \\
+    \int_0^{1/2} d z\, \frac{k_0}{2 \pi} \int_{z - \pi/k_0}^{z + \pi/k_0} d z' & \mbox{(SWL or SHB)}\, .
+  \end{cases}
 \end{equation}
 Applying \eqn{mml_zop_def} to \eqn{mml_nqp_def}, we find that for both unidirectional ring and standing-wave resonators, $\mathcal{N}_{q p} = \delta_{q p}$, and \eqn{mml_fq_sol_temp} simplifies to
 \begin{equation} \label{eqn:mml_fq_sol}
@@ -127,7 +122,7 @@ where
   \Lq \equiv \frac{\mathcal{A}}{\mathcal{B} - i\, \Omega_q}\, .
 \end{equation}
 
-Let's now determine the evolution equation for $G_{q p}(t)$ by applying \eqn{mml_gqp_def} and \eqn{mml_zop_def} to \eqn{mml_gtz_scaled}. Using \eqn{mml_e_1d_zt_rv} and the corresponding representation for the macroscopic polarization, the nonlinear term on the \rhs can be written as
+Next, let's determine the evolution equation for $G_{q p}(t)$ by applying \eqn{mml_gqp_def} and \eqn{mml_zop_def} to \eqn{mml_gtz_scaled}. Using \eqn{mml_e_1d_zt_rv} and the corresponding representation for the macroscopic polarization, the nonlinear term on the \rhs can be written as
 \begin{equation*}
   \begin{split}
     2 \Re \left[ \widetilde{E}^\ast\zt\, \widetilde{F}\zt \right] &= \widetilde{E}^\ast\zt\, \widetilde{F}\zt + c.c. \\
