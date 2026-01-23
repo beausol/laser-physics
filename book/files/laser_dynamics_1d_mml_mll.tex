@@ -97,6 +97,7 @@
 % \subsection{Old Hotness: Mode-Locked Lasers}
 As in the case of the $Q$-switched laser discussed in \sct{laser_dynamics_1d_mml_qsl}, intermodal coupling through nonlinearities in the macroscopic polarization $\widetilde{F}\zt$ add dynamics to the gain and saturation of each mode that can lead to novel dynamical behavior. In a mode-locked laser, the amplitude and phases of the longitudinal modes are fixed in such a way that the output of the laser has particularly desirable properties, such as very short pulses or very stable (quasi-continuous-wave) behavior. We can understand this behavior through formal expansions of $\widetilde{F}\zt$ and $\widetilde{G}\zt$ in the Fourier frequency domain, but we must relax the rate-equation approximation that led to \eqn{qsl_ftzt_rea} to allow fluctuations in the polarization and gain that occur at integer multiples of the cavity free-spectral range $2 \pi/\tau_g$.
 
+In mode-locked lasers, the gain is generally constant in time, and the dynamic fields arise from the nonlinear coupling of the longitudinal modes through the macroscopic polarization. However, the coefficients of both the electric field and macroscopic polarization vary slowly over the round-trip propagation time $\tau_g$, and the time derivatives of both $E_q(t)$ and $F_q(t)$ tend to zero as the intracavity laser amplifier reaches equilibrium. Therefore, we begin with the formal solution of \eqn{cw_sml_gtz_scaled}, finding
 \begin{equation}
   G_{q p}(t) = \overline{G}_{q p} - \sum_{m n} e^{-i\, \Delta \omega_{m - n}\, t} \kappa_{q p m n}\, \mathcal{C}_{m - n} \left( E_m\, F_n^\ast + F_m\, E_n^\ast \right)\, ,
 \end{equation}
@@ -104,20 +105,21 @@ where
 \begin{equation}
   \mathcal{C}_q \equiv \left(1 - i\, \Delta \omega_q\, \tau_\parallel\right)^{-1}\, .
 \end{equation}
-
+Note that we have assumed that the pump $\Gn\zt$ is constant in time, so that its Fourier coefficients $\overline{G}_{q p}$ are also constant in time. Substituting this expression into \eqn{mml_fq_sol}, we find
 \begin{equation}
-    %\label{eqn:mml_f_q}
+    \label{eqn:mml_fqt_mll}
     \begin{split}
         F_q &= \half\, \Lq \sum_p e^{i\, \Delta \omega_{q - p}\, t}\, \overline{G}_{q p}\, E_p \\
         &- \half\, \Lq \sum_{m n p} e^{i\, \Delta \omega_{q - p - m + n}\, t}\, \kappa_{q p m n}\, \mathcal{C}_{m - n} \left( E_m\, F_n^\ast + F_m\, E_n^\ast \right) E_p\, ,
     \end{split}
 \end{equation}
+Both $E_q(t)$ and $F_q(t)$ vary slowly in time compared to the rapid oscillations of the exponential functions in \eqn{mml_fqt_mll}, so terms with nonzero frequencies will average out. Therefore, only terms with $p = q$ in the first sum and $p = q - m + n$ in the second sum will contribute significantly to the value of $F_q$. Thus, we obtain the simplified expression
 \begin{equation}
-    \label{eqn:mml_f_q}
+    \label{eqn:mml_fq_mml}
     F_q = \half\, \Lq \Gnb\, E_q
     - \half\, \Lq \sum_{m n} \kappa_{q m n}\, \mathcal{C}_{m - n} \left( E_m\, F_n^\ast + F_m\, E_n^\ast \right) E_{q - m + n}\, ,
 \end{equation}
-where
+where the three-index spatial coupling coefficient is given by
 \begin{equation}
     \kappa_{q m n} = \begin{cases}
       \Delta_0(R) & \text{(URL)}\\
@@ -126,7 +128,7 @@ where
     \end{cases}
 \end{equation}
 
-Referring to \eqn{mml_1d_deq_dt_final}, when $\dot{E}_q(t) = 0$, we find that $F_q$ must also satisfy the expression
+Referring to \eqn{mml_1d_deq_dt_final}, as the mode-locked laser oscillator reaches equilibrium, $F_q(t)$ becomes a constant and $\dot{E}_q(t) \longrightarrow 0$. In this case, we find that $F_q$ must also satisfy the expression
 \begin{equation}
     F_q = B_q\, E_q\, ,
 \end{equation}
@@ -140,8 +142,8 @@ Therefore,
 %     = \sum_{m n p} e^{i\, \Delta \omega_{q - p - m + n}\, t}\, \kappa_{q p m n}\, C_{m - n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_p
 % \end{equation}
 \begin{equation}
-    \left[ \Lq\, \Gnb - 2\, B_q \right] E_q
-    = \Lq\, \sum_{m n} \kappa_{q m n}\, C_{m - n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_{q - m + n}
+    \left[ \Gnb - 2\, B_q  / \Lq\right] E_q
+    = \sum_{m n} \kappa_{q m n}\, C_{m - n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_{q - m + n}
 \end{equation}
 % This expression must be true at all times, so for convenience, let's use it to calculate $E_q$ at $t = 0$. We obtain
 % \begin{equation}
