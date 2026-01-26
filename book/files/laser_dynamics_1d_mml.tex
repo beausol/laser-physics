@@ -54,10 +54,6 @@ consistent with both \eqn{cw_sml_etz_scaled} and \eqn{delta_w_q_def}. We apply t
 \end{equation}
 where $\tau_\lambda \equiv 1/\ln[1 / R \exp(-\anb)]$ is the photon lifetime\index{Photon lifetime} given by \eqn{f_fwhm} and $\anb \equiv \int_0^1 dz\, \alpha_0(z)$.
 
-We shouldn't apply the rate-equation approximation (REA) to \eqn{mml_ftz_scaled} just yet, because a laser operating with $q_\text{max}$ longitudinal modes such that $q_\text{max}\, \Delta \omega_\text{FSR} \gtrsim 1 / \tau_\perp$ will exhibit a significant dependence of the unsaturated gain on the value of $q$. Instead, we will first substitute
-
-because we want to keep the macroscopic polarization term $F_q(t)$ general for now. In the unidirectional ring laser case, we define $F_q(t)$ as
-
 For the one-dimensional standing-wave laser shown in \fig{resonator_1d_sw_gain}, the slowly-varying biorthogonal eigenfunctions are $\mathbf{u}_q\z$ and $\mathbf{v}_q\z$, given by \eqn{laser_resonator_1d_u_sw_vec}, \eqn{laser_resonator_1d_u_sw}, \eqn{laser_resonator_1d_v_sw_vec}, and \eqn{laser_resonator_1d_v_sw}, and the corresponding normalization constant $\mathcal{C}_\mathrm{SWL}$ is given by \eqn{laser_resonator_1d_u_norm_swl}. Then
 \begin{subequations} \label{eqn:sml_1d_uvq_swl}
   \begin{align}
@@ -90,13 +86,12 @@ where $k_0$ is the propagation constant associated with the carrier frequency $\
     \label{eqn:mml_1d_vq_swl} \widetilde{v}_q\z &= v^{+}_q\z\, e^{-i k_0 z} + v^{-}_q\z\, e^{+i k_0 z}\, .
   \end{align}
 \end{subequations}
-We use a similar approach to the expansion of the amplitude of the macroscopic polarization.
-
+We use a similar approach to the expansion of the amplitude of the macroscopic polarization, obtaining for \eqn{mml_ftz_scaled}
 \begin{multline} \label{eqn:mml_ftz_expansion}
   \sum_p \left[ \dot{F}_p(t) - i\, \Delta \omega_p\, F_p(t) \right] \widetilde{u}_p\z\, e^{-i\, \Delta \omega_p\, t} \\
   = -\frac{1}{\tau_\perp} \sum_p \left[ \mathcal{B}\, F_p(t) - \half\, \mathcal{A}\, \widetilde{G}\zt\, E_p(t) \right] \widetilde{u}_p\z\, e^{-i\, \Delta \omega_p\, t}\, .
 \end{multline}
-Now, rather than the rate-equation approximation (REA), we will apply the \emph{slowly-varying envelope approximation}\index{Slowly-varying envelope approximation} (SVEA) to \eqn{mml_ftz_expansion} by assuming that $|\dot{F}_p(t)| \ll |\Delta \omega_p F_p(t)|$ and neglecting the terms $\dot{F}_p(t)$ on the \lhs. This is valid when the time scale for changes in the modal polarization amplitudes $F_p(t)$ is long compared to the polarization relaxation time $\tau_\perp$. Then
+Note that we didn't apply the rate-equation approximation (REA) to \eqn{mml_ftz_scaled}, because a laser operating with $q_\text{max}$ longitudinal modes such that $q_\text{max}\, \Delta \omega_\text{FSR} \gtrsim 1 / \tau_\perp$ will exhibit a significant dependence of the unsaturated gain on the value of $q$. Instead, we will apply the \emph{slowly-varying envelope approximation}\index{Slowly-varying envelope approximation} (SVEA) to \eqn{mml_ftz_expansion} by assuming that $|\dot{F}_p(t)| \ll |\Delta \omega_p F_p(t)|$ and neglecting the terms $\dot{F}_p(t)$ on the \lhs. This is valid when the time scale for changes in the modal polarization amplitudes $F_p(t)$ is long compared to the polarization relaxation time $\tau_\perp$. Then
 \begin{equation} \label{eqn:mml_fq_sol_temp}
   \sum_p \mathcal{N}_{q p}\, \left(\mathcal{B} - i\, \Omega_p\right) F_p(t) = \half\, \mathcal{A}\, \sum_p e^{i \left(\Delta \omega_q - \Delta \omega_p\right) t}\, G_{q p}(t)\, E_p(t)\, , 
 \end{equation}
@@ -135,9 +130,8 @@ We obtain
 \end{equation}
 where
 \begin{equation} \label{eqn:mml_gqp_bar_def}
-  \overline{G}_{q p}(t) \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, \Gn\zt\, ,
+  \overline{G}_{q p}(t) \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, \Gn\zt\, , \nd
 \end{equation}
-and
 \begin{equation} \label{eqn:mml_kqp_mn_def}
   \kappa_{q p m n} \equiv \int d z\, \widetilde{v}_q\z\, \widetilde{u}_p\z\, \widetilde{u}_m\z\, \widetilde{u}_n^\ast\z\, .
 \end{equation}
@@ -222,11 +216,13 @@ where $\Delta^\prime_{q}\left(R_1\, R_2\right)$ is defined by \eqn{laser_resonat
 % F_q(t) \equiv e^{+i\, \Delta \omega_p\, t} \int_0^{1/2} d z\, \mathbf{v}_q\z \dotp \mathbf{F}\zt .
 %  \end{equation}
 
-In the next two sections, we use these multimode evolution equations to study the dynamics of \emph{injection-seeded gain-switched} and \emph{passively mode-locked} lasers. In \sct{laser_dynamics_1d_mml_qsl}, we will apply the \emph{strong} rate-equation approximation (REA) to construct a non-perturbative theory of a high-intensity pulsed laser that is driven by a short-duration pump and ``primed'' by a slowly-varying input field. In \sct{laser_dynamics_1d_mml_mll}, we will relax the REA to allow rapid intermodal interactions and build a weak-field perturbative model of \emph{coherent population pulsations}\index{Coherent population pulsations}\cite{ref:sargent1974lp} that lead to passive \emph{mode-locking}\index{Mode-locking} in either the time or the frequency domain.
+In the next section, we study frequency shifts (particularly pulling and dispersion) in multimode lasers. Then in the following two sections, we use the resulting multimode evolution equations to study the dynamics of \emph{injection-seeded gain-switched} and \emph{passively mode-locked} lasers.
+% In \sct{laser_dynamics_1d_mml_qsl}, we will apply the \emph{strong} rate-equation approximation (REA) to construct a non-perturbative theory of a high-intensity pulsed laser that is driven by a short-duration pump and ``primed'' by a slowly-varying input field. In \sct{laser_dynamics_1d_mml_mll}, we will relax the REA to allow rapid intermodal interactions and build a weak-field perturbative model of \emph{coherent population pulsations}\index{Coherent population pulsations}\cite{ref:sargent1974lp} that lead to passive \emph{mode-locking}\index{Mode-locking} in either the time or the frequency domain.
 
 
 \input{files/laser_dynamics_1d_mml_frq}
 \input{files/laser_dynamics_1d_mml_qsl}
 \input{files/laser_dynamics_1d_mml_mll}
+\input{files/laser_dynamics_1d_mml_mfl}
 
 %\input{files/laser_dynamics_1d_mml}

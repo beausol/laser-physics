@@ -149,10 +149,18 @@ where
 \begin{equation}
     B_{m n} \equiv R_m + R_n^\ast = \frac{1}{\tau_\lambda} + i\, \frac{\Omega_m - \Omega_n}{2\, \tau_\lambda} - i \left(\delta D_m - \delta D_n\right)\, .
 \end{equation}
+
 \begin{equation}
-    B_{m n} \equiv R_m + R_n^\ast = \frac{1}{\tau_\lambda} + i\, \frac{\tau_\perp}{2\, \tau_\lambda}\, \left(\omega_m - \omega_n\right) - i \left(\delta D_m - \delta D_n\right)\, .
+  \frac{2\, R_q}{\Lq} \longrightarrow \frac{2\, R_q}{\Lq} + i \left[ \frac{1}{\Lq\, \tau_\lambda} - \frac{2\, R_q}{\mathcal{A}} \right] \Omega_q\, \epsilon
 \end{equation}
 
+\begin{equation}
+  C_{m n} \longrightarrow \sum_{l = 0}^\infty C_{m n} \left(C_{m n} - 1\right)^l \epsilon^l
+\end{equation}
+
+\begin{equation}
+  B_{m n}\, C_{m n} \longrightarrow B_{m n}\, C_{m n} + i \left[ \frac{\Omega_m - \Omega_n}{2\, \tau_\lambda} + C_{m n} \left(C_{m n} - 1\right) \right] \epsilon
+\end{equation}
 % This expression must be true at all times, so for convenience, let's use it to calculate $E_q$ at $t = 0$. We obtain
 % \begin{equation}
 %     \sum_p \overline{G}_{q p}\, E_p - 2\, \mathcal{L}^{-1}\bigl(\Omega_q\bigr)\, B_q\, E_q = \sum_{m n p} \kappa_{q p m n}\, C_{m n} \left( B_m + B_n^\ast \right) E_m\, E_n^\ast\, E_p
@@ -470,7 +478,20 @@ where
 % The first term on the \rhs of \eqn{mll_1d_kappa_swl} and \eqn{mll_1d_kappa_swl_smpl} is simply the nonlinear coupling for the unidirectional ring laser. The second term arises from cross-saturation \emph{neglecting} interference between the counterpropagating fields, while the third term adds these interference effects. Note that \eqn{mll_1d_kappa_swl_smpl} predicts that $\kappa_{qqq} = 3$, which is the saturation constant appropriate for weak fields as described toward the end of \sct{laser_statics_1d_shb}.
 
  \subsection{Numerics}
-Let's assume that in all cases of practical interest the transverse coherence time $\tau_\perp$ (which has been scaled by the group round-trip time $\tau_g$) is small enough that we can ignore the corresponding differential operators on the \rhs of a former equation, giving
+\begin{equation}
+  \frac{2\, R_q}{\Lq} \longrightarrow \frac{2\, R_q}{\Lq} + i \left[ \frac{1}{\Lq\, \tau_\lambda} - \frac{2\, R_q}{\mathcal{A}} \right] \Omega_q\, \epsilon
+\end{equation}
+
+\begin{equation}
+  C_{m n} \longrightarrow \sum_{l = 0}^\infty C_{m n} \left(C_{m n} - 1\right)^l \epsilon^l
+\end{equation}
+
+\begin{equation}
+  B_{m n}\, C_{m n} \longrightarrow B_{m n}\, C_{m n} + i \left[ \frac{\Omega_m - \Omega_n}{2\, \tau_\lambda} + C_{m n} \left(C_{m n} - 1\right) \right] \epsilon
+\end{equation}
+
+
+ Let's assume that in all cases of practical interest the transverse coherence time $\tau_\perp$ (which has been scaled by the group round-trip time $\tau_g$) is small enough that we can ignore the corresponding differential operators on the \rhs of a former equation, giving
  \begin{equation} \label{eqn:mll_swl_fqt_prac}
  \begin{split}
 F_q(t) &= \half\, \mathcal{L}_q\, \Gn\, E_q(t) - \half\, \mathcal{L}_q\, \sum_{m n} \kappa_{q m n}\, E_{q - m + n}(t) \\
@@ -593,7 +614,7 @@ In principle, \eqn{mml_1d_deq_dt_final} can be solved much more efficiently with
 %
 %It is straightforward to show that a perturbative expansion of this expression reproduces \eqn{mll_swl_fqt}.
 
-\subsubsection{Preliminary Solver}
+\subsection{Preliminary Solver}
 \begin{equation}
   \left|E_q(t)\right|^2 -2 \Re\left[E_q^\ast(t)\, F_q(t)\right] = 0\, .
 \end{equation}
@@ -623,7 +644,7 @@ So we can use as our FOM the equations
 \end{align}
 but how do we estimate $\ddot{E}_q(t_f)$?
 
- \subsubsection{Power Spectral Density}
+ \subsection{Power Spectral Density}
 Suppose that we have a numerically stable (steady-state) solution to \eqn{mml_edot_temp}, and we wish to compute the frequency content of the output intensity, defined as the square of the absolute value of an output field given by one of \eqn{laser_resonator_1d_swl_out}. Neglecting the overall normalization constant, we have
  \begin{align}%\label{}
 I_\text{out}(t) &= \left| \sum_{p} e^{-i\, 2\, p\, \pi\, t}\, E_p \right|^2 = \sum_{p, p^\prime} e^{-i\, 2\, (p - p^\prime)\, \pi\, t} E_p\, E^\ast_{p^\prime} \\
@@ -644,8 +665,7 @@ P_q \equiv \frac{\sqrt{\Re(A_q)^2 + \Im(A_q)^2}}{A_0} = \frac{|A_q|}{A_0}\, ,
  \end{equation}
 valid for $q \in \{0, \dots, 2\, p_\textrm{max}\}$.
 
- \subsubsection{Chaotic Behavior}
- \subsubsection{Passive Temporal Mode-Locking with a Saturable Absorber}
- \subsubsection{Passive Frequency Mode-Locking}
+ \subsection{Chaotic Behavior}
+ \subsection{Passive Temporal Mode-Locking with a Saturable Absorber}
+ \subsection{Passive Frequency Mode-Locking}
 
-\input{files/laser_dynamics_1d_mfl}
